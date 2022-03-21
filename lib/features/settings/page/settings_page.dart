@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Center(
           child: Text(
-        'NOTIFICATIONS',
+        'SETTINGS',
         style: TextStyle(
           fontSize: 40,
         ),
