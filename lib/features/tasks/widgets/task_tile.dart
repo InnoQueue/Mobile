@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'task_list.dart';
 
 class TaskTile extends StatefulWidget {
   final bool isUrgent;

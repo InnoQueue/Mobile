@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inno_queue/features/tasks/widgets/task_tile.dart';
+
+part 'task_tile.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inno_queue/features/tasks/widgets/task_list.dart';
+import '../widgets/widgets.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
