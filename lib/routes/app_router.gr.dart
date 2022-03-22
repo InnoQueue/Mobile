@@ -18,40 +18,24 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     HomeRouter.name: (routeData) {
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: const HomePage(),
-          durationInMilliseconds: 0,
-          opaque: true,
-          barrierDismissible: false);
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomePage());
     },
     TasksRoute.name: (routeData) {
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: const TasksPage(),
-          opaque: true,
-          barrierDismissible: false);
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const TasksPage());
     },
     QueuesRoute.name: (routeData) {
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: const QueuesPage(),
-          opaque: true,
-          barrierDismissible: false);
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const QueuesPage());
     },
     NotificationsRoute.name: (routeData) {
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: const NotificationsPage(),
-          opaque: true,
-          barrierDismissible: false);
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const NotificationsPage());
     },
     SettingsRoute.name: (routeData) {
-      return CustomPage<dynamic>(
-          routeData: routeData,
-          child: const SettingsPage(),
-          opaque: true,
-          barrierDismissible: false);
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SettingsPage());
     }
   };
 

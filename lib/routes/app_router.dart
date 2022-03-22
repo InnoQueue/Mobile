@@ -7,26 +7,27 @@ part 'app_router.gr.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
+  preferRelativeImports: false,
   routes: <AutoRoute>[
-    CustomRoute(
+    AutoRoute(
       page: HomePage,
       path: '/home',
       name: "HomeRouter",
       initial: true,
       children: [
-        CustomRoute(
+        AutoRoute(
           path: '',
           page: TasksPage,
         ),
-        CustomRoute(
+        AutoRoute(
           path: kQueuesEndpoint,
           page: QueuesPage,
         ),
-        CustomRoute(
+        AutoRoute(
           path: kNotificationsEndpoint,
           page: NotificationsPage,
         ),
-        CustomRoute(
+        AutoRoute(
           path: kSettingsEndpoint,
           page: SettingsPage,
         ),

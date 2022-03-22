@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/routes/app_router.dart';
 
@@ -17,17 +18,34 @@ class _HomePageState extends State<HomePage> {
       builder: (context, child) {
         final router = context.router;
         return Scaffold(
+          backgroundColor: Colors.blueGrey[50],
           resizeToAvoidBottomInset: false,
           appBar: _appBarBuilder(router, context),
           body: child,
           bottomNavigationBar: const BottomBar(),
-        ); // <-- Here
+        );
       },
     );
   }
 
   PreferredSizeWidget? _appBarBuilder(StackRouter _, BuildContext context) {
-    return AppBar(title: Text(_getAppBarTitle(_.current.name)));
+    return AppBar(
+      title: Text(
+        _getAppBarTitle(_.current.name),
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: Colors.white,
+      elevation: 0,
+      toolbarHeight: 65,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness:
+              Brightness.dark // For Android (dark icons) For iOS (dark icons)
+          ),
+    );
   }
 
   String _getAppBarTitle(String routeName) {
@@ -35,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       case TasksRoute.name:
         return 'To-do tasks';
       case QueuesRoute.name:
-        return 'Queus';
+        return 'Queues';
       case NotificationsRoute.name:
         return 'Notifications';
       case SettingsRoute.name:

@@ -16,9 +16,10 @@ class BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SizedBox(
-        height: 100,
-        child: InkWell(
+      child: InkWell(
+        child: Container(
+          color: Colors.white,
+          height: 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -31,16 +32,15 @@ class BottomBarItem extends StatelessWidget {
               )
             ],
           ),
-          onTap: () => _onTap(context),
         ),
+        onTap: () => _onTap(context),
       ),
     );
   }
 
   void _onTap(BuildContext _) {
     if (route != null) {
-      _.router.root.pop();
-      _.router.popAndPush(route!);
+      _.router.replace(route!);
     }
   }
 }

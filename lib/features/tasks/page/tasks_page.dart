@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/features/tasks/widgets/task_list.dart';
 
 class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
@@ -6,13 +7,10 @@ class TasksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Center(
-          child: Text(
-        'TASKS',
-        style: TextStyle(
-          fontSize: 40,
-        ),
-      )),
+      child: Padding(
+        padding: EdgeInsets.only(top: 20, left: 10, right: 10),
+        child: TaskList(),
+      ),
     );
   }
 }

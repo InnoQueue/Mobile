@@ -8,7 +8,6 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: _items,
     );
   }
