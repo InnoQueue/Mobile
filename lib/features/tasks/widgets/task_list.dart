@@ -78,7 +78,7 @@ class _TaskListState extends State<TaskList> {
   Widget background = Container(
     height: 80,
     decoration: BoxDecoration(
-      color: Colors.red,
+      color: Colors.orange[400],
       borderRadius: BorderRadius.circular(15),
     ),
   );
@@ -86,14 +86,24 @@ class _TaskListState extends State<TaskList> {
   Container skip = Container(
     padding: const EdgeInsets.only(right: 20.0),
     alignment: Alignment.centerRight,
-    child: const Text(
-      "Skip",
-      textAlign: TextAlign.right,
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
+    child: Wrap(
+      direction: Axis.vertical,
+      children: const [
+        Icon(
+          Icons.reply,
+          size: 30,
+          color: Colors.white,
+        ),
+        Text(
+          "Skip",
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+          ),
+        ),
+      ],
     ),
   );
 
