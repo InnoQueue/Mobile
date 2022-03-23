@@ -16,14 +16,19 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   late final Future future;
 
-  Future<bool> isFirstLaunch() async {
+  // this function checks if it is our first launch for the app
+  // if it is, we reflect it in shared preferences so that next time
+  // we open application, it has firstLaunch=false
+  Future<bool> checkFirstLaunch() async {
     final prefs = await SharedPreferences.getInstance();
-    return false;
+    final bool? isFirstLaunch = prefs.getBool('isFirstLaunch');
+    await prefs.setBool('isFirstLaunch', false);
+    return isFirstLaunch ?? true;
   }
 
   @override
   void initState() {
-    future = isFirstLaunch();
+    future = checkFirstLaunch();
     super.initState();
   }
 
@@ -34,8 +39,7 @@ class _SplashPageState extends State<SplashPage> {
         body: FutureBuilder(
           future: future,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (!snapshot.hasData)
-              return const SizedBox.shrink();
+            if (!snapshot.hasData) return const SizedBox.shrink();
             if (snapshot.data == true) {
               return IntroductionPage();
             } else {
