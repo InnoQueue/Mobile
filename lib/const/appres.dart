@@ -5,5 +5,22 @@ class AppRes {
   static const String settings = 'Settings';
 
   // splash page
-  static const String howToUse = 'This is Information Screen and it is here for 10 seconds.\nHow to use the App\nWhen task is followed by a red dot to the left of it, it means the task is very Urgent!\nYou can skip task swiping it to the left.\nOr you can mark it complete tapping the circle to the right side of the task.';
+  static const howToUse = {
+    'page-1': {
+      'title': "How do I use the app?",
+      'text': "Let us briefly introduce you to this app...\n\nThe first thing you see when you open the application is the Todo List. It contains all the current Todos that you yet have to complete.",
+    },
+    'page-2': {
+      'title': 'How do I work with Todos?',
+      'text': "When a task is followed by a red dot to the left of it, it means the task is Urgent!",
+    },
+    'page-3': {
+      'title': 'How do I work with Todos?',
+      'text': "You can skip tasks swiping them to the left.",
+    },
+    'page-4': {
+      'title': 'How do I work with Todos?',
+      'text': "Or you can mark them complete tapping the circle to the right side of the task.",
+    },
+  };
 }
