@@ -82,7 +82,7 @@ class SplashPage extends StatelessWidget {
                 child: TaskTile(
                   isUrgent: false,
                   color: Colors.amber,
-                  name: 'Complete me!    ➡',
+                  name: 'Complete me!   👉',
                   removeItem: () {},
                 ),
               ),
