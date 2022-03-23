@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+const TextStyle bottomSheetTitleStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+);
+
 class AppBottomSheet extends StatelessWidget {
   final String? title;
+  final List<Widget>? children;
 
   const AppBottomSheet({
     Key? key,
     this.title,
+    this.children,
   }) : super(key: key);
 
   @override
@@ -20,20 +27,23 @@ class AppBottomSheet extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
           ),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0).copyWith(top: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Text(title ?? ''),
-                  ElevatedButton(
-                    child: const Text('Close BottomSheet'),
-                    onPressed: () => Navigator.pop(context),
-                  )
-                ],
-              ),
+          child: Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title ?? '',
+                  style: bottomSheetTitleStyle,
+                ),
+                // ElevatedButton(
+                //   child: const Text('Close BottomSheet'),
+                //   onPressed: () => Navigator.pop(context),
+                // ),
+                ...(children ?? []),
+              ],
             ),
           ),
         );
@@ -45,6 +55,7 @@ class AppBottomSheet extends StatelessWidget {
 void summonBottomSheet(context, bottomSheet) {
   showModalBottomSheet<void>(
     context: context,
+    isScrollControlled: true,
     builder: (BuildContext context) {
       return bottomSheet;
     },

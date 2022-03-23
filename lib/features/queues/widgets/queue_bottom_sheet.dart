@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/widget/app_bottom_sheet.dart';
+import 'package:inno_queue/core/widget/app_text_field.dart';
 
-class QueueBottomSheet extends StatelessWidget {
-  const QueueBottomSheet({Key? key}) : super(key: key);
+class CreateQueueBottomSheet extends StatelessWidget {
+  final List<Widget>? children;
+
+  final nameFieldController = TextEditingController();
+
+  CreateQueueBottomSheet({
+    Key? key,
+    this.children,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBottomSheet(
-      title: 'bottom sheet on queue page',
+      title: 'Bottom sheet on queue page',
+      children: [
+        AppTextField(
+          controller: nameFieldController,
+        ),
+        ...(children ?? []),
+      ],
     );
   }
 }
