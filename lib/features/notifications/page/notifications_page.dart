@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/appres.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class NotificationsPage extends StatelessWidget {
     return const SafeArea(
       child: Center(
           child: Text(
-        'NOTIFICATIONS',
+        AppRes.notifications,
         style: TextStyle(
           fontSize: 40,
         ),
