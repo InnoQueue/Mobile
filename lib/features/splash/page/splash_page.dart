@@ -4,6 +4,7 @@ import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/features/splash/widgets/introduction.dart';
 import 'package:inno_queue/features/tasks/widgets/task_list.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   late final Future future;
 
   Future<bool> isFirstLaunch() async {
+    final prefs = await SharedPreferences.getInstance();
     return false;
   }
 
