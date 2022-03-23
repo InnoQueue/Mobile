@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/const.dart';
 
 part 'task_tile.dart';
 
@@ -38,7 +39,7 @@ class _TaskListState extends State<TaskList> {
       TaskTile(
         isUrgent: false,
         color: Colors.greenAccent,
-        name: 'Task 1',
+        name: 'Task 4',
         removeItem: removeItem,
       ),
     ];
@@ -78,7 +79,7 @@ class _TaskListState extends State<TaskList> {
   Widget background = Container(
     height: 80,
     decoration: BoxDecoration(
-      color: Colors.red,
+      color: Colors.orange[400],
       borderRadius: BorderRadius.circular(15),
     ),
   );
@@ -86,22 +87,30 @@ class _TaskListState extends State<TaskList> {
   Container skip = Container(
     padding: const EdgeInsets.only(right: 20.0),
     alignment: Alignment.centerRight,
-    child: const Text(
-      "Skip",
-      textAlign: TextAlign.right,
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
+    child: Wrap(
+      direction: Axis.vertical,
+      children: const [
+        Icon(
+          Icons.reply,
+          size: 30,
+          color: Colors.white,
+        ),
+        Text(
+          "Skip",
+          textAlign: TextAlign.right,
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w300,
+            color: Colors.white,
+          ),
+        ),
+      ],
     ),
   );
 
   void removeItem(TaskTile tile) {
-    if (mounted) {
-      setState(() {
-        _hiddenItems.add(tile);
-      });
-    }
+    setState(() {
+      _hiddenItems.add(tile);
+    });
   }
 }

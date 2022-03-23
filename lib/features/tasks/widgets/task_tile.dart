@@ -43,7 +43,7 @@ class _TaskTileState extends State<TaskTile> {
       opacity: _visible ? 1 : 0,
       duration: Duration(seconds: _duration),
       child: Container(
-        height: 80,
+        height: tileHeight,
         color: Colors.white,
         child: _Body(
           isUrgent: widget.isUrgent,
