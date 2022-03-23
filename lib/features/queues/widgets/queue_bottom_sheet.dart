@@ -7,7 +7,7 @@ class QueueBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBottomSheet(
-      title: 'bottom sheet test',
+      title: 'bottom sheet on queue page',
     );
   }
 }
