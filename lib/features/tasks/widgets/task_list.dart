@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/const.dart';
 
 part 'task_tile.dart';
 
@@ -38,7 +39,7 @@ class _TaskListState extends State<TaskList> {
       TaskTile(
         isUrgent: false,
         color: Colors.greenAccent,
-        name: 'Task 1',
+        name: 'Task 4',
         removeItem: removeItem,
       ),
     ];
@@ -108,10 +109,8 @@ class _TaskListState extends State<TaskList> {
   );
 
   void removeItem(TaskTile tile) {
-    if (mounted) {
-      setState(() {
-        _hiddenItems.add(tile);
-      });
-    }
+    setState(() {
+      _hiddenItems.add(tile);
+    });
   }
 }
