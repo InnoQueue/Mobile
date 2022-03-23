@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/routes/app_router.dart';
 
@@ -51,13 +52,13 @@ class _HomePageState extends State<HomePage> {
   String _getAppBarTitle(String routeName) {
     switch (routeName) {
       case TasksRoute.name:
-        return 'To-do tasks';
+        return AppRes.todoTasks;
       case QueuesRoute.name:
-        return 'Queues';
+        return AppRes.queues;
       case NotificationsRoute.name:
-        return 'Notifications';
+        return AppRes.notifications;
       case SettingsRoute.name:
-        return 'Settings';
+        return AppRes.settings;
       default:
         return routeName;
     }
