@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          canvasColor: Colors.transparent,
         ),
         routerDelegate: AutoRouterDelegate(
           _router,
