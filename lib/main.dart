@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        title: 'Flutter Demo',
+        title: 'InnoQueue',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
