@@ -5,6 +5,7 @@ class TaskTile extends StatefulWidget {
   final Color color;
   final String name;
   final Function removeItem;
+
   const TaskTile({
     Key? key,
     required this.isUrgent,

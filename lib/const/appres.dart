@@ -8,7 +8,7 @@ class AppRes {
   static const howToUse = {
     'page-1': {
       'title': "How do I use the app?",
-      'text': "Let us briefly introduce you to this app...\n\nThe first thing you see when you open the application is the Todo List. It contains all the current Todos that you yet have to complete.",
+      'text': "Let us briefly introduce you to this app...",
     },
     'page-2': {
       'title': 'How do I work with Todos?',
@@ -16,9 +16,13 @@ class AppRes {
     },
     'page-3': {
       'title': 'How do I work with Todos?',
-      'text': "You can skip tasks swiping them to the left.",
+      'text': "The colored circle inside the task is just a color tag for your convenience.",
     },
     'page-4': {
+      'title': 'How do I work with Todos?',
+      'text': "You can skip tasks swiping them to the left.",
+    },
+    'page-5': {
       'title': 'How do I work with Todos?',
       'text': "Or you can mark them complete tapping the circle to the right side of the task.",
     },
