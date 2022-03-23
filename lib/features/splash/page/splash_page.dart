@@ -20,7 +20,8 @@ class SplashPage extends StatelessWidget {
 
     final introKey = GlobalKey<IntroductionScreenState>();
 
-    void _onIntroEnd(context) {
+    void _onIntroEnd() {
+      print("intro end");
       context.router.replaceNamed('/home');
     }
 
@@ -51,7 +52,7 @@ class SplashPage extends StatelessWidget {
               decoration: pageDecoration,
             ),
           ],
-          onDone: () => _onIntroEnd(context),
+          onDone: () => _onIntroEnd(),
           showDoneButton: true,
           showBackButton: true,
           showNextButton: true,
