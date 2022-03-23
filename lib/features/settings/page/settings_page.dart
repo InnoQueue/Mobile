@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/appres.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class SettingsPage extends StatelessWidget {
     return const SafeArea(
       child: Center(
           child: Text(
-        'SETTINGS',
+        AppRes.settings,
         style: TextStyle(
           fontSize: 40,
         ),
