@@ -109,8 +109,10 @@ class _TaskListState extends State<TaskList> {
   );
 
   void removeItem(TaskTile tile) {
-    setState(() {
-      _hiddenItems.add(tile);
-    });
+    if (mounted) {
+      setState(() {
+        _hiddenItems.add(tile);
+      });
+    }
   }
 }
