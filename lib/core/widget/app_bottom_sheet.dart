@@ -6,48 +6,35 @@ const TextStyle bottomSheetTitleStyle = TextStyle(
 );
 
 class AppBottomSheet extends StatelessWidget {
-  final String? title;
-  final List<Widget>? children;
+  final Widget? content;
 
   const AppBottomSheet({
     Key? key,
-    this.title,
-    this.children,
+    this.content,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      onClosing: () {},
-      builder: (BuildContext context) {
-        return Container(
-          height: 200,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-          ),
-          child: Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title ?? '',
-                  style: bottomSheetTitleStyle,
-                ),
-                // ElevatedButton(
-                //   child: const Text('Close BottomSheet'),
-                //   onPressed: () => Navigator.pop(context),
-                // ),
-                ...(children ?? []),
-              ],
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: BottomSheet(
+        enableDrag: false,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        onClosing: () {},
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
             ),
-          ),
-        );
-      },
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+            ),
+            child: IntrinsicHeight(child: content),
+          );
+        },
+      ),
     );
   }
 }

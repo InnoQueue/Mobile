@@ -1,7 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:inno_queue/core/widget/app_bottom_sheet.dart';
-import 'package:inno_queue/core/widget/app_button.dart';
 import '../widgets/widgets.dart';
 
 class QueuesPage extends StatefulWidget {
@@ -33,12 +30,6 @@ class _QueuesPageState extends State<QueuesPage> {
         padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
         child: Column(
           children: [
-            AppButton(
-              text: 'test',
-              onPressed: () {
-                summonBottomSheet(context, CreateQueueBottomSheet());
-              },
-            ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: CupertinoSlidingSegmentedControl<int>(

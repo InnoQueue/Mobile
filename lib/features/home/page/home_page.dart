@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/widget/app_bottom_sheet.dart';
-import 'package:inno_queue/core/widget/app_button.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/routes/app_router.dart';
+
+import '../../features.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,6 +45,22 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.bold,
         ),
       ),
+      actions: [
+        if (_.current.name == QueuesRoute.name)
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              onPressed: () {
+                summonBottomSheet(context, QueueBottomSheet());
+              },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.black,
+                size: 40,
+              ),
+            ),
+          )
+      ],
       backgroundColor: Colors.white,
       elevation: 0,
       toolbarHeight: 65,
