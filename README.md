@@ -19,9 +19,8 @@
 ## 📲 How to build
 - When you've cloned the repo, you'll need to run "flutter pub get" to locally install all the dependencies
 - Wait a bit...
-- To release build **APK** for android run: flutter build apk --split-per-abi
-- To release build for **iOS** run: 
-- ???
+- To release build **APK** for android run: `flutter build apk --split-per-abi`
+- To release build for **iOS** run: `flutter build ios`
 - PROFIT
 
 ## List of screens
