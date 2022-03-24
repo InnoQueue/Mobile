@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/widget/app_bottom_sheet.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
+import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
+import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
 
 import '../../features.dart';
@@ -20,18 +23,24 @@ GlobalKey homePageScaffoldKey = GlobalKey();
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return AutoRouter(
-      builder: (context, child) {
-        final router = context.router;
-        return Scaffold(
-          key: homePageScaffoldKey,
-          backgroundColor: Colors.blueGrey[50],
-          resizeToAvoidBottomInset: false,
-          appBar: _appBarBuilder(router, context),
-          body: child,
-          bottomNavigationBar: const BottomBar(),
-        );
-      },
+    return BlocProvider(
+      create: (_) => getIt.get<QueuesBloc>(),
+      child: BlocBuilder<QueuesBloc, QueuesState>(
+        builder: (context, state) => AutoRouter(
+          builder: (context, child) {
+            print(context.read<QueuesBloc>().hashCode);
+            final router = context.router;
+            return Scaffold(
+              key: homePageScaffoldKey,
+              backgroundColor: Colors.blueGrey[50],
+              resizeToAvoidBottomInset: false,
+              appBar: _appBarBuilder(router, context),
+              body: child,
+              bottomNavigationBar: const BottomBar(),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -51,7 +60,8 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () {
-                summonBottomSheet(context, QueueBottomSheet());
+                print(context.read<QueuesBloc>().hashCode);
+                summonBottomSheet(context, const QueueBottomSheet());
               },
               icon: const Icon(
                 Icons.add,

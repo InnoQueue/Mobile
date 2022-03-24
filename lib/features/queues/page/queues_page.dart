@@ -20,51 +20,53 @@ class _QueuesPageState extends State<QueuesPage> {
   };
 
   @override
+  void initState() {
+    super.initState();
+    context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          getIt.get<QueuesBloc>()..add(const QueuesEvent.loadRequested()),
-      child: BlocBuilder<QueuesBloc, QueuesState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const Center(
-                child: CircularProgressIndicator(color: Colors.grey)),
-            dataLoaded: (active, frozen) {
-              return SafeArea(
-                  child: Container(
-                alignment: Alignment.topCenter,
-                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: CupertinoSlidingSegmentedControl<int>(
-                        groupValue: _groupValue,
-                        children: _tabs,
-                        onValueChanged: (value) {
-                          setState(() {
-                            _groupValue = value;
-                          });
-                        },
-                      ),
+    return BlocBuilder<QueuesBloc, QueuesState>(
+      builder: (context, state) {
+        return state.when(
+          initial: () => const Center(
+              child: CircularProgressIndicator(color: Colors.grey)),
+          dataLoaded: (active, frozen) {
+            return SafeArea(
+                child: Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: CupertinoSlidingSegmentedControl<int>(
+                      groupValue: _groupValue,
+                      children: _tabs,
+                      onValueChanged: (value) {
+                        setState(() {
+                          _groupValue = value;
+                        });
+                      },
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                      child: _groupValue == 0
-                          ? QueueList(queues: active)
-                          : _groupValue == 1
-                              ? QueueList(queues: frozen)
-                              : Wrap(),
-                    )
-                  ],
-                ),
-              ));
-            },
-          );
-        },
-      ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: _groupValue == 0
+                        ? QueueList(queues: active)
+                        : _groupValue == 1
+                            ? QueueList(queues: frozen)
+                            : Wrap(),
+                  )
+                ],
+              ),
+            ));
+          },
+        );
+      },
     );
   }
 }

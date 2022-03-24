@@ -12,6 +12,7 @@ part 'queues_state.dart';
 class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
   QueuesBloc() : super(const _Initial()) {
     on<_LoadRequested>(_loadRequested);
+    on<_AddQueue>(_addQueue);
   }
 
   void _loadRequested(
@@ -25,5 +26,18 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
   Future<QueuesState> _loadData() async {
     List<List<QueueModel>> queues = await ApiQueuesService.getQueues();
     return QueuesState.dataLoaded(queues[0], queues[1]);
+  }
+
+  void _addQueue(
+    _AddQueue event,
+    Emitter<QueuesState> emit,
+  ) async {
+    emit(const QueuesState.initial());
+    await ApiQueuesService.addQueue(
+      name: event.name,
+      color: event.color,
+      trackExpenses: event.trackExpenses,
+    );
+    emit(await _loadData());
   }
 }

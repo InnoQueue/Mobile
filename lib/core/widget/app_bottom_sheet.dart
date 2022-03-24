@@ -43,7 +43,7 @@ void summonBottomSheet(context, bottomSheet) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (BuildContext context) {
+    builder: (context) {
       return bottomSheet;
     },
   );
