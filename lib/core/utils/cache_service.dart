@@ -12,15 +12,14 @@ abstract class CacheService {
     return isFirstLaunch ?? true;
   }
 
-  static void saveToken(String token) async {
+  static Future<String> checkToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
-  }
-
-  static Future<String> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? token = await prefs.getString('token');
-    return token ?? '';
+    final String? tokenCached = prefs.getString('token');
+    if (tokenCached == null) {
+      await prefs.setString('token', token);
+      return token;
+    }
+    return tokenCached;
   }
 
 }

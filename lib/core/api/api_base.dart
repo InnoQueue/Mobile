@@ -14,16 +14,13 @@ class ApiBase {
 
 class ApiBaseService {
 
+  // todo : add caching for token on first start
   static Future<String> getToken() async {
     String token;
-    bool isFirstLaunch = await CacheService.checkFirstLaunch();
-    if (isFirstLaunch) {
+    token = await CacheService.checkToken("");
+    if (token.isEmpty) {
       token = await ApiBase.getToken();
-      if (token.isNotEmpty) {
-        CacheService.saveToken(token);
-      }
-    } else {
-      token = await CacheService.getToken();
+      CacheService.checkToken(token);
     }
     return token;
   }
