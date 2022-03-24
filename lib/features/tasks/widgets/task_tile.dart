@@ -1,18 +1,24 @@
 part of 'task_list.dart';
 
 class TaskTile extends StatefulWidget {
-  final TaskModel taskModel;
+  final bool isUrgent;
+  final Color color;
+  final String name;
   final Function removeItem;
 
   const TaskTile({
     Key? key,
-    required this.taskModel,
+    required this.isUrgent,
+    required this.color,
+    required this.name,
     required this.removeItem,
   }) : super(key: key);
 
   // ignore: use_key_in_widget_constructors
   TaskTile.from(TaskTile other)
-      : taskModel = other.taskModel,
+      : isUrgent = other.isUrgent,
+        color = other.color,
+        name = other.name,
         removeItem = other.removeItem;
 
   @override
@@ -41,9 +47,9 @@ class _TaskTileState extends State<TaskTile> {
         height: tileHeight,
         color: Colors.white,
         child: _Body(
-          isUrgent: widget.taskModel.isImportant ?? false,
-          color: colors[widget.taskModel.color] ?? Colors.white,
-          name: widget.taskModel.name,
+          isUrgent: widget.isUrgent,
+          color: widget.color,
+          name: widget.name,
         ),
       ),
     );

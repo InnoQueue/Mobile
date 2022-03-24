@@ -1,7 +1,6 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
-import 'package:inno_queue/features/tasks/model/task_model.dart';
 import 'package:inno_queue/features/tasks/widgets/task_list.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -12,11 +11,10 @@ class IntroductionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var pageDecoration = PageDecoration(
       titlePadding:
-          EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
-      titleTextStyle:
-          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-      bodyTextStyle: const TextStyle(fontSize: 19.0),
-      bodyPadding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
+      EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      bodyTextStyle: TextStyle(fontSize: 19.0),
+      bodyPadding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
       pageColor: Colors.blueGrey[50],
       imagePadding: EdgeInsets.zero,
     );
@@ -42,13 +40,9 @@ class IntroductionPage extends StatelessWidget {
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
             child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: true,
-                color: "WHITE",
-                name: 'Task #1',
-                trackExpenses: false,
-              ),
+              isUrgent: true,
+              color: Colors.white,
+              name: 'Task #1',
               removeItem: () {},
             ),
           ),
@@ -60,13 +54,9 @@ class IntroductionPage extends StatelessWidget {
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
             child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: false,
-                color: "BLUE",
-                name: 'Task #3',
-                trackExpenses: false,
-              ),
+              isUrgent: false,
+              color: Colors.blue,
+              name: 'Task #2',
               removeItem: () {},
             ),
           ),
@@ -87,13 +77,9 @@ class IntroductionPage extends StatelessWidget {
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
             child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: false,
-                color: "AMBER",
-                name: 'Complete me!   👉',
-                trackExpenses: false,
-              ),
+              isUrgent: false,
+              color: Colors.amber,
+              name: 'Complete me!   👉',
               removeItem: () {},
             ),
           ),
@@ -105,7 +91,8 @@ class IntroductionPage extends StatelessWidget {
       showNextButton: true,
       skipOrBackFlex: 1,
       nextFlex: 1,
-      done: const Text('Got it', style: TextStyle(fontWeight: FontWeight.w600)),
+      done: const Text('Got it',
+          style: TextStyle(fontWeight: FontWeight.w600)),
       back: const Icon(Icons.arrow_back),
       next: const Icon(Icons.arrow_forward),
       curve: Curves.fastLinearToSlowEaseIn,
