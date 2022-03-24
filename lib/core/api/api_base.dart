@@ -3,8 +3,8 @@ import 'package:inno_queue/core/utils/cache_service.dart';
 
 class ApiBase {
 
-  static final Dio _dio = Dio();
-  static const String _baseUrl = 'https://innoqueue.herokuapp.com';
+  static final Dio dio = Dio();
+  static const String baseUrl = 'https://innoqueue.herokuapp.com';
 
   static Future<String> getToken() async {
     return "11111"; // not implemented on backend yet
