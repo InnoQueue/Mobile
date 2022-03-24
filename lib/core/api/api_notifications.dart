@@ -21,8 +21,10 @@ class ApiNotifications extends ApiBase {
 class ApiNotificationsService {
   static Future<List<NotificationModel>> getNotifications() async {
     final String token = await ApiBaseService.getToken();
-    final response = await ApiNotifications.getNotifications(token);
-    print("response $response");
+    final data = (await ApiNotifications.getNotifications(token)).data;
+    final unread = data['unread'];
+    final all = data['all'];
+    print( NotificationModel.fromJson(all[0]));
     return [];
   }
 }

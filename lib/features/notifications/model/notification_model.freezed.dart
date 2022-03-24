@@ -14,15 +14,23 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
+  return _NotificationModel.fromJson(json);
+}
+
 /// @nodoc
 class _$NotificationModelTearOff {
   const _$NotificationModelTearOff();
 
-  _NotificationModel call({String? text, DateTime? dateTime}) {
+  _NotificationModel call({String? message, DateTime? timestamp}) {
     return _NotificationModel(
-      text: text,
-      dateTime: dateTime,
+      message: message,
+      timestamp: timestamp,
     );
+  }
+
+  NotificationModel fromJson(Map<String, Object?> json) {
+    return NotificationModel.fromJson(json);
   }
 }
 
@@ -31,9 +39,10 @@ const $NotificationModel = _$NotificationModelTearOff();
 
 /// @nodoc
 mixin _$NotificationModel {
-  String? get text => throw _privateConstructorUsedError;
-  DateTime? get dateTime => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  DateTime? get timestamp => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NotificationModelCopyWith<NotificationModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -44,7 +53,7 @@ abstract class $NotificationModelCopyWith<$Res> {
   factory $NotificationModelCopyWith(
           NotificationModel value, $Res Function(NotificationModel) then) =
       _$NotificationModelCopyWithImpl<$Res>;
-  $Res call({String? text, DateTime? dateTime});
+  $Res call({String? message, DateTime? timestamp});
 }
 
 /// @nodoc
@@ -58,17 +67,17 @@ class _$NotificationModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? text = freezed,
-    Object? dateTime = freezed,
+    Object? message = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      text: text == freezed
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
@@ -81,7 +90,7 @@ abstract class _$NotificationModelCopyWith<$Res>
           _NotificationModel value, $Res Function(_NotificationModel) then) =
       __$NotificationModelCopyWithImpl<$Res>;
   @override
-  $Res call({String? text, DateTime? dateTime});
+  $Res call({String? message, DateTime? timestamp});
 }
 
 /// @nodoc
@@ -97,36 +106,39 @@ class __$NotificationModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? text = freezed,
-    Object? dateTime = freezed,
+    Object? message = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_NotificationModel(
-      text: text == freezed
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateTime: dateTime == freezed
-          ? _value.dateTime
-          : dateTime // ignore: cast_nullable_to_non_nullable
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_NotificationModel extends _NotificationModel
     with DiagnosticableTreeMixin {
-  _$_NotificationModel({this.text, this.dateTime}) : super._();
+  _$_NotificationModel({this.message, this.timestamp}) : super._();
+
+  factory _$_NotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$$_NotificationModelFromJson(json);
 
   @override
-  final String? text;
+  final String? message;
   @override
-  final DateTime? dateTime;
+  final DateTime? timestamp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NotificationModel(text: $text, dateTime: $dateTime)';
+    return 'NotificationModel(message: $message, timestamp: $timestamp)';
   }
 
   @override
@@ -134,8 +146,8 @@ class _$_NotificationModel extends _NotificationModel
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'NotificationModel'))
-      ..add(DiagnosticsProperty('text', text))
-      ..add(DiagnosticsProperty('dateTime', dateTime));
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('timestamp', timestamp));
   }
 
   @override
@@ -143,31 +155,39 @@ class _$_NotificationModel extends _NotificationModel
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NotificationModel &&
-            const DeepCollectionEquality().equals(other.text, text) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(dateTime));
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override
   _$NotificationModelCopyWith<_NotificationModel> get copyWith =>
       __$NotificationModelCopyWithImpl<_NotificationModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_NotificationModelToJson(this);
+  }
 }
 
 abstract class _NotificationModel extends NotificationModel {
-  factory _NotificationModel({String? text, DateTime? dateTime}) =
+  factory _NotificationModel({String? message, DateTime? timestamp}) =
       _$_NotificationModel;
   _NotificationModel._() : super._();
 
+  factory _NotificationModel.fromJson(Map<String, dynamic> json) =
+      _$_NotificationModel.fromJson;
+
   @override
-  String? get text;
+  String? get message;
   @override
-  DateTime? get dateTime;
+  DateTime? get timestamp;
   @override
   @JsonKey(ignore: true)
   _$NotificationModelCopyWith<_NotificationModel> get copyWith =>
