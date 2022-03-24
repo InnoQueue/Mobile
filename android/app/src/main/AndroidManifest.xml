@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inno_queue">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="inno_queue"
         android:name="${applicationName}"
