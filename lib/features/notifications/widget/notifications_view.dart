@@ -21,6 +21,7 @@ class NotificationsView extends StatelessWidget {
             Text(notificationsType),
             Expanded(
               child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 itemCount: notifications.length,
                 itemBuilder: (context, index) =>
                     NotificationTile(notifications[index]),
