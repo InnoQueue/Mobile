@@ -22,7 +22,7 @@ class ApiNotificationsService {
   static Future<List<NotificationModel>> getNotifications() async {
     final String token = await ApiBaseService.getToken();
     final response = await ApiNotifications.getNotifications(token);
-    print(response);
+    print("response $response");
     return [];
   }
 }
