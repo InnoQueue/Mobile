@@ -15,6 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
   final String defaultName = "Unnamed #41";
 
   late final Map<String, dynamic> defaultBody;
+  late Future<Map<String, dynamic>> serverDefaultBodyFuture;
 
   late Map<String, dynamic> currentState; // todo -> bloc
 
@@ -30,7 +31,11 @@ class _SettingsPageState extends State<SettingsPage> {
       "n4": true,
       "n5": true
     };
-    currentState = defaultBody;
+    serverDefaultBodyFuture = ApiSettingsService.getFields();
+    serverDefaultBodyFuture.then((value) => setState(() {
+          currentState = value;
+          _nameFieldController.text = value['name'];
+        }));
     _nameFieldController = TextEditingController(text: defaultName);
     super.initState();
   }
@@ -38,40 +43,47 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          Row(
+      child: FutureBuilder(
+        future: serverDefaultBodyFuture,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) return SizedBox.shrink();
+          return Column(
             children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _nameFieldController,
+                    ),
+                  ),
+                  AppButton(
+                    text: 'Save',
+                    onPressed: () =>
+                        _onChanged("name", _nameFieldController.text),
+                  ),
+                ],
+              ), // todo -> text field
               Expanded(
-                child: TextField(
-                  controller: _nameFieldController,
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) => CupertinoSwitch(
+                    value: currentState["n${index + 1}"],
+                    onChanged: (bool val) => _onChanged("n${index + 1}", val),
+                  ),
                 ),
               ),
-              AppButton(
-                text: 'Save',
-                onPressed: () => _onChanged("name", _nameFieldController.text),
-              ),
             ],
-          ), // todo -> text field
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) => CupertinoSwitch(
-                value: currentState["n${index + 1}"],
-                onChanged: (bool val) => _onChanged("n${index + 1}", val),
-              ),
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
   void _onChanged(String key, dynamic changedValue) {
-    ApiSettingsService.setFields(defaultBody, {key: changedValue});
+    ApiSettingsService.setFields(currentState, {key: changedValue});
     setState(() {
       currentState =
-          ApiSettingsService.makeBody(defaultBody, {key: changedValue});
+          ApiSettingsService.makeBody(currentState, {key: changedValue});
     });
   }
 }
