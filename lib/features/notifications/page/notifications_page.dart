@@ -30,8 +30,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
           var notifications = snapshot.data;
           return Column(
             children: <Widget>[
-              NotificationsView(notifications[0]),
-              NotificationsView(notifications[1]),
+              Expanded(child: NotificationsView(notifications[0])),
+              Expanded(child: NotificationsView(notifications[1])),
               const Center(
                 child: Text(
                   AppRes.notifications,
