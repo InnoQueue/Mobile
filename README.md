@@ -33,11 +33,22 @@
 - Notifications
 - Settings
 
-<img width="233" alt="image" src="https://user-images.githubusercontent.com/19241702/159998772-dfb0de9a-2444-4354-8756-beace5c7e9e4.png">
-<img width="233" alt="image" src="https://user-images.githubusercontent.com/19241702/159997545-412093bf-c186-44f0-8634-b02290d69ef4.png">
-<img width="230" alt="image" src="https://user-images.githubusercontent.com/19241702/159997937-2f2ae91f-d391-42b2-a9d4-ce67db0f8620.png">
-<img width="231" alt="image" src="https://user-images.githubusercontent.com/19241702/159997963-ace9947f-1124-4a53-9d1c-d25c0cc485bc.png">
-<img width="232" alt="image" src="https://user-images.githubusercontent.com/19241702/159997995-676bf150-90d8-4751-b740-93a16b27bf36.png">
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/19241702/159998772-dfb0de9a-2444-4354-8756-beace5c7e9e4.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160007732-9749ea1e-3b5f-4230-9381-2e1e0f0769b9.jpeg"/>
+</p>
+
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160007842-4ccf59b6-6c42-4a93-a3dd-1f39680d8e0c.jpeg"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008010-6cda5365-1d1d-4e4d-a99c-83a9198f32af.jpeg"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008064-7242a52f-8a03-44da-9e7b-2512c1aa7227.jpeg"/>
+</p>
+
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
+</p>
+
 
 ## List of features
 - Create a new queue
