@@ -21,7 +21,6 @@
 - Wait a bit...
 - To release build **APK** for android run: flutter build apk --split-per-abi
 - To release build for **iOS** run: 
-- Wait a little more...
 - ???
 - PROFIT
 
@@ -33,7 +32,7 @@
 - Settings
 
 <img width="233" alt="image" src="https://user-images.githubusercontent.com/19241702/159998772-dfb0de9a-2444-4354-8756-beace5c7e9e4.png">
-<img width="311" alt="image" src="https://user-images.githubusercontent.com/19241702/159997545-412093bf-c186-44f0-8634-b02290d69ef4.png">
+<img width="233" alt="image" src="https://user-images.githubusercontent.com/19241702/159997545-412093bf-c186-44f0-8634-b02290d69ef4.png">
 <img width="230" alt="image" src="https://user-images.githubusercontent.com/19241702/159997937-2f2ae91f-d391-42b2-a9d4-ce67db0f8620.png">
 <img width="231" alt="image" src="https://user-images.githubusercontent.com/19241702/159997963-ace9947f-1124-4a53-9d1c-d25c0cc485bc.png">
 <img width="232" alt="image" src="https://user-images.githubusercontent.com/19241702/159997995-676bf150-90d8-4751-b740-93a16b27bf36.png">
