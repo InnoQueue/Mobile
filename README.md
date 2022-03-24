@@ -27,7 +27,7 @@
 - Invite users to a queue
 - Complete a task when it's your turn
 - Complete a task even it's not your turn. So, you will be skipped on the next iteration.
-- Skip a task. However, on the next iteration you will be forced to complete a task twice.
+- Skip a task. However, on the next iteration, you will be forced to complete a task twice.
 - Track expenses for tasks that require buying something.
 - Temporarily leave a queue ("freeze"). Your progress will be saved, but you won't participate in a queue. For example, you can use this feature when you leave your room for the Winter holidays.
 - If it's someone's turn you can "shake" him to remind him about a task by sending a notification.
