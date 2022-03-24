@@ -32,14 +32,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
             children: <Widget>[
               Expanded(child: NotificationsView(notifications[0])),
               Expanded(child: NotificationsView(notifications[1])),
-              const Center(
-                child: Text(
-                  AppRes.notifications,
-                  style: TextStyle(
-                    fontSize: 40,
-                  ),
-                ),
-              ),
             ],
           );
         },

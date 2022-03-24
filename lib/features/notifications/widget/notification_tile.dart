@@ -9,6 +9,8 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("notification message: ${notificationModel.message}");
-    return Text(notificationModel.message ?? '');
+    return Container(
+      child: Text(notificationModel.message ?? ''),
+    );
   }
 }
