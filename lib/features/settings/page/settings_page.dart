@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
+import 'package:inno_queue/core/core.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -39,7 +40,19 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: Column(
         children: [
-          TextField(), // todo -> text field
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _nameFieldController,
+                ),
+              ),
+              AppButton(
+                text: 'Save',
+                onPressed: () => _onChanged("name", _nameFieldController.text),
+              ),
+            ],
+          ), // todo -> text field
           Expanded(
             child: ListView.builder(
               itemCount: 5,
