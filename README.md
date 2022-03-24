@@ -37,5 +37,5 @@
 - No registration is needed.
 
 ## 📊 Repositories
-- The [README repository](https://github.com/InnoQueue/Mobile)
+- The [README repository](https://github.com/InnoQueue/README)
 - The Backend project which mobile application uses is [in this repository](https://github.com/InnoQueue/Backend)
