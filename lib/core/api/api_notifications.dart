@@ -6,7 +6,6 @@ import 'api_base.dart';
 
 class ApiNotifications extends ApiBase {
   static Future<Response> getNotifications(token) async {
-    print("token $token");
     return ApiBase.dio.get(
       "${ApiBase.baseUrl}/notifications",
       options: Options(
@@ -19,10 +18,19 @@ class ApiNotifications extends ApiBase {
 }
 
 class ApiNotificationsService {
-  static Future<List<NotificationModel>> getNotifications() async {
+  static Future<List<List<NotificationModel>>> getNotifications() async {
     final String token = await ApiBaseService.getToken();
-    final response = await ApiNotifications.getNotifications(token);
-    print("response $response");
-    return [];
+    final data = (await ApiNotifications.getNotifications(token)).data;
+    List<NotificationModel> unread = [];
+    List<NotificationModel> all = [];
+    for (var notification in data['unread']) {
+      unread.add(NotificationModel.fromJson(notification));
+    }
+    for (var notification in data['all']) {
+      all.add(NotificationModel.fromJson(notification));
+    }
+    print(unread);
+    print(all);
+    return [unread, all];
   }
 }

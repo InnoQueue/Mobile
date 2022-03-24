@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.0
   dio: ^4.0.4
   freezed: ^1.1.1
+  json_serializable: ^6.1.5
 
 dev_dependencies:
   flutter_test:
