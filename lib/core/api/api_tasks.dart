@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
-import 'package:inno_queue/routes/app_router.dart';
 
 import 'api_base.dart';
 
+@Injectable()
 class ApiTasks extends ApiBase {
   static Future<Response> getTasks(token) async {
-    print("token $token");
     return ApiBase.dio.get(
       "${ApiBase.baseUrl}/tasks",
       options: Options(

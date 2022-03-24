@@ -1,12 +1,10 @@
 part of 'queue_list.dart';
 
 class QueueTile extends StatefulWidget {
-  final Color color;
-  final String name;
+  final QueueModel queueModel;
   const QueueTile({
     Key? key,
-    required this.color,
-    required this.name,
+    required this.queueModel,
   }) : super(key: key);
 
   @override
@@ -20,8 +18,8 @@ class _QueueTileState extends State<QueueTile> {
       height: tileHeight,
       color: Colors.white,
       child: _Body(
-        color: widget.color,
-        name: widget.name,
+        color: colors[widget.queueModel.color] ?? Colors.white,
+        name: widget.queueModel.name,
       ),
     );
   }

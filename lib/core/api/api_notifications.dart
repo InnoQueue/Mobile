@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:inno_queue/core/utils/cache_service.dart';
+import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 
 import 'api_base.dart';
 
+@Injectable()
 class ApiNotifications extends ApiBase {
   static Future<Response> getNotifications(token) async {
     return ApiBase.dio.get(
