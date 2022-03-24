@@ -17,7 +17,7 @@
 - Users complete a queue task one by one in a loop. So, ideally, every roommate should complete a task on each iteration.
 
 ## 📲 APK
-- You can download the [APK file](https://github.com/InnoQueue/README/blob/main/app-armeabi-v7a-release.apk) to install and use it on your Android phone *(also available on the GitHub [releases](https://github.com/InnoQueue/Mobile/releases/tag/Release) page)*, or you can download this GitHub project and build it for your favourite platform.
+- You can download the [APK file](https://github.com/InnoQueue/README/blob/main/app-release.apk) to install and use it on your Android phone *(also available on the GitHub [releases](https://github.com/InnoQueue/Mobile/releases/tag/Release) page)*, or you can download this GitHub project and build it for your favourite platform.
 
 ## 📲 How to build
 - When you've cloned the repo, you'll need to run "flutter pub get" to locally install all the dependencies
