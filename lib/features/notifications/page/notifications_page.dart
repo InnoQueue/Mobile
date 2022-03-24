@@ -30,8 +30,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
           var notifications = snapshot.data;
           return Column(
             children: <Widget>[
-              Expanded(child: NotificationsView(notifications[0])),
-              Expanded(child: NotificationsView(notifications[1])),
+              const SizedBox(height: 32),
+              NotificationsView("unread", notifications[0]),
+              NotificationsView("all", notifications[1]),
             ],
           );
         },

@@ -8,9 +8,12 @@ class NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("notification message: ${notificationModel.message}");
-    return Container(
-      child: Text(notificationModel.message ?? ''),
+    return Card(
+      shape: StadiumBorder(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Text(notificationModel.message ?? ''),
+      ),
     );
   }
 }
