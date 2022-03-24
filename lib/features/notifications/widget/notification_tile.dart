@@ -12,26 +12,24 @@ class NotificationTile extends StatelessWidget {
       shape: StadiumBorder(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                notificationModel.message ?? '',
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              notificationModel.message ?? '',
+              style: const TextStyle(
+                fontSize: 18,
               ),
-              const SizedBox(height: 8),
-              Text(
-                notificationModel.timestamp.toString(),
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              notificationModel.timestamp.toString(),
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
