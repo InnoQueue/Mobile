@@ -14,14 +14,18 @@ class ApiBase {
 
 class ApiBaseService {
 
-  static void authenticate() async {
+  static Future<String> getToken() async {
+    String token;
     bool isFirstLaunch = await CacheService.checkFirstLaunch();
     if (isFirstLaunch) {
-      String token = await ApiBase.getToken();
+      token = await ApiBase.getToken();
       if (token.isNotEmpty) {
         CacheService.saveToken(token);
       }
+    } else {
+      token = await CacheService.getToken();
     }
+    return token;
   }
 
 }

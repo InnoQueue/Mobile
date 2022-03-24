@@ -11,10 +11,16 @@ abstract class CacheService {
     await prefs.setBool('isFirstLaunch', false);
     return isFirstLaunch ?? true;
   }
+
   static void saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
   }
 
+  static Future<String> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? token = await prefs.getString('token');
+    return token ?? '';
+  }
 
 }
