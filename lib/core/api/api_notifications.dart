@@ -30,8 +30,6 @@ class ApiNotificationsService {
     for (var notification in data['all']) {
       all.add(NotificationModel.fromJson(notification));
     }
-    print(unread);
-    print(all);
     return [unread, all];
   }
 }
