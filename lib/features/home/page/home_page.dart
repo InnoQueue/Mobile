@@ -23,24 +23,18 @@ GlobalKey homePageScaffoldKey = GlobalKey();
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt.get<QueuesBloc>(),
-      child: BlocBuilder<QueuesBloc, QueuesState>(
-        builder: (context, state) => AutoRouter(
-          builder: (context, child) {
-            print(context.read<QueuesBloc>().hashCode);
-            final router = context.router;
-            return Scaffold(
-              key: homePageScaffoldKey,
-              backgroundColor: Colors.blueGrey[50],
-              resizeToAvoidBottomInset: false,
-              appBar: _appBarBuilder(router, context),
-              body: child,
-              bottomNavigationBar: const BottomBar(),
-            );
-          },
-        ),
-      ),
+    return AutoRouter(
+      builder: (context, child) {
+        final router = context.router;
+        return Scaffold(
+          key: homePageScaffoldKey,
+          backgroundColor: Colors.blueGrey[50],
+          resizeToAvoidBottomInset: false,
+          appBar: _appBarBuilder(router, context),
+          body: child,
+          bottomNavigationBar: const BottomBar(),
+        );
+      },
     );
   }
 
@@ -60,8 +54,13 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () {
-                print(context.read<QueuesBloc>().hashCode);
-                summonBottomSheet(context, const QueueBottomSheet());
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return const QueueBottomSheet();
+                  },
+                );
               },
               icon: const Icon(
                 Icons.add,

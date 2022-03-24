@@ -38,13 +38,3 @@ class AppBottomSheet extends StatelessWidget {
     );
   }
 }
-
-void summonBottomSheet(context, bottomSheet) {
-  showModalBottomSheet<void>(
-    context: context,
-    isScrollControlled: true,
-    builder: (context) {
-      return bottomSheet;
-    },
-  );
-}

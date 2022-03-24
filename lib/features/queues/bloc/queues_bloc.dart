@@ -38,6 +38,8 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
       color: event.color,
       trackExpenses: event.trackExpenses,
     );
+    print(event.name);
+    print(event.color);
     emit(await _loadData());
   }
 }

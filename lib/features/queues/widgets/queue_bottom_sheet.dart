@@ -88,13 +88,13 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
   }
 
   void _onPressed() {
-    getIt.get<QueuesBloc>().add(QueuesEvent.addQueue(
-          name: nameFieldController.text,
-          color: "RED",
-          trackExpenses: _toggleValue,
-        ));
-    //print(getIt.get<QueuesBloc>().hashCode);
-    //context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+    getIt.get<QueuesBloc>().add(
+          QueuesEvent.addQueue(
+            name: nameFieldController.text,
+            color: "RED",
+            trackExpenses: _toggleValue,
+          ),
+        );
     Navigator.pop(context);
   }
 }
