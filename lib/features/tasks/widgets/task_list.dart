@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
+import 'package:inno_queue/features/tasks/model/task_model.dart';
 
 part 'task_tile.dart';
 
 class TaskList extends StatefulWidget {
-  const TaskList({Key? key}) : super(key: key);
+  final List<TaskModel> items;
+  const TaskList({required this.items, Key? key}) : super(key: key);
 
   @override
   State<TaskList> createState() => _TaskListState();
@@ -17,32 +19,9 @@ class _TaskListState extends State<TaskList> {
   @override
   void initState() {
     super.initState();
-    _items = [
-      TaskTile(
-        isUrgent: true,
-        color: Colors.red,
-        name: 'Task 1',
-        removeItem: removeItem,
-      ),
-      TaskTile(
-        isUrgent: true,
-        color: Colors.orangeAccent,
-        name: 'Task 2',
-        removeItem: removeItem,
-      ),
-      TaskTile(
-        isUrgent: false,
-        color: Colors.purpleAccent,
-        name: 'Task 3',
-        removeItem: removeItem,
-      ),
-      TaskTile(
-        isUrgent: false,
-        color: Colors.greenAccent,
-        name: 'Task 4',
-        removeItem: removeItem,
-      ),
-    ];
+    _items = widget.items
+        .map((item) => TaskTile(taskModel: item, removeItem: removeItem))
+        .toList();
   }
 
   @override
