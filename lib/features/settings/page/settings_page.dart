@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/features/settings/page/settings_const.dart';
+import 'package:inno_queue/features/settings/widget/notification_switch_label.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -46,33 +48,55 @@ class _SettingsPageState extends State<SettingsPage> {
       child: FutureBuilder(
         future: serverDefaultBodyFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return SizedBox.shrink();
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _nameFieldController,
+          if (!snapshot.hasData) return const SizedBox.shrink();
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 32),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        controller: _nameFieldController,
+                      ),
                     ),
-                  ),
-                  AppButton(
-                    text: 'Save',
-                    onPressed: () =>
-                        _onChanged("name", _nameFieldController.text),
-                  ),
-                ],
-              ), // todo -> text field
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) => CupertinoSwitch(
-                    value: currentState["n${index + 1}"],
-                    onChanged: (bool val) => _onChanged("n${index + 1}", val),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: AppButton(
+                        text: 'Save name',
+                        onPressed: () =>
+                            _onChanged("name", _nameFieldController.text),
+                      ),
+                    ),
+                  ],
+                ), // todo -> text field
+                const SizedBox(height: 24),
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: 5,
+                    itemBuilder: (context, index) => Row(
+                      children: [
+                        Expanded(
+                          child: NotificationSwitchLabel(
+                            SettingsRes.notificationLabels[index],
+                          ),
+                        ),
+                        CupertinoSwitch(
+                          value: currentState["n${index + 1}"],
+                          onChanged: (bool val) =>
+                              _onChanged("n${index + 1}", val),
+                        ),
+                      ],
+                    ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 4),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
