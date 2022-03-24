@@ -31,7 +31,7 @@ class ApiSettingsService {
     return defaultBody;
   }
 
-  static void setModel(
+  static void setFields(
     Map<String, dynamic> defaultBody,
     Map<String, dynamic> toSet,
   ) async {
