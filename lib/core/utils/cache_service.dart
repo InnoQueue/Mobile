@@ -3,7 +3,7 @@
 // we open application, it has firstLaunch=false
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class Utils {
+abstract class CacheService {
 
   static Future<bool> checkFirstLaunch() async {
     final prefs = await SharedPreferences.getInstance();
@@ -11,5 +11,10 @@ abstract class Utils {
     await prefs.setBool('isFirstLaunch', false);
     return isFirstLaunch ?? true;
   }
+  static void saveToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+
 
 }
