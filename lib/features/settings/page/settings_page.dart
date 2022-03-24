@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: Column(
         children: [
-          TextField(), // todo -> text field
+          TextField(controller: _nameFieldController,), // todo -> text field
           Expanded(
             child: ListView.builder(
               itemCount: 5,
