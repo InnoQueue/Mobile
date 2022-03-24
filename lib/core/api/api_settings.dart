@@ -19,7 +19,7 @@ class ApiSettings extends ApiBase {
 }
 
 class ApiSettingsService {
-  static _makeBody(
+  static makeBody(
     Map<String, dynamic> defaultBody,
     Map<String, dynamic> toSet,
   ) {
@@ -36,8 +36,8 @@ class ApiSettingsService {
     Map<String, dynamic> toSet,
   ) async {
     final String token = await ApiBaseService.getToken();
-    final body = _makeBody(defaultBody, toSet);
+    final body = makeBody(defaultBody, toSet);
     final data = (await ApiSettings.editSettings(token, body)).data;
-    // List<NotificationModel> unread =
+    print("response data: $data");
   }
 }

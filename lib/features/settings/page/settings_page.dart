@@ -15,6 +15,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   late final Map<String, dynamic> defaultBody;
 
+  late Map<String, dynamic> currentState; // todo -> bloc
+
+  late TextEditingController _nameFieldController;
+
   @override
   void initState() {
     defaultBody = {
@@ -25,6 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
       "n4": true,
       "n5": true
     };
+    currentState = defaultBody;
+    _nameFieldController = TextEditingController(text: defaultName);
     super.initState();
   }
 
@@ -33,12 +39,12 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: Column(
         children: [
-          Text(defaultName), // todo -> text field
+          TextField(), // todo -> text field
           Expanded(
             child: ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) => CupertinoSwitch(
-                value: false,
+                value: currentState["n${index + 1}"],
                 onChanged: (bool val) => _onChanged("n${index + 1}", val),
               ),
             ),
@@ -49,7 +55,10 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _onChanged(String key, dynamic changedValue) {
-    print("new val $changedValue");
     ApiSettingsService.setFields(defaultBody, {key: changedValue});
+    setState(() {
+      currentState =
+          ApiSettingsService.makeBody(defaultBody, {key: changedValue});
+    });
   }
 }
