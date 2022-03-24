@@ -48,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: FutureBuilder(
         future: serverDefaultBodyFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return SizedBox.shrink();
+          if (!snapshot.hasData) return const SizedBox.shrink();
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 32),
             child: Column(
@@ -57,22 +57,25 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
                         controller: _nameFieldController,
                       ),
                     ),
-                    AppButton(
-                      text: 'Save name',
-                      onPressed: () =>
-                          _onChanged("name", _nameFieldController.text),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: AppButton(
+                        text: 'Save name',
+                        onPressed: () =>
+                            _onChanged("name", _nameFieldController.text),
+                      ),
                     ),
                   ],
                 ), // todo -> text field
                 const SizedBox(height: 24),
                 Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     itemCount: 5,
                     itemBuilder: (context, index) => Row(
                       children: [
@@ -88,6 +91,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                       ],
                     ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 4),
                   ),
                 ),
               ],
