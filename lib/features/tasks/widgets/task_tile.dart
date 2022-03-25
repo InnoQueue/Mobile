@@ -116,6 +116,7 @@ class _BodyState extends State<_Body> {
           child: Text(
             widget.name,
             style: const TextStyle(fontSize: 20),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         const DoneButton(),

@@ -23,4 +23,20 @@ extension CustomTextTheme on TextTheme {
       color: Colors.grey.shade700,
     );
   }
+
+  TextStyle get popupMenuItemStyle {
+    return const TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w400,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle get appBarTextStyle {
+    return const TextStyle(
+      color: Colors.black,
+      fontSize: 27,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }

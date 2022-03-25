@@ -6,6 +6,7 @@ import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
+import '../../../const/const.dart';
 
 import '../../features.dart';
 
@@ -40,12 +41,22 @@ class _HomePageState extends State<HomePage> {
     return AppBar(
       title: Text(
         _getAppBarTitle(_.current.name),
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(context).textTheme.appBarTextStyle,
       ),
+      leading: _.current.name == QueueDetailsRoute.name
+          ? Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    context.router.pop();
+                  }),
+            )
+          : null,
       actions: [
         if (_.current.name == QueuesRoute.name)
           Padding(
@@ -66,6 +77,28 @@ class _HomePageState extends State<HomePage> {
                 size: 40,
               ),
             ),
+          ),
+        if (_.current.name == QueueDetailsRoute.name)
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: Colors.black,
+                  size: 35,
+                ),
+                onSelected: (lol) {},
+                itemBuilder: (BuildContext context) {
+                  return myMenuItems.map((String choice) {
+                    return PopupMenuItem<String>(
+                      child: Text(
+                        choice,
+                        style: Theme.of(context).textTheme.popupMenuItemStyle,
+                      ),
+                      value: choice,
+                    );
+                  }).toList();
+                }),
           )
       ],
       backgroundColor: Colors.white,
@@ -77,6 +110,9 @@ class _HomePageState extends State<HomePage> {
           ),
     );
   }
+
+  List<String> get myMenuItems =>
+      ['Edit', 'Invite user', 'Freeze queue', 'Leave', 'Delete queue'];
 
   String _getAppBarTitle(String routeName) {
     switch (routeName) {
