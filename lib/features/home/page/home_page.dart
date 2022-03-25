@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
+import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
+import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import '../../../const/const.dart';
@@ -87,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.black,
                   size: 35,
                 ),
-                onSelected: (lol) {},
+                onSelected: _onSelected,
                 itemBuilder: (BuildContext context) {
                   return myMenuItems.map((String choice) {
                     return PopupMenuItem<String>(
@@ -111,8 +113,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _onSelected(String item) {
+    switch (item) {
+      case 'Leave queue':
+        context
+            .read<QueueDetailsBloc>()
+            .add(const QueueDetailsEvent.leaveQueue());
+        break;
+      default:
+    }
+  }
+
   List<String> get myMenuItems =>
-      ['Edit', 'Invite user', 'Freeze queue', 'Leave', 'Delete queue'];
+      ['Edit', 'Invite user', 'Freeze queue', 'Leave queue'];
 
   String _getAppBarTitle(String routeName) {
     switch (routeName) {

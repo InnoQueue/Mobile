@@ -42,10 +42,8 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const SettingsPage());
     },
     QueueDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<QueueDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: QueueDetailsPage(queueModel: args.queueModel, key: args.key));
+          routeData: routeData, child: const QueueDetailsPage());
     }
   };
 
@@ -120,24 +118,9 @@ class SettingsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [QueueDetailsPage]
-class QueueDetailsRoute extends PageRouteInfo<QueueDetailsRouteArgs> {
-  QueueDetailsRoute({required QueueModel queueModel, Key? key})
-      : super(QueueDetailsRoute.name,
-            path: 'queue-details',
-            args: QueueDetailsRouteArgs(queueModel: queueModel, key: key));
+class QueueDetailsRoute extends PageRouteInfo<void> {
+  const QueueDetailsRoute()
+      : super(QueueDetailsRoute.name, path: 'queue-details');
 
   static const String name = 'QueueDetailsRoute';
-}
-
-class QueueDetailsRouteArgs {
-  const QueueDetailsRouteArgs({required this.queueModel, this.key});
-
-  final QueueModel queueModel;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'QueueDetailsRouteArgs{queueModel: $queueModel, key: $key}';
-  }
 }

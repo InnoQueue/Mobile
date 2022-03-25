@@ -25,7 +25,8 @@ class _TasksPageState extends State<TasksPage> {
               dataLoaded: (tasks) {
                 return SafeArea(
                     child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 10, right: 10, bottom: 10),
                   child: TaskList(
                     items: tasks,
                   ),

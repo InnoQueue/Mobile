@@ -41,6 +41,21 @@ class ApiQueues extends ApiBase {
       data: jsonEncode(params),
     );
   }
+
+  static Future<Response> leaveQueue(
+    token, {
+    required QueueModel queue,
+  }) async {
+    print(queue.id);
+    return ApiBase.dio.delete(
+      "${ApiBase.baseUrl}/queues/${queue.id}",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
 }
 
 class ApiQueuesService {
@@ -69,6 +84,16 @@ class ApiQueuesService {
       name: name,
       color: color,
       trackExpenses: trackExpenses,
+    );
+  }
+
+  static Future<void> leaveQueue({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    await ApiQueues.leaveQueue(
+      token,
+      queue: queue,
     );
   }
 }

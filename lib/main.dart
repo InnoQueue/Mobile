@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
 import 'package:inno_queue/routes/logging_route_observer.dart';
 
 import 'features/queues/bloc/queues_bloc.dart';
@@ -28,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt.get<QueuesBloc>()),
+        BlocProvider(create: (_) => getIt.get<QueueDetailsBloc>()),
         BlocProvider(create: (_) => AppBarBloc(HomeRouter.name)),
       ],
       child: MaterialApp.router(

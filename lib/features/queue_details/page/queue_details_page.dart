@@ -1,62 +1,82 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
+import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
+import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
+import 'package:provider/src/provider.dart';
 
-class QueueDetailsPage extends StatelessWidget {
-  final QueueModel queueModel;
+class QueueDetailsPage extends StatefulWidget {
   const QueueDetailsPage({
-    required this.queueModel,
     Key? key,
   }) : super(key: key);
 
   @override
+  State<QueueDetailsPage> createState() => _QueueDetailsPageState();
+}
+
+class _QueueDetailsPageState extends State<QueueDetailsPage> {
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          bottom: 10,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: _Header(
-                  queueModel: queueModel,
-                ),
+    return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
+      builder: (context, state) {
+        return state.when(
+          queueLeft: () {
+            context.router.pop();
+            context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+            return Wrap();
+          },
+          initial: () => Wrap(),
+          queueOpened: (queue) => SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                bottom: 10,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
-                child: ElevatedButton(
-                  child: Container(
-                    height: 55,
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Add Progress',
-                      style: TextStyle(
-                        fontSize: 18,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: _Header(
+                        queueModel: queue,
                       ),
                     ),
-                  ),
-                  onPressed: () {},
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: queueDetailsPadding),
+                      child: ElevatedButton(
+                        child: Container(
+                          height: 55,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Add Progress',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    _Participants(
+                      queueModel: queue,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              _Participants(
-                queueModel: queueModel,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
