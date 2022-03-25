@@ -14,13 +14,23 @@ class QueueTile extends StatefulWidget {
 class _QueueTileState extends State<QueueTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: tileHeight,
-      color: Colors.white,
-      child: _Body(
-        color: colors[widget.queueModel.color] ?? Colors.white,
-        name: widget.queueModel.name,
+    return GestureDetector(
+      child: Container(
+        height: tileHeight,
+        color: Colors.white,
+        child: _Body(
+          color: colors[widget.queueModel.color] ?? Colors.white,
+          name: widget.queueModel.name,
+        ),
       ),
+      onTap: () {
+        context
+            .read<AppBarBloc>()
+            .add(RouteChangedEvent(widget.queueModel.name));
+        context.router.push(QueueDetailsRoute(
+          queueModel: widget.queueModel,
+        ));
+      },
     );
   }
 }

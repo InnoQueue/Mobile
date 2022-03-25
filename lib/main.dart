@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inno_queue/routes/logging_route_observer.dart';
 
 import 'features/queues/bloc/queues_bloc.dart';
 import 'helpers/getit_service_locator.dart';
 import 'routes/app_router.dart';
+import 'shared/bloc/appbar/appbar_bloc.dart';
 
 void main() {
   configureDependencies();
@@ -23,8 +25,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt.get<QueuesBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt.get<QueuesBloc>()),
+        BlocProvider(create: (_) => AppBarBloc(HomeRouter.name)),
+      ],
       child: MaterialApp.router(
           title: 'InnoQueue',
           debugShowCheckedModeBanner: false,
@@ -36,6 +41,7 @@ class _MyAppState extends State<MyApp> {
             _router,
             navigatorObservers: () => [
               AutoRouteObserver(),
+              LoggingRouteObserver(),
             ],
           ),
           routeInformationParser: _router.defaultRouteParser()),

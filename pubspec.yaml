@@ -29,14 +29,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  auto_route: 3.2.4
+  auto_route: ^3.2.2
   build_runner: ^2.1.8
-  auto_route_generator: ^3.2.3
   flutter_switch: ^0.3.2
   flutter_bloc: ^8.0.1
   json_serializable: ^6.1.5
   injectable: ^1.5.3
   get_it: ^7.2.0
+  logger: ^1.1.0
+  flex_color_picker: ^2.3.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,6 +51,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  auto_route_generator: ^3.2.1
   injectable_generator: ^1.5.3
   flutter_lints: ^1.0.0
 

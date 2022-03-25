@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/appres.dart';
-import 'package:inno_queue/core/widget/app_bottom_sheet.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
-import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
-import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
+import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 
 import '../../features.dart';
 
@@ -90,6 +88,8 @@ class _HomePageState extends State<HomePage> {
         return AppRes.notifications;
       case SettingsRoute.name:
         return AppRes.settings;
+      case QueueDetailsRoute.name:
+        return context.read<AppBarBloc>().state;
       default:
         return routeName;
     }

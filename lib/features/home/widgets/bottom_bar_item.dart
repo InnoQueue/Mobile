@@ -38,9 +38,17 @@ class BottomBarItem extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext _) {
+  Future<PageRouteInfo> buildPageAsync() async {
+    return Future.microtask(() {
+      return route!;
+    });
+  }
+
+  void _onTap(BuildContext _) async {
+    var page = await buildPageAsync();
     if (route != null) {
-      _.router.replace(route!);
+      _.router.root.pop();
+      _.router.popAndPush(page);
     }
   }
 }
