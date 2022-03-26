@@ -135,7 +135,11 @@ class _Participants extends StatelessWidget {
             style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
           ),
         ),
-        _ParticipantTile(user: queueModel.crrentUser, onDuty: true),
+        _ParticipantTile(
+          user: queueModel.crrentUser,
+          onDuty: true,
+          isCurrentUserOnDuty: queueModel.isOnDuty,
+        ),
         if (queueModel.participants.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -177,9 +181,11 @@ class _Participants extends StatelessWidget {
 class _ParticipantTile extends StatefulWidget {
   final UserModel user;
   final bool onDuty;
+  final bool? isCurrentUserOnDuty;
   const _ParticipantTile({
     required this.user,
     required this.onDuty,
+    this.isCurrentUserOnDuty,
     Key? key,
   }) : super(key: key);
 
@@ -244,7 +250,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                   ],
                 ),
               ),
-              widget.onDuty
+              widget.onDuty && !widget.isCurrentUserOnDuty!
                   ? TextButton(
                       style: TextButton.styleFrom(
                         splashFactory: NoSplash.splashFactory,
