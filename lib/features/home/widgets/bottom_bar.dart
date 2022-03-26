@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/routes/app_router.dart';
-import 'bottom_bar_item.dart';
+part 'bottom_bar_item.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({Key? key}) : super(key: key);
@@ -13,22 +14,22 @@ class BottomBar extends StatelessWidget {
   }
 
   static final _items = [
-    const BottomBarItem(
+    const _BottomBarItem(
       leadingIcon: Icon(Icons.done, size: 30),
       title: 'Tasks',
       route: TasksRoute(),
     ),
-    const BottomBarItem(
+    const _BottomBarItem(
       leadingIcon: Icon(Icons.list, size: 30),
       title: 'Queues',
       route: QueuesRoute(),
     ),
-    const BottomBarItem(
+    const _BottomBarItem(
       leadingIcon: Icon(Icons.notifications, size: 30),
       title: 'Notifications',
       route: NotificationsRoute(),
     ),
-    const BottomBarItem(
+    const _BottomBarItem(
       leadingIcon: Icon(Icons.settings, size: 30),
       title: 'Settings',
       route: SettingsRoute(),

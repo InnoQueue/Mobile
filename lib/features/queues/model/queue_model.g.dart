@@ -11,8 +11,7 @@ _$_QueueModel _$$_QueueModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       name: json['name'] as String,
       color: json['color'] as String,
-      crrentUser:
-          UserModel.fromJson(json['current_user'] as Map<String, dynamic>),
+      crrentUser: UserModel.fromJson(json['on_duty'] as Map<String, dynamic>),
       participants: (json['participants'] as List<dynamic>)
           .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -20,6 +19,7 @@ _$_QueueModel _$$_QueueModelFromJson(Map<String, dynamic> json) =>
       isActive: json['is_active'] as bool,
       isAdmin: json['is_admin'] as bool,
       link: json['link'] as String,
+      isOnDuty: json['is_on_duty'] as bool,
     );
 
 Map<String, dynamic> _$$_QueueModelToJson(_$_QueueModel instance) =>
@@ -27,10 +27,11 @@ Map<String, dynamic> _$$_QueueModelToJson(_$_QueueModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'color': instance.color,
-      'current_user': instance.crrentUser,
+      'on_duty': instance.crrentUser,
       'participants': instance.participants,
       'track_expenses': instance.trackExpenses,
       'is_active': instance.isActive,
       'is_admin': instance.isAdmin,
       'link': instance.link,
+      'is_on_duty': instance.isOnDuty,
     };

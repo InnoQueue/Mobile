@@ -26,12 +26,13 @@ class _$QueueModelTearOff {
       {@JsonKey(name: 'id') required int id,
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'color') required String color,
-      @JsonKey(name: 'current_user') required UserModel crrentUser,
+      @JsonKey(name: 'on_duty') required UserModel crrentUser,
       @JsonKey(name: 'participants') required List<UserModel> participants,
       @JsonKey(name: 'track_expenses') required bool trackExpenses,
       @JsonKey(name: 'is_active') required bool isActive,
       @JsonKey(name: 'is_admin') required bool isAdmin,
-      @JsonKey(name: 'link') required String link}) {
+      @JsonKey(name: 'link') required String link,
+      @JsonKey(name: 'is_on_duty') required bool isOnDuty}) {
     return _QueueModel(
       id: id,
       name: name,
@@ -42,6 +43,7 @@ class _$QueueModelTearOff {
       isActive: isActive,
       isAdmin: isAdmin,
       link: link,
+      isOnDuty: isOnDuty,
     );
   }
 
@@ -61,7 +63,7 @@ mixin _$QueueModel {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'color')
   String get color => throw _privateConstructorUsedError;
-  @JsonKey(name: 'current_user')
+  @JsonKey(name: 'on_duty')
   UserModel get crrentUser => throw _privateConstructorUsedError;
   @JsonKey(name: 'participants')
   List<UserModel> get participants => throw _privateConstructorUsedError;
@@ -73,6 +75,8 @@ mixin _$QueueModel {
   bool get isAdmin => throw _privateConstructorUsedError;
   @JsonKey(name: 'link')
   String get link => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_on_duty')
+  bool get isOnDuty => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -89,12 +93,13 @@ abstract class $QueueModelCopyWith<$Res> {
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
-      @JsonKey(name: 'current_user') UserModel crrentUser,
+      @JsonKey(name: 'on_duty') UserModel crrentUser,
       @JsonKey(name: 'participants') List<UserModel> participants,
       @JsonKey(name: 'track_expenses') bool trackExpenses,
       @JsonKey(name: 'is_active') bool isActive,
       @JsonKey(name: 'is_admin') bool isAdmin,
-      @JsonKey(name: 'link') String link});
+      @JsonKey(name: 'link') String link,
+      @JsonKey(name: 'is_on_duty') bool isOnDuty});
 
   $UserModelCopyWith<$Res> get crrentUser;
 }
@@ -118,6 +123,7 @@ class _$QueueModelCopyWithImpl<$Res> implements $QueueModelCopyWith<$Res> {
     Object? isActive = freezed,
     Object? isAdmin = freezed,
     Object? link = freezed,
+    Object? isOnDuty = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -156,6 +162,10 @@ class _$QueueModelCopyWithImpl<$Res> implements $QueueModelCopyWith<$Res> {
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String,
+      isOnDuty: isOnDuty == freezed
+          ? _value.isOnDuty
+          : isOnDuty // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -177,12 +187,13 @@ abstract class _$QueueModelCopyWith<$Res> implements $QueueModelCopyWith<$Res> {
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
-      @JsonKey(name: 'current_user') UserModel crrentUser,
+      @JsonKey(name: 'on_duty') UserModel crrentUser,
       @JsonKey(name: 'participants') List<UserModel> participants,
       @JsonKey(name: 'track_expenses') bool trackExpenses,
       @JsonKey(name: 'is_active') bool isActive,
       @JsonKey(name: 'is_admin') bool isAdmin,
-      @JsonKey(name: 'link') String link});
+      @JsonKey(name: 'link') String link,
+      @JsonKey(name: 'is_on_duty') bool isOnDuty});
 
   @override
   $UserModelCopyWith<$Res> get crrentUser;
@@ -209,6 +220,7 @@ class __$QueueModelCopyWithImpl<$Res> extends _$QueueModelCopyWithImpl<$Res>
     Object? isActive = freezed,
     Object? isAdmin = freezed,
     Object? link = freezed,
+    Object? isOnDuty = freezed,
   }) {
     return _then(_QueueModel(
       id: id == freezed
@@ -247,6 +259,10 @@ class __$QueueModelCopyWithImpl<$Res> extends _$QueueModelCopyWithImpl<$Res>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String,
+      isOnDuty: isOnDuty == freezed
+          ? _value.isOnDuty
+          : isOnDuty // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -258,12 +274,13 @@ class _$_QueueModel implements _QueueModel {
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'color') required this.color,
-      @JsonKey(name: 'current_user') required this.crrentUser,
+      @JsonKey(name: 'on_duty') required this.crrentUser,
       @JsonKey(name: 'participants') required this.participants,
       @JsonKey(name: 'track_expenses') required this.trackExpenses,
       @JsonKey(name: 'is_active') required this.isActive,
       @JsonKey(name: 'is_admin') required this.isAdmin,
-      @JsonKey(name: 'link') required this.link});
+      @JsonKey(name: 'link') required this.link,
+      @JsonKey(name: 'is_on_duty') required this.isOnDuty});
 
   factory _$_QueueModel.fromJson(Map<String, dynamic> json) =>
       _$$_QueueModelFromJson(json);
@@ -278,7 +295,7 @@ class _$_QueueModel implements _QueueModel {
   @JsonKey(name: 'color')
   final String color;
   @override
-  @JsonKey(name: 'current_user')
+  @JsonKey(name: 'on_duty')
   final UserModel crrentUser;
   @override
   @JsonKey(name: 'participants')
@@ -295,10 +312,13 @@ class _$_QueueModel implements _QueueModel {
   @override
   @JsonKey(name: 'link')
   final String link;
+  @override
+  @JsonKey(name: 'is_on_duty')
+  final bool isOnDuty;
 
   @override
   String toString() {
-    return 'QueueModel(id: $id, name: $name, color: $color, crrentUser: $crrentUser, participants: $participants, trackExpenses: $trackExpenses, isActive: $isActive, isAdmin: $isAdmin, link: $link)';
+    return 'QueueModel(id: $id, name: $name, color: $color, crrentUser: $crrentUser, participants: $participants, trackExpenses: $trackExpenses, isActive: $isActive, isAdmin: $isAdmin, link: $link, isOnDuty: $isOnDuty)';
   }
 
   @override
@@ -317,7 +337,8 @@ class _$_QueueModel implements _QueueModel {
                 .equals(other.trackExpenses, trackExpenses) &&
             const DeepCollectionEquality().equals(other.isActive, isActive) &&
             const DeepCollectionEquality().equals(other.isAdmin, isAdmin) &&
-            const DeepCollectionEquality().equals(other.link, link));
+            const DeepCollectionEquality().equals(other.link, link) &&
+            const DeepCollectionEquality().equals(other.isOnDuty, isOnDuty));
   }
 
   @override
@@ -331,7 +352,8 @@ class _$_QueueModel implements _QueueModel {
       const DeepCollectionEquality().hash(trackExpenses),
       const DeepCollectionEquality().hash(isActive),
       const DeepCollectionEquality().hash(isAdmin),
-      const DeepCollectionEquality().hash(link));
+      const DeepCollectionEquality().hash(link),
+      const DeepCollectionEquality().hash(isOnDuty));
 
   @JsonKey(ignore: true)
   @override
@@ -349,12 +371,13 @@ abstract class _QueueModel implements QueueModel {
       {@JsonKey(name: 'id') required int id,
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'color') required String color,
-      @JsonKey(name: 'current_user') required UserModel crrentUser,
+      @JsonKey(name: 'on_duty') required UserModel crrentUser,
       @JsonKey(name: 'participants') required List<UserModel> participants,
       @JsonKey(name: 'track_expenses') required bool trackExpenses,
       @JsonKey(name: 'is_active') required bool isActive,
       @JsonKey(name: 'is_admin') required bool isAdmin,
-      @JsonKey(name: 'link') required String link}) = _$_QueueModel;
+      @JsonKey(name: 'link') required String link,
+      @JsonKey(name: 'is_on_duty') required bool isOnDuty}) = _$_QueueModel;
 
   factory _QueueModel.fromJson(Map<String, dynamic> json) =
       _$_QueueModel.fromJson;
@@ -369,7 +392,7 @@ abstract class _QueueModel implements QueueModel {
   @JsonKey(name: 'color')
   String get color;
   @override
-  @JsonKey(name: 'current_user')
+  @JsonKey(name: 'on_duty')
   UserModel get crrentUser;
   @override
   @JsonKey(name: 'participants')
@@ -386,6 +409,9 @@ abstract class _QueueModel implements QueueModel {
   @override
   @JsonKey(name: 'link')
   String get link;
+  @override
+  @JsonKey(name: 'is_on_duty')
+  bool get isOnDuty;
   @override
   @JsonKey(ignore: true)
   _$QueueModelCopyWith<_QueueModel> get copyWith =>

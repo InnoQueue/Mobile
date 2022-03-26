@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inno_queue/const/appres.dart';
+import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
-import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
-import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import '../../../const/const.dart';
 
 import '../../features.dart';
+
+part 'app_bar_buttons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -45,63 +45,11 @@ class _HomePageState extends State<HomePage> {
         _getAppBarTitle(_.current.name),
         style: Theme.of(context).textTheme.appBarTextStyle,
       ),
-      leading: _.current.name == QueueDetailsRoute.name
-          ? Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 40,
-                  ),
-                  onPressed: () {
-                    context.router.pop();
-                  }),
-            )
-          : null,
+      leading:
+          _.current.name == QueueDetailsRoute.name ? const _BackButton() : null,
       actions: [
-        if (_.current.name == QueuesRoute.name)
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {
-                showModalBottomSheet<void>(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return const QueueBottomSheet();
-                  },
-                );
-              },
-              icon: const Icon(
-                Icons.add,
-                color: Colors.black,
-                size: 40,
-              ),
-            ),
-          ),
-        if (_.current.name == QueueDetailsRoute.name)
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: PopupMenuButton<String>(
-                icon: const Icon(
-                  Icons.more_vert,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                onSelected: _onSelected,
-                itemBuilder: (BuildContext context) {
-                  return myMenuItems.map((String choice) {
-                    return PopupMenuItem<String>(
-                      child: Text(
-                        choice,
-                        style: Theme.of(context).textTheme.popupMenuItemStyle,
-                      ),
-                      value: choice,
-                    );
-                  }).toList();
-                }),
-          )
+        if (_.current.name == QueuesRoute.name) const _AddButton(),
+        if (_.current.name == QueueDetailsRoute.name) const _MoreButton(),
       ],
       backgroundColor: Colors.white,
       elevation: 0,
@@ -112,20 +60,6 @@ class _HomePageState extends State<HomePage> {
           ),
     );
   }
-
-  void _onSelected(String item) {
-    switch (item) {
-      case 'Leave queue':
-        context
-            .read<QueueDetailsBloc>()
-            .add(const QueueDetailsEvent.leaveQueue());
-        break;
-      default:
-    }
-  }
-
-  List<String> get myMenuItems =>
-      ['Edit', 'Invite user', 'Freeze queue', 'Leave queue'];
 
   String _getAppBarTitle(String routeName) {
     switch (routeName) {

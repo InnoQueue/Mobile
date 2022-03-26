@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+part of 'bottom_bar.dart';
 
-class BottomBarItem extends StatelessWidget {
-  const BottomBarItem({
+class _BottomBarItem extends StatelessWidget {
+  const _BottomBarItem({
     required this.title,
     required this.leadingIcon,
     required this.route,

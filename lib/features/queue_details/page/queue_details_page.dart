@@ -29,52 +29,55 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
             return Wrap();
           },
           initial: () => Wrap(),
-          queueOpened: (queue) => SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                bottom: 10,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: _Header(
-                        queueModel: queue,
+          queueOpened: (queue) {
+            print(queue);
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  bottom: 10,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: _Header(
+                          queueModel: queue,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: queueDetailsPadding),
-                      child: ElevatedButton(
-                        child: Container(
-                          height: 55,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Add Progress',
-                            style: TextStyle(
-                              fontSize: 18,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: queueDetailsPadding),
+                        child: ElevatedButton(
+                          child: Container(
+                            height: 55,
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Add Progress',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
                             ),
                           ),
+                          onPressed: () {},
                         ),
-                        onPressed: () {},
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    _Participants(
-                      queueModel: queue,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      _Participants(
+                        queueModel: queue,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

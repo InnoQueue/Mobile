@@ -25,13 +25,10 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _LeaveQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(await _leaveQueue());
-  }
-
-  Future<QueueDetailsState> _leaveQueue() async {
+    var queueToLeave = currentQueue;
+    emit(const QueueDetailsState.queueLeft());
     await ApiQueuesService.leaveQueue(
-      queue: currentQueue,
+      queue: queueToLeave,
     );
-    return const QueueDetailsState.queueLeft();
   }
 }

@@ -4,6 +4,7 @@ Map<String, Color> colors = {
   'RED': Colors.redAccent,
   'GREEN': Colors.greenAccent,
   'BLUE': Colors.blueAccent,
+  'GRAY': Colors.grey,
   'WHITE': Colors.white,
   'AMBER': Colors.amber,
   'ORANGE': Colors.orangeAccent,
