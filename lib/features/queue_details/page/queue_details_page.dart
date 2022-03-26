@@ -25,8 +25,13 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
       builder: (context, state) {
         return state.when(
           queueLeft: () {
-            context.router.pop();
             context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+            context.router.pop();
+            return Wrap();
+          },
+          queueFreezed: () {
+            context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+            context.router.pop();
             return Wrap();
           },
           initial: () => Wrap(),
@@ -205,6 +210,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
   @override
   void initState() {
     super.initState();
+    widget.queue.isOnDuty;
     onDutyTile = widget.queue.crrentUser == widget.user;
   }
 

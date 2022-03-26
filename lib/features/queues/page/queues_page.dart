@@ -29,9 +29,13 @@ class _QueuesPageState extends State<QueuesPage> {
     return BlocBuilder<QueuesBloc, QueuesState>(
       builder: (context, state) {
         return state.when(
-          initial: () => const Center(
-              child: CircularProgressIndicator(color: Colors.grey)),
+          initial: () {
+            print('hereeeeeeee');
+            return const Center(
+                child: CircularProgressIndicator(color: Colors.grey));
+          },
           dataLoaded: (active, frozen) {
+            print(frozen.length);
             return SafeArea(
                 child: Container(
               alignment: Alignment.topCenter,

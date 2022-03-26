@@ -107,7 +107,13 @@ class _MoreButtonState extends State<_MoreButton> {
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.leaveQueue());
-        context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+        //context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+        break;
+      case 'Freeze queue':
+        context
+            .read<QueueDetailsBloc>()
+            .add(const QueueDetailsEvent.freezeQueue());
+        //context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
         break;
       default:
     }

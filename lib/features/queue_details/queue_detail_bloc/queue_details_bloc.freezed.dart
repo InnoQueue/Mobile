@@ -633,6 +633,10 @@ class _$QueueDetailsStateTearOff {
   _QueueLeft queueLeft() {
     return const _QueueLeft();
   }
+
+  _QueueFreezed queueFreezed() {
+    return const _QueueFreezed();
+  }
 }
 
 /// @nodoc
@@ -645,6 +649,7 @@ mixin _$QueueDetailsState {
     required TResult Function() initial,
     required TResult Function(QueueModel queue) queueOpened,
     required TResult Function() queueLeft,
+    required TResult Function() queueFreezed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -652,6 +657,7 @@ mixin _$QueueDetailsState {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -659,6 +665,7 @@ mixin _$QueueDetailsState {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -667,6 +674,7 @@ mixin _$QueueDetailsState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
+    required TResult Function(_QueueFreezed value) queueFreezed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -674,6 +682,7 @@ mixin _$QueueDetailsState {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -681,6 +690,7 @@ mixin _$QueueDetailsState {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -744,6 +754,7 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function(QueueModel queue) queueOpened,
     required TResult Function() queueLeft,
+    required TResult Function() queueFreezed,
   }) {
     return initial();
   }
@@ -754,6 +765,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
   }) {
     return initial?.call();
   }
@@ -764,6 +776,7 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -778,6 +791,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
+    required TResult Function(_QueueFreezed value) queueFreezed,
   }) {
     return initial(this);
   }
@@ -788,6 +802,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
   }) {
     return initial?.call(this);
   }
@@ -798,6 +813,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -888,6 +904,7 @@ class _$_QueueOpened implements _QueueOpened {
     required TResult Function() initial,
     required TResult Function(QueueModel queue) queueOpened,
     required TResult Function() queueLeft,
+    required TResult Function() queueFreezed,
   }) {
     return queueOpened(queue);
   }
@@ -898,6 +915,7 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
   }) {
     return queueOpened?.call(queue);
   }
@@ -908,6 +926,7 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
     required TResult orElse(),
   }) {
     if (queueOpened != null) {
@@ -922,6 +941,7 @@ class _$_QueueOpened implements _QueueOpened {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
+    required TResult Function(_QueueFreezed value) queueFreezed,
   }) {
     return queueOpened(this);
   }
@@ -932,6 +952,7 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
   }) {
     return queueOpened?.call(this);
   }
@@ -942,6 +963,7 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
     required TResult orElse(),
   }) {
     if (queueOpened != null) {
@@ -1003,6 +1025,7 @@ class _$_QueueLeft implements _QueueLeft {
     required TResult Function() initial,
     required TResult Function(QueueModel queue) queueOpened,
     required TResult Function() queueLeft,
+    required TResult Function() queueFreezed,
   }) {
     return queueLeft();
   }
@@ -1013,6 +1036,7 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
   }) {
     return queueLeft?.call();
   }
@@ -1023,6 +1047,7 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function()? initial,
     TResult Function(QueueModel queue)? queueOpened,
     TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
     required TResult orElse(),
   }) {
     if (queueLeft != null) {
@@ -1037,6 +1062,7 @@ class _$_QueueLeft implements _QueueLeft {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
+    required TResult Function(_QueueFreezed value) queueFreezed,
   }) {
     return queueLeft(this);
   }
@@ -1047,6 +1073,7 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
   }) {
     return queueLeft?.call(this);
   }
@@ -1057,6 +1084,7 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
     required TResult orElse(),
   }) {
     if (queueLeft != null) {
@@ -1068,4 +1096,121 @@ class _$_QueueLeft implements _QueueLeft {
 
 abstract class _QueueLeft implements QueueDetailsState {
   const factory _QueueLeft() = _$_QueueLeft;
+}
+
+/// @nodoc
+abstract class _$QueueFreezedCopyWith<$Res> {
+  factory _$QueueFreezedCopyWith(
+          _QueueFreezed value, $Res Function(_QueueFreezed) then) =
+      __$QueueFreezedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$QueueFreezedCopyWithImpl<$Res>
+    extends _$QueueDetailsStateCopyWithImpl<$Res>
+    implements _$QueueFreezedCopyWith<$Res> {
+  __$QueueFreezedCopyWithImpl(
+      _QueueFreezed _value, $Res Function(_QueueFreezed) _then)
+      : super(_value, (v) => _then(v as _QueueFreezed));
+
+  @override
+  _QueueFreezed get _value => super._value as _QueueFreezed;
+}
+
+/// @nodoc
+
+class _$_QueueFreezed implements _QueueFreezed {
+  const _$_QueueFreezed();
+
+  @override
+  String toString() {
+    return 'QueueDetailsState.queueFreezed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _QueueFreezed);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function() queueLeft,
+    required TResult Function() queueFreezed,
+  }) {
+    return queueFreezed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
+  }) {
+    return queueFreezed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function()? queueLeft,
+    TResult Function()? queueFreezed,
+    required TResult orElse(),
+  }) {
+    if (queueFreezed != null) {
+      return queueFreezed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_QueueOpened value) queueOpened,
+    required TResult Function(_QueueLeft value) queueLeft,
+    required TResult Function(_QueueFreezed value) queueFreezed,
+  }) {
+    return queueFreezed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_QueueOpened value)? queueOpened,
+    TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
+  }) {
+    return queueFreezed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_QueueOpened value)? queueOpened,
+    TResult Function(_QueueLeft value)? queueLeft,
+    TResult Function(_QueueFreezed value)? queueFreezed,
+    required TResult orElse(),
+  }) {
+    if (queueFreezed != null) {
+      return queueFreezed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _QueueFreezed implements QueueDetailsState {
+  const factory _QueueFreezed() = _$_QueueFreezed;
 }

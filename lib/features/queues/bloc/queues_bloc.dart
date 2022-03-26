@@ -19,7 +19,7 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
     _LoadRequested event,
     Emitter<QueuesState> emit,
   ) async {
-    emit(const QueuesState.initial());
+    emit(const _Initial());
     emit(await _loadData());
   }
 
@@ -38,8 +38,6 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
       color: event.color,
       trackExpenses: event.trackExpenses,
     );
-    print(event.name);
-    print(event.color);
     emit(await _loadData());
   }
 }

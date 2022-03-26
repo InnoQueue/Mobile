@@ -60,7 +60,7 @@ class ApiQueues extends ApiBase {
     token, {
     required QueueModel queue,
   }) async {
-    return ApiBase.dio.delete(
+    return ApiBase.dio.post(
       "${ApiBase.baseUrl}/queues/freeze/${queue.id}",
       options: Options(
         headers: {
@@ -128,7 +128,7 @@ class ApiQueuesService {
     required QueueModel queue,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.leaveQueue(
+    await ApiQueues.freezeQueue(
       token,
       queue: queue,
     );

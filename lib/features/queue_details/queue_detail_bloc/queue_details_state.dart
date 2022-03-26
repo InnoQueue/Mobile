@@ -7,4 +7,6 @@ class QueueDetailsState with _$QueueDetailsState {
   const factory QueueDetailsState.queueOpened(QueueModel queue) = _QueueOpened;
 
   const factory QueueDetailsState.queueLeft() = _QueueLeft;
+
+  const factory QueueDetailsState.queueFreezed() = _QueueFreezed;
 }
