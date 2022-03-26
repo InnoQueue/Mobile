@@ -63,6 +63,7 @@
 - Receive notifications about queue progress.
 - Notifications history
 - No registration is needed.
+> Features on which we are working on can be found in [issues](https://github.com/InnoQueue/Mobile/issues)
 
 ## 📊 Repositories
 - The [README repository](https://github.com/InnoQueue/README)
