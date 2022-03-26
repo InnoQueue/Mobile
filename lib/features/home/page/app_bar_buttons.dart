@@ -60,13 +60,18 @@ class _MoreButtonState extends State<_MoreButton> {
   @override
   void initState() {
     super.initState();
+    var currentQueue = context.read<QueueDetailsBloc>().currentQueue;
+    String? freeze = currentQueue.isActive && !currentQueue.isOnDuty
+        ? 'Freeze queue'
+        : !currentQueue.isActive
+            ? 'Unfreeze queue'
+            : null;
+
     myMenuItems = [
       'Edit',
       'Invite user',
-      'Freeze queue',
-      context.read<QueueDetailsBloc>().currentQueue.isAdmin
-          ? 'Delete queue'
-          : 'Leave queue',
+      if (freeze != null) freeze,
+      currentQueue.isAdmin ? 'Delete queue' : 'Leave queue',
     ];
   }
 

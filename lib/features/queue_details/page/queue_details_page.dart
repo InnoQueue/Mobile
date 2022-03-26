@@ -2,6 +2,7 @@ import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
+import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
 import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
@@ -30,7 +31,6 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
           },
           initial: () => Wrap(),
           queueOpened: (queue) {
-            print(queue);
             return SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -137,8 +137,7 @@ class _Participants extends StatelessWidget {
         ),
         _ParticipantTile(
           user: queueModel.crrentUser,
-          onDuty: true,
-          isCurrentUserOnDuty: queueModel.isOnDuty,
+          queue: queueModel,
         ),
         if (queueModel.participants.isNotEmpty)
           Padding(
@@ -155,7 +154,7 @@ class _Participants extends StatelessWidget {
           itemCount: queueModel.participants.length,
           itemBuilder: (context, index) => _ParticipantTile(
             user: queueModel.participants[index],
-            onDuty: false,
+            queue: queueModel,
           ),
           separatorBuilder: (context, index) => Stack(
             children: const [
@@ -180,12 +179,10 @@ class _Participants extends StatelessWidget {
 
 class _ParticipantTile extends StatefulWidget {
   final UserModel user;
-  final bool onDuty;
-  final bool? isCurrentUserOnDuty;
+  final QueueModel queue;
   const _ParticipantTile({
     required this.user,
-    required this.onDuty,
-    this.isCurrentUserOnDuty,
+    required this.queue,
     Key? key,
   }) : super(key: key);
 
@@ -199,8 +196,17 @@ class _ParticipantTileState extends State<_ParticipantTile> {
   final _shakeCurve = Curves.bounceOut;
   var _shakeText = 'shake';
   var _shakeEnd = 0.0;
+
+  late bool onDutyTile;
+
   // ignore: prefer_typing_uninitialized_variables
   var _shakeKey;
+
+  @override
+  void initState() {
+    super.initState();
+    onDutyTile = widget.queue.crrentUser == widget.user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +222,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: widget.onDuty
+          border: onDutyTile
               ? const Border.symmetric(
                   horizontal: BorderSide(color: Colors.grey, width: 0.5))
               : null,
@@ -235,7 +241,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                       widget.user.name,
                       style: Theme.of(context).textTheme.userNameStyle,
                     ),
-                    if (widget.onDuty)
+                    if (widget.queue.isOnDuty)
                       Column(
                         children: [
                           const SizedBox(
@@ -250,31 +256,33 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                   ],
                 ),
               ),
-              widget.onDuty && !widget.isCurrentUserOnDuty!
-                  ? TextButton(
-                      style: TextButton.styleFrom(
-                        splashFactory: NoSplash.splashFactory,
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _shakeEnd = 1.0;
-                          _shakeText = 'shook';
-                          _shakeKey = UniqueKey();
-                        });
-                      },
-                      child: Text(
-                        _shakeText,
-                        style: const TextStyle(
-                          fontSize: 16,
+              if (!widget.queue.isOnDuty)
+                onDutyTile
+                    ? TextButton(
+                        style: TextButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size.zero,
                         ),
-                      ),
-                    )
-                  : Text(
-                      '${widget.user.expenses}₽ spent',
-                      style: Theme.of(context).textTheme.expensesStyle,
-                    )
+                        onPressed: () {
+                          setState(() {
+                            ApiQueuesService.shakeUser(queue: widget.queue);
+                            _shakeEnd = 1.0;
+                            _shakeText = 'shook';
+                            _shakeKey = UniqueKey();
+                          });
+                        },
+                        child: Text(
+                          _shakeText,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        '${widget.user.expenses}₽ spent',
+                        style: Theme.of(context).textTheme.expensesStyle,
+                      )
             ],
           ),
         ),

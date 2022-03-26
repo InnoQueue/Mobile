@@ -46,9 +46,36 @@ class ApiQueues extends ApiBase {
     token, {
     required QueueModel queue,
   }) async {
-    print(queue.id);
     return ApiBase.dio.delete(
       "${ApiBase.baseUrl}/queues/${queue.id}",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
+  static Future<Response> freezeQueue(
+    token, {
+    required QueueModel queue,
+  }) async {
+    return ApiBase.dio.delete(
+      "${ApiBase.baseUrl}/queues/freeze/${queue.id}",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
+  static Future<Response> shakeUser(
+    token, {
+    required QueueModel queue,
+  }) async {
+    return ApiBase.dio.post(
+      "${ApiBase.baseUrl}/queues/shake/${queue.id}",
       options: Options(
         headers: {
           "user-token": token,
@@ -92,6 +119,26 @@ class ApiQueuesService {
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.leaveQueue(
+      token,
+      queue: queue,
+    );
+  }
+
+  static Future<void> freezeQueue({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    await ApiQueues.leaveQueue(
+      token,
+      queue: queue,
+    );
+  }
+
+  static Future<void> shakeUser({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    await ApiQueues.shakeUser(
       token,
       queue: queue,
     );
