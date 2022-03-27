@@ -3,8 +3,47 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/routes/app_router.dart';
 part 'bottom_bar_item.dart';
 
-class BottomBar extends StatelessWidget {
+class BottomBar extends StatefulWidget {
   const BottomBar({Key? key}) : super(key: key);
+
+  @override
+  State<BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
+  List<_BottomBarItem> _items = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _items = [
+      _BottomBarItem(
+        leadingIcon: Icons.done,
+        title: 'Tasks',
+        route: const TasksRoute(),
+        active: true,
+        key: GlobalKey<_BottomBarItemState>(),
+      ),
+      _BottomBarItem(
+        leadingIcon: Icons.list,
+        title: 'Queues',
+        route: const QueuesRoute(),
+        key: GlobalKey<_BottomBarItemState>(),
+      ),
+      _BottomBarItem(
+        leadingIcon: Icons.notifications,
+        title: 'Notifications',
+        route: const NotificationsRoute(),
+        key: GlobalKey<_BottomBarItemState>(),
+      ),
+      _BottomBarItem(
+        leadingIcon: Icons.settings,
+        title: 'Settings',
+        route: const SettingsRoute(),
+        key: GlobalKey<_BottomBarItemState>(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,26 +52,13 @@ class BottomBar extends StatelessWidget {
     );
   }
 
-  static final _items = [
-    const _BottomBarItem(
-      leadingIcon: Icon(Icons.done, size: 30),
-      title: 'Tasks',
-      route: TasksRoute(),
-    ),
-    const _BottomBarItem(
-      leadingIcon: Icon(Icons.list, size: 30),
-      title: 'Queues',
-      route: QueuesRoute(),
-    ),
-    const _BottomBarItem(
-      leadingIcon: Icon(Icons.notifications, size: 30),
-      title: 'Notifications',
-      route: NotificationsRoute(),
-    ),
-    const _BottomBarItem(
-      leadingIcon: Icon(Icons.settings, size: 30),
-      title: 'Settings',
-      route: SettingsRoute(),
-    ),
-  ];
+  void setActive(_BottomBarItem item) {
+    setState(() {
+      for (_BottomBarItem element in _items) {
+        (element.key as GlobalKey<_BottomBarItemState>)
+            .currentState!
+            .setAtive(item == element);
+      }
+    });
+  }
 }

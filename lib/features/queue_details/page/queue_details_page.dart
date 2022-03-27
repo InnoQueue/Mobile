@@ -210,7 +210,6 @@ class _ParticipantTileState extends State<_ParticipantTile> {
   @override
   void initState() {
     super.initState();
-    widget.queue.isOnDuty;
     onDutyTile = widget.queue.crrentUser == widget.user;
   }
 
@@ -247,7 +246,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                       widget.user.name,
                       style: Theme.of(context).textTheme.userNameStyle,
                     ),
-                    if (widget.queue.isOnDuty)
+                    if (onDutyTile)
                       Column(
                         children: [
                           const SizedBox(
@@ -262,33 +261,40 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                   ],
                 ),
               ),
-              if (!widget.queue.isOnDuty)
-                onDutyTile
-                    ? TextButton(
-                        style: TextButton.styleFrom(
-                          splashFactory: NoSplash.splashFactory,
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size.zero,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            ApiQueuesService.shakeUser(queue: widget.queue);
-                            _shakeEnd = 1.0;
-                            _shakeText = 'shook';
-                            _shakeKey = UniqueKey();
-                          });
-                        },
-                        child: Text(
-                          _shakeText,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      )
-                    : Text(
-                        '${widget.user.expenses}₽ spent',
-                        style: Theme.of(context).textTheme.expensesStyle,
-                      )
+              if (onDutyTile)
+                if (!widget.queue.isOnDuty)
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory,
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        ApiQueuesService.shakeUser(queue: widget.queue);
+                        _shakeEnd = 1.0;
+                        _shakeText = 'shook';
+                        _shakeKey = UniqueKey();
+                      });
+                    },
+                    child: Text(
+                      _shakeText,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
+                else
+                  Wrap()
+              else
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: queueDetailsPadding / 2),
+                  child: Text(
+                    '${widget.user.expenses}₽ spent',
+                    style: Theme.of(context).textTheme.expensesStyle,
+                  ),
+                )
             ],
           ),
         ),

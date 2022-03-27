@@ -30,12 +30,10 @@ class _QueuesPageState extends State<QueuesPage> {
       builder: (context, state) {
         return state.when(
           initial: () {
-            print('hereeeeeeee');
             return const Center(
                 child: CircularProgressIndicator(color: Colors.grey));
           },
           dataLoaded: (active, frozen) {
-            print(frozen.length);
             return SafeArea(
                 child: Container(
               alignment: Alignment.topCenter,

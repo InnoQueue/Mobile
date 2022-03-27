@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             _router,
             navigatorObservers: () => [
               AutoRouteObserver(),
-              LoggingRouteObserver(),
+              //LoggingRouteObserver(),
             ],
           ),
           routeInformationParser: _router.defaultRouteParser()),
