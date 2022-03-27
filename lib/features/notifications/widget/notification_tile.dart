@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/core/widget/app_supertext.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 
 class NotificationTile extends StatelessWidget {
@@ -17,7 +18,7 @@ class NotificationTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            AppSuperText(
               notificationModel.message ?? '',
               style: const TextStyle(
                 fontSize: 18,
