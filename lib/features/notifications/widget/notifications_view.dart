@@ -14,25 +14,31 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("notifications: ${notifications.length}");
+    List<Widget> notifcationTiles = _buildTiles();
+
     if (notifications.isNotEmpty) {
-      return Expanded(
-        child: Column(
-          children: [
-            Text(notificationsType),
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemCount: notifications.length,
-                itemBuilder: (context, index) =>
-                    NotificationTile(notifications[index]),
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
-              ),
-            ),
-          ],
-        ),
+      return Column(
+        children: [
+          Text(notificationsType),
+          const SizedBox(height: 8),
+          ...notifcationTiles,
+        ],
       );
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  List<Widget> _buildTiles() {
+    List<Widget> widgets = [];
+    for (int i = 0; i < notifications.length; i++) {
+      widgets.add(
+        SizedBox(
+          width: double.infinity,
+          child: NotificationTile(notifications[i]),
+        ),
+      );
+    }
+    return widgets;
   }
 }

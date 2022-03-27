@@ -9,9 +9,11 @@ class NotificationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: StadiumBorder(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
