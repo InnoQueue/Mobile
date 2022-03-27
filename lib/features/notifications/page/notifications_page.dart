@@ -26,16 +26,19 @@ class _NotificationsPageState extends State<NotificationsPage> {
       child: FutureBuilder(
         future: future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return SizedBox.shrink();
+          if (!snapshot.hasData) return const SizedBox.shrink();
           var notifications = snapshot.data;
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Column(
-              children: <Widget>[
-                const SizedBox(height: 32),
-                NotificationsView("unread", notifications[0]),
-                NotificationsView("all", notifications[1]),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  NotificationsView("unread", notifications[0]),
+                  const SizedBox(height: 16),
+                  NotificationsView("all", notifications[1]),
+                ],
+              ),
             ),
           );
         },
