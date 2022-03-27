@@ -1,19 +1,26 @@
 part of 'task_list.dart';
 
+// ignore: must_be_immutable
 class TaskTile extends StatefulWidget {
   final TaskModel taskModel;
   final Function removeItem;
+  final Function updateListState;
+  bool expanded;
 
-  const TaskTile({
+  TaskTile({
     Key? key,
     required this.taskModel,
     required this.removeItem,
+    required this.updateListState,
+    this.expanded = false,
   }) : super(key: key);
 
   // ignore: use_key_in_widget_constructors
   TaskTile.from(TaskTile other)
       : taskModel = other.taskModel,
-        removeItem = other.removeItem;
+        removeItem = other.removeItem,
+        expanded = other.expanded,
+        updateListState = other.updateListState;
 
   @override
   State<TaskTile> createState() => _TaskTileState();
@@ -22,6 +29,7 @@ class TaskTile extends StatefulWidget {
 class _TaskTileState extends State<TaskTile> {
   late bool _visible;
   late int _duration;
+  late bool _expanded = false;
   bool done = false;
 
   @override
@@ -29,22 +37,41 @@ class _TaskTileState extends State<TaskTile> {
     super.initState();
     _duration = 2;
     _visible = true;
+    _expanded = widget.expanded;
   }
 
   @override
   Widget build(BuildContext context) {
     _duration = _visible ? 0 : 2;
-    return AnimatedOpacity(
-      opacity: _visible ? 1 : 0,
-      duration: Duration(seconds: _duration),
-      child: Container(
-        height: tileHeight,
-        color: Colors.white,
-        child: _Body(
-          isUrgent: widget.taskModel.isImportant ?? false,
-          color: colors[widget.taskModel.color] ?? Colors.white,
-          name: widget.taskModel.name,
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 200),
+      padding: _expanded
+          ? EdgeInsets.zero
+          : const EdgeInsets.symmetric(horizontal: 10),
+      child: GestureDetector(
+        child: AnimatedOpacity(
+          opacity: _visible ? 1 : 0,
+          duration: Duration(seconds: _duration),
+          child: AnimatedContainer(
+            padding: EdgeInsets.only(
+                top: (tileHeight - 40) / 2 + (_expanded ? 5 : 0)),
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.all(Radius.circular(_expanded ? 0 : 15)),
+              color: Colors.white,
+            ),
+            height: _expanded ? 1.8 * tileHeight : tileHeight,
+            child: _Body(
+              taskModel: widget.taskModel,
+              expanded: _expanded,
+            ),
+          ),
         ),
+        onTap: () => setState(() {
+          _expanded = !_expanded;
+          if (_expanded) widget.updateListState(widget);
+        }),
       ),
     );
   }
@@ -68,17 +95,21 @@ class _TaskTileState extends State<TaskTile> {
       _visible = true;
     });
   }
+
+  setExpanded(bool expanded) {
+    setState(() {
+      _expanded = expanded;
+    });
+  }
 }
 
 class _Body extends StatefulWidget {
-  final bool isUrgent;
-  final Color color;
-  final String name;
+  final TaskModel taskModel;
+  final bool expanded;
   const _Body({
     Key? key,
-    required this.isUrgent,
-    required this.color,
-    required this.name,
+    required this.taskModel,
+    this.expanded = false,
   }) : super(key: key);
 
   @override
@@ -88,91 +119,101 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return ListView(
+      shrinkWrap: true,
       children: [
-        SizedBox(
-          width: 40,
-          child: widget.isUrgent
-              ? Container(
-                  width: 10,
-                  height: 10,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+        Row(
+          children: [
+            SizedBox(
+              width: 40,
+              child: widget.taskModel.isImportant ?? false
+                  ? AnimatedOpacity(
+                      opacity: widget.expanded ? 0 : 1,
+                      duration: const Duration(milliseconds: 200),
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: widget.expanded ? 50 : 40,
+              height: widget.expanded ? 50 : 40,
+              decoration: BoxDecoration(
+                color: colors[widget.taskModel.color] ?? Colors.white,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                child: Text(widget.taskModel.name),
+                style: TextStyle(
+                  fontSize: widget.expanded ? 23 : 20,
+                  color: Colors.black,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            AnimatedOpacity(
+                opacity: widget.expanded ? 0 : 1,
+                duration: const Duration(milliseconds: 200),
+                child: _DoneButton(expanded: widget.expanded)),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.taskModel.isImportant ?? false)
+              AnimatedPadding(
+                duration: const Duration(milliseconds: 200),
+                padding: EdgeInsets.only(left: 40 + (widget.expanded ? 5 : 0)),
+                child: const Text("You've been shook!",
+                    style: TextStyle(
+                      color: Colors.grey,
+                    )),
+              )
+            else
+              Wrap(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 10,
+                children: [
+                  AnimatedScale(
+                    duration: const Duration(milliseconds: 200),
+                    scale: widget.expanded ? 1 : 0,
+                    child: const Icon(Icons.list),
                   ),
-                )
-              : null,
+                  AnimatedScale(
+                    duration: const Duration(milliseconds: 200),
+                    scale: widget.expanded ? 1 : 0,
+                    child: const Icon(Icons.reply),
+                  ),
+                  AnimatedScale(
+                    duration: const Duration(milliseconds: 200),
+                    scale: widget.expanded ? 1 : 0,
+                    child: const Icon(Icons.done),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: widget.color,
-            shape: BoxShape.circle,
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: Text(
-            widget.name,
-            style: const TextStyle(fontSize: 20),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        const DoneButton(),
       ],
     );
-  }
-}
-
-class DoneButton extends StatefulWidget {
-  const DoneButton({Key? key}) : super(key: key);
-
-  @override
-  State<DoneButton> createState() => _DoneButtonState();
-}
-
-class _DoneButtonState extends State<DoneButton> {
-  late _TaskTileState? parent;
-  bool done = false;
-  @override
-  Widget build(BuildContext context) {
-    parent = context.findAncestorStateOfType<_TaskTileState>();
-
-    return GestureDetector(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 25,
-                height: 25,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                        color: done ? Colors.orangeAccent : Colors.grey,
-                        width: 2)),
-              ),
-              if (done)
-                Container(
-                  width: 15,
-                  height: 15,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.orangeAccent),
-                ),
-            ],
-          ),
-        ),
-        onTap: () {
-          setState(() {
-            if (!done) {
-              parent!.setTimeOut();
-            } else {
-              parent!.setUndone();
-            }
-            done = !done;
-          });
-        });
   }
 }

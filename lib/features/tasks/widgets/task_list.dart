@@ -3,6 +3,7 @@ import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
 
 part 'task_tile.dart';
+part 'done_button.dart';
 
 class TaskList extends StatefulWidget {
   final List<TaskModel> items;
@@ -20,7 +21,12 @@ class _TaskListState extends State<TaskList> {
   void initState() {
     super.initState();
     _items = widget.items
-        .map((item) => TaskTile(taskModel: item, removeItem: removeItem))
+        .map((item) => TaskTile(
+              taskModel: item,
+              removeItem: removeItem,
+              updateListState: updateListState,
+              key: GlobalKey<_TaskTileState>(),
+            ))
         .toList();
   }
 
@@ -29,24 +35,20 @@ class _TaskListState extends State<TaskList> {
     return ListView.separated(
       itemCount: _items.length,
       itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Dismissible(
-            key: Key(_items[index].hashCode.toString()),
-            child:
-                _hiddenItems.contains(_items[index]) ? Wrap() : _items[index],
-            background: Stack(children: [
-              background,
-              skip,
-            ]),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              setState(() {
-                _items[index] = TaskTile.from(_items[index]);
-                _hiddenItems.add(_items[index]);
-              });
-            },
-          ),
+        return Dismissible(
+          key: Key(_items[index].hashCode.toString()),
+          child: _hiddenItems.contains(_items[index]) ? Wrap() : _items[index],
+          background: Stack(children: [
+            background,
+            skip,
+          ]),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction) {
+            setState(() {
+              _items[index] = TaskTile.from(_items[index]);
+              _hiddenItems.add(_items[index]);
+            });
+          },
         );
       },
       separatorBuilder: (context, index) => SizedBox(
@@ -92,6 +94,16 @@ class _TaskListState extends State<TaskList> {
       setState(() {
         _hiddenItems.add(tile);
       });
+    }
+  }
+
+  void updateListState(TaskTile tile) {
+    for (TaskTile item in _items) {
+      if (item != tile) {
+        (item.key as GlobalKey<_TaskTileState>)
+            .currentState!
+            .setExpanded(false);
+      }
     }
   }
 }
