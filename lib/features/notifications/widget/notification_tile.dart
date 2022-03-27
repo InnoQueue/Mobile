@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/widget/app_supertext.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
+import 'package:intl/intl.dart';
 
 class NotificationTile extends StatelessWidget {
   final NotificationModel notificationModel;
@@ -24,9 +25,10 @@ class NotificationTile extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 1.9),
             Text(
-              notificationModel.timestamp.toString(),
+              DateFormat('kk:mm dd.MM.yyyy')
+                  .format(notificationModel.timestamp!),
               style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
