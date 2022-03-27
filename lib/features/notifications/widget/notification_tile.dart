@@ -25,7 +25,7 @@ class NotificationTile extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 1.9),
             Text(
               DateFormat('kk:mm dd.MM.yyyy')
                   .format(notificationModel.timestamp!),
