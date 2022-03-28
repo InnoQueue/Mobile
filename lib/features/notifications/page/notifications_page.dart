@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 import 'package:inno_queue/features/notifications/widget/notifications_view.dart';
