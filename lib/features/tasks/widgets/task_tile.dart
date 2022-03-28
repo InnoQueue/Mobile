@@ -80,7 +80,7 @@ class _TaskTileState extends State<TaskTile> {
     }
 
     await Future.delayed(const Duration(seconds: 2));
-    if (done) {
+    if (done && mounted) {
       context.read<TasksListBloc>().add(TasksListEvent.hideTask(widget));
     }
   }
