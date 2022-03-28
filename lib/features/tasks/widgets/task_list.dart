@@ -19,8 +19,8 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
   late List<TaskTile> _items;
   final List<TaskTile> _hiddenItems = [];
-  late AnimationController _arrowAnimationController;
-  late Animation _arrowAnimation;
+  late AnimationController _expandAnimationController;
+  late Animation _expandAnimation;
 
   @override
   void initState() {
@@ -32,15 +32,14 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
             ))
         .toList();
 
-    _arrowAnimationController = AnimationController(
+    _expandAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
-    _arrowAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
+    _expandAnimation =
+        Tween(begin: 0.0, end: 15.0).animate(_expandAnimationController);
   }
 
   @override
   Widget build(BuildContext context) {
-    TaskTile? prevExpanded;
     return BlocProvider(
       create: (_) =>
           getIt.get<TasksListBloc>()..add(TasksListEvent.initTasks(_items)),
@@ -49,14 +48,13 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
           return state.when(
             initial: () => Wrap(),
             dataManaged: (items, expanded) {
-              if (prevExpanded == expanded) {
-                _arrowAnimationController.isCompleted
-                    ? _arrowAnimationController.reverse()
-                    : _arrowAnimationController.forward();
+              if (expanded != null) {
+                _expandAnimationController.reverse();
               } else {
-                _arrowAnimationController.reverse();
+                _expandAnimationController.isCompleted
+                    ? _expandAnimationController.reverse()
+                    : _expandAnimationController.forward();
               }
-              prevExpanded = expanded;
               return ListView.separated(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -67,10 +65,10 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                         ? EdgeInsets.zero
                         : const EdgeInsets.symmetric(horizontal: 10),
                     child: AnimatedBuilder(
-                      animation: _arrowAnimationController,
+                      animation: _expandAnimationController,
                       builder: (context, child) => ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(
-                            isExpanded ? _arrowAnimation.value * 15 : 15)),
+                            isExpanded ? _expandAnimation.value : 15)),
                         child: Dismissible(
                           key: Key(items[index].hashCode.toString()),
                           child: items[index],
