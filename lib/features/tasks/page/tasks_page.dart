@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
-import '../bloc/tasks_bloc.dart';
+import '../bloc/tasks_page_bloc/tasks_bloc.dart';
 import '../widgets/widgets.dart';
 
 class TasksPage extends StatefulWidget {

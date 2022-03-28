@@ -3,24 +3,14 @@ part of 'task_list.dart';
 // ignore: must_be_immutable
 class TaskTile extends StatefulWidget {
   final TaskModel taskModel;
-  final Function removeItem;
-  final Function updateListState;
-  bool expanded;
 
-  TaskTile({
+  const TaskTile({
     Key? key,
     required this.taskModel,
-    required this.removeItem,
-    required this.updateListState,
-    this.expanded = false,
   }) : super(key: key);
 
   // ignore: use_key_in_widget_constructors
-  TaskTile.from(TaskTile other)
-      : taskModel = other.taskModel,
-        removeItem = other.removeItem,
-        expanded = other.expanded,
-        updateListState = other.updateListState;
+  TaskTile.from(TaskTile other) : taskModel = other.taskModel;
 
   @override
   State<TaskTile> createState() => _TaskTileState();
@@ -37,18 +27,18 @@ class _TaskTileState extends State<TaskTile> {
     super.initState();
     _duration = 2;
     _visible = true;
-    _expanded = widget.expanded;
   }
 
   @override
   Widget build(BuildContext context) {
     _duration = _visible ? 0 : 2;
-    return AnimatedPadding(
-      duration: const Duration(milliseconds: 200),
-      padding: _expanded
-          ? EdgeInsets.zero
-          : const EdgeInsets.symmetric(horizontal: 10),
-      child: GestureDetector(
+    return BlocBuilder<TasksListBloc, TasksListState>(
+        builder: (context, state) {
+      state.when(
+        dataManaged: (_, expandedTask) => _expanded = expandedTask == widget,
+        initial: () => null,
+      );
+      return GestureDetector(
         child: AnimatedOpacity(
           opacity: _visible ? 1 : 0,
           duration: Duration(seconds: _duration),
@@ -56,11 +46,7 @@ class _TaskTileState extends State<TaskTile> {
             padding: EdgeInsets.only(
                 top: (tileHeight - 40) / 2 + (_expanded ? 5 : 0)),
             duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.all(Radius.circular(_expanded ? 0 : 15)),
-              color: Colors.white,
-            ),
+            color: Colors.white,
             height: _expanded ? 1.8 * tileHeight : tileHeight,
             child: _Body(
               taskModel: widget.taskModel,
@@ -70,10 +56,18 @@ class _TaskTileState extends State<TaskTile> {
         ),
         onTap: () => setState(() {
           _expanded = !_expanded;
-          if (_expanded) widget.updateListState(widget);
+          if (_expanded) {
+            context
+                .read<TasksListBloc>()
+                .add(TasksListEvent.expandTask(widget));
+          } else {
+            context
+                .read<TasksListBloc>()
+                .add(const TasksListEvent.shrinkTask());
+          }
         }),
-      ),
-    );
+      );
+    });
   }
 
   setTimeOut() async {
@@ -86,7 +80,9 @@ class _TaskTileState extends State<TaskTile> {
     }
 
     await Future.delayed(const Duration(seconds: 2));
-    if (done) widget.removeItem(widget);
+    if (done) {
+      context.read<TasksListBloc>().add(TasksListEvent.hideTask(widget));
+    }
   }
 
   setUndone() async {
@@ -119,8 +115,7 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
+    return Wrap(
       children: [
         Row(
           children: [
@@ -168,50 +163,51 @@ class _BodyState extends State<_Body> {
                 child: _DoneButton(expanded: widget.expanded)),
           ],
         ),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (widget.taskModel.isImportant ?? false)
-              AnimatedPadding(
-                duration: const Duration(milliseconds: 200),
-                padding: EdgeInsets.only(left: 40 + (widget.expanded ? 5 : 0)),
-                child: const Text("You've been shook!",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    )),
-              )
-            else
-              Wrap(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.end,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 10,
-                children: [
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 200),
-                    scale: widget.expanded ? 1 : 0,
-                    child: const Icon(Icons.list),
-                  ),
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 200),
-                    scale: widget.expanded ? 1 : 0,
-                    child: const Icon(Icons.reply),
-                  ),
-                  AnimatedScale(
-                    duration: const Duration(milliseconds: 200),
-                    scale: widget.expanded ? 1 : 0,
-                    child: const Icon(Icons.done),
-                  ),
-                ],
+        Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (widget.taskModel.isImportant ?? false)
+                AnimatedPadding(
+                  duration: const Duration(milliseconds: 200),
+                  padding:
+                      EdgeInsets.only(left: 40 + (widget.expanded ? 5 : 0)),
+                  child: const Text("You've been shook!",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      )),
+                )
+              else
+                Wrap(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.end,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 10,
+                  children: [
+                    AnimatedScale(
+                      duration: const Duration(milliseconds: 200),
+                      scale: widget.expanded ? 1 : 0,
+                      child: const Icon(Icons.list),
+                    ),
+                    AnimatedScale(
+                      duration: const Duration(milliseconds: 200),
+                      scale: widget.expanded ? 1 : 0,
+                      child: const Icon(Icons.reply),
+                    ),
+                    AnimatedScale(
+                      duration: const Duration(milliseconds: 200),
+                      scale: widget.expanded ? 1 : 0,
+                      child: const Icon(Icons.done),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
