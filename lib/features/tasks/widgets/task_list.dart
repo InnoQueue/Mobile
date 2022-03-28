@@ -18,9 +18,9 @@ class TaskList extends StatefulWidget {
 
 class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
   late List<TaskTile> _items;
-  final List<TaskTile> _hiddenItems = [];
   late AnimationController _expandAnimationController;
   late Animation _expandAnimation;
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
   void initState() {
@@ -55,15 +55,17 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                     ? _expandAnimationController.reverse()
                     : _expandAnimationController.forward();
               }
-              return ListView.separated(
-                itemCount: items.length,
-                itemBuilder: (context, index) {
+              return AnimatedList(
+                key: _listKey,
+                initialItemCount: items.length,
+                itemBuilder: (context, index, animation) {
                   bool isExpanded = expanded == items[index];
                   return AnimatedPadding(
                     duration: const Duration(milliseconds: 200),
                     padding: isExpanded
-                        ? EdgeInsets.zero
-                        : const EdgeInsets.symmetric(horizontal: 10),
+                        ? const EdgeInsets.symmetric(vertical: 5)
+                        : const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                     child: AnimatedBuilder(
                       animation: _expandAnimationController,
                       builder: (context, child) => ClipRRect(
@@ -80,6 +82,8 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               ? DismissDirection.none
                               : DismissDirection.endToStart,
                           onDismissed: (direction) {
+                            _listKey.currentState!.removeItem(
+                                index, (context, animation) => Wrap());
                             context
                                 .read<TasksListBloc>()
                                 .add(TasksListEvent.hideTask(items[index]));
@@ -89,15 +93,38 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                     ),
                   );
                 },
-                separatorBuilder: (context, index) => SizedBox(
-                  height: _hiddenItems.contains(_items[index]) ? 0 : 10,
-                ),
               );
             },
           );
         },
       ),
     );
+  }
+
+  void removeItem(TaskTile tile) {
+    _listKey.currentState!.removeItem(_items.indexOf(tile), (_, animation) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-0.75, 0),
+              end: const Offset(0, 0),
+            ).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.linear,
+              ),
+            ),
+            child: ScaleTransition(
+              scale: animation,
+              child: SizeTransition(
+                sizeFactor: animation,
+                child: tile,
+              ),
+            )),
+      );
+    }, duration: const Duration(milliseconds: 300));
+    _items.remove(tile);
   }
 
   Widget background = Container(height: 80, color: Colors.orange[400]);

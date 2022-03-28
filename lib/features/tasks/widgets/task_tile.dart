@@ -191,17 +191,31 @@ class _BodyState extends State<_Body> {
                     AnimatedScale(
                       duration: const Duration(milliseconds: 200),
                       scale: widget.expanded ? 1 : 0,
-                      child: const Icon(Icons.list),
+                      child: GestureDetector(
+                        child: const Icon(Icons.list),
+                        onTap: () {},
+                      ),
                     ),
                     AnimatedScale(
                       duration: const Duration(milliseconds: 200),
                       scale: widget.expanded ? 1 : 0,
-                      child: const Icon(Icons.reply),
+                      child: GestureDetector(
+                        child: const Icon(Icons.reply),
+                        onTap: () {
+                          context
+                              .findAncestorStateOfType<_TaskListState>()!
+                              .removeItem(context
+                                  .findAncestorWidgetOfExactType<TaskTile>()!);
+                        },
+                      ),
                     ),
                     AnimatedScale(
                       duration: const Duration(milliseconds: 200),
                       scale: widget.expanded ? 1 : 0,
-                      child: const Icon(Icons.done),
+                      child: GestureDetector(
+                        child: const Icon(Icons.done),
+                        onTap: () {},
+                      ),
                     ),
                   ],
                 ),
