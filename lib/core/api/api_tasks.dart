@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
@@ -16,6 +18,45 @@ class ApiTasks extends ApiBase {
       ),
     );
   }
+
+  static Future<Response> deleteTask(
+    token, {
+    required TaskModel task,
+  }) async {
+    var params = {
+      "task_id": task.id,
+      "expenses": null,
+    };
+
+    return ApiBase.dio.post(
+      "${ApiBase.baseUrl}/tasks/done",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+      data: jsonEncode(params),
+    );
+  }
+
+  static Future<Response> skipTask(
+    token, {
+    required TaskModel task,
+  }) async {
+    var params = {
+      "task_id": task.id,
+      "expenses": null,
+    };
+    return ApiBase.dio.post(
+      "${ApiBase.baseUrl}/tasks/done",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+      data: jsonEncode(params),
+    );
+  }
 }
 
 class ApiTasksService {
@@ -27,5 +68,25 @@ class ApiTasksService {
       tasks.add(TaskModel.fromJson(response.data[i]));
     }
     return tasks;
+  }
+
+  static Future<void> deleteTask({
+    required TaskModel task,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    var response = await ApiTasks.deleteTask(
+      token,
+      task: task,
+    );
+  }
+
+  static Future<void> skipTask({
+    required TaskModel task,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    var response = await ApiTasks.skipTask(
+      token,
+      task: task,
+    );
   }
 }

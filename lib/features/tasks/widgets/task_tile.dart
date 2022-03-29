@@ -72,15 +72,18 @@ class _TaskTileState extends State<TaskTile> {
 
   setTimeOut() async {
     done = true;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(milliseconds: 1500));
     if (mounted) {
       setState(() {
         if (done) _visible = false;
       });
     }
-
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     if (done && mounted) {
+      ApiTasksService.deleteTask(task: widget.taskModel);
+      context
+          .findAncestorStateOfType<_TaskListState>()!
+          .removeItem(widget, expanded: _expanded);
       context.read<TasksListBloc>().add(TasksListEvent.hideTask(widget));
     }
   }
@@ -112,7 +115,9 @@ class _Body extends StatefulWidget {
   State<_Body> createState() => _BodyState();
 }
 
-class _BodyState extends State<_Body> {
+class _BodyState extends State<_Body> with TickerProviderStateMixin {
+  bool done = false;
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -193,29 +198,27 @@ class _BodyState extends State<_Body> {
                       scale: widget.expanded ? 1 : 0,
                       child: GestureDetector(
                         child: const Icon(Icons.list),
-                        onTap: () {},
-                      ),
-                    ),
-                    AnimatedScale(
-                      duration: const Duration(milliseconds: 200),
-                      scale: widget.expanded ? 1 : 0,
-                      child: GestureDetector(
-                        child: const Icon(Icons.reply),
                         onTap: () {
-                          context
-                              .findAncestorStateOfType<_TaskListState>()!
-                              .removeItem(context
-                                  .findAncestorWidgetOfExactType<TaskTile>()!);
+                          // context
+                          //     .read<AppBarBloc>()
+                          //     .add(RouteChangedEvent(widget.taskModel.));
+                          // context.read<QueueDetailsBloc>().add(
+                          //     QueueDetailsEvent.openQueue(widget.taskModel.));
+                          // context.router.push(const QueueDetailsRoute());
                         },
                       ),
                     ),
                     AnimatedScale(
                       duration: const Duration(milliseconds: 200),
                       scale: widget.expanded ? 1 : 0,
-                      child: GestureDetector(
-                        child: const Icon(Icons.done),
-                        onTap: () {},
-                      ),
+                      child: const ExpandedSkipButton(
+                          key: ValueKey("ExpandedSkipButton")),
+                    ),
+                    AnimatedScale(
+                      duration: const Duration(milliseconds: 200),
+                      scale: widget.expanded ? 1 : 0,
+                      child: const ExpandedDoneButton(
+                          key: ValueKey("ExpandedSkipButton")),
                     ),
                   ],
                 ),

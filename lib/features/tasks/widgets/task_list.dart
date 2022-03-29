@@ -1,12 +1,17 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
+import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
+import 'package:inno_queue/features/tasks/widgets/animated_icon.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 
 part 'task_tile.dart';
 part 'done_button.dart';
+part 'expanded_done_button.dart';
+part 'expanded_skip_button.dart';
 
 class TaskList extends StatefulWidget {
   final List<TaskModel> items;
@@ -36,6 +41,12 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
         vsync: this, duration: const Duration(milliseconds: 200));
     _expandAnimation =
         Tween(begin: 0.0, end: 15.0).animate(_expandAnimationController);
+  }
+
+  @override
+  void dispose() {
+    _expandAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -83,7 +94,10 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               : DismissDirection.endToStart,
                           onDismissed: (direction) {
                             _listKey.currentState!.removeItem(
-                                index, (context, animation) => Wrap());
+                              index,
+                              (context, animation) => Wrap(),
+                              duration: const Duration(milliseconds: 400),
+                            );
                             context
                                 .read<TasksListBloc>()
                                 .add(TasksListEvent.hideTask(items[index]));
@@ -101,18 +115,33 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
     );
   }
 
-  void removeItem(TaskTile tile) {
+  void removeItem(TaskTile tile, {bool expanded = false}) {
+    _listKey.currentState!.removeItem(
+      _items.indexOf(tile),
+      (context, animation) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: expanded ? 0 : 10),
+        child: SizeTransition(
+          sizeFactor: animation,
+          child: tile,
+        ),
+      ),
+      duration: const Duration(milliseconds: 400),
+    );
+    //_items.remove(tile);
+  }
+
+  void removeExpandedItem(TaskTile tile) {
     _listKey.currentState!.removeItem(_items.indexOf(tile), (_, animation) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: SlideTransition(
             position: Tween<Offset>(
-              begin: const Offset(-0.75, 0),
+              begin: const Offset(-1, 0),
               end: const Offset(0, 0),
             ).animate(
               CurvedAnimation(
                 parent: animation,
-                curve: Curves.linear,
+                curve: Curves.easeOut,
               ),
             ),
             child: ScaleTransition(
@@ -123,7 +152,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
               ),
             )),
       );
-    }, duration: const Duration(milliseconds: 300));
+    }, duration: const Duration(milliseconds: 400));
     _items.remove(tile);
   }
 
