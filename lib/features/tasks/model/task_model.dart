@@ -6,7 +6,7 @@ part 'task_model.g.dart';
 @freezed
 class TaskModel with _$TaskModel {
   const factory TaskModel({
-    @JsonKey(name: 'task_id') required int id,
+    @JsonKey(name: 'queue_id') required int id,
     @JsonKey(name: 'name') required String name,
     @JsonKey(name: 'color') required String color,
     @JsonKey(name: 'is_important') bool? isImportant,

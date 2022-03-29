@@ -44,16 +44,9 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
         controller: AnimateIconController(),
         listener: (AnimationStatus status) {
           if (status == AnimationStatus.completed) {
-            ApiTasksService.skipTask(
-                task: context
-                    .findAncestorWidgetOfExactType<TaskTile>()!
-                    .taskModel);
-            context
-                .findAncestorStateOfType<_TaskListState>()!
-                .removeExpandedItem(
-                    context.findAncestorWidgetOfExactType<TaskTile>()!);
-            context.read<TasksListBloc>().add(TasksListEvent.hideTask(
-                context.findAncestorWidgetOfExactType<TaskTile>()!));
+            context.findAncestorStateOfType<_TaskListState>()!.removeOnSkip(
+                context, context.findAncestorWidgetOfExactType<TaskTile>()!,
+                expanded: true);
           }
         },
         duration: const Duration(milliseconds: 300),
@@ -62,7 +55,6 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
         startIconColor: Colors.black,
         onTap: () {
           _controller.forward();
-          print("haha");
         },
       ),
     );

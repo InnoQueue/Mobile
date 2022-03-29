@@ -62,7 +62,6 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
         startIconColor: Colors.black,
         onTap: () {
           _controller.forward();
-          print("haha");
         },
       ),
     );

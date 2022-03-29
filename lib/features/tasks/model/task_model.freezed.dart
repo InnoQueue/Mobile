@@ -23,7 +23,7 @@ class _$TaskModelTearOff {
   const _$TaskModelTearOff();
 
   _TaskModel call(
-      {@JsonKey(name: 'task_id') required int id,
+      {@JsonKey(name: 'queue_id') required int id,
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'color') required String color,
       @JsonKey(name: 'is_important') bool? isImportant,
@@ -47,7 +47,7 @@ const $TaskModel = _$TaskModelTearOff();
 
 /// @nodoc
 mixin _$TaskModel {
-  @JsonKey(name: 'task_id')
+  @JsonKey(name: 'queue_id')
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
@@ -69,7 +69,7 @@ abstract class $TaskModelCopyWith<$Res> {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) then) =
       _$TaskModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'task_id') int id,
+      {@JsonKey(name: 'queue_id') int id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
       @JsonKey(name: 'is_important') bool? isImportant,
@@ -124,7 +124,7 @@ abstract class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Res> {
       __$TaskModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'task_id') int id,
+      {@JsonKey(name: 'queue_id') int id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
       @JsonKey(name: 'is_important') bool? isImportant,
@@ -177,7 +177,7 @@ class __$TaskModelCopyWithImpl<$Res> extends _$TaskModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TaskModel implements _TaskModel {
   const _$_TaskModel(
-      {@JsonKey(name: 'task_id') required this.id,
+      {@JsonKey(name: 'queue_id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'color') required this.color,
       @JsonKey(name: 'is_important') this.isImportant,
@@ -187,7 +187,7 @@ class _$_TaskModel implements _TaskModel {
       _$$_TaskModelFromJson(json);
 
   @override
-  @JsonKey(name: 'task_id')
+  @JsonKey(name: 'queue_id')
   final int id;
   @override
   @JsonKey(name: 'name')
@@ -243,7 +243,7 @@ class _$_TaskModel implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   const factory _TaskModel(
-          {@JsonKey(name: 'task_id') required int id,
+          {@JsonKey(name: 'queue_id') required int id,
           @JsonKey(name: 'name') required String name,
           @JsonKey(name: 'color') required String color,
           @JsonKey(name: 'is_important') bool? isImportant,
@@ -254,7 +254,7 @@ abstract class _TaskModel implements TaskModel {
       _$_TaskModel.fromJson;
 
   @override
-  @JsonKey(name: 'task_id')
+  @JsonKey(name: 'queue_id')
   int get id;
   @override
   @JsonKey(name: 'name')

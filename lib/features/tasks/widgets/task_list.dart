@@ -12,6 +12,7 @@ part 'task_tile.dart';
 part 'done_button.dart';
 part 'expanded_done_button.dart';
 part 'expanded_skip_button.dart';
+part 'task_tile_body.dart';
 
 class TaskList extends StatefulWidget {
   final List<TaskModel> items;
@@ -59,13 +60,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
           return state.when(
             initial: () => Wrap(),
             dataManaged: (items, expanded) {
-              if (expanded != null) {
-                _expandAnimationController.reverse();
-              } else {
-                _expandAnimationController.isCompleted
-                    ? _expandAnimationController.reverse()
-                    : _expandAnimationController.forward();
-              }
+              manageExpanded(expanded);
               return AnimatedList(
                 key: _listKey,
                 initialItemCount: items.length,
@@ -93,14 +88,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               ? DismissDirection.none
                               : DismissDirection.endToStart,
                           onDismissed: (direction) {
-                            _listKey.currentState!.removeItem(
-                              index,
-                              (context, animation) => Wrap(),
-                              duration: const Duration(milliseconds: 400),
-                            );
-                            context
-                                .read<TasksListBloc>()
-                                .add(TasksListEvent.hideTask(items[index]));
+                            removeOnSkip(context, items[index]);
                           },
                         ),
                       ),
@@ -115,7 +103,56 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
     );
   }
 
-  void removeItem(TaskTile tile, {bool expanded = false}) {
+  void manageExpanded(TaskTile? expanded) {
+    if (expanded != null) {
+      _expandAnimationController.reverse();
+    } else {
+      _expandAnimationController.isCompleted
+          ? _expandAnimationController.reverse()
+          : _expandAnimationController.forward();
+    }
+  }
+
+  void removeOnSkip(BuildContext context, TaskTile tile,
+      {bool expanded = false}) {
+    ApiTasksService.skipTask(task: tile.taskModel);
+    if (expanded) {
+      _listKey.currentState!.removeItem(_items.indexOf(tile), (_, animation) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: const Offset(0, 0),
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeOut,
+                ),
+              ),
+              child: ScaleTransition(
+                scale: animation,
+                child: SizeTransition(
+                  sizeFactor: animation,
+                  child: tile,
+                ),
+              )),
+        );
+      }, duration: const Duration(milliseconds: 400));
+      _items.remove(tile);
+    } else {
+      _listKey.currentState!.removeItem(
+        _items.indexOf(tile),
+        (context, animation) => Wrap(),
+        duration: const Duration(milliseconds: 400),
+      );
+    }
+    context.read<TasksListBloc>().add(TasksListEvent.hideTask(tile));
+  }
+
+  void removeOnDone(BuildContext context, TaskTile tile,
+      {bool expanded = false}) {
+    ApiTasksService.skipTask(task: tile.taskModel);
     _listKey.currentState!.removeItem(
       _items.indexOf(tile),
       (context, animation) => Padding(
@@ -127,33 +164,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
       ),
       duration: const Duration(milliseconds: 400),
     );
-    //_items.remove(tile);
-  }
-
-  void removeExpandedItem(TaskTile tile) {
-    _listKey.currentState!.removeItem(_items.indexOf(tile), (_, animation) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: const Offset(0, 0),
-            ).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeOut,
-              ),
-            ),
-            child: ScaleTransition(
-              scale: animation,
-              child: SizeTransition(
-                sizeFactor: animation,
-                child: tile,
-              ),
-            )),
-      );
-    }, duration: const Duration(milliseconds: 400));
-    _items.remove(tile);
+    context.read<TasksListBloc>().add(TasksListEvent.hideTask(tile));
   }
 
   Widget background = Container(height: 80, color: Colors.orange[400]);
