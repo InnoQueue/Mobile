@@ -10,7 +10,7 @@ class ExpandedDoneButton extends StatefulWidget {
 class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
-  var scaleAnimation;
+  late Animation scaleAnimation;
   bool done = false;
 
   @override
@@ -39,21 +39,17 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
       scale: _controller.value != 0 ? scaleAnimation.value : 1,
       child: AnimateIcon(
         startIcon: Icons.done,
-        endIcon: Icons.task_alt,
+        endIcon: Icons.check_circle_outline,
         controller: AnimateIconController(),
         rotate: true,
-        listener: (AnimationStatus status) {
+        listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
-            _TaskTileState? parent =
-                context.findAncestorStateOfType<_TaskTileState>();
-            setState(() {
-              if (!done) {
-                parent!.setTimeOut();
-              } else {
-                parent!.setUndone();
-              }
-              done = !done;
-            });
+            await Future.delayed(const Duration(milliseconds: 200));
+            context.findAncestorStateOfType<_TaskListState>()!.removeItem(
+                context, context.findAncestorWidgetOfExactType<TaskTile>()!,
+                expanded: true);
+            context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
+                context.findAncestorWidgetOfExactType<TaskTile>()!));
           }
         },
         duration: const Duration(milliseconds: 300),

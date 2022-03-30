@@ -44,7 +44,7 @@ class _DoneButtonState extends State<_DoneButton> {
           if (widget.expanded) return;
           setState(() {
             if (!done) {
-              parent!.setTimeOut();
+              parent!.setDone();
             } else {
               parent!.setUndone();
             }

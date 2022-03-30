@@ -10,7 +10,7 @@ class ExpandedSkipButton extends StatefulWidget {
 class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
-  var scaleAnimation;
+  late Animation scaleAnimation;
   bool done = false;
 
   @override
@@ -38,15 +38,18 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
     return Transform.scale(
       scale: _controller.value != 0 ? scaleAnimation.value : 1,
       child: AnimateIcon(
-        startIcon: Icons.reply,
-        endIcon: Icons.reply,
-        rotate: false,
+        startIcon: Icons.clear,
+        endIcon: Icons.highlight_remove,
+        rotate: true,
         controller: AnimateIconController(),
-        listener: (AnimationStatus status) {
+        listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
-            context.findAncestorStateOfType<_TaskListState>()!.removeOnSkip(
+            await Future.delayed(const Duration(milliseconds: 200));
+            context.findAncestorStateOfType<_TaskListState>()!.removeItem(
                 context, context.findAncestorWidgetOfExactType<TaskTile>()!,
                 expanded: true);
+            context.read<TasksListBloc>().add(TasksListEvent.skipTask(
+                context.findAncestorWidgetOfExactType<TaskTile>()!));
           }
         },
         duration: const Duration(milliseconds: 300),

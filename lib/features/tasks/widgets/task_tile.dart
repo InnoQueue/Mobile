@@ -21,6 +21,7 @@ class _TaskTileState extends State<TaskTile> {
   late int _duration;
   late bool _expanded = false;
   bool done = false;
+  List<TaskTile> waitingList = [];
 
   @override
   void initState() {
@@ -35,7 +36,10 @@ class _TaskTileState extends State<TaskTile> {
     return BlocBuilder<TasksListBloc, TasksListState>(
         builder: (context, state) {
       state.when(
-        dataManaged: (_, expandedTask) => _expanded = expandedTask == widget,
+        dataManaged: (v0, expandedTask, v1, v2, waitingList) {
+          _expanded = expandedTask == widget;
+          waitingList = waitingList;
+        },
         initial: () => null,
       );
       return GestureDetector(
@@ -70,29 +74,21 @@ class _TaskTileState extends State<TaskTile> {
     });
   }
 
-  setTimeOut() async {
+  setDone() {
     done = true;
-    await Future.delayed(const Duration(milliseconds: 1500));
-    if (mounted) {
-      setState(() {
-        if (done) _visible = false;
-      });
-    }
-    await Future.delayed(const Duration(seconds: 1));
-    if (done && mounted) {
-      ApiTasksService.deleteTask(task: widget.taskModel);
-      context
-          .findAncestorStateOfType<_TaskListState>()!
-          .removeOnDone(context, widget, expanded: _expanded);
-      context.read<TasksListBloc>().add(TasksListEvent.hideTask(widget));
-    }
+    context.read<TasksListBloc>().add(TasksListEvent.addToWaitingList(widget));
+
+    // context
+    //     .findAncestorStateOfType<_TaskListState>()!
+    //     .removeItem(context, widget);
+    // context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(widget));
   }
 
   setUndone() async {
-    setState(() {
-      done = false;
-      _visible = true;
-    });
+    done = false;
+    context
+        .read<TasksListBloc>()
+        .add(TasksListEvent.removeFromWaitingList(widget));
   }
 
   setExpanded(bool expanded) {

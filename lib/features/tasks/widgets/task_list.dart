@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,8 +61,11 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
         builder: (context, state) {
           return state.when(
             initial: () => Wrap(),
-            dataManaged: (items, expanded) {
+            dataManaged: (items, expanded, done, skipped, waitingList) {
               manageExpanded(expanded);
+              if (waitingList.isNotEmpty) {
+                Timer.run(() => emptyWaitingList(context, waitingList[0]));
+              }
               return AnimatedList(
                 key: _listKey,
                 initialItemCount: items.length,
@@ -88,7 +93,12 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               ? DismissDirection.none
                               : DismissDirection.endToStart,
                           onDismissed: (direction) {
-                            removeOnSkip(context, items[index]);
+                            _listKey.currentState!.removeItem(
+                                _items.indexOf(items[index]),
+                                (context, animation) => Wrap());
+                            context
+                                .read<TasksListBloc>()
+                                .add(TasksListEvent.skipTask(items[index]));
                           },
                         ),
                       ),
@@ -113,44 +123,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void removeOnSkip(BuildContext context, TaskTile tile,
-      {bool expanded = false}) {
-    ApiTasksService.skipTask(task: tile.taskModel);
-    if (expanded) {
-      _listKey.currentState!.removeItem(_items.indexOf(tile), (_, animation) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(-1, 0),
-                end: const Offset(0, 0),
-              ).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeOut,
-                ),
-              ),
-              child: ScaleTransition(
-                scale: animation,
-                child: SizeTransition(
-                  sizeFactor: animation,
-                  child: tile,
-                ),
-              )),
-        );
-      }, duration: const Duration(milliseconds: 400));
-      _items.remove(tile);
-    } else {
-      _listKey.currentState!.removeItem(
-        _items.indexOf(tile),
-        (context, animation) => Wrap(),
-        duration: const Duration(milliseconds: 400),
-      );
-    }
-    context.read<TasksListBloc>().add(TasksListEvent.hideTask(tile));
-  }
-
-  void removeOnDone(BuildContext context, TaskTile tile,
+  void removeItem(BuildContext context, TaskTile tile,
       {bool expanded = false}) {
     ApiTasksService.skipTask(task: tile.taskModel);
     _listKey.currentState!.removeItem(
@@ -159,12 +132,19 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
         padding: EdgeInsets.symmetric(horizontal: expanded ? 0 : 10),
         child: SizeTransition(
           sizeFactor: animation,
-          child: tile,
+          child: FadeTransition(
+            opacity: animation,
+            child: tile,
+          ),
         ),
       ),
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 200),
     );
-    context.read<TasksListBloc>().add(TasksListEvent.hideTask(tile));
+  }
+
+  void emptyWaitingList(BuildContext context, TaskTile tile) {
+    removeItem(context, tile);
+    context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(tile));
   }
 
   Widget background = Container(height: 80, color: Colors.orange[400]);
