@@ -25,23 +25,41 @@ class _AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FloatingActionButton(
+      child: const Icon(
+        Icons.add,
+        color: Colors.black,
+        size: 40,
+      ),
+      onPressed: () {
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) {
+            return const QueueBottomSheet();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _QrButton extends StatelessWidget {
+  const _QrButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 10.0),
       child: IconButton(
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) {
-              return const QueueBottomSheet();
-            },
-          );
-        },
         icon: const Icon(
-          Icons.add,
+          Icons.qr_code,
           color: Colors.black,
-          size: 40,
+          size: 35,
         ),
+        onPressed: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const QrAlert()),
       ),
     );
   }

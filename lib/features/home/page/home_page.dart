@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
+import 'package:inno_queue/features/home/widgets/qr_alert.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import '../../../const/const.dart';
@@ -34,6 +35,10 @@ class _HomePageState extends State<HomePage> {
           appBar: _appBarBuilder(router, context),
           body: child,
           bottomNavigationBar: const BottomBar(),
+          floatingActionButton:
+              (context.router.current.name == QueuesRoute.name)
+                  ? const _AddButton()
+                  : null,
         );
       },
     );
@@ -48,10 +53,9 @@ class _HomePageState extends State<HomePage> {
       leading:
           _.current.name == QueueDetailsRoute.name ? const _BackButton() : null,
       actions: [
-        if (_.current.name == QueuesRoute.name) const _AddButton(),
+        if (_.current.name == QueuesRoute.name) const _QrButton(),
         if (_.current.name == QueueDetailsRoute.name) const _MoreButton(),
       ],
-      backgroundColor: Colors.white,
       elevation: 0,
       toolbarHeight: 65,
       systemOverlayStyle: const SystemUiOverlayStyle(
