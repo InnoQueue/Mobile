@@ -94,6 +94,7 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                       FlutterSwitch(
                         width: 60,
                         height: 30,
+                        activeColor: Colors.black.withOpacity(0.7),
                         value: _toggleValue,
                         onToggle: (newValue) {
                           setState(() {
@@ -108,6 +109,10 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
             ),
             const SizedBox(height: 60),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.black.withOpacity(0.8)),
+              ),
               child: Container(
                 height: 55,
                 alignment: Alignment.center,
@@ -116,6 +121,7 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                   'Create',
                   style: TextStyle(
                     fontSize: 18,
+                    color: Colors.white,
                   ),
                 ),
               ),

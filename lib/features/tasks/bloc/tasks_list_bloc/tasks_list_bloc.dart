@@ -15,7 +15,9 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   TaskTile? _done;
   TaskTile? _skipped;
   List<TaskTile> _waitingList = [];
+  List<TaskTile> _selectedList = [];
   bool timeOut = false;
+  bool emptyingSelectedList = false;
 
   TasksListBloc() : super(const _Initial()) {
     on<_InitTasks>(_initTasks);
@@ -26,6 +28,10 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     on<_AddToWaitingList>(_addToWaitingList);
     on<_RemoveFromWaitingList>(_removeFromWaitingList);
     on<_EmptyWaitingList>(_emptyWaitingList);
+    on<_AddToSelectedList>(_addToSelectedList);
+    on<_RemoveFromSelectedList>(_removeFromSelectedList);
+    on<_EmptySelectedList>(_emptySelectedList);
+    on<_Unselect>(_unselect);
   }
 
   void _initTasks(
@@ -34,8 +40,8 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   ) async {
     _tasks = event.tasks;
     _waitingList = [];
-    emit(TasksListState.dataManaged(
-        _tasks, _expanded, _done, _skipped, timeOut ? _waitingList : []));
+    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
+        timeOut ? _waitingList : [], [], emptyingSelectedList));
   }
 
   void _setTaskDone(
@@ -70,6 +76,34 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     checkListForEquality(_tempWaitingList, emit);
   }
 
+  void _addToSelectedList(
+    _AddToSelectedList event,
+    Emitter<TasksListState> emit,
+  ) async {
+    emit(const TasksListState.initial());
+    _selectedList.add(event.task);
+    _expanded = null;
+    emitDataManged(emit);
+  }
+
+  void _unselect(
+    _Unselect event,
+    Emitter<TasksListState> emit,
+  ) async {
+    emit(const TasksListState.initial());
+    _selectedList = [];
+    emitDataManged(emit);
+  }
+
+  void _removeFromSelectedList(
+    _RemoveFromSelectedList event,
+    Emitter<TasksListState> emit,
+  ) async {
+    emit(const TasksListState.initial());
+    _selectedList.remove(event.task);
+    emitDataManged(emit);
+  }
+
   void _removeFromWaitingList(
     _RemoveFromWaitingList event,
     Emitter<TasksListState> emit,
@@ -87,8 +121,24 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     emit(const TasksListState.initial());
     _waitingList.remove(event.task);
     _tasks.remove(event.task);
-    emit(TasksListState.dataManaged(
-        _tasks, _expanded, _done, _skipped, _waitingList));
+    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
+        _waitingList, _selectedList, emptyingSelectedList));
+  }
+
+  void _emptySelectedList(
+    _EmptySelectedList event,
+    Emitter<TasksListState> emit,
+  ) async {
+    emit(const TasksListState.initial());
+    _selectedList.remove(event.task);
+    _tasks.remove(event.task);
+    if (_selectedList.isNotEmpty) {
+      emptyingSelectedList = true;
+    } else {
+      emptyingSelectedList = false;
+    }
+    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
+        _waitingList, _selectedList, emptyingSelectedList));
   }
 
   void _expandTask(
@@ -110,8 +160,8 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   }
 
   void emitDataManged(Emitter<TasksListState> emit) {
-    emit(TasksListState.dataManaged(
-        _tasks, _expanded, _done, _skipped, timeOut ? _waitingList : []));
+    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
+        timeOut ? _waitingList : [], _selectedList, emptyingSelectedList));
     _done = null;
     _skipped = null;
     timeOut = false;

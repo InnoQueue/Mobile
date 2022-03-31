@@ -20,8 +20,9 @@ class _TaskTileState extends State<TaskTile> {
   late bool _visible;
   late int _duration;
   late bool _expanded = false;
+  bool _selected = false;
+  bool _noItemSelected = true;
   bool done = false;
-  List<TaskTile> waitingList = [];
 
   @override
   void initState() {
@@ -36,9 +37,10 @@ class _TaskTileState extends State<TaskTile> {
     return BlocBuilder<TasksListBloc, TasksListState>(
         builder: (context, state) {
       state.when(
-        dataManaged: (v0, expandedTask, v1, v2, waitingList) {
+        dataManaged: (v0, expandedTask, v1, v2, waitingList, selectedList, v3) {
           _expanded = expandedTask == widget;
-          waitingList = waitingList;
+          _selected = selectedList.contains(widget);
+          _noItemSelected = selectedList.isEmpty;
         },
         initial: () => null,
       );
@@ -55,21 +57,44 @@ class _TaskTileState extends State<TaskTile> {
             child: _Body(
               taskModel: widget.taskModel,
               expanded: _expanded,
+              selected: _selected,
+              noItemSelected: _noItemSelected,
             ),
           ),
         ),
         onTap: () => setState(() {
-          _expanded = !_expanded;
-          if (_expanded) {
-            context
-                .read<TasksListBloc>()
-                .add(TasksListEvent.expandTask(widget));
+          if (_noItemSelected) {
+            _expanded = !_expanded;
+            if (_expanded) {
+              context
+                  .read<TasksListBloc>()
+                  .add(TasksListEvent.expandTask(widget));
+            } else {
+              context
+                  .read<TasksListBloc>()
+                  .add(const TasksListEvent.shrinkTask());
+            }
           } else {
-            context
-                .read<TasksListBloc>()
-                .add(const TasksListEvent.shrinkTask());
+            if (_selected) {
+              context
+                  .read<TasksListBloc>()
+                  .add(TasksListEvent.removeFromSelectedList(widget));
+            } else {
+              context
+                  .read<TasksListBloc>()
+                  .add(TasksListEvent.addToSelectedList(widget));
+            }
           }
         }),
+        onLongPress: () {
+          setState(() {
+            if (!_selected) {
+              context
+                  .read<TasksListBloc>()
+                  .add(TasksListEvent.addToSelectedList(widget));
+            }
+          });
+        },
       );
     });
   }
@@ -77,11 +102,6 @@ class _TaskTileState extends State<TaskTile> {
   setDone() {
     done = true;
     context.read<TasksListBloc>().add(TasksListEvent.addToWaitingList(widget));
-
-    // context
-    //     .findAncestorStateOfType<_TaskListState>()!
-    //     .removeItem(context, widget);
-    // context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(widget));
   }
 
   setUndone() async {

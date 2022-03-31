@@ -20,4 +20,15 @@ class TasksListEvent with _$TasksListEvent {
   const factory TasksListEvent.expandTask(TaskTile task) = _ExpandTask;
 
   const factory TasksListEvent.shrinkTask() = _ShrinkTask;
+
+  const factory TasksListEvent.addToSelectedList(TaskTile task) =
+      _AddToSelectedList;
+
+  const factory TasksListEvent.removeFromSelectedList(TaskTile task) =
+      _RemoveFromSelectedList;
+
+  const factory TasksListEvent.emptySelectedList(TaskTile task) =
+      _EmptySelectedList;
+
+  const factory TasksListEvent.unselect() = _Unselect;
 }

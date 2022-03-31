@@ -47,7 +47,7 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
             await Future.delayed(const Duration(milliseconds: 200));
             context.findAncestorStateOfType<_TaskListState>()!.removeItem(
                 context, context.findAncestorWidgetOfExactType<TaskTile>()!,
-                expanded: true);
+                expanded: true, done: true);
             context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
                 context.findAncestorWidgetOfExactType<TaskTile>()!));
           }

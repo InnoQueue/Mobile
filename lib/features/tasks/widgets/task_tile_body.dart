@@ -3,10 +3,14 @@ part of 'task_list.dart';
 class _Body extends StatefulWidget {
   final TaskModel taskModel;
   final bool expanded;
+  final bool selected;
+  final bool noItemSelected;
   const _Body({
     Key? key,
     required this.taskModel,
     this.expanded = false,
+    this.selected = false,
+    this.noItemSelected = true,
   }) : super(key: key);
 
   @override
@@ -39,14 +43,38 @@ class _BodyState extends State<_Body> with TickerProviderStateMixin {
                     )
                   : null,
             ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: widget.expanded ? 50 : 40,
-              height: widget.expanded ? 50 : 40,
-              decoration: BoxDecoration(
-                color: colors[widget.taskModel.color] ?? Colors.white,
-                shape: BoxShape.circle,
-              ),
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: widget.expanded ? 50 : 40,
+                  height: widget.expanded ? 50 : 40,
+                  decoration: BoxDecoration(
+                    color: colors[widget.taskModel.color] ?? Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                if (widget.selected)
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    width: widget.expanded ? 18 * 1.25 : 18,
+                    height: widget.expanded ? 18 * 1.25 : 18,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1.2,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.done,
+                      color: Colors.white,
+                      size: 10,
+                    ),
+                  )
+              ],
             ),
             const SizedBox(width: 20),
             Expanded(
@@ -61,7 +89,7 @@ class _BodyState extends State<_Body> with TickerProviderStateMixin {
               ),
             ),
             AnimatedOpacity(
-                opacity: widget.expanded ? 0 : 1,
+                opacity: widget.expanded || !widget.noItemSelected ? 0 : 1,
                 duration: const Duration(milliseconds: 200),
                 child: _DoneButton(expanded: widget.expanded)),
           ],
@@ -76,7 +104,7 @@ class _BodyState extends State<_Body> with TickerProviderStateMixin {
                   duration: const Duration(milliseconds: 200),
                   padding:
                       EdgeInsets.only(left: 40 + (widget.expanded ? 5 : 0)),
-                  child: const Text("You've been shook!",
+                  child: const Text("You've been shaken!",
                       style: TextStyle(
                         color: Colors.grey,
                       )),

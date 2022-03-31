@@ -47,7 +47,7 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
             await Future.delayed(const Duration(milliseconds: 200));
             context.findAncestorStateOfType<_TaskListState>()!.removeItem(
                 context, context.findAncestorWidgetOfExactType<TaskTile>()!,
-                expanded: true);
+                expanded: true, skip: true);
             context.read<TasksListBloc>().add(TasksListEvent.skipTask(
                 context.findAncestorWidgetOfExactType<TaskTile>()!));
           }

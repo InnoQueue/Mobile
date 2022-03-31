@@ -14,11 +14,12 @@ import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_detail
     as _i8;
 import 'package:inno_queue/features/queues/bloc/queues_bloc.dart' as _i9;
 import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart'
-    as _i11;
+    as _i12;
 import 'package:inno_queue/features/tasks/bloc/tasks_page_bloc/tasks_bloc.dart'
-    as _i10;
-import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart'
-    as _i7; // ignore_for_file: unnecessary_lambdas
+    as _i11;
+import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart' as _i7;
+import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart'
+    as _i10; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -32,7 +33,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i7.AppBarBloc>(() => _i7.AppBarBloc(get<String>()));
   gh.factory<_i8.QueueDetailsBloc>(() => _i8.QueueDetailsBloc());
   gh.factory<_i9.QueuesBloc>(() => _i9.QueuesBloc());
-  gh.factory<_i10.TasksBloc>(() => _i10.TasksBloc());
-  gh.factory<_i11.TasksListBloc>(() => _i11.TasksListBloc());
+  gh.factory<_i10.SelectTasksBloc>(() => _i10.SelectTasksBloc());
+  gh.factory<_i11.TasksBloc>(() => _i11.TasksBloc());
+  gh.factory<_i12.TasksListBloc>(() => _i12.TasksListBloc());
   return get;
 }

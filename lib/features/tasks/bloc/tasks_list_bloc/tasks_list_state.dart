@@ -10,5 +10,7 @@ class TasksListState with _$TasksListState {
     TaskTile? done,
     TaskTile? sipped,
     List<TaskTile> waitingList,
+    List<TaskTile> selectedList,
+    bool emptyingSelectedList,
   ) = _DataManaged;
 }

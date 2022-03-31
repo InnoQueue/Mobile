@@ -59,7 +59,8 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                             horizontal: queueDetailsPadding),
                         child: ElevatedButton(
                           child: Container(
-                            height: 55,
+                            height: 40,
+                            //width: MediaQuery.of(context).size.width / 2,
                             alignment: Alignment.center,
                             child: const Text(
                               'Add Progress',
@@ -72,7 +73,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       _Participants(
                         queueModel: queue,
@@ -279,8 +280,9 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                     },
                     child: Text(
                       _shakeText,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
+                        color: Colors.black.withOpacity(0.75),
                       ),
                     ),
                   )

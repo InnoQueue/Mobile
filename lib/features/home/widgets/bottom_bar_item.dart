@@ -41,12 +41,12 @@ class _BottomBarItemState extends State<_BottomBarItem> {
               Icon(
                 widget.leadingIcon,
                 size: 30,
-                color: _active ? Colors.orange.shade800 : Colors.black,
+                color: _active ? Colors.black : Colors.grey,
               ),
               Text(
                 widget.title,
                 style: TextStyle(
-                  color: _active ? Colors.orange.shade800 : Colors.black,
+                  color: _active ? Colors.black : Colors.grey,
                   fontSize: 15,
                 ),
               )

@@ -25,23 +25,103 @@ class _AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FloatingActionButton(
+      child: const Icon(
+        Icons.add,
+        color: Colors.black,
+        size: 40,
+      ),
+      onPressed: () {
+        showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) {
+            return const QueueBottomSheet();
+          },
+        );
+      },
+    );
+  }
+}
+
+class _DoneButton extends StatelessWidget {
+  const _DoneButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 10.0),
       child: IconButton(
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) {
-              return const QueueBottomSheet();
-            },
-          );
-        },
         icon: const Icon(
-          Icons.add,
+          Icons.done,
           color: Colors.black,
-          size: 40,
+          size: 25,
         ),
+        onPressed: () {
+          context
+              .read<SelectTasksBloc>()
+              .add(const SelectTasksEvent.setAllDone());
+        },
+      ),
+    );
+  }
+}
+
+class _ClearButton extends StatelessWidget {
+  const _ClearButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: const Icon(
+        Icons.clear,
+        color: Colors.black,
+        size: 30,
+      ),
+      onPressed: () {
+        context.read<SelectTasksBloc>().add(const SelectTasksEvent.clear());
+      },
+    );
+  }
+}
+
+class _SkipButton extends StatelessWidget {
+  const _SkipButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10.0),
+      child: IconButton(
+        icon: const Icon(
+          Icons.delete_outline,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () {
+          context.read<SelectTasksBloc>().add(const SelectTasksEvent.skipAll());
+        },
+      ),
+    );
+  }
+}
+
+class _QrButton extends StatelessWidget {
+  const _QrButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10.0),
+      child: IconButton(
+        icon: const Icon(
+          Icons.qr_code,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const QrAlert()),
       ),
     );
   }
@@ -83,7 +163,7 @@ class _MoreButtonState extends State<_MoreButton> {
           icon: const Icon(
             Icons.more_vert,
             color: Colors.black,
-            size: 35,
+            size: 30,
           ),
           onSelected: _onSelected,
           itemBuilder: (BuildContext context) {

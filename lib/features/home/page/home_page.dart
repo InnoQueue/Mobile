@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
+import 'package:inno_queue/features/home/widgets/qr_alert.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
+import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart';
 import '../../../const/const.dart';
 
 import '../../features.dart';
@@ -27,31 +29,69 @@ class _HomePageState extends State<HomePage> {
     return AutoRouter(
       builder: (context, child) {
         final router = context.router;
-        return Scaffold(
-          key: homePageScaffoldKey,
-          backgroundColor: Colors.blueGrey[50],
-          resizeToAvoidBottomInset: false,
-          appBar: _appBarBuilder(router, context),
-          body: child,
-          bottomNavigationBar: const BottomBar(),
-        );
+        return BlocBuilder<SelectTasksBloc, SelectTasksState>(
+            builder: (context, state) {
+          bool selected = false;
+          int counter = 0;
+          state.maybeWhen(
+            orElse: () {},
+            selected: (number) {
+              selected = true;
+              counter = number;
+            },
+          );
+
+          return Scaffold(
+            key: homePageScaffoldKey,
+            backgroundColor: Colors.blueGrey[50],
+            resizeToAvoidBottomInset: false,
+            appBar: _appBarBuilder(
+              router,
+              context,
+              selected: selected,
+              number: counter,
+            ),
+            body: child,
+            bottomNavigationBar: const BottomBar(),
+            floatingActionButton:
+                (context.router.current.name == QueuesRoute.name)
+                    ? const _AddButton()
+                    : null,
+          );
+        });
       },
     );
   }
 
-  PreferredSizeWidget? _appBarBuilder(StackRouter _, BuildContext context) {
+  PreferredSizeWidget? _appBarBuilder(StackRouter _, BuildContext context,
+      {required bool selected, required int number}) {
     return AppBar(
-      title: Text(
-        _getAppBarTitle(_.current.name),
-        style: Theme.of(context).textTheme.appBarTextStyle,
-      ),
-      leading:
-          _.current.name == QueueDetailsRoute.name ? const _BackButton() : null,
-      actions: [
-        if (_.current.name == QueuesRoute.name) const _AddButton(),
-        if (_.current.name == QueueDetailsRoute.name) const _MoreButton(),
-      ],
-      backgroundColor: Colors.white,
+      title: !selected
+          ? Text(
+              _getAppBarTitle(_.current.name),
+              style: Theme.of(context).textTheme.appBarTextStyle,
+            )
+          : Text(
+              number.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .appBarTextStyle
+                  .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+      leading: _.current.name == QueueDetailsRoute.name
+          ? const _BackButton()
+          : selected
+              ? const _ClearButton()
+              : null,
+      actions: selected
+          ? [
+              _SkipButton(),
+              _DoneButton(),
+            ]
+          : [
+              if (_.current.name == QueuesRoute.name) const _QrButton(),
+              if (_.current.name == QueueDetailsRoute.name) const _MoreButton(),
+            ],
       elevation: 0,
       toolbarHeight: 65,
       systemOverlayStyle: const SystemUiOverlayStyle(

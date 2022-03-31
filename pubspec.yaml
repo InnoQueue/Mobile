@@ -38,6 +38,9 @@ dependencies:
   get_it: ^7.2.0
   logger: ^1.1.0
   flex_color_picker: ^2.3.1
+  qr_code_scanner: ^0.7.0
+  pin_code_fields: ^7.3.0
+  flutter_slidable: ^1.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
