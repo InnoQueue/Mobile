@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/colors.dart';
 import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
-import 'package:inno_queue/routes/logging_route_observer.dart';
-import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart';
+import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 
 import 'features/queues/bloc/queues_bloc.dart';
-import 'features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
 import 'helpers/getit_service_locator.dart';
 import 'routes/app_router.dart';
 import 'shared/bloc/appbar/appbar_bloc.dart';

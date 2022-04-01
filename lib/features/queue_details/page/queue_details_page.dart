@@ -1,5 +1,6 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
@@ -271,6 +272,7 @@ class _ParticipantTileState extends State<_ParticipantTile> {
                       minimumSize: Size.zero,
                     ),
                     onPressed: () {
+                      HapticFeedback.lightImpact();
                       setState(() {
                         ApiQueuesService.shakeUser(queue: widget.queue);
                         _shakeEnd = 1.0;

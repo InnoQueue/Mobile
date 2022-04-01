@@ -18,7 +18,7 @@ import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.d
 import 'package:inno_queue/features/tasks/bloc/tasks_page_bloc/tasks_bloc.dart'
     as _i11;
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart' as _i7;
-import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart'
+import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart'
     as _i10; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars

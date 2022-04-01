@@ -44,18 +44,45 @@ class _AddButton extends StatelessWidget {
   }
 }
 
-class _DoneButton extends StatelessWidget {
-  const _DoneButton({Key? key}) : super(key: key);
+class _AnimatedButton extends StatefulWidget {
+  final Icon icon;
+  const _AnimatedButton({required this.icon, Key? key}) : super(key: key);
+
+  @override
+  State<_AnimatedButton> createState() => _AnimatedButtonState();
+}
+
+class _AnimatedButtonState extends State<_AnimatedButton>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 400),
+    vsync: this,
+  );
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOutBack,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 10.0),
       child: IconButton(
-        icon: const Icon(
-          Icons.done,
-          color: Colors.black,
-          size: 25,
+        icon: ScaleTransition(
+          scale: _animation,
+          child: widget.icon,
         ),
         onPressed: () {
           context
@@ -81,27 +108,6 @@ class _ClearButton extends StatelessWidget {
       onPressed: () {
         context.read<SelectTasksBloc>().add(const SelectTasksEvent.clear());
       },
-    );
-  }
-}
-
-class _SkipButton extends StatelessWidget {
-  const _SkipButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10.0),
-      child: IconButton(
-        icon: const Icon(
-          Icons.delete_outline,
-          color: Colors.black,
-          size: 30,
-        ),
-        onPressed: () {
-          context.read<SelectTasksBloc>().add(const SelectTasksEvent.skipAll());
-        },
-      ),
     );
   }
 }

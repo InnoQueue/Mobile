@@ -1,9 +1,9 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
-import 'package:inno_queue/features/tasks/model/task_model.dart';
-import 'package:inno_queue/features/tasks/widgets/task_list.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+
+import '../../features.dart';
 
 class IntroductionPage extends StatelessWidget {
   const IntroductionPage({Key? key}) : super(key: key);
@@ -39,10 +39,10 @@ class IntroductionPage extends StatelessWidget {
           title: AppRes.howToUse['page-2']!['title'],
           body: AppRes.howToUse['page-2']!['text'],
           decoration: pageDecoration,
-          footer: Padding(
-            padding: const EdgeInsets.all(16.0),
+          footer: const Padding(
+            padding: EdgeInsets.all(16.0),
             child: TaskTile(
-              taskModel: const TaskModel(
+              taskModel: TaskModel(
                 id: -1,
                 isImportant: true,
                 color: "WHITE",

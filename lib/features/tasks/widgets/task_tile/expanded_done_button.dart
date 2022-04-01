@@ -1,13 +1,15 @@
-part of 'task_list.dart';
+part of 'task_tile.dart';
 
-class ExpandedSkipButton extends StatefulWidget {
-  const ExpandedSkipButton({Key? key}) : super(key: key);
+class ExpandedDoneButton extends StatefulWidget {
+  final bool isExpanded;
+  const ExpandedDoneButton({required this.isExpanded, Key? key})
+      : super(key: key);
 
   @override
-  State<ExpandedSkipButton> createState() => _ExpandedSkipButtonState();
+  State<ExpandedDoneButton> createState() => _ExpandedDoneButtonState();
 }
 
-class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
+class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation scaleAnimation;
@@ -35,20 +37,21 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
 
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: _controller.value != 0 ? scaleAnimation.value : 1,
+    return AnimatedScale(
+      duration: const Duration(milliseconds: 200),
+      scale: widget.isExpanded ? 1 : 0,
       child: AnimateIcon(
-        startIcon: Icons.clear,
-        endIcon: Icons.highlight_remove,
-        rotate: true,
+        startIcon: Icons.done,
+        endIcon: Icons.check_circle_outline,
         controller: AnimateIconController(),
+        rotate: true,
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            context.findAncestorStateOfType<_TaskListState>()!.removeItem(
+            context.findAncestorStateOfType<TaskListState>()!.removeItem(
                 context, context.findAncestorWidgetOfExactType<TaskTile>()!,
-                expanded: true, skip: true);
-            context.read<TasksListBloc>().add(TasksListEvent.skipTask(
+                expanded: true, done: true);
+            context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
                 context.findAncestorWidgetOfExactType<TaskTile>()!));
           }
         },

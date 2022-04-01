@@ -4,29 +4,22 @@ import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
-import 'package:inno_queue/features/tasks/widgets/animated_icon.dart';
+import 'package:inno_queue/features/tasks/widgets/task_tile/task_tile.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
-import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart';
-
-part 'task_tile.dart';
-part 'done_button.dart';
-part 'expanded_done_button.dart';
-part 'expanded_skip_button.dart';
-part 'task_tile_body.dart';
+import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 
 class TaskList extends StatefulWidget {
   final List<TaskModel> items;
   const TaskList({required this.items, Key? key}) : super(key: key);
 
   @override
-  State<TaskList> createState() => _TaskListState();
+  State<TaskList> createState() => TaskListState();
 }
 
-class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
+class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   late List<TaskTile> _items;
   late AnimationController _expandAnimationController;
   late Animation _expandAnimation;
@@ -38,7 +31,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
     _items = widget.items
         .map((item) => TaskTile(
               taskModel: item,
-              key: GlobalKey<_TaskTileState>(),
+              key: GlobalKey<TaskTileState>(),
             ))
         .toList();
 
@@ -115,6 +108,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.all(Radius.circular(
                               isExpanded ? _expandAnimation.value : 15)),
                           child: Slidable(
+                            closeOnScroll: true,
                             enabled: !isExpanded && selectedList.isEmpty,
                             key: Key(items[index].hashCode.toString()),
                             child: items[index],
@@ -125,18 +119,23 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                                   resizeDuration:
                                       const Duration(milliseconds: 200),
                                   onDismissed: () {
-                                    _listKey.currentState!.removeItem(
-                                        _items.indexOf(items[index]),
-                                        (context, animation) => Wrap());
-                                    ApiTasksService.skipTask(
-                                        task: items[index].taskModel);
-                                    context.read<TasksListBloc>().add(
-                                        TasksListEvent.skipTask(items[index]));
+                                    _onDismissed(context, items[index]);
                                   }),
                               children: [
                                 SlidableAction(
-                                  onPressed: (_) {},
-                                  backgroundColor: Color(0xFFFE4A49),
+                                  autoClose: false,
+                                  onPressed: (_) {
+                                    Slidable.of(_)!.dismiss(
+                                      ResizeRequest(
+                                          const Duration(milliseconds: 200),
+                                          () {
+                                        _onDismissed(context, items[index]);
+                                      }),
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                    );
+                                  },
+                                  backgroundColor: const Color(0xFFFE4A49),
                                   foregroundColor: Colors.white,
                                   icon: Icons.clear,
                                   label: 'Skip',
@@ -203,6 +202,13 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
   void emptySelectedListOnSkip(BuildContext context, TaskTile tile) {
     removeItem(context, tile, skip: true);
     context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
+  }
+
+  void _onDismissed(BuildContext context, TaskTile item) {
+    _listKey.currentState!
+        .removeItem(_items.indexOf(item), (context, animation) => Wrap());
+    ApiTasksService.skipTask(task: item.taskModel);
+    context.read<TasksListBloc>().add(TasksListEvent.skipTask(item));
   }
 
   Widget background = Container(height: 80, color: Colors.orange[400]);

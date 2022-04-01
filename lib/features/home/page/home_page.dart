@@ -7,7 +7,7 @@ import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/features/home/widgets/qr_alert.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
-import 'package:inno_queue/shared/bloc/appbar/select_tasks_bloc.dart';
+import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 import '../../../const/const.dart';
 
 import '../../features.dart';
@@ -85,8 +85,20 @@ class _HomePageState extends State<HomePage> {
               : null,
       actions: selected
           ? [
-              _SkipButton(),
-              _DoneButton(),
+              const _AnimatedButton(
+                icon: Icon(
+                  Icons.delete_outline,
+                  size: 30,
+                  color: Colors.black,
+                ),
+              ),
+              const _AnimatedButton(
+                icon: Icon(
+                  Icons.done,
+                  size: 30,
+                  color: Colors.black,
+                ),
+              ),
             ]
           : [
               if (_.current.name == QueuesRoute.name) const _QrButton(),
