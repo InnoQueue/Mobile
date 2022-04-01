@@ -47,7 +47,7 @@ class _DoneButtonState extends State<_DoneButton> {
             ),
           ),
           onTap: () {
-            if (widget.expanded) return;
+            if (widget.expanded || !widget.noItemSelected) return;
             setState(() {
               if (!done) {
                 parent!.setDone();

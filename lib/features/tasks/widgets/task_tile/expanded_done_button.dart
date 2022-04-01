@@ -48,11 +48,32 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            context.findAncestorStateOfType<TaskListState>()!.removeItem(
-                context, context.findAncestorWidgetOfExactType<TaskTile>()!,
-                expanded: true, done: true);
-            context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
-                context.findAncestorWidgetOfExactType<TaskTile>()!));
+            if (context
+                .findAncestorWidgetOfExactType<TaskTile>()!
+                .taskModel
+                .trackExpenses) {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext _) {
+                  return TaskExpensesDialog(
+                    buildContext: context,
+                    taskTile:
+                        context.findAncestorWidgetOfExactType<TaskTile>()!,
+                    removeItem: context
+                        .findAncestorStateOfType<TaskListState>()!
+                        .removeItem,
+                    expanded: widget.isExpanded,
+                  );
+                },
+              );
+            } else {
+              context.findAncestorStateOfType<TaskListState>()!.removeItem(
+                  context, context.findAncestorWidgetOfExactType<TaskTile>()!,
+                  expanded: true, done: true);
+              context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
+                  context.findAncestorWidgetOfExactType<TaskTile>()!));
+            }
           }
         },
         duration: const Duration(milliseconds: 300),

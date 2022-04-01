@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
+import 'package:inno_queue/core/widget/task_expenses.dart';
 import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
 import 'package:inno_queue/features/tasks/widgets/task_tile/task_tile.dart';
@@ -168,11 +169,6 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
 
   void removeItem(BuildContext context, TaskTile tile,
       {bool expanded = false, bool skip = false, bool done = false}) {
-    if (skip) {
-      ApiTasksService.skipTask(task: tile.taskModel);
-    } else if (done) {
-      ApiTasksService.deleteTask(task: tile.taskModel);
-    }
     _listKey.currentState!.removeItem(
       _items.indexOf(tile),
       (context, animation) => Padding(
@@ -187,16 +183,52 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
       ),
       duration: const Duration(milliseconds: 200),
     );
+
+    if (skip) {
+      ApiTasksService.skipTask(task: tile.taskModel);
+    } else if (done) {
+      ApiTasksService.deleteTask(task: tile.taskModel);
+    }
   }
 
   void emptyWaitingList(BuildContext context, TaskTile tile) {
-    removeItem(context, tile, skip: true);
-    context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(tile));
+    if (tile.taskModel.trackExpenses) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext _) {
+          return TaskExpensesDialog(
+              buildContext: context,
+              taskTile: tile,
+              removeItem: removeItem,
+              expanded: false,
+              emptyingWaitingList: true);
+        },
+      );
+    } else {
+      removeItem(context, tile, done: true);
+      context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(tile));
+    }
   }
 
   void emptySelectedListOnDone(BuildContext context, TaskTile tile) {
-    removeItem(context, tile, done: true);
-    context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
+    if (tile.taskModel.trackExpenses) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext _) {
+          return TaskExpensesDialog(
+              buildContext: context,
+              taskTile: tile,
+              removeItem: removeItem,
+              expanded: false,
+              emptyingSelectedList: true);
+        },
+      );
+    } else {
+      removeItem(context, tile, done: true);
+      context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
+    }
   }
 
   void emptySelectedListOnSkip(BuildContext context, TaskTile tile) {
@@ -210,30 +242,4 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     ApiTasksService.skipTask(task: item.taskModel);
     context.read<TasksListBloc>().add(TasksListEvent.skipTask(item));
   }
-
-  Widget background = Container(height: 80, color: Colors.orange[400]);
-
-  Container skip = Container(
-    padding: const EdgeInsets.only(right: 20.0),
-    alignment: Alignment.centerRight,
-    child: Wrap(
-      direction: Axis.vertical,
-      children: const [
-        Icon(
-          Icons.reply,
-          size: 30,
-          color: Colors.white,
-        ),
-        Text(
-          "Skip",
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w300,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    ),
-  );
 }

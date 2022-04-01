@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   PreferredSizeWidget? _appBarBuilder(StackRouter _, BuildContext context,
       {required bool selected, required int number}) {
     return AppBar(
-      title: !selected
+      title: !(selected && _.current.name == TasksRoute.name)
           ? Text(
               _getAppBarTitle(_.current.name),
               style: Theme.of(context).textTheme.appBarTextStyle,
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
           : selected
               ? const _ClearButton()
               : null,
-      actions: selected
+      actions: selected && _.current.name == TasksRoute.name
           ? [
               const _AnimatedButton(
                 icon: Icon(
