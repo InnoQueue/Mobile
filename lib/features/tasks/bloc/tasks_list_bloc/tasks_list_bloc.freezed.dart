@@ -48,9 +48,10 @@ class _$TasksListEventTearOff {
     );
   }
 
-  _EmptyWaitingList emptyWaitingList(TaskTile task) {
+  _EmptyWaitingList emptyWaitingList(TaskTile task, {bool pass = false}) {
     return _EmptyWaitingList(
       task,
+      pass: pass,
     );
   }
 
@@ -76,9 +77,10 @@ class _$TasksListEventTearOff {
     );
   }
 
-  _EmptySelectedList emptySelectedList(TaskTile task) {
+  _EmptySelectedList emptySelectedList(TaskTile task, {bool pass = false}) {
     return _EmptySelectedList(
       task,
+      pass: pass,
     );
   }
 
@@ -99,12 +101,12 @@ mixin _$TasksListEvent {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) =>
       throw _privateConstructorUsedError;
@@ -115,12 +117,12 @@ mixin _$TasksListEvent {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) =>
       throw _privateConstructorUsedError;
@@ -131,12 +133,12 @@ mixin _$TasksListEvent {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) =>
@@ -279,12 +281,12 @@ class _$_InitTasks implements _InitTasks {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return initTasks(tasks);
@@ -298,12 +300,12 @@ class _$_InitTasks implements _InitTasks {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return initTasks?.call(tasks);
@@ -317,12 +319,12 @@ class _$_InitTasks implements _InitTasks {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -475,12 +477,12 @@ class _$_SetTaskDone implements _SetTaskDone {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return setTaskDone(task);
@@ -494,12 +496,12 @@ class _$_SetTaskDone implements _SetTaskDone {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return setTaskDone?.call(task);
@@ -513,12 +515,12 @@ class _$_SetTaskDone implements _SetTaskDone {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -668,12 +670,12 @@ class _$_SkipTask implements _SkipTask {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return skipTask(task);
@@ -687,12 +689,12 @@ class _$_SkipTask implements _SkipTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return skipTask?.call(task);
@@ -706,12 +708,12 @@ class _$_SkipTask implements _SkipTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -864,12 +866,12 @@ class _$_AddToWaitingList implements _AddToWaitingList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return addToWaitingList(task);
@@ -883,12 +885,12 @@ class _$_AddToWaitingList implements _AddToWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return addToWaitingList?.call(task);
@@ -902,12 +904,12 @@ class _$_AddToWaitingList implements _AddToWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -1061,12 +1063,12 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return removeFromWaitingList(task);
@@ -1080,12 +1082,12 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return removeFromWaitingList?.call(task);
@@ -1099,12 +1101,12 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -1193,7 +1195,7 @@ abstract class _$EmptyWaitingListCopyWith<$Res> {
   factory _$EmptyWaitingListCopyWith(
           _EmptyWaitingList value, $Res Function(_EmptyWaitingList) then) =
       __$EmptyWaitingListCopyWithImpl<$Res>;
-  $Res call({TaskTile task});
+  $Res call({TaskTile task, bool pass});
 }
 
 /// @nodoc
@@ -1210,12 +1212,17 @@ class __$EmptyWaitingListCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? pass = freezed,
   }) {
     return _then(_EmptyWaitingList(
       task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as TaskTile,
+      pass: pass == freezed
+          ? _value.pass
+          : pass // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1223,14 +1230,17 @@ class __$EmptyWaitingListCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_EmptyWaitingList implements _EmptyWaitingList {
-  const _$_EmptyWaitingList(this.task);
+  const _$_EmptyWaitingList(this.task, {this.pass = false});
 
   @override
   final TaskTile task;
+  @JsonKey()
+  @override
+  final bool pass;
 
   @override
   String toString() {
-    return 'TasksListEvent.emptyWaitingList(task: $task)';
+    return 'TasksListEvent.emptyWaitingList(task: $task, pass: $pass)';
   }
 
   @override
@@ -1238,12 +1248,15 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _EmptyWaitingList &&
-            const DeepCollectionEquality().equals(other.task, task));
+            const DeepCollectionEquality().equals(other.task, task) &&
+            const DeepCollectionEquality().equals(other.pass, pass));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(task));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(task),
+      const DeepCollectionEquality().hash(pass));
 
   @JsonKey(ignore: true)
   @override
@@ -1258,15 +1271,15 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
-    return emptyWaitingList(task);
+    return emptyWaitingList(task, pass);
   }
 
   @override
@@ -1277,15 +1290,15 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
-    return emptyWaitingList?.call(task);
+    return emptyWaitingList?.call(task, pass);
   }
 
   @override
@@ -1296,17 +1309,17 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
     if (emptyWaitingList != null) {
-      return emptyWaitingList(task);
+      return emptyWaitingList(task, pass);
     }
     return orElse();
   }
@@ -1376,9 +1389,11 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
 }
 
 abstract class _EmptyWaitingList implements TasksListEvent {
-  const factory _EmptyWaitingList(TaskTile task) = _$_EmptyWaitingList;
+  const factory _EmptyWaitingList(TaskTile task, {bool pass}) =
+      _$_EmptyWaitingList;
 
   TaskTile get task;
+  bool get pass;
   @JsonKey(ignore: true)
   _$EmptyWaitingListCopyWith<_EmptyWaitingList> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1453,12 +1468,12 @@ class _$_ExpandTask implements _ExpandTask {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return expandTask(task);
@@ -1472,12 +1487,12 @@ class _$_ExpandTask implements _ExpandTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return expandTask?.call(task);
@@ -1491,12 +1506,12 @@ class _$_ExpandTask implements _ExpandTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -1624,12 +1639,12 @@ class _$_ShrinkTask implements _ShrinkTask {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return shrinkTask();
@@ -1643,12 +1658,12 @@ class _$_ShrinkTask implements _ShrinkTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return shrinkTask?.call();
@@ -1662,12 +1677,12 @@ class _$_ShrinkTask implements _ShrinkTask {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -1815,12 +1830,12 @@ class _$_AddToSelectedList implements _AddToSelectedList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return addToSelectedList(task);
@@ -1834,12 +1849,12 @@ class _$_AddToSelectedList implements _AddToSelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return addToSelectedList?.call(task);
@@ -1853,12 +1868,12 @@ class _$_AddToSelectedList implements _AddToSelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -2012,12 +2027,12 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return removeFromSelectedList(task);
@@ -2031,12 +2046,12 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return removeFromSelectedList?.call(task);
@@ -2050,12 +2065,12 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
@@ -2144,7 +2159,7 @@ abstract class _$EmptySelectedListCopyWith<$Res> {
   factory _$EmptySelectedListCopyWith(
           _EmptySelectedList value, $Res Function(_EmptySelectedList) then) =
       __$EmptySelectedListCopyWithImpl<$Res>;
-  $Res call({TaskTile task});
+  $Res call({TaskTile task, bool pass});
 }
 
 /// @nodoc
@@ -2161,12 +2176,17 @@ class __$EmptySelectedListCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? pass = freezed,
   }) {
     return _then(_EmptySelectedList(
       task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as TaskTile,
+      pass: pass == freezed
+          ? _value.pass
+          : pass // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -2174,14 +2194,17 @@ class __$EmptySelectedListCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_EmptySelectedList implements _EmptySelectedList {
-  const _$_EmptySelectedList(this.task);
+  const _$_EmptySelectedList(this.task, {this.pass = false});
 
   @override
   final TaskTile task;
+  @JsonKey()
+  @override
+  final bool pass;
 
   @override
   String toString() {
-    return 'TasksListEvent.emptySelectedList(task: $task)';
+    return 'TasksListEvent.emptySelectedList(task: $task, pass: $pass)';
   }
 
   @override
@@ -2189,12 +2212,15 @@ class _$_EmptySelectedList implements _EmptySelectedList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _EmptySelectedList &&
-            const DeepCollectionEquality().equals(other.task, task));
+            const DeepCollectionEquality().equals(other.task, task) &&
+            const DeepCollectionEquality().equals(other.pass, pass));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(task));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(task),
+      const DeepCollectionEquality().hash(pass));
 
   @JsonKey(ignore: true)
   @override
@@ -2209,15 +2235,15 @@ class _$_EmptySelectedList implements _EmptySelectedList {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
-    return emptySelectedList(task);
+    return emptySelectedList(task, pass);
   }
 
   @override
@@ -2228,15 +2254,15 @@ class _$_EmptySelectedList implements _EmptySelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
-    return emptySelectedList?.call(task);
+    return emptySelectedList?.call(task, pass);
   }
 
   @override
@@ -2247,17 +2273,17 @@ class _$_EmptySelectedList implements _EmptySelectedList {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {
     if (emptySelectedList != null) {
-      return emptySelectedList(task);
+      return emptySelectedList(task, pass);
     }
     return orElse();
   }
@@ -2327,9 +2353,11 @@ class _$_EmptySelectedList implements _EmptySelectedList {
 }
 
 abstract class _EmptySelectedList implements TasksListEvent {
-  const factory _EmptySelectedList(TaskTile task) = _$_EmptySelectedList;
+  const factory _EmptySelectedList(TaskTile task, {bool pass}) =
+      _$_EmptySelectedList;
 
   TaskTile get task;
+  bool get pass;
   @JsonKey(ignore: true)
   _$EmptySelectedListCopyWith<_EmptySelectedList> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2378,12 +2406,12 @@ class _$_Unselect implements _Unselect {
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
-    required TResult Function(TaskTile task) emptyWaitingList,
+    required TResult Function(TaskTile task, bool pass) emptyWaitingList,
     required TResult Function(TaskTile task) expandTask,
     required TResult Function() shrinkTask,
     required TResult Function(TaskTile task) addToSelectedList,
     required TResult Function(TaskTile task) removeFromSelectedList,
-    required TResult Function(TaskTile task) emptySelectedList,
+    required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
     return unselect();
@@ -2397,12 +2425,12 @@ class _$_Unselect implements _Unselect {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
     return unselect?.call();
@@ -2416,12 +2444,12 @@ class _$_Unselect implements _Unselect {
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
-    TResult Function(TaskTile task)? emptyWaitingList,
+    TResult Function(TaskTile task, bool pass)? emptyWaitingList,
     TResult Function(TaskTile task)? expandTask,
     TResult Function()? shrinkTask,
     TResult Function(TaskTile task)? addToSelectedList,
     TResult Function(TaskTile task)? removeFromSelectedList,
-    TResult Function(TaskTile task)? emptySelectedList,
+    TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
     required TResult orElse(),
   }) {

@@ -120,7 +120,9 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   ) async {
     emit(const TasksListState.initial());
     _waitingList.remove(event.task);
-    _tasks.remove(event.task);
+    if (!event.pass) {
+      _tasks.remove(event.task);
+    }
     emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
         _waitingList, _selectedList, emptyingSelectedList));
   }
@@ -131,7 +133,9 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   ) async {
     emit(const TasksListState.initial());
     _selectedList.remove(event.task);
-    _tasks.remove(event.task);
+    if (!event.pass) {
+      _tasks.remove(event.task);
+    }
     if (_selectedList.isNotEmpty) {
       emptyingSelectedList = true;
     } else {

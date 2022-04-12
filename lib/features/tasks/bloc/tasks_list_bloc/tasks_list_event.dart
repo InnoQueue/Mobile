@@ -14,8 +14,8 @@ class TasksListEvent with _$TasksListEvent {
   const factory TasksListEvent.removeFromWaitingList(TaskTile task) =
       _RemoveFromWaitingList;
 
-  const factory TasksListEvent.emptyWaitingList(TaskTile task) =
-      _EmptyWaitingList;
+  const factory TasksListEvent.emptyWaitingList(TaskTile task,
+      {@Default(false) bool pass}) = _EmptyWaitingList;
 
   const factory TasksListEvent.expandTask(TaskTile task) = _ExpandTask;
 
@@ -27,8 +27,8 @@ class TasksListEvent with _$TasksListEvent {
   const factory TasksListEvent.removeFromSelectedList(TaskTile task) =
       _RemoveFromSelectedList;
 
-  const factory TasksListEvent.emptySelectedList(TaskTile task) =
-      _EmptySelectedList;
+  const factory TasksListEvent.emptySelectedList(TaskTile task,
+      {@Default(false) bool pass}) = _EmptySelectedList;
 
   const factory TasksListEvent.unselect() = _Unselect;
 }

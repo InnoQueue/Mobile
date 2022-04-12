@@ -50,6 +50,18 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
       actions: <Widget>[
         TextButton(
           child: const Text(
+            'Cancel',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          onPressed: () {
+            emptyList(true);
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text(
             'Approve',
             style: TextStyle(
               color: Colors.black,
@@ -60,21 +72,25 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
                 expanded: widget.expanded, done: true);
             widget.buildContext
                 .read<TasksListBloc>()
-                .add(TasksListEvent.skipTask(widget.taskTile));
-            if (widget.emptyingWaitingList) {
-              widget.buildContext
-                  .read<TasksListBloc>()
-                  .add(TasksListEvent.emptyWaitingList(widget.taskTile));
-            }
-            if (widget.emptyingSelectedList) {
-              widget.buildContext
-                  .read<TasksListBloc>()
-                  .add(TasksListEvent.emptySelectedList(widget.taskTile));
-            }
+                .add(TasksListEvent.setTaskDone(widget.taskTile));
+            emptyList(false);
             Navigator.of(context).pop();
           },
         ),
       ],
     );
+  }
+
+  void emptyList(bool pass) {
+    if (widget.emptyingWaitingList) {
+      widget.buildContext
+          .read<TasksListBloc>()
+          .add(TasksListEvent.emptyWaitingList(widget.taskTile, pass: pass));
+    }
+    if (widget.emptyingSelectedList) {
+      widget.buildContext
+          .read<TasksListBloc>()
+          .add(TasksListEvent.emptySelectedList(widget.taskTile, pass: pass));
+    }
   }
 }

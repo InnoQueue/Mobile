@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
                   size: 30,
                   color: Colors.black,
                 ),
+                skipAll: true,
               ),
               const _AnimatedButton(
                 icon: Icon(
@@ -98,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                   size: 30,
                   color: Colors.black,
                 ),
+                setAllDone: true,
               ),
             ]
           : [

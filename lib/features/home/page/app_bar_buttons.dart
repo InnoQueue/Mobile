@@ -46,7 +46,14 @@ class _AddButton extends StatelessWidget {
 
 class _AnimatedButton extends StatefulWidget {
   final Icon icon;
-  const _AnimatedButton({required this.icon, Key? key}) : super(key: key);
+  final bool setAllDone;
+  final bool skipAll;
+  const _AnimatedButton({
+    required this.icon,
+    this.setAllDone = false,
+    this.skipAll = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<_AnimatedButton> createState() => _AnimatedButtonState();
@@ -85,9 +92,15 @@ class _AnimatedButtonState extends State<_AnimatedButton>
           child: widget.icon,
         ),
         onPressed: () {
-          context
-              .read<SelectTasksBloc>()
-              .add(const SelectTasksEvent.setAllDone());
+          if (widget.setAllDone) {
+            context
+                .read<SelectTasksBloc>()
+                .add(const SelectTasksEvent.setAllDone());
+          } else if (widget.skipAll) {
+            context
+                .read<SelectTasksBloc>()
+                .add(const SelectTasksEvent.skipAll());
+          }
         },
       ),
     );
