@@ -25,7 +25,7 @@ class TaskExpensesDialog extends StatefulWidget {
 }
 
 class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
   String? valueText;
   @override
   Widget build(BuildContext context) {

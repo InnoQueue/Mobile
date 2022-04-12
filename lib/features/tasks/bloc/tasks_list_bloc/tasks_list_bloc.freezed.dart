@@ -2542,7 +2542,8 @@ class _$TasksListStateTearOff {
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
-      bool emptyingSelectedList) {
+      bool emptyingSelectedList,
+      bool emptyingWaitingList) {
     return _DataManaged(
       shownTasks,
       expandedTask,
@@ -2551,6 +2552,7 @@ class _$TasksListStateTearOff {
       waitingList,
       selectedList,
       emptyingSelectedList,
+      emptyingWaitingList,
     );
   }
 }
@@ -2570,7 +2572,8 @@ mixin _$TasksListState {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)
         dataManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -2584,7 +2587,8 @@ mixin _$TasksListState {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
   }) =>
       throw _privateConstructorUsedError;
@@ -2598,7 +2602,8 @@ mixin _$TasksListState {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
     required TResult orElse(),
   }) =>
@@ -2687,7 +2692,8 @@ class _$_Initial implements _Initial {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)
         dataManaged,
   }) {
     return initial();
@@ -2704,7 +2710,8 @@ class _$_Initial implements _Initial {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
   }) {
     return initial?.call();
@@ -2721,7 +2728,8 @@ class _$_Initial implements _Initial {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
     required TResult orElse(),
   }) {
@@ -2779,7 +2787,8 @@ abstract class _$DataManagedCopyWith<$Res> {
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
-      bool emptyingSelectedList});
+      bool emptyingSelectedList,
+      bool emptyingWaitingList});
 }
 
 /// @nodoc
@@ -2802,6 +2811,7 @@ class __$DataManagedCopyWithImpl<$Res>
     Object? waitingList = freezed,
     Object? selectedList = freezed,
     Object? emptyingSelectedList = freezed,
+    Object? emptyingWaitingList = freezed,
   }) {
     return _then(_DataManaged(
       shownTasks == freezed
@@ -2832,6 +2842,10 @@ class __$DataManagedCopyWithImpl<$Res>
           ? _value.emptyingSelectedList
           : emptyingSelectedList // ignore: cast_nullable_to_non_nullable
               as bool,
+      emptyingWaitingList == freezed
+          ? _value.emptyingWaitingList
+          : emptyingWaitingList // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -2846,7 +2860,8 @@ class _$_DataManaged implements _DataManaged {
       this.sipped,
       this.waitingList,
       this.selectedList,
-      this.emptyingSelectedList);
+      this.emptyingSelectedList,
+      this.emptyingWaitingList);
 
   @override
   final List<TaskTile> shownTasks;
@@ -2862,10 +2877,12 @@ class _$_DataManaged implements _DataManaged {
   final List<TaskTile> selectedList;
   @override
   final bool emptyingSelectedList;
+  @override
+  final bool emptyingWaitingList;
 
   @override
   String toString() {
-    return 'TasksListState.dataManaged(shownTasks: $shownTasks, expandedTask: $expandedTask, done: $done, sipped: $sipped, waitingList: $waitingList, selectedList: $selectedList, emptyingSelectedList: $emptyingSelectedList)';
+    return 'TasksListState.dataManaged(shownTasks: $shownTasks, expandedTask: $expandedTask, done: $done, sipped: $sipped, waitingList: $waitingList, selectedList: $selectedList, emptyingSelectedList: $emptyingSelectedList, emptyingWaitingList: $emptyingWaitingList)';
   }
 
   @override
@@ -2884,7 +2901,9 @@ class _$_DataManaged implements _DataManaged {
             const DeepCollectionEquality()
                 .equals(other.selectedList, selectedList) &&
             const DeepCollectionEquality()
-                .equals(other.emptyingSelectedList, emptyingSelectedList));
+                .equals(other.emptyingSelectedList, emptyingSelectedList) &&
+            const DeepCollectionEquality()
+                .equals(other.emptyingWaitingList, emptyingWaitingList));
   }
 
   @override
@@ -2896,7 +2915,8 @@ class _$_DataManaged implements _DataManaged {
       const DeepCollectionEquality().hash(sipped),
       const DeepCollectionEquality().hash(waitingList),
       const DeepCollectionEquality().hash(selectedList),
-      const DeepCollectionEquality().hash(emptyingSelectedList));
+      const DeepCollectionEquality().hash(emptyingSelectedList),
+      const DeepCollectionEquality().hash(emptyingWaitingList));
 
   @JsonKey(ignore: true)
   @override
@@ -2914,11 +2934,12 @@ class _$_DataManaged implements _DataManaged {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)
         dataManaged,
   }) {
     return dataManaged(shownTasks, expandedTask, done, sipped, waitingList,
-        selectedList, emptyingSelectedList);
+        selectedList, emptyingSelectedList, emptyingWaitingList);
   }
 
   @override
@@ -2932,11 +2953,12 @@ class _$_DataManaged implements _DataManaged {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
   }) {
     return dataManaged?.call(shownTasks, expandedTask, done, sipped,
-        waitingList, selectedList, emptyingSelectedList);
+        waitingList, selectedList, emptyingSelectedList, emptyingWaitingList);
   }
 
   @override
@@ -2950,13 +2972,14 @@ class _$_DataManaged implements _DataManaged {
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
-            bool emptyingSelectedList)?
+            bool emptyingSelectedList,
+            bool emptyingWaitingList)?
         dataManaged,
     required TResult orElse(),
   }) {
     if (dataManaged != null) {
       return dataManaged(shownTasks, expandedTask, done, sipped, waitingList,
-          selectedList, emptyingSelectedList);
+          selectedList, emptyingSelectedList, emptyingWaitingList);
     }
     return orElse();
   }
@@ -3001,7 +3024,8 @@ abstract class _DataManaged implements TasksListState {
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
-      bool emptyingSelectedList) = _$_DataManaged;
+      bool emptyingSelectedList,
+      bool emptyingWaitingList) = _$_DataManaged;
 
   List<TaskTile> get shownTasks;
   TaskTile? get expandedTask;
@@ -3010,6 +3034,7 @@ abstract class _DataManaged implements TasksListState {
   List<TaskTile> get waitingList;
   List<TaskTile> get selectedList;
   bool get emptyingSelectedList;
+  bool get emptyingWaitingList;
   @JsonKey(ignore: true)
   _$DataManagedCopyWith<_DataManaged> get copyWith =>
       throw _privateConstructorUsedError;

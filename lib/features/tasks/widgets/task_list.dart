@@ -58,7 +58,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
           return state.when(
             initial: () => Wrap(),
             dataManaged: (items, expanded, done, skipped, waitingList,
-                selectedList, emptyingSelectedList) {
+                selectedList, emptyingSelectedList, emptyingWaitingList) {
               manageExpanded(expanded);
               if (!emptyingSelectedList) {
                 if (selectedList.isNotEmpty) {
@@ -71,7 +71,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                       .add(const SelectTasksEvent.unselect());
                 }
               }
-              if (waitingList.isNotEmpty) {
+              if (emptyingWaitingList) {
                 Timer.run(() => emptyWaitingList(context, waitingList[0]));
               }
               return BlocBuilder<SelectTasksBloc, SelectTasksState>(

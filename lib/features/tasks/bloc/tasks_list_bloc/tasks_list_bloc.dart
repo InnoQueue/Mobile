@@ -18,6 +18,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   List<TaskTile> _selectedList = [];
   bool timeOut = false;
   bool emptyingSelectedList = false;
+  bool emptyingWaitingList = false;
 
   TasksListBloc() : super(const _Initial()) {
     on<_InitTasks>(_initTasks);
@@ -41,7 +42,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     _tasks = event.tasks;
     _waitingList = [];
     emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        timeOut ? _waitingList : [], [], emptyingSelectedList));
+        timeOut ? _waitingList : [], [], emptyingSelectedList, false));
   }
 
   void _setTaskDone(
@@ -70,7 +71,9 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     _AddToWaitingList event,
     Emitter<TasksListState> emit,
   ) async {
+    emit(const TasksListState.initial());
     _waitingList.add(event.task);
+    emitDataManged(emit);
     List<TaskTile> _tempWaitingList = [..._waitingList];
     await Future.delayed(const Duration(seconds: 1));
     checkListForEquality(_tempWaitingList, emit);
@@ -123,8 +126,20 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     if (!event.pass) {
       _tasks.remove(event.task);
     }
-    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        _waitingList, _selectedList, emptyingSelectedList));
+    if (_waitingList.isNotEmpty) {
+      emptyingWaitingList = true;
+    } else {
+      emptyingWaitingList = false;
+    }
+    emit(TasksListState.dataManaged(
+        _tasks,
+        _expanded,
+        _done,
+        _skipped,
+        _waitingList,
+        _selectedList,
+        emptyingSelectedList,
+        emptyingWaitingList));
   }
 
   void _emptySelectedList(
@@ -142,7 +157,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
       emptyingSelectedList = false;
     }
     emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        _waitingList, _selectedList, emptyingSelectedList));
+        _waitingList, _selectedList, emptyingSelectedList, false));
   }
 
   void _expandTask(
@@ -164,11 +179,19 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   }
 
   void emitDataManged(Emitter<TasksListState> emit) {
-    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        timeOut ? _waitingList : [], _selectedList, emptyingSelectedList));
+    emit(TasksListState.dataManaged(
+        _tasks,
+        _expanded,
+        _done,
+        _skipped,
+        _waitingList,
+        _selectedList,
+        emptyingSelectedList,
+        emptyingWaitingList));
     _done = null;
     _skipped = null;
     timeOut = false;
+    emptyingWaitingList = false;
   }
 
   void checkListForEquality(
@@ -183,6 +206,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
       }
       _waitingList = tempWaitingList;
       timeOut = true;
+      emptyingWaitingList = _waitingList.isNotEmpty;
       emit(const TasksListState.initial());
       emitDataManged(emit);
     }
