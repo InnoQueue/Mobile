@@ -2,7 +2,13 @@ part of 'task_tile.dart';
 
 class ExpandedSkipButton extends StatefulWidget {
   final bool isExpanded;
-  const ExpandedSkipButton({required this.isExpanded, Key? key})
+  final TaskTile taskTile;
+  final Function removeItem;
+  const ExpandedSkipButton(
+      {required this.isExpanded,
+      required this.taskTile,
+      required this.removeItem,
+      Key? key})
       : super(key: key);
 
   @override
@@ -48,11 +54,11 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            context.findAncestorStateOfType<TaskListState>()!.removeItem(
-                context, context.findAncestorWidgetOfExactType<TaskTile>()!,
+            widget.removeItem(context, widget.taskTile,
                 expanded: true, skip: true);
-            context.read<TasksListBloc>().add(TasksListEvent.skipTask(
-                context.findAncestorWidgetOfExactType<TaskTile>()!));
+            context
+                .read<TasksListBloc>()
+                .add(TasksListEvent.skipTask(widget.taskTile));
           }
         },
         duration: const Duration(milliseconds: 300),

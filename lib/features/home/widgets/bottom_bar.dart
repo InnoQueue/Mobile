@@ -22,24 +22,28 @@ class _BottomBarState extends State<BottomBar> {
         title: 'Tasks',
         route: const TasksRoute(),
         active: true,
+        setActive: setActive,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
         leadingIcon: Icons.list,
         title: 'Queues',
         route: const QueuesRoute(),
+        setActive: setActive,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
         leadingIcon: Icons.notifications,
         title: 'Notifications',
         route: const NotificationsRoute(),
+        setActive: setActive,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
         leadingIcon: Icons.settings,
         title: 'Settings',
         route: const SettingsRoute(),
+        setActive: setActive,
         key: GlobalKey<_BottomBarItemState>(),
       ),
     ];

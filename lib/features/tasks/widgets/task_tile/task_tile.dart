@@ -18,14 +18,18 @@ part 'expanded_skip_button.dart';
 
 class TaskTile extends StatefulWidget {
   final TaskModel taskModel;
+  final Function removeItem;
 
   const TaskTile({
     Key? key,
     required this.taskModel,
+    required this.removeItem,
   }) : super(key: key);
 
   // ignore: use_key_in_widget_constructors
-  TaskTile.from(TaskTile other) : taskModel = other.taskModel;
+  TaskTile.from(TaskTile other)
+      : taskModel = other.taskModel,
+        removeItem = other.removeItem;
 
   @override
   State<TaskTile> createState() => TaskTileState();
@@ -71,10 +75,11 @@ class TaskTileState extends State<TaskTile> {
             color: Colors.white,
             height: _expanded ? 1.8 * tileHeight : tileHeight,
             child: _Body(
-              taskModel: widget.taskModel,
+              taskTile: widget,
               expanded: _expanded,
               selected: _selected,
               noItemSelected: _noItemSelected,
+              removeItem: widget.removeItem,
             ),
           ),
         ),

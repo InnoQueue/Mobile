@@ -32,6 +32,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     _items = widget.items
         .map((item) => TaskTile(
               taskModel: item,
+              removeItem: removeItem,
               key: GlobalKey<TaskTileState>(),
             ))
         .toList();

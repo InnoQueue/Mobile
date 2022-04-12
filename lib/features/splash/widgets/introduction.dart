@@ -39,16 +39,17 @@ class IntroductionPage extends StatelessWidget {
           title: AppRes.howToUse['page-2']!['title'],
           body: AppRes.howToUse['page-2']!['text'],
           decoration: pageDecoration,
-          footer: const Padding(
-            padding: EdgeInsets.all(16.0),
+          footer: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: TaskTile(
-              taskModel: TaskModel(
+              taskModel: const TaskModel(
                 id: -1,
                 isImportant: true,
                 color: "WHITE",
                 name: 'Task #1',
                 trackExpenses: false,
               ),
+              removeItem: () {},
             ),
           ),
         ),
@@ -66,6 +67,7 @@ class IntroductionPage extends StatelessWidget {
                 name: 'Task #3',
                 trackExpenses: false,
               ),
+              removeItem: () {},
             ),
           ),
         ),
@@ -92,6 +94,7 @@ class IntroductionPage extends StatelessWidget {
                 name: 'Complete me!   👉',
                 trackExpenses: false,
               ),
+              removeItem: () {},
             ),
           ),
         ),

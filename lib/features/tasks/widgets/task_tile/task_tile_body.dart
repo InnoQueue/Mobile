@@ -1,16 +1,18 @@
 part of 'task_tile.dart';
 
 class _Body extends StatefulWidget {
-  final TaskModel taskModel;
+  final TaskTile taskTile;
   final bool expanded;
   final bool selected;
   final bool noItemSelected;
+  final Function removeItem;
   const _Body({
     Key? key,
-    required this.taskModel,
+    required this.taskTile,
     this.expanded = false,
     this.selected = false,
     this.noItemSelected = true,
+    required this.removeItem,
   }) : super(key: key);
 
   @override
@@ -27,14 +29,14 @@ class _BodyState extends State<_Body> {
         Row(
           children: [
             _ShakenIndicator(
-              isImportant: widget.taskModel.isImportant ?? false,
+              isImportant: widget.taskTile.taskModel.isImportant ?? false,
               isExpanded: widget.expanded,
             ),
             Stack(
               alignment: Alignment.bottomRight,
               children: [
                 _Avatar(
-                  color: widget.taskModel.color,
+                  color: widget.taskTile.taskModel.color,
                   isExpanded: widget.expanded,
                 ),
                 _SelectedIndicator(
@@ -45,12 +47,13 @@ class _BodyState extends State<_Body> {
             ),
             const SizedBox(width: 20),
             _TaskName(
-              name: widget.taskModel.name,
+              name: widget.taskTile.taskModel.name,
               isExpanded: widget.expanded,
             ),
             _DoneButton(
               expanded: widget.expanded,
               noItemSelected: widget.noItemSelected,
+              taskTile: widget.taskTile,
             ),
           ],
         ),
@@ -59,7 +62,7 @@ class _BodyState extends State<_Body> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (widget.taskModel.isImportant ?? false)
+              if (widget.taskTile.taskModel.isImportant ?? false)
                 _ShakenSign(
                   isExpanded: widget.expanded,
                 )
@@ -89,10 +92,14 @@ class _BodyState extends State<_Body> {
                       ),
                     ),
                     ExpandedSkipButton(
+                      taskTile: widget.taskTile,
+                      removeItem: widget.removeItem,
                       isExpanded: widget.expanded,
                       key: const ValueKey("ExpandedSkipButton"),
                     ),
                     ExpandedDoneButton(
+                      taskTile: widget.taskTile,
+                      removeItem: widget.removeItem,
                       isExpanded: widget.expanded,
                       key: const ValueKey("ExpandedDoneButton"),
                     ),

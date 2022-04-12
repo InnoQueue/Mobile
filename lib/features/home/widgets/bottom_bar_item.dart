@@ -1,10 +1,11 @@
 part of 'bottom_bar.dart';
 
 class _BottomBarItem extends StatefulWidget {
-  _BottomBarItem({
+  const _BottomBarItem({
     required this.title,
     required this.leadingIcon,
     required this.route,
+    required this.setActive,
     this.active = false,
     Key? key,
   }) : super(key: key);
@@ -12,8 +13,8 @@ class _BottomBarItem extends StatefulWidget {
   final String title;
   final IconData leadingIcon;
   final PageRouteInfo? route;
-
-  bool active;
+  final Function setActive;
+  final bool active;
 
   @override
   State<_BottomBarItem> createState() => _BottomBarItemState();
@@ -65,7 +66,7 @@ class _BottomBarItemState extends State<_BottomBarItem> {
   }
 
   void _onTap(BuildContext _) async {
-    _.findAncestorStateOfType<_BottomBarState>()!.setActive(widget);
+    widget.setActive(widget);
     var page = await buildPageAsync();
     if (widget.route != null) {
       _.router.root.pop();

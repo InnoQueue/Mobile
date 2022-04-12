@@ -2,8 +2,14 @@ part of 'task_tile.dart';
 
 class ExpandedDoneButton extends StatefulWidget {
   final bool isExpanded;
-  const ExpandedDoneButton({required this.isExpanded, Key? key})
-      : super(key: key);
+  final TaskTile taskTile;
+  final Function removeItem;
+  const ExpandedDoneButton({
+    required this.taskTile,
+    required this.isExpanded,
+    required this.removeItem,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ExpandedDoneButton> createState() => _ExpandedDoneButtonState();
@@ -48,31 +54,27 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            if (context
-                .findAncestorWidgetOfExactType<TaskTile>()!
-                .taskModel
-                .trackExpenses) {
+            if (widget.taskTile.taskModel.trackExpenses) {
               showDialog<void>(
                 context: context,
                 barrierDismissible: false, // user must tap button!
                 builder: (BuildContext _) {
                   return TaskExpensesDialog(
                     buildContext: context,
-                    taskTile:
-                        context.findAncestorWidgetOfExactType<TaskTile>()!,
-                    removeItem: context
-                        .findAncestorStateOfType<TaskListState>()!
-                        .removeItem,
+                    taskTile: widget.taskTile,
+                    removeItem: widget.removeItem,
                     expanded: widget.isExpanded,
                   );
                 },
               );
             } else {
-              context.findAncestorStateOfType<TaskListState>()!.removeItem(
-                  context, context.findAncestorWidgetOfExactType<TaskTile>()!,
+              print("brefore");
+              widget.removeItem(context, widget.taskTile,
                   expanded: true, done: true);
-              context.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
-                  context.findAncestorWidgetOfExactType<TaskTile>()!));
+              print("after");
+              context
+                  .read<TasksListBloc>()
+                  .add(TasksListEvent.setTaskDone(widget.taskTile));
             }
           }
         },

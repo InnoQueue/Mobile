@@ -3,8 +3,12 @@ part of 'task_tile.dart';
 class _DoneButton extends StatefulWidget {
   final bool expanded;
   final bool noItemSelected;
+  final TaskTile taskTile;
   const _DoneButton(
-      {this.expanded = false, this.noItemSelected = true, Key? key})
+      {this.expanded = false,
+      this.noItemSelected = true,
+      required this.taskTile,
+      Key? key})
       : super(key: key);
 
   @override
@@ -17,15 +21,12 @@ class _DoneButtonState extends State<_DoneButton> {
   bool done = false;
   @override
   Widget build(BuildContext context) {
-    parent = context.findAncestorStateOfType<TaskTileState>();
-
     return BlocBuilder<TasksListBloc, TasksListState>(
       builder: (context, state) {
         state.when(
           dataManaged:
               (v0, expandedTask, v1, v2, waitingList, selectedList, v3, v4) {
-            done = waitingList
-                .contains(context.findAncestorWidgetOfExactType<TaskTile>());
+            done = waitingList.contains(widget.taskTile);
           },
           initial: () => null,
         );
@@ -39,20 +40,23 @@ class _DoneButtonState extends State<_DoneButton> {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                      width: 25,
-                      height: 25,
+                      width: 24,
+                      height: 24,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
                           border: Border.all(
                               color: done ? Colors.orangeAccent : Colors.grey,
                               width: 2)),
                     ),
                     if (done)
                       Container(
-                        width: 15,
-                        height: 15,
+                        width: 14,
+                        height: 14,
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.orangeAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                          color: Colors.orangeAccent,
+                        ),
                       ),
                   ],
                 ),
