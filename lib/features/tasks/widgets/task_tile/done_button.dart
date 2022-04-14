@@ -47,7 +47,7 @@ class _DoneButtonState extends State<_DoneButton> {
                       height: 24,
                       decoration: BoxDecoration(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
+                              const BorderRadius.all(Radius.circular(8.0)),
                           border: Border.all(
                               color: done ? Colors.orangeAccent : Colors.grey,
                               width: 2)),

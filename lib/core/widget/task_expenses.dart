@@ -10,6 +10,7 @@ class TaskExpensesDialog extends StatefulWidget {
   final bool expanded;
   final bool emptyingWaitingList;
   final bool emptyingSelectedList;
+  final Function? reverseAnimation;
   const TaskExpensesDialog({
     required this.buildContext,
     required this.taskTile,
@@ -17,6 +18,7 @@ class TaskExpensesDialog extends StatefulWidget {
     required this.expanded,
     this.emptyingWaitingList = false,
     this.emptyingSelectedList = false,
+    this.reverseAnimation,
     Key? key,
   }) : super(key: key);
 
@@ -57,6 +59,9 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
           ),
           onPressed: () {
             emptyList(true);
+            if (widget.reverseAnimation != null) {
+              widget.reverseAnimation!();
+            }
             Navigator.of(context).pop();
           },
         ),

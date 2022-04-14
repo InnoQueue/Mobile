@@ -19,6 +19,7 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation scaleAnimation;
+  AnimateIconController iconController = AnimateIconController();
   bool done = false;
 
   @override
@@ -49,7 +50,7 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
       child: AnimateIcon(
         startIcon: Icons.done,
         endIcon: Icons.check_circle_outline,
-        controller: AnimateIconController(),
+        controller: iconController,
         rotate: true,
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
@@ -64,6 +65,7 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
                     taskTile: widget.taskTile,
                     removeItem: widget.removeItem,
                     expanded: widget.isExpanded,
+                    reverseAnimation: reverseAnimation,
                   );
                 },
               );
@@ -85,5 +87,9 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
         },
       ),
     );
+  }
+
+  void reverseAnimation() {
+    iconController.animateToStart();
   }
 }
