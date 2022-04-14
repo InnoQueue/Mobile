@@ -35,6 +35,10 @@ class _$QueueDetailsEventTearOff {
   _FreezeQueue freezeQueue() {
     return const _FreezeQueue();
   }
+
+  _EditQueue editQueue() {
+    return const _EditQueue();
+  }
 }
 
 /// @nodoc
@@ -48,6 +52,7 @@ mixin _$QueueDetailsEvent {
     required TResult Function() leaveQueue,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +61,7 @@ mixin _$QueueDetailsEvent {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +70,7 @@ mixin _$QueueDetailsEvent {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -73,6 +80,7 @@ mixin _$QueueDetailsEvent {
     required TResult Function(_LeaveQueue value) leaveQueue,
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +89,7 @@ mixin _$QueueDetailsEvent {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,6 +98,7 @@ mixin _$QueueDetailsEvent {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -188,6 +198,7 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function() leaveQueue,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
   }) {
     return openQueue(queue);
   }
@@ -199,6 +210,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
   }) {
     return openQueue?.call(queue);
   }
@@ -210,6 +222,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
     required TResult orElse(),
   }) {
     if (openQueue != null) {
@@ -225,6 +238,7 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function(_LeaveQueue value) leaveQueue,
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
   }) {
     return openQueue(this);
   }
@@ -236,6 +250,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
   }) {
     return openQueue?.call(this);
   }
@@ -247,6 +262,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
     required TResult orElse(),
   }) {
     if (openQueue != null) {
@@ -310,6 +326,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function() leaveQueue,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
   }) {
     return leaveQueue();
   }
@@ -321,6 +338,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
   }) {
     return leaveQueue?.call();
   }
@@ -332,6 +350,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
     required TResult orElse(),
   }) {
     if (leaveQueue != null) {
@@ -347,6 +366,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function(_LeaveQueue value) leaveQueue,
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
   }) {
     return leaveQueue(this);
   }
@@ -358,6 +378,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
   }) {
     return leaveQueue?.call(this);
   }
@@ -369,6 +390,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
     required TResult orElse(),
   }) {
     if (leaveQueue != null) {
@@ -427,6 +449,7 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function() leaveQueue,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
   }) {
     return inviteUser();
   }
@@ -438,6 +461,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
   }) {
     return inviteUser?.call();
   }
@@ -449,6 +473,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
     required TResult orElse(),
   }) {
     if (inviteUser != null) {
@@ -464,6 +489,7 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function(_LeaveQueue value) leaveQueue,
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
   }) {
     return inviteUser(this);
   }
@@ -475,6 +501,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
   }) {
     return inviteUser?.call(this);
   }
@@ -486,6 +513,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
     required TResult orElse(),
   }) {
     if (inviteUser != null) {
@@ -544,6 +572,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function() leaveQueue,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
   }) {
     return freezeQueue();
   }
@@ -555,6 +584,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
   }) {
     return freezeQueue?.call();
   }
@@ -566,6 +596,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? leaveQueue,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
     required TResult orElse(),
   }) {
     if (freezeQueue != null) {
@@ -581,6 +612,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function(_LeaveQueue value) leaveQueue,
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
   }) {
     return freezeQueue(this);
   }
@@ -592,6 +624,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
   }) {
     return freezeQueue?.call(this);
   }
@@ -603,6 +636,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_LeaveQueue value)? leaveQueue,
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
     required TResult orElse(),
   }) {
     if (freezeQueue != null) {
@@ -617,6 +651,128 @@ abstract class _FreezeQueue implements QueueDetailsEvent {
 }
 
 /// @nodoc
+abstract class _$EditQueueCopyWith<$Res> {
+  factory _$EditQueueCopyWith(
+          _EditQueue value, $Res Function(_EditQueue) then) =
+      __$EditQueueCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$EditQueueCopyWithImpl<$Res>
+    extends _$QueueDetailsEventCopyWithImpl<$Res>
+    implements _$EditQueueCopyWith<$Res> {
+  __$EditQueueCopyWithImpl(_EditQueue _value, $Res Function(_EditQueue) _then)
+      : super(_value, (v) => _then(v as _EditQueue));
+
+  @override
+  _EditQueue get _value => super._value as _EditQueue;
+}
+
+/// @nodoc
+
+class _$_EditQueue implements _EditQueue {
+  const _$_EditQueue();
+
+  @override
+  String toString() {
+    return 'QueueDetailsEvent.editQueue()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _EditQueue);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueueModel queue) openQueue,
+    required TResult Function() leaveQueue,
+    required TResult Function() inviteUser,
+    required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
+  }) {
+    return editQueue();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+  }) {
+    return editQueue?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+    required TResult orElse(),
+  }) {
+    if (editQueue != null) {
+      return editQueue();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenQueue value) openQueue,
+    required TResult Function(_LeaveQueue value) leaveQueue,
+    required TResult Function(_InviteUser value) inviteUser,
+    required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
+  }) {
+    return editQueue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+  }) {
+    return editQueue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+    required TResult orElse(),
+  }) {
+    if (editQueue != null) {
+      return editQueue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditQueue implements QueueDetailsEvent {
+  const factory _EditQueue() = _$_EditQueue;
+}
+
+/// @nodoc
 class _$QueueDetailsStateTearOff {
   const _$QueueDetailsStateTearOff();
 
@@ -624,9 +780,10 @@ class _$QueueDetailsStateTearOff {
     return const _Initial();
   }
 
-  _QueueOpened queueOpened(QueueModel queue) {
+  _QueueOpened queueOpened(QueueModel queue, bool editable) {
     return _QueueOpened(
       queue,
+      editable,
     );
   }
 
@@ -647,7 +804,7 @@ mixin _$QueueDetailsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function(QueueModel queue, bool editable) queueOpened,
     required TResult Function() queueLeft,
     required TResult Function() queueFreezed,
   }) =>
@@ -655,7 +812,7 @@ mixin _$QueueDetailsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
   }) =>
@@ -663,7 +820,7 @@ mixin _$QueueDetailsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
     required TResult orElse(),
@@ -752,7 +909,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function(QueueModel queue, bool editable) queueOpened,
     required TResult Function() queueLeft,
     required TResult Function() queueFreezed,
   }) {
@@ -763,7 +920,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
   }) {
@@ -774,7 +931,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
     required TResult orElse(),
@@ -832,7 +989,7 @@ abstract class _$QueueOpenedCopyWith<$Res> {
   factory _$QueueOpenedCopyWith(
           _QueueOpened value, $Res Function(_QueueOpened) then) =
       __$QueueOpenedCopyWithImpl<$Res>;
-  $Res call({QueueModel queue});
+  $Res call({QueueModel queue, bool editable});
 
   $QueueModelCopyWith<$Res> get queue;
 }
@@ -851,12 +1008,17 @@ class __$QueueOpenedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? queue = freezed,
+    Object? editable = freezed,
   }) {
     return _then(_QueueOpened(
       queue == freezed
           ? _value.queue
           : queue // ignore: cast_nullable_to_non_nullable
               as QueueModel,
+      editable == freezed
+          ? _value.editable
+          : editable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -871,14 +1033,16 @@ class __$QueueOpenedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_QueueOpened implements _QueueOpened {
-  const _$_QueueOpened(this.queue);
+  const _$_QueueOpened(this.queue, this.editable);
 
   @override
   final QueueModel queue;
+  @override
+  final bool editable;
 
   @override
   String toString() {
-    return 'QueueDetailsState.queueOpened(queue: $queue)';
+    return 'QueueDetailsState.queueOpened(queue: $queue, editable: $editable)';
   }
 
   @override
@@ -886,12 +1050,15 @@ class _$_QueueOpened implements _QueueOpened {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _QueueOpened &&
-            const DeepCollectionEquality().equals(other.queue, queue));
+            const DeepCollectionEquality().equals(other.queue, queue) &&
+            const DeepCollectionEquality().equals(other.editable, editable));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(queue));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(queue),
+      const DeepCollectionEquality().hash(editable));
 
   @JsonKey(ignore: true)
   @override
@@ -902,35 +1069,35 @@ class _$_QueueOpened implements _QueueOpened {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function(QueueModel queue, bool editable) queueOpened,
     required TResult Function() queueLeft,
     required TResult Function() queueFreezed,
   }) {
-    return queueOpened(queue);
+    return queueOpened(queue, editable);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
   }) {
-    return queueOpened?.call(queue);
+    return queueOpened?.call(queue, editable);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
     required TResult orElse(),
   }) {
     if (queueOpened != null) {
-      return queueOpened(queue);
+      return queueOpened(queue, editable);
     }
     return orElse();
   }
@@ -974,9 +1141,10 @@ class _$_QueueOpened implements _QueueOpened {
 }
 
 abstract class _QueueOpened implements QueueDetailsState {
-  const factory _QueueOpened(QueueModel queue) = _$_QueueOpened;
+  const factory _QueueOpened(QueueModel queue, bool editable) = _$_QueueOpened;
 
   QueueModel get queue;
+  bool get editable;
   @JsonKey(ignore: true)
   _$QueueOpenedCopyWith<_QueueOpened> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1023,7 +1191,7 @@ class _$_QueueLeft implements _QueueLeft {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function(QueueModel queue, bool editable) queueOpened,
     required TResult Function() queueLeft,
     required TResult Function() queueFreezed,
   }) {
@@ -1034,7 +1202,7 @@ class _$_QueueLeft implements _QueueLeft {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
   }) {
@@ -1045,7 +1213,7 @@ class _$_QueueLeft implements _QueueLeft {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
     required TResult orElse(),
@@ -1140,7 +1308,7 @@ class _$_QueueFreezed implements _QueueFreezed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(QueueModel queue) queueOpened,
+    required TResult Function(QueueModel queue, bool editable) queueOpened,
     required TResult Function() queueLeft,
     required TResult Function() queueFreezed,
   }) {
@@ -1151,7 +1319,7 @@ class _$_QueueFreezed implements _QueueFreezed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
   }) {
@@ -1162,7 +1330,7 @@ class _$_QueueFreezed implements _QueueFreezed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(QueueModel queue)? queueOpened,
+    TResult Function(QueueModel queue, bool editable)? queueOpened,
     TResult Function()? queueLeft,
     TResult Function()? queueFreezed,
     required TResult orElse(),

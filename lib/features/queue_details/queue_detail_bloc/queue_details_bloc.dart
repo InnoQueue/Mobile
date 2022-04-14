@@ -15,11 +15,12 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   QueueDetailsBloc() : super(const _Initial()) {
     on<_OpenQueue>((event, emit) {
       currentQueue = event.queue;
-      emit(QueueDetailsState.queueOpened(currentQueue));
+      emit(QueueDetailsState.queueOpened(currentQueue, false));
     });
 
     on<_LeaveQueue>(_leaveRequested);
     on<_FreezeQueue>(_freezeReqeusted);
+    on<_EditQueue>(_editQueue);
   }
 
   void _leaveRequested(
@@ -42,5 +43,12 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
       queue: queueToFreeze,
     );
     emit(const QueueDetailsState.queueFreezed());
+  }
+
+  void _editQueue(
+    _EditQueue event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    emit(QueueDetailsState.queueOpened(currentQueue, true));
   }
 }

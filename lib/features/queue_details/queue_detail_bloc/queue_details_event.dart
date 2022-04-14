@@ -9,4 +9,6 @@ class QueueDetailsEvent with _$QueueDetailsEvent {
   const factory QueueDetailsEvent.inviteUser() = _InviteUser;
 
   const factory QueueDetailsEvent.freezeQueue() = _FreezeQueue;
+
+  const factory QueueDetailsEvent.editQueue() = _EditQueue;
 }
