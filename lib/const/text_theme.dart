@@ -39,4 +39,44 @@ extension CustomTextTheme on TextTheme {
       fontWeight: FontWeight.bold,
     );
   }
+
+  TextStyle tileNameTextStyle(bool? expanded) {
+    return TextStyle(
+      fontSize: (expanded ?? false) ? 23 : 20,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle get bottomSheetTitleStyle {
+    return const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  TextStyle get buttonTextStyle {
+    return const TextStyle(
+      color: Colors.black,
+    );
+  }
+
+  TextStyle get notificationMessageTextStyle {
+    return const TextStyle(
+      fontSize: 18,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle get notificationDateTextStyle {
+    return const TextStyle(
+      fontSize: 12,
+      color: Colors.black,
+    );
+  }
+
+  TextStyle get largeButtonTextSrtyle {
+    return const TextStyle(
+      fontSize: 18,
+    );
+  }
 }

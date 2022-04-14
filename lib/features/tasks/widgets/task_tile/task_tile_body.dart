@@ -154,10 +154,7 @@ class _TaskName extends StatelessWidget {
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 200),
         child: Text(name),
-        style: TextStyle(
-          fontSize: isExpanded ? 23 : 20,
-          color: Colors.black,
-        ),
+        style: Theme.of(context).textTheme.tileNameTextStyle(isExpanded),
         overflow: TextOverflow.ellipsis,
       ),
     );

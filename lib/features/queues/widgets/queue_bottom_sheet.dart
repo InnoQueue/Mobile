@@ -44,9 +44,9 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
           children: <Widget>[
             Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
+              child: Text(
                 'Create new queue',
-                style: bottomSheetTitleStyle,
+                style: Theme.of(context).textTheme.bottomSheetTitleStyle,
               ),
             ),
             const SizedBox(height: 15),
@@ -117,12 +117,12 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                 height: 55,
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
-                child: const Text(
+                child: Text(
                   'Create',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .largeButtonTextSrtyle
+                      .copyWith(color: Colors.white),
                 ),
               ),
               onPressed: _onPressed,

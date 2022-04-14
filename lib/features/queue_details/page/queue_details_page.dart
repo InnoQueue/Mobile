@@ -4,9 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
-import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/core/widget/task_expenses.dart';
+import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 import 'package:provider/src/provider.dart';
 
@@ -63,14 +62,26 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                             height: 40,
                             //width: MediaQuery.of(context).size.width / 2,
                             alignment: Alignment.center,
-                            child: const Text(
+                            child: Text(
                               'Add Progress',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .largeButtonTextSrtyle,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext _) {
+                                return TaskExpensesDialog(
+                                  buildContext: context,
+                                  queueModel: queue,
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(

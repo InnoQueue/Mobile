@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/text_theme.dart';
 import 'package:inno_queue/core/widget/app_supertext.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 import 'package:intl/intl.dart';
@@ -21,18 +22,13 @@ class NotificationTile extends StatelessWidget {
           children: [
             AppSuperText(
               notificationModel.message ?? '',
-              style: const TextStyle(
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.notificationMessageTextStyle,
             ),
             const SizedBox(height: 1.9),
             Text(
               DateFormat('kk:mm dd.MM.yyyy')
                   .format(notificationModel.timestamp!),
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-              ),
+              style: Theme.of(context).textTheme.notificationDateTextStyle,
             ),
           ],
         ),
