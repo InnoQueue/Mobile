@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
@@ -11,12 +12,12 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  late Future<List<List<NotificationModel>>> future;
+  late Future<Pair<List<NotificationModel>, List<NotificationModel>>> future;
 
   @override
   void initState() {
-    future = ApiNotificationsService.getNotifications();
     super.initState();
+    future = ApiNotificationsService.getNotifications();
   }
 
   @override
@@ -33,9 +34,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
               child: Column(
                 children: <Widget>[
                   const SizedBox(height: 16),
-                  NotificationsView("unread", notifications[0]),
+                  NotificationsView("unread", notifications.first),
                   const SizedBox(height: 16),
-                  NotificationsView("all", notifications[1]),
+                  NotificationsView("all", notifications.last),
                 ],
               ),
             ),

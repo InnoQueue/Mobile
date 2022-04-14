@@ -17,8 +17,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    future = CacheService.checkFirstLaunch();
     super.initState();
+    future = CacheService.checkFirstLaunch();
   }
 
   @override

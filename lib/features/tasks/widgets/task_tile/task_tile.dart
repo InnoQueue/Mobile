@@ -80,6 +80,8 @@ class TaskTileState extends State<TaskTile> {
               selected: _selected,
               noItemSelected: _noItemSelected,
               removeItem: widget.removeItem,
+              setDone: setDone,
+              setUndone: setUndone,
             ),
           ),
         ),

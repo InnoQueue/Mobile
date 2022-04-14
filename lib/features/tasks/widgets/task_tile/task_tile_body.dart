@@ -6,6 +6,8 @@ class _Body extends StatefulWidget {
   final bool selected;
   final bool noItemSelected;
   final Function removeItem;
+  final Function setDone;
+  final Function setUndone;
   const _Body({
     Key? key,
     required this.taskTile,
@@ -13,6 +15,8 @@ class _Body extends StatefulWidget {
     this.selected = false,
     this.noItemSelected = true,
     required this.removeItem,
+    required this.setDone,
+    required this.setUndone,
   }) : super(key: key);
 
   @override
@@ -54,6 +58,8 @@ class _BodyState extends State<_Body> {
               expanded: widget.expanded,
               noItemSelected: widget.noItemSelected,
               taskTile: widget.taskTile,
+              setDone: widget.setDone,
+              setUndone: widget.setUndone,
             ),
           ],
         ),

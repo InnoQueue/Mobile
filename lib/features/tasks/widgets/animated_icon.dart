@@ -35,6 +35,7 @@ class _AnimateIconsState extends State<AnimateIcon>
 
   @override
   void initState() {
+    super.initState();
     _controller = AnimationController(
       vsync: this,
       duration: widget.duration ?? const Duration(seconds: 1),
@@ -49,7 +50,6 @@ class _AnimateIconsState extends State<AnimateIcon>
     _controller
         .addStatusListener(widget.listener! as Function(AnimationStatus));
     initControllerFunctions();
-    super.initState();
   }
 
   @override

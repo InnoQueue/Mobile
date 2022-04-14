@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -24,8 +25,9 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
   }
 
   Future<QueuesState> _loadData() async {
-    List<List<QueueModel>> queues = await ApiQueuesService.getQueues();
-    return QueuesState.dataLoaded(queues[0], queues[1]);
+    Pair<List<QueueModel>, List<QueueModel>> queues =
+        await ApiQueuesService.getQueues();
+    return QueuesState.dataLoaded(queues.first, queues.last);
   }
 
   void _addQueue(

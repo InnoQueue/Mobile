@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
@@ -19,7 +20,8 @@ class ApiNotifications extends ApiBase {
 }
 
 class ApiNotificationsService {
-  static Future<List<List<NotificationModel>>> getNotifications() async {
+  static Future<Pair<List<NotificationModel>, List<NotificationModel>>>
+      getNotifications() async {
     final String token = await ApiBaseService.getToken();
     final data = (await ApiNotifications.getNotifications(token)).data;
     List<NotificationModel> unread = [];
@@ -30,6 +32,6 @@ class ApiNotificationsService {
     for (var notification in data['all']) {
       all.add(NotificationModel.fromJson(notification));
     }
-    return [unread, all];
+    return Pair(unread, all);
   }
 }

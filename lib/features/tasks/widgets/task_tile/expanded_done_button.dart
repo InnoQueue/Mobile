@@ -68,10 +68,8 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
                 },
               );
             } else {
-              print("brefore");
               widget.removeItem(context, widget.taskTile,
                   expanded: true, done: true);
-              print("after");
               context
                   .read<TasksListBloc>()
                   .add(TasksListEvent.setTaskDone(widget.taskTile));

@@ -66,46 +66,9 @@ class _HomePageState extends State<HomePage> {
   PreferredSizeWidget? _appBarBuilder(StackRouter _, BuildContext context,
       {required bool selected, required int number}) {
     return AppBar(
-      title: !(selected && _.current.name == TasksRoute.name)
-          ? Text(
-              _getAppBarTitle(_.current.name),
-              style: Theme.of(context).textTheme.appBarTextStyle,
-            )
-          : Text(
-              number.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .appBarTextStyle
-                  .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-      leading: _.current.name == QueueDetailsRoute.name
-          ? const _BackButton()
-          : selected
-              ? const _ClearButton()
-              : null,
-      actions: selected && _.current.name == TasksRoute.name
-          ? [
-              const _AnimatedButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  size: 30,
-                  color: Colors.black,
-                ),
-                skipAll: true,
-              ),
-              const _AnimatedButton(
-                icon: Icon(
-                  Icons.done,
-                  size: 30,
-                  color: Colors.black,
-                ),
-                setAllDone: true,
-              ),
-            ]
-          : [
-              if (_.current.name == QueuesRoute.name) const _QrButton(),
-              if (_.current.name == QueueDetailsRoute.name) const _MoreButton(),
-            ],
+      title: _getAppBarTitle(selected, _.current.name, number),
+      leading: _getLeading(selected, _.current.name),
+      actions: _getAppBarActions(selected, _.current.name),
       elevation: 0,
       toolbarHeight: 65,
       systemOverlayStyle: const SystemUiOverlayStyle(
@@ -115,20 +78,73 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  String _getAppBarTitle(String routeName) {
+  Text _getAppBarTitle(bool selected, String routeName, int number) {
+    late String title;
     switch (routeName) {
       case TasksRoute.name:
-        return AppRes.todoTasks;
+        title = AppRes.todoTasks;
+        break;
       case QueuesRoute.name:
-        return AppRes.queues;
+        title = AppRes.queues;
+        break;
       case NotificationsRoute.name:
-        return AppRes.notifications;
+        title = AppRes.notifications;
+        break;
       case SettingsRoute.name:
-        return AppRes.settings;
+        title = AppRes.settings;
+        break;
       case QueueDetailsRoute.name:
-        return context.read<AppBarBloc>().state;
+        title = context.read<AppBarBloc>().state;
+        break;
       default:
-        return routeName;
+        title = routeName;
     }
+
+    return !(selected && title == TasksRoute.name)
+        ? Text(
+            title,
+            style: Theme.of(context).textTheme.appBarTextStyle,
+          )
+        : Text(
+            number.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .appBarTextStyle
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+          );
+  }
+
+  List<Widget> _getAppBarActions(bool selected, String routeName) {
+    return selected && routeName == TasksRoute.name
+        ? [
+            const _AnimatedButton(
+              icon: Icon(
+                Icons.delete_outline,
+                size: 30,
+                color: Colors.black,
+              ),
+              skipAll: true,
+            ),
+            const _AnimatedButton(
+              icon: Icon(
+                Icons.done,
+                size: 30,
+                color: Colors.black,
+              ),
+              setAllDone: true,
+            ),
+          ]
+        : [
+            if (routeName == QueuesRoute.name) const _QrButton(),
+            if (routeName == QueueDetailsRoute.name) const _MoreButton(),
+          ];
+  }
+
+  Widget? _getLeading(bool selected, String routeName) {
+    return routeName == QueueDetailsRoute.name
+        ? const _BackButton()
+        : selected
+            ? const _ClearButton()
+            : null;
   }
 }

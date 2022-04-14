@@ -4,10 +4,14 @@ class _DoneButton extends StatefulWidget {
   final bool expanded;
   final bool noItemSelected;
   final TaskTile taskTile;
+  final Function setDone;
+  final Function setUndone;
   const _DoneButton(
       {this.expanded = false,
       this.noItemSelected = true,
       required this.taskTile,
+      required this.setDone,
+      required this.setUndone,
       Key? key})
       : super(key: key);
 
@@ -16,7 +20,6 @@ class _DoneButton extends StatefulWidget {
 }
 
 class _DoneButtonState extends State<_DoneButton> {
-  late TaskTileState? parent;
   bool isInWaitingList = false;
   bool done = false;
   @override
@@ -65,9 +68,9 @@ class _DoneButtonState extends State<_DoneButton> {
                 if (widget.expanded || !widget.noItemSelected) return;
                 setState(() {
                   if (!done) {
-                    parent!.setDone();
+                    widget.setDone();
                   } else {
-                    parent!.setUndone();
+                    widget.setUndone();
                   }
                   done = !done;
                 });

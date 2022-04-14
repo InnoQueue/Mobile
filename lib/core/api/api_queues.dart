@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
@@ -86,7 +87,7 @@ class ApiQueues extends ApiBase {
 }
 
 class ApiQueuesService {
-  static Future<List<List<QueueModel>>> getQueues() async {
+  static Future<Pair<List<QueueModel>, List<QueueModel>>> getQueues() async {
     final String token = await ApiBaseService.getToken();
     final data = (await ApiQueues.getQueues(token)).data;
     List<QueueModel> active = [];
@@ -97,7 +98,7 @@ class ApiQueuesService {
     for (var queue in data['frozen']) {
       frozen.add(QueueModel.fromJson(queue));
     }
-    return [active, frozen];
+    return Pair(active, frozen);
   }
 
   static Future<void> addQueue({

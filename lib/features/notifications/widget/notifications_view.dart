@@ -13,7 +13,6 @@ class NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("notifications: ${notifications.length}");
     List<Widget> notifcationTiles = _buildTiles();
 
     if (notifications.isNotEmpty) {

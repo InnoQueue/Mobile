@@ -25,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
+    super.initState();
     defaultBody = {
       "name": defaultName,
       "n1": true,
@@ -39,7 +40,6 @@ class _SettingsPageState extends State<SettingsPage> {
           _nameFieldController.text = value['name'];
         }));
     _nameFieldController = TextEditingController(text: defaultName);
-    super.initState();
   }
 
   @override
