@@ -201,6 +201,9 @@ class _MoreButtonState extends State<_MoreButton> {
 
   void _onSelected(String item) {
     switch (item) {
+      case 'Invite user':
+        _showQr();
+        break;
       case 'Delete queue':
       case 'Leave queue':
         context
@@ -216,5 +219,18 @@ class _MoreButtonState extends State<_MoreButton> {
         break;
       default:
     }
+  }
+
+  void _showQr() {
+    QueueModel currectQueue = context.read<QueueDetailsBloc>().currentQueue;
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext _) {
+        //TODO: Create a widget that shows QR code and passowrd and return it
+        return AlertDialog();
+      },
+    );
   }
 }
