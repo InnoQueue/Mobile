@@ -11,7 +11,7 @@ class _BackButton extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
-            size: 40,
+            size: 30,
           ),
           onPressed: () {
             context.router.pop();
@@ -146,6 +146,52 @@ class _QrButton extends StatelessWidget {
   }
 }
 
+class _SubmitEditsButton extends StatelessWidget {
+  const _SubmitEditsButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10.0),
+      child: IconButton(
+        icon: const Icon(
+          Icons.done,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () {
+          context
+              .read<EditQueueBloc>()
+              .add(const EditQueueEvent.requestUpdate());
+        },
+      ),
+    );
+  }
+}
+
+class _CancelEditsButton extends StatelessWidget {
+  const _CancelEditsButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0),
+      child: IconButton(
+        icon: const Icon(
+          Icons.clear,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () {
+          context
+              .read<EditQueueBloc>()
+              .add(const EditQueueEvent.requestCancel());
+        },
+      ),
+    );
+  }
+}
+
 class _MoreButton extends StatefulWidget {
   const _MoreButton({Key? key}) : super(key: key);
 
@@ -167,7 +213,7 @@ class _MoreButtonState extends State<_MoreButton> {
             : null;
 
     myMenuItems = [
-      'Edit',
+      if (currentQueue.isAdmin) 'Edit',
       'Invite user',
       if (freeze != null) freeze,
       currentQueue.isAdmin ? 'Delete queue' : 'Leave queue',
@@ -209,13 +255,11 @@ class _MoreButtonState extends State<_MoreButton> {
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.leaveQueue());
-        //context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
         break;
       case 'Freeze queue':
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.freezeQueue());
-        //context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
         break;
       case 'Edit':
         context

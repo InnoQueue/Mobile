@@ -7,6 +7,7 @@ import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
 import 'package:inno_queue/features/home/widgets/qr_alert.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
+import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 import '../../../const/const.dart';
 
@@ -41,22 +42,24 @@ class _HomePageState extends State<HomePage> {
             },
           );
 
-          return Scaffold(
-            key: homePageScaffoldKey,
-            backgroundColor: Colors.blueGrey[50],
-            resizeToAvoidBottomInset: false,
-            appBar: _appBarBuilder(
-              router,
-              context,
-              selected: selected,
-              number: counter,
+          return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
+            builder: (context, state) => Scaffold(
+              key: homePageScaffoldKey,
+              backgroundColor: Colors.blueGrey[50],
+              resizeToAvoidBottomInset: false,
+              appBar: _appBarBuilder(
+                router,
+                context,
+                selected: selected,
+                number: counter,
+              ),
+              body: child,
+              bottomNavigationBar: const BottomBar(),
+              floatingActionButton:
+                  (context.router.current.name == QueuesRoute.name)
+                      ? const _AddButton()
+                      : null,
             ),
-            body: child,
-            bottomNavigationBar: const BottomBar(),
-            floatingActionButton:
-                (context.router.current.name == QueuesRoute.name)
-                    ? const _AddButton()
-                    : null,
           );
         });
       },
@@ -115,6 +118,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _getAppBarActions(bool selected, String routeName) {
+    late bool areEditable;
+
+    context.read<QueueDetailsBloc>().state.maybeWhen(
+          queueOpened: (_, editable) => areEditable = editable,
+          orElse: () => areEditable = false,
+        );
+
+    if (routeName == QueueDetailsRoute.name && areEditable) {
+      return [const _SubmitEditsButton()];
+    }
+
     return selected && routeName == TasksRoute.name
         ? [
             const _AnimatedButton(
@@ -141,6 +155,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? _getLeading(bool selected, String routeName) {
+    late bool areEditable;
+
+    context.read<QueueDetailsBloc>().state.maybeWhen(
+          queueOpened: (_, editable) => areEditable = editable,
+          orElse: () => areEditable = false,
+        );
+
+    if (routeName == QueueDetailsRoute.name && areEditable) {
+      return const _CancelEditsButton();
+    }
+
     return routeName == QueueDetailsRoute.name
         ? const _BackButton()
         : selected

@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   final QueueModel queueModel;
   const Header({required this.queueModel, Key? key}) : super(key: key);
 
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,14 +20,14 @@ class Header extends StatelessWidget {
           width: 60,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: colors[queueModel.color],
+            color: colors[widget.queueModel.color],
           ),
         ),
         const SizedBox(
           width: 20,
         ),
         Text(
-          queueModel.name,
+          widget.queueModel.name,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w400,

@@ -8,9 +8,13 @@ import 'package:inno_queue/shared/models/user/user_model.dart';
 class ParticipantTile extends StatefulWidget {
   final UserModel user;
   final QueueModel queue;
+  final Function onTap;
+  final int index;
   const ParticipantTile({
     required this.user,
     required this.queue,
+    required this.onTap,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
@@ -43,7 +47,10 @@ class _ParticipantTileState extends State<ParticipantTile> {
                 ],
               ),
             ),
-            const _RemoveButton(),
+            _RemoveButton(
+              onTap: widget.onTap,
+              index: widget.index,
+            ),
           ],
         ),
       ),
@@ -52,22 +59,28 @@ class _ParticipantTileState extends State<ParticipantTile> {
 }
 
 class _RemoveButton extends StatelessWidget {
-  const _RemoveButton({Key? key}) : super(key: key);
+  final Function onTap;
+  final int index;
+  const _RemoveButton({required this.onTap, required this.index, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      width: 20,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.red.shade400,
+    return GestureDetector(
+      child: Container(
+        height: 20,
+        width: 20,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.red.shade400,
+        ),
+        child: const Icon(
+          Icons.remove,
+          color: Colors.white,
+          size: 18,
+        ),
       ),
-      child: const Icon(
-        Icons.remove,
-        color: Colors.white,
-        size: 18,
-      ),
+      onTap: () => onTap(context, index),
     );
   }
 }

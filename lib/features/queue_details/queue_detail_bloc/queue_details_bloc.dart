@@ -21,6 +21,8 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     on<_LeaveQueue>(_leaveRequested);
     on<_FreezeQueue>(_freezeReqeusted);
     on<_EditQueue>(_editQueue);
+    on<_SubmitEdits>(_submitEdits);
+    on<_CancelEdits>(_cancelEdits);
   }
 
   void _leaveRequested(
@@ -50,5 +52,22 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     Emitter<QueueDetailsState> emit,
   ) async {
     emit(QueueDetailsState.queueOpened(currentQueue, true));
+  }
+
+  void _submitEdits(
+    _SubmitEdits event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    await ApiQueuesService.updateQueue(
+      queue: event.updatedQueue,
+    );
+    emit(QueueDetailsState.queueOpened(currentQueue, false));
+  }
+
+  void _cancelEdits(
+    _CancelEdits event,
+    Emitter<QueueDetailsState> emit,
+  ) {
+    emit(QueueDetailsState.queueOpened(currentQueue, false));
   }
 }

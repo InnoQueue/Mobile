@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 class TrackExpensesButton extends StatefulWidget {
-  const TrackExpensesButton({Key? key}) : super(key: key);
+  final bool initValue;
+  final Function updateTracker;
+  const TrackExpensesButton({
+    required this.initValue,
+    required this.updateTracker,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TrackExpensesButton> createState() => _TrackExpensesButtonState();
 }
 
 class _TrackExpensesButtonState extends State<TrackExpensesButton> {
-  bool _toggleValue = false;
+  late bool _toggleValue = widget.initValue;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -30,6 +36,7 @@ class _TrackExpensesButtonState extends State<TrackExpensesButton> {
           onToggle: (newValue) {
             setState(() {
               _toggleValue = newValue;
+              widget.updateTracker(newValue);
             });
           },
         ),

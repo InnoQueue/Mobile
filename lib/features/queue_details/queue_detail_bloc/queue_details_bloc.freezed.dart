@@ -39,6 +39,16 @@ class _$QueueDetailsEventTearOff {
   _EditQueue editQueue() {
     return const _EditQueue();
   }
+
+  _CancelEdits cancelEdits() {
+    return const _CancelEdits();
+  }
+
+  _SubmitEdits submitEdits(QueueModel updatedQueue) {
+    return _SubmitEdits(
+      updatedQueue,
+    );
+  }
 }
 
 /// @nodoc
@@ -53,6 +63,8 @@ mixin _$QueueDetailsEvent {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +74,8 @@ mixin _$QueueDetailsEvent {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +85,8 @@ mixin _$QueueDetailsEvent {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -81,6 +97,8 @@ mixin _$QueueDetailsEvent {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,6 +108,8 @@ mixin _$QueueDetailsEvent {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -99,6 +119,8 @@ mixin _$QueueDetailsEvent {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -199,6 +221,8 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) {
     return openQueue(queue);
   }
@@ -211,6 +235,8 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) {
     return openQueue?.call(queue);
   }
@@ -223,6 +249,8 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) {
     if (openQueue != null) {
@@ -239,6 +267,8 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) {
     return openQueue(this);
   }
@@ -251,6 +281,8 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) {
     return openQueue?.call(this);
   }
@@ -263,6 +295,8 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) {
     if (openQueue != null) {
@@ -327,6 +361,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) {
     return leaveQueue();
   }
@@ -339,6 +375,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) {
     return leaveQueue?.call();
   }
@@ -351,6 +389,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) {
     if (leaveQueue != null) {
@@ -367,6 +407,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) {
     return leaveQueue(this);
   }
@@ -379,6 +421,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) {
     return leaveQueue?.call(this);
   }
@@ -391,6 +435,8 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) {
     if (leaveQueue != null) {
@@ -450,6 +496,8 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) {
     return inviteUser();
   }
@@ -462,6 +510,8 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) {
     return inviteUser?.call();
   }
@@ -474,6 +524,8 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) {
     if (inviteUser != null) {
@@ -490,6 +542,8 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) {
     return inviteUser(this);
   }
@@ -502,6 +556,8 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) {
     return inviteUser?.call(this);
   }
@@ -514,6 +570,8 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) {
     if (inviteUser != null) {
@@ -573,6 +631,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) {
     return freezeQueue();
   }
@@ -585,6 +645,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) {
     return freezeQueue?.call();
   }
@@ -597,6 +659,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) {
     if (freezeQueue != null) {
@@ -613,6 +677,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) {
     return freezeQueue(this);
   }
@@ -625,6 +691,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) {
     return freezeQueue?.call(this);
   }
@@ -637,6 +705,8 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) {
     if (freezeQueue != null) {
@@ -695,6 +765,8 @@ class _$_EditQueue implements _EditQueue {
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
   }) {
     return editQueue();
   }
@@ -707,6 +779,8 @@ class _$_EditQueue implements _EditQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
   }) {
     return editQueue?.call();
   }
@@ -719,6 +793,8 @@ class _$_EditQueue implements _EditQueue {
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
     required TResult orElse(),
   }) {
     if (editQueue != null) {
@@ -735,6 +811,8 @@ class _$_EditQueue implements _EditQueue {
     required TResult Function(_InviteUser value) inviteUser,
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
   }) {
     return editQueue(this);
   }
@@ -747,6 +825,8 @@ class _$_EditQueue implements _EditQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
   }) {
     return editQueue?.call(this);
   }
@@ -759,6 +839,8 @@ class _$_EditQueue implements _EditQueue {
     TResult Function(_InviteUser value)? inviteUser,
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
     required TResult orElse(),
   }) {
     if (editQueue != null) {
@@ -770,6 +852,315 @@ class _$_EditQueue implements _EditQueue {
 
 abstract class _EditQueue implements QueueDetailsEvent {
   const factory _EditQueue() = _$_EditQueue;
+}
+
+/// @nodoc
+abstract class _$CancelEditsCopyWith<$Res> {
+  factory _$CancelEditsCopyWith(
+          _CancelEdits value, $Res Function(_CancelEdits) then) =
+      __$CancelEditsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CancelEditsCopyWithImpl<$Res>
+    extends _$QueueDetailsEventCopyWithImpl<$Res>
+    implements _$CancelEditsCopyWith<$Res> {
+  __$CancelEditsCopyWithImpl(
+      _CancelEdits _value, $Res Function(_CancelEdits) _then)
+      : super(_value, (v) => _then(v as _CancelEdits));
+
+  @override
+  _CancelEdits get _value => super._value as _CancelEdits;
+}
+
+/// @nodoc
+
+class _$_CancelEdits implements _CancelEdits {
+  const _$_CancelEdits();
+
+  @override
+  String toString() {
+    return 'QueueDetailsEvent.cancelEdits()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CancelEdits);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueueModel queue) openQueue,
+    required TResult Function() leaveQueue,
+    required TResult Function() inviteUser,
+    required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
+  }) {
+    return cancelEdits();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+  }) {
+    return cancelEdits?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (cancelEdits != null) {
+      return cancelEdits();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenQueue value) openQueue,
+    required TResult Function(_LeaveQueue value) leaveQueue,
+    required TResult Function(_InviteUser value) inviteUser,
+    required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
+  }) {
+    return cancelEdits(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+  }) {
+    return cancelEdits?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (cancelEdits != null) {
+      return cancelEdits(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CancelEdits implements QueueDetailsEvent {
+  const factory _CancelEdits() = _$_CancelEdits;
+}
+
+/// @nodoc
+abstract class _$SubmitEditsCopyWith<$Res> {
+  factory _$SubmitEditsCopyWith(
+          _SubmitEdits value, $Res Function(_SubmitEdits) then) =
+      __$SubmitEditsCopyWithImpl<$Res>;
+  $Res call({QueueModel updatedQueue});
+
+  $QueueModelCopyWith<$Res> get updatedQueue;
+}
+
+/// @nodoc
+class __$SubmitEditsCopyWithImpl<$Res>
+    extends _$QueueDetailsEventCopyWithImpl<$Res>
+    implements _$SubmitEditsCopyWith<$Res> {
+  __$SubmitEditsCopyWithImpl(
+      _SubmitEdits _value, $Res Function(_SubmitEdits) _then)
+      : super(_value, (v) => _then(v as _SubmitEdits));
+
+  @override
+  _SubmitEdits get _value => super._value as _SubmitEdits;
+
+  @override
+  $Res call({
+    Object? updatedQueue = freezed,
+  }) {
+    return _then(_SubmitEdits(
+      updatedQueue == freezed
+          ? _value.updatedQueue
+          : updatedQueue // ignore: cast_nullable_to_non_nullable
+              as QueueModel,
+    ));
+  }
+
+  @override
+  $QueueModelCopyWith<$Res> get updatedQueue {
+    return $QueueModelCopyWith<$Res>(_value.updatedQueue, (value) {
+      return _then(_value.copyWith(updatedQueue: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SubmitEdits implements _SubmitEdits {
+  const _$_SubmitEdits(this.updatedQueue);
+
+  @override
+  final QueueModel updatedQueue;
+
+  @override
+  String toString() {
+    return 'QueueDetailsEvent.submitEdits(updatedQueue: $updatedQueue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SubmitEdits &&
+            const DeepCollectionEquality()
+                .equals(other.updatedQueue, updatedQueue));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(updatedQueue));
+
+  @JsonKey(ignore: true)
+  @override
+  _$SubmitEditsCopyWith<_SubmitEdits> get copyWith =>
+      __$SubmitEditsCopyWithImpl<_SubmitEdits>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueueModel queue) openQueue,
+    required TResult Function() leaveQueue,
+    required TResult Function() inviteUser,
+    required TResult Function() freezeQueue,
+    required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
+  }) {
+    return submitEdits(updatedQueue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+  }) {
+    return submitEdits?.call(updatedQueue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (submitEdits != null) {
+      return submitEdits(updatedQueue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenQueue value) openQueue,
+    required TResult Function(_LeaveQueue value) leaveQueue,
+    required TResult Function(_InviteUser value) inviteUser,
+    required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
+  }) {
+    return submitEdits(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+  }) {
+    return submitEdits?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (submitEdits != null) {
+      return submitEdits(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SubmitEdits implements QueueDetailsEvent {
+  const factory _SubmitEdits(QueueModel updatedQueue) = _$_SubmitEdits;
+
+  QueueModel get updatedQueue;
+  @JsonKey(ignore: true)
+  _$SubmitEditsCopyWith<_SubmitEdits> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

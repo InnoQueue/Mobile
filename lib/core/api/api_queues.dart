@@ -84,6 +84,29 @@ class ApiQueues extends ApiBase {
       ),
     );
   }
+
+  static Future<Response> updateQueue(
+    token, {
+    required QueueModel queue,
+  }) async {
+    var params = {
+      "id": queue.id,
+      "name": queue.name,
+      "color": queue.color,
+      "track_expenses": queue.trackExpenses,
+      "participants": queue.participants.map((e) => e.id).toList(),
+    };
+
+    return ApiBase.dio.patch(
+      "${ApiBase.baseUrl}/queues",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+      data: params,
+    );
+  }
 }
 
 class ApiQueuesService {
@@ -130,6 +153,16 @@ class ApiQueuesService {
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.freezeQueue(
+      token,
+      queue: queue,
+    );
+  }
+
+  static Future<void> updateQueue({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    await ApiQueues.updateQueue(
       token,
       queue: queue,
     );

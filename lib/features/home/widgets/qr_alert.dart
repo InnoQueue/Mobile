@@ -122,8 +122,6 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
                   if (qrOpen) {
                     qrOpen = !qrOpen;
                     showQrButton = true;
-                  } else {
-                    qrOpen = !qrOpen;
                   }
                 });
               },
