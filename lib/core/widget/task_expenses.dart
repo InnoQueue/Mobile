@@ -1,6 +1,12 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
+import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:inno_queue/core/api/api_queues.dart';
+import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
+import 'package:inno_queue/routes/app_router.dart';
 import 'package:provider/src/provider.dart';
 
 class TaskExpensesDialog extends StatefulWidget {
@@ -107,14 +113,29 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
               color: Colors.black,
             ),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (widget.taskTile != null) {
               widget.removeItem!(widget.buildContext, widget.taskTile,
-                  expanded: widget.expanded, done: true);
-              widget.buildContext
-                  .read<TasksListBloc>()
-                  .add(TasksListEvent.setTaskDone(widget.taskTile!));
+                  expanded: widget.expanded,
+                  done: true,
+                  expenses: double.parse(valueText ?? ''));
+              widget.buildContext.read<TasksListBloc>().add(
+                  TasksListEvent.setTaskDone(widget.taskTile!,
+                      expenses: double.parse(valueText ?? '')));
               emptyList(false);
+            } else {
+              ApiTasksService.deleteTask(
+                task: TaskModel(
+                  id: widget.queueModel!.id,
+                  name: widget.queueModel!.name,
+                  color: widget.queueModel!.color,
+                  trackExpenses: widget.queueModel!.trackExpenses,
+                ),
+                expenses: double.parse(valueText ?? ''),
+              );
+              context
+                  .read<QueueDetailsBloc>()
+                  .add(QueueDetailsEvent.updateQueue());
             }
             Navigator.of(context).pop();
           },

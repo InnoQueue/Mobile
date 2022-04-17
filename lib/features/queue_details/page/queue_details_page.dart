@@ -25,6 +25,50 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
   QueueModel? updatedQueue;
   late QueueModel originalQueue;
 
+  Future<bool> _onWillPop(bool editable, bool changesApplied) async {
+    if (editable && changesApplied) {
+      return (await showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+              title: new Text('Are you sure?'),
+              content: new Text('Do you want to cancel changes'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: new Text(
+                    'No',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    cancelChanges();
+                    updatedQueue = originalQueue;
+                    Navigator.of(context).pop(false);
+                  },
+                  child: new Text(
+                    'Yes',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    } else if (editable && !changesApplied) {
+      cancelChanges();
+      updatedQueue = null;
+    } else {
+      Navigator.of(context).pop();
+      context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EditQueueBloc, EditQueueState>(
@@ -33,14 +77,13 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
         initial: () {},
         updateRequested: () {
           submitChanges();
-          context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
           context
               .read<AppBarBloc>()
               .add(RouteChangedEvent((updatedQueue ?? originalQueue).name));
         },
         cancelRequested: () {
           cancelChanges();
-          updatedQueue = originalQueue;
+          updatedQueue = null;
         },
       );
       return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
@@ -57,65 +100,74 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
               return Wrap();
             },
             initial: () => Wrap(),
+            queueUpdating: () {
+              return const Center(
+                  child: CircularProgressIndicator(color: Colors.grey));
+            },
             queueOpened: (queue, editable) {
               originalQueue = queue;
-              return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: editable
-                              ? EditableHeader(
-                                  queueModel: updatedQueue ?? queue,
-                                  updateColor: updateColor,
-                                  updateName: updateName,
-                                )
-                              : Header(queueModel: updatedQueue ?? queue),
-                        ),
-                        if (!editable)
+              return WillPopScope(
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      bottom: 10,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: editable
+                                ? EditableHeader(
+                                    queueModel: updatedQueue ?? queue,
+                                    updateColor: updateColor,
+                                    updateName: updateName,
+                                  )
+                                : Header(queueModel: queue),
+                          ),
+                          if (!editable)
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          if (!editable)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: queueDetailsPadding),
+                              child: _AddProgressButton(
+                                queue: queue,
+                              ),
+                            ),
                           const SizedBox(
                             height: 20,
                           ),
-                        if (!editable)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: queueDetailsPadding),
-                            child: _AddProgressButton(
-                              queue: updatedQueue ?? queue,
-                            ),
+                          editable
+                              ? EditableParticipants(
+                                  queueModel: updatedQueue ?? queue,
+                                  removeParticipant: removeParticipant,
+                                )
+                              : Participants(
+                                  queueModel: queue,
+                                ),
+                          const SizedBox(
+                            height: 20,
                           ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        editable
-                            ? EditableParticipants(
-                                queueModel: updatedQueue ?? queue,
-                                removeParticipant: removeParticipant,
-                              )
-                            : Participants(
-                                queueModel: updatedQueue ?? queue,
+                          if (editable)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: TrackExpensesButton(
+                                initValue:
+                                    (updatedQueue ?? queue).trackExpenses,
+                                updateTracker: updateTracker,
                               ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        if (editable)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: TrackExpensesButton(
-                              initValue: queue.trackExpenses,
-                              updateTracker: updateTracker,
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
+                onWillPop: () => _onWillPop(editable, updatedQueue != null),
               );
             },
           );

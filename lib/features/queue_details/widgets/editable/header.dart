@@ -39,10 +39,11 @@ class _EditableHeaderState extends State<EditableHeader> {
         const SizedBox(
           width: 20,
         ),
-        IntrinsicWidth(
+        Flexible(
           child: TextField(
             controller: TextEditingController()..text = widget.queueModel.name,
             style: const TextStyle(
+              overflow: TextOverflow.ellipsis,
               fontSize: 20,
               fontWeight: FontWeight.w400,
             ),

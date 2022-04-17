@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
         builder: (context, state) {
           return state.when(
             initial: () => Wrap(),
-            dataManaged: (items, expanded, done, skipped, waitingList,
+            dataManaged: (items, expanded, done, expenses, skipped, waitingList,
                 selectedList, emptyingSelectedList, emptyingWaitingList) {
               manageExpanded(expanded);
               if (!emptyingSelectedList) {
@@ -73,14 +74,17 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                 }
               }
               if (emptyingWaitingList) {
-                Timer.run(() => emptyWaitingList(context, waitingList[0]));
+                Timer.run(() {
+                  emptyWaitingList(context, waitingList[0], expenses);
+                });
               }
               return BlocBuilder<SelectTasksBloc, SelectTasksState>(
                   builder: (context, state) {
                 state.maybeWhen(
                   allDone: () => Timer.run(() {
                     if (selectedList.isNotEmpty) {
-                      emptySelectedListOnDone(context, selectedList[0]);
+                      emptySelectedListOnDone(
+                          context, selectedList[0], expenses);
                     }
                   }),
                   allSkipped: () => Timer.run(() {
@@ -169,7 +173,10 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   }
 
   void removeItem(BuildContext context, TaskTile tile,
-      {bool expanded = false, bool skip = false, bool done = false}) {
+      {bool expanded = false,
+      bool skip = false,
+      bool done = false,
+      double? expenses}) {
     _listKey.currentState!.removeItem(
       _items.indexOf(tile),
       (context, animation) => Padding(
@@ -188,11 +195,11 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     if (skip) {
       ApiTasksService.skipTask(task: tile.taskModel);
     } else if (done) {
-      ApiTasksService.deleteTask(task: tile.taskModel);
+      ApiTasksService.deleteTask(task: tile.taskModel, expenses: expenses);
     }
   }
 
-  void emptyWaitingList(BuildContext context, TaskTile tile) {
+  void emptyWaitingList(BuildContext context, TaskTile tile, double? expenses) {
     if (tile.taskModel.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -212,7 +219,8 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void emptySelectedListOnDone(BuildContext context, TaskTile tile) {
+  void emptySelectedListOnDone(
+      BuildContext context, TaskTile tile, double? expenses) {
     if (tile.taskModel.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -227,7 +235,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
         },
       );
     } else {
-      removeItem(context, tile, done: true);
+      removeItem(context, tile, done: true, expenses: expenses);
       context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
     }
   }

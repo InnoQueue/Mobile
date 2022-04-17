@@ -4,7 +4,8 @@ part of 'tasks_list_bloc.dart';
 class TasksListEvent with _$TasksListEvent {
   const factory TasksListEvent.initTasks(List<TaskTile> tasks) = _InitTasks;
 
-  const factory TasksListEvent.setTaskDone(TaskTile task) = _SetTaskDone;
+  const factory TasksListEvent.setTaskDone(TaskTile task, {double? expenses}) =
+      _SetTaskDone;
 
   const factory TasksListEvent.skipTask(TaskTile task) = _SkipTask;
 

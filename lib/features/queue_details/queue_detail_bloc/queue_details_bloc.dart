@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -23,6 +24,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     on<_EditQueue>(_editQueue);
     on<_SubmitEdits>(_submitEdits);
     on<_CancelEdits>(_cancelEdits);
+    on<_UpdateQueue>(_updateQueue);
   }
 
   void _leaveRequested(
@@ -58,10 +60,11 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _SubmitEdits event,
     Emitter<QueueDetailsState> emit,
   ) async {
+    emit(QueueDetailsState.queueUpdating());
     await ApiQueuesService.updateQueue(
       queue: event.updatedQueue,
     );
-    emit(QueueDetailsState.queueOpened(currentQueue, false));
+    await updateQueue(emit);
   }
 
   void _cancelEdits(
@@ -69,5 +72,24 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     Emitter<QueueDetailsState> emit,
   ) {
     emit(QueueDetailsState.queueOpened(currentQueue, false));
+  }
+
+  void _updateQueue(
+    _UpdateQueue event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    await updateQueue(emit);
+  }
+
+  Future<void> updateQueue(Emitter<QueueDetailsState> emit) async {
+    emit(QueueDetailsState.queueUpdating());
+    Pair<List<QueueModel>, List<QueueModel>> queues =
+        await ApiQueuesService.getQueues();
+
+    List<QueueModel> allQueues = queues.first..addAll(queues.last);
+    QueueModel updatedQueue =
+        allQueues.firstWhere((element) => element.id == currentQueue.id);
+    currentQueue = updatedQueue;
+    emit(QueueDetailsState.queueOpened(updatedQueue, false));
   }
 }

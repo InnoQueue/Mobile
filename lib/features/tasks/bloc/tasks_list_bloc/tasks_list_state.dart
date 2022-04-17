@@ -8,6 +8,7 @@ class TasksListState with _$TasksListState {
     List<TaskTile> shownTasks,
     TaskTile? expandedTask,
     TaskTile? done,
+    double? expenses,
     TaskTile? sipped,
     List<TaskTile> waitingList,
     List<TaskTile> selectedList,

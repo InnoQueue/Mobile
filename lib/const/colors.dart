@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 
 Map<String, Color> colors = {
   'RED': Colors.redAccent,
-  'GREEN': Colors.greenAccent,
-  'BLUE': Colors.blueAccent,
-  'GRAY': Colors.grey,
-  'WHITE': Colors.white,
-  'AMBER': Colors.amber,
   'ORANGE': Colors.orangeAccent,
-  'YELLOW': Colors.yellowAccent,
-  'PURPLE': Colors.purpleAccent,
+  'AMBER': Colors.amber,
+  'YELLOW': Colors.yellow,
+  'LIGHT_GREEN': Colors.lightGreen,
+  'GREEN': Colors.green,
+  'GREEN_ACCENT': Colors.greenAccent,
+  'LIGHT_BLUE': Colors.lightBlue,
+  'BLUE_ACCENT': Colors.blue,
+  'BLUE': Colors.blueAccent,
+  'DEEP_PURPLE': Colors.deepPurple,
+  'PURPLE': Colors.purple,
+  'PURPLE_ACCENT': Colors.purpleAccent,
+  'PINK_ACCENT': Colors.pinkAccent,
+  'PINK': Colors.pink,
+  'GRAY': Colors.grey,
 };
 
 const MaterialColor white = MaterialColor(

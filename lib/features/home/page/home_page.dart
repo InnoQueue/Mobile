@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
         title = routeName;
     }
 
-    return !(selected && title == TasksRoute.name)
+    return !(selected || title == TasksRoute.name)
         ? Text(
             title,
             style: Theme.of(context).textTheme.appBarTextStyle,
@@ -126,26 +126,50 @@ class _HomePageState extends State<HomePage> {
         );
 
     if (routeName == QueueDetailsRoute.name && areEditable) {
-      return [const _SubmitEditsButton()];
+      return [
+        _AnimatedButton(
+          actions: true,
+          icon: Icon(
+            Icons.done,
+            size: 30,
+            color: Colors.black,
+          ),
+          onTap: () {
+            context
+                .read<EditQueueBloc>()
+                .add(const EditQueueEvent.requestUpdate());
+          },
+        ),
+      ];
     }
 
     return selected && routeName == TasksRoute.name
         ? [
-            const _AnimatedButton(
+            _AnimatedButton(
+              actions: true,
               icon: Icon(
                 Icons.delete_outline,
                 size: 30,
                 color: Colors.black,
               ),
-              skipAll: true,
+              onTap: () {
+                context
+                    .read<SelectTasksBloc>()
+                    .add(const SelectTasksEvent.skipAll());
+              },
             ),
-            const _AnimatedButton(
+            _AnimatedButton(
+              actions: true,
               icon: Icon(
                 Icons.done,
                 size: 30,
                 color: Colors.black,
               ),
-              setAllDone: true,
+              onTap: () {
+                context
+                    .read<SelectTasksBloc>()
+                    .add(const SelectTasksEvent.setAllDone());
+              },
             ),
           ]
         : [
@@ -163,13 +187,37 @@ class _HomePageState extends State<HomePage> {
         );
 
     if (routeName == QueueDetailsRoute.name && areEditable) {
-      return const _CancelEditsButton();
+      return _AnimatedButton(
+        leading: true,
+        icon: Icon(
+          Icons.clear,
+          size: 30,
+          color: Colors.black,
+        ),
+        onTap: () {
+          context
+              .read<EditQueueBloc>()
+              .add(const EditQueueEvent.requestCancel());
+        },
+      );
     }
 
     return routeName == QueueDetailsRoute.name
         ? const _BackButton()
         : selected
-            ? const _ClearButton()
+            ? _AnimatedButton(
+                leading: true,
+                icon: Icon(
+                  Icons.clear,
+                  size: 30,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  context
+                      .read<SelectTasksBloc>()
+                      .add(const SelectTasksEvent.clear());
+                },
+              )
             : null;
   }
 }

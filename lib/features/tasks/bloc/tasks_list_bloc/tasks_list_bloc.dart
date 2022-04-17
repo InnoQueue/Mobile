@@ -1,3 +1,4 @@
+import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,6 +20,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   bool timeOut = false;
   bool emptyingSelectedList = false;
   bool emptyingWaitingList = false;
+  double? _expenses;
 
   TasksListBloc() : super(const _Initial()) {
     on<_InitTasks>(_initTasks);
@@ -41,8 +43,16 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   ) async {
     _tasks = event.tasks;
     _waitingList = [];
-    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        timeOut ? _waitingList : [], [], emptyingSelectedList, false));
+    emit(TasksListState.dataManaged(
+        _tasks,
+        _expanded,
+        _done,
+        _expenses,
+        _skipped,
+        timeOut ? _waitingList : [],
+        [],
+        emptyingSelectedList,
+        false));
   }
 
   void _setTaskDone(
@@ -53,6 +63,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     _tasks.remove(event.task);
     _waitingList.remove(event.task);
     _done = event.task;
+    _expenses = event.expenses;
     emitDataManged(emit);
   }
 
@@ -135,6 +146,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
         _tasks,
         _expanded,
         _done,
+        _expenses,
         _skipped,
         _waitingList,
         _selectedList,
@@ -156,8 +168,8 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     } else {
       emptyingSelectedList = false;
     }
-    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _skipped,
-        _waitingList, _selectedList, emptyingSelectedList, false));
+    emit(TasksListState.dataManaged(_tasks, _expanded, _done, _expenses,
+        _skipped, _waitingList, _selectedList, emptyingSelectedList, false));
   }
 
   void _expandTask(
@@ -183,6 +195,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
         _tasks,
         _expanded,
         _done,
+        _expenses,
         _skipped,
         _waitingList,
         _selectedList,
@@ -190,6 +203,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
         emptyingWaitingList));
     _done = null;
     _skipped = null;
+    _expenses = null;
     timeOut = false;
     emptyingWaitingList = false;
   }

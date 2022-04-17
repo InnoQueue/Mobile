@@ -57,7 +57,7 @@ class TaskTileState extends State<TaskTile> {
         builder: (context, state) {
       state.when(
         dataManaged:
-            (v0, expandedTask, v1, v2, waitingList, selectedList, v3, v4) {
+            (v0, expandedTask, v1, v2, v3, waitingList, selectedList, v4, v5) {
           _expanded = expandedTask == widget;
           _selected = selectedList.contains(widget);
           _noItemSelected = selectedList.isEmpty;

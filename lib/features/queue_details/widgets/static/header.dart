@@ -26,11 +26,14 @@ class _HeaderState extends State<Header> {
         const SizedBox(
           width: 20,
         ),
-        Text(
-          widget.queueModel.name,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
+        Flexible(
+          child: Text(
+            widget.queueModel.name,
+            style: const TextStyle(
+              overflow: TextOverflow.ellipsis,
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ],

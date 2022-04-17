@@ -27,8 +27,8 @@ class _DoneButtonState extends State<_DoneButton> {
     return BlocBuilder<TasksListBloc, TasksListState>(
       builder: (context, state) {
         state.when(
-          dataManaged:
-              (v0, expandedTask, v1, v2, waitingList, selectedList, v3, v4) {
+          dataManaged: (v0, expandedTask, v1, v2, v3, waitingList, selectedList,
+              v4, v5) {
             done = waitingList.contains(widget.taskTile);
           },
           initial: () => null,

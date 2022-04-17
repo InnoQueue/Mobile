@@ -46,14 +46,18 @@ class _AddButton extends StatelessWidget {
 
 class _AnimatedButton extends StatefulWidget {
   final Icon icon;
-  final bool setAllDone;
-  final bool skipAll;
+  final Function onTap;
+  final bool leading;
+  final bool actions;
   const _AnimatedButton({
     required this.icon,
-    this.setAllDone = false,
-    this.skipAll = false,
+    required this.onTap,
+    this.leading = false,
+    this.actions = false,
     Key? key,
-  }) : super(key: key);
+  })  : assert(!(leading == true && actions == true)),
+        assert(!(leading == false && actions == false)),
+        super(key: key);
 
   @override
   State<_AnimatedButton> createState() => _AnimatedButtonState();
@@ -85,42 +89,17 @@ class _AnimatedButtonState extends State<_AnimatedButton>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10.0),
+      padding: EdgeInsets.only(
+        left: widget.leading ? 10.0 : 0,
+        right: widget.actions ? 10.0 : 0,
+      ),
       child: IconButton(
         icon: ScaleTransition(
           scale: _animation,
           child: widget.icon,
         ),
-        onPressed: () {
-          if (widget.setAllDone) {
-            context
-                .read<SelectTasksBloc>()
-                .add(const SelectTasksEvent.setAllDone());
-          } else if (widget.skipAll) {
-            context
-                .read<SelectTasksBloc>()
-                .add(const SelectTasksEvent.skipAll());
-          }
-        },
+        onPressed: () => widget.onTap(),
       ),
-    );
-  }
-}
-
-class _ClearButton extends StatelessWidget {
-  const _ClearButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(
-        Icons.clear,
-        color: Colors.black,
-        size: 30,
-      ),
-      onPressed: () {
-        context.read<SelectTasksBloc>().add(const SelectTasksEvent.clear());
-      },
     );
   }
 }
@@ -141,52 +120,6 @@ class _QrButton extends StatelessWidget {
         onPressed: () => showDialog<String>(
             context: context,
             builder: (BuildContext context) => const QrAlert()),
-      ),
-    );
-  }
-}
-
-class _SubmitEditsButton extends StatelessWidget {
-  const _SubmitEditsButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10.0),
-      child: IconButton(
-        icon: const Icon(
-          Icons.done,
-          color: Colors.black,
-          size: 30,
-        ),
-        onPressed: () {
-          context
-              .read<EditQueueBloc>()
-              .add(const EditQueueEvent.requestUpdate());
-        },
-      ),
-    );
-  }
-}
-
-class _CancelEditsButton extends StatelessWidget {
-  const _CancelEditsButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
-      child: IconButton(
-        icon: const Icon(
-          Icons.clear,
-          color: Colors.black,
-          size: 30,
-        ),
-        onPressed: () {
-          context
-              .read<EditQueueBloc>()
-              .add(const EditQueueEvent.requestCancel());
-        },
       ),
     );
   }

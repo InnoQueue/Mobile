@@ -22,11 +22,14 @@ class ApiTasks extends ApiBase {
   static Future<Response> deleteTask(
     token, {
     required TaskModel task,
+    double? expenses,
   }) async {
     var params = {
       "task_id": task.id,
-      "expenses": null,
+      "expenses": expenses,
     };
+
+    print(expenses);
 
     return ApiBase.dio.post(
       "${ApiBase.baseUrl}/tasks/done",
@@ -72,11 +75,13 @@ class ApiTasksService {
 
   static Future<void> deleteTask({
     required TaskModel task,
+    double? expenses,
   }) async {
     final String token = await ApiBaseService.getToken();
     var response = await ApiTasks.deleteTask(
       token,
       task: task,
+      expenses: expenses,
     );
   }
 

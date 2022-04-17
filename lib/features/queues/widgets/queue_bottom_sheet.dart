@@ -60,7 +60,7 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                     pickersEnabled: const {
                       ColorPickerType.accent: false,
                       ColorPickerType.primary: false,
-                      ColorPickerType.custom: true
+                      ColorPickerType.custom: true,
                     },
                     customColorSwatchesAndNames: _colorNames,
                     spacing: 5,

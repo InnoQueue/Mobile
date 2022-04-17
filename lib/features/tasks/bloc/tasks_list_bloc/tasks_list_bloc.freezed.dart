@@ -24,9 +24,10 @@ class _$TasksListEventTearOff {
     );
   }
 
-  _SetTaskDone setTaskDone(TaskTile task) {
+  _SetTaskDone setTaskDone(TaskTile task, {double? expenses}) {
     return _SetTaskDone(
       task,
+      expenses: expenses,
     );
   }
 
@@ -97,7 +98,7 @@ mixin _$TasksListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -113,7 +114,7 @@ mixin _$TasksListEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -129,7 +130,7 @@ mixin _$TasksListEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -277,7 +278,7 @@ class _$_InitTasks implements _InitTasks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -296,7 +297,7 @@ class _$_InitTasks implements _InitTasks {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -315,7 +316,7 @@ class _$_InitTasks implements _InitTasks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -412,7 +413,7 @@ abstract class _$SetTaskDoneCopyWith<$Res> {
   factory _$SetTaskDoneCopyWith(
           _SetTaskDone value, $Res Function(_SetTaskDone) then) =
       __$SetTaskDoneCopyWithImpl<$Res>;
-  $Res call({TaskTile task});
+  $Res call({TaskTile task, double? expenses});
 }
 
 /// @nodoc
@@ -429,12 +430,17 @@ class __$SetTaskDoneCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? expenses = freezed,
   }) {
     return _then(_SetTaskDone(
       task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as TaskTile,
+      expenses: expenses == freezed
+          ? _value.expenses
+          : expenses // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -442,14 +448,16 @@ class __$SetTaskDoneCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SetTaskDone implements _SetTaskDone {
-  const _$_SetTaskDone(this.task);
+  const _$_SetTaskDone(this.task, {this.expenses});
 
   @override
   final TaskTile task;
+  @override
+  final double? expenses;
 
   @override
   String toString() {
-    return 'TasksListEvent.setTaskDone(task: $task)';
+    return 'TasksListEvent.setTaskDone(task: $task, expenses: $expenses)';
   }
 
   @override
@@ -457,12 +465,15 @@ class _$_SetTaskDone implements _SetTaskDone {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _SetTaskDone &&
-            const DeepCollectionEquality().equals(other.task, task));
+            const DeepCollectionEquality().equals(other.task, task) &&
+            const DeepCollectionEquality().equals(other.expenses, expenses));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(task));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(task),
+      const DeepCollectionEquality().hash(expenses));
 
   @JsonKey(ignore: true)
   @override
@@ -473,7 +484,7 @@ class _$_SetTaskDone implements _SetTaskDone {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -485,14 +496,14 @@ class _$_SetTaskDone implements _SetTaskDone {
     required TResult Function(TaskTile task, bool pass) emptySelectedList,
     required TResult Function() unselect,
   }) {
-    return setTaskDone(task);
+    return setTaskDone(task, expenses);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -504,14 +515,14 @@ class _$_SetTaskDone implements _SetTaskDone {
     TResult Function(TaskTile task, bool pass)? emptySelectedList,
     TResult Function()? unselect,
   }) {
-    return setTaskDone?.call(task);
+    return setTaskDone?.call(task, expenses);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -525,7 +536,7 @@ class _$_SetTaskDone implements _SetTaskDone {
     required TResult orElse(),
   }) {
     if (setTaskDone != null) {
-      return setTaskDone(task);
+      return setTaskDone(task, expenses);
     }
     return orElse();
   }
@@ -595,9 +606,11 @@ class _$_SetTaskDone implements _SetTaskDone {
 }
 
 abstract class _SetTaskDone implements TasksListEvent {
-  const factory _SetTaskDone(TaskTile task) = _$_SetTaskDone;
+  const factory _SetTaskDone(TaskTile task, {double? expenses}) =
+      _$_SetTaskDone;
 
   TaskTile get task;
+  double? get expenses;
   @JsonKey(ignore: true)
   _$SetTaskDoneCopyWith<_SetTaskDone> get copyWith =>
       throw _privateConstructorUsedError;
@@ -666,7 +679,7 @@ class _$_SkipTask implements _SkipTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -685,7 +698,7 @@ class _$_SkipTask implements _SkipTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -704,7 +717,7 @@ class _$_SkipTask implements _SkipTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -862,7 +875,7 @@ class _$_AddToWaitingList implements _AddToWaitingList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -881,7 +894,7 @@ class _$_AddToWaitingList implements _AddToWaitingList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -900,7 +913,7 @@ class _$_AddToWaitingList implements _AddToWaitingList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1059,7 +1072,7 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -1078,7 +1091,7 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1097,7 +1110,7 @@ class _$_RemoveFromWaitingList implements _RemoveFromWaitingList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1267,7 +1280,7 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -1286,7 +1299,7 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1305,7 +1318,7 @@ class _$_EmptyWaitingList implements _EmptyWaitingList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1464,7 +1477,7 @@ class _$_ExpandTask implements _ExpandTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -1483,7 +1496,7 @@ class _$_ExpandTask implements _ExpandTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1502,7 +1515,7 @@ class _$_ExpandTask implements _ExpandTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1635,7 +1648,7 @@ class _$_ShrinkTask implements _ShrinkTask {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -1654,7 +1667,7 @@ class _$_ShrinkTask implements _ShrinkTask {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1673,7 +1686,7 @@ class _$_ShrinkTask implements _ShrinkTask {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1826,7 +1839,7 @@ class _$_AddToSelectedList implements _AddToSelectedList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -1845,7 +1858,7 @@ class _$_AddToSelectedList implements _AddToSelectedList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -1864,7 +1877,7 @@ class _$_AddToSelectedList implements _AddToSelectedList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2023,7 +2036,7 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -2042,7 +2055,7 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2061,7 +2074,7 @@ class _$_RemoveFromSelectedList implements _RemoveFromSelectedList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2231,7 +2244,7 @@ class _$_EmptySelectedList implements _EmptySelectedList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -2250,7 +2263,7 @@ class _$_EmptySelectedList implements _EmptySelectedList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2269,7 +2282,7 @@ class _$_EmptySelectedList implements _EmptySelectedList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2402,7 +2415,7 @@ class _$_Unselect implements _Unselect {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<TaskTile> tasks) initTasks,
-    required TResult Function(TaskTile task) setTaskDone,
+    required TResult Function(TaskTile task, double? expenses) setTaskDone,
     required TResult Function(TaskTile task) skipTask,
     required TResult Function(TaskTile task) addToWaitingList,
     required TResult Function(TaskTile task) removeFromWaitingList,
@@ -2421,7 +2434,7 @@ class _$_Unselect implements _Unselect {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2440,7 +2453,7 @@ class _$_Unselect implements _Unselect {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TaskTile> tasks)? initTasks,
-    TResult Function(TaskTile task)? setTaskDone,
+    TResult Function(TaskTile task, double? expenses)? setTaskDone,
     TResult Function(TaskTile task)? skipTask,
     TResult Function(TaskTile task)? addToWaitingList,
     TResult Function(TaskTile task)? removeFromWaitingList,
@@ -2539,6 +2552,7 @@ class _$TasksListStateTearOff {
       List<TaskTile> shownTasks,
       TaskTile? expandedTask,
       TaskTile? done,
+      double? expenses,
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
@@ -2548,6 +2562,7 @@ class _$TasksListStateTearOff {
       shownTasks,
       expandedTask,
       done,
+      expenses,
       sipped,
       waitingList,
       selectedList,
@@ -2569,6 +2584,7 @@ mixin _$TasksListState {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2584,6 +2600,7 @@ mixin _$TasksListState {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2599,6 +2616,7 @@ mixin _$TasksListState {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2689,6 +2707,7 @@ class _$_Initial implements _Initial {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2707,6 +2726,7 @@ class _$_Initial implements _Initial {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2725,6 +2745,7 @@ class _$_Initial implements _Initial {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2784,6 +2805,7 @@ abstract class _$DataManagedCopyWith<$Res> {
       {List<TaskTile> shownTasks,
       TaskTile? expandedTask,
       TaskTile? done,
+      double? expenses,
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
@@ -2807,6 +2829,7 @@ class __$DataManagedCopyWithImpl<$Res>
     Object? shownTasks = freezed,
     Object? expandedTask = freezed,
     Object? done = freezed,
+    Object? expenses = freezed,
     Object? sipped = freezed,
     Object? waitingList = freezed,
     Object? selectedList = freezed,
@@ -2826,6 +2849,10 @@ class __$DataManagedCopyWithImpl<$Res>
           ? _value.done
           : done // ignore: cast_nullable_to_non_nullable
               as TaskTile?,
+      expenses == freezed
+          ? _value.expenses
+          : expenses // ignore: cast_nullable_to_non_nullable
+              as double?,
       sipped == freezed
           ? _value.sipped
           : sipped // ignore: cast_nullable_to_non_nullable
@@ -2857,6 +2884,7 @@ class _$_DataManaged implements _DataManaged {
       this.shownTasks,
       this.expandedTask,
       this.done,
+      this.expenses,
       this.sipped,
       this.waitingList,
       this.selectedList,
@@ -2870,6 +2898,8 @@ class _$_DataManaged implements _DataManaged {
   @override
   final TaskTile? done;
   @override
+  final double? expenses;
+  @override
   final TaskTile? sipped;
   @override
   final List<TaskTile> waitingList;
@@ -2882,7 +2912,7 @@ class _$_DataManaged implements _DataManaged {
 
   @override
   String toString() {
-    return 'TasksListState.dataManaged(shownTasks: $shownTasks, expandedTask: $expandedTask, done: $done, sipped: $sipped, waitingList: $waitingList, selectedList: $selectedList, emptyingSelectedList: $emptyingSelectedList, emptyingWaitingList: $emptyingWaitingList)';
+    return 'TasksListState.dataManaged(shownTasks: $shownTasks, expandedTask: $expandedTask, done: $done, expenses: $expenses, sipped: $sipped, waitingList: $waitingList, selectedList: $selectedList, emptyingSelectedList: $emptyingSelectedList, emptyingWaitingList: $emptyingWaitingList)';
   }
 
   @override
@@ -2895,6 +2925,7 @@ class _$_DataManaged implements _DataManaged {
             const DeepCollectionEquality()
                 .equals(other.expandedTask, expandedTask) &&
             const DeepCollectionEquality().equals(other.done, done) &&
+            const DeepCollectionEquality().equals(other.expenses, expenses) &&
             const DeepCollectionEquality().equals(other.sipped, sipped) &&
             const DeepCollectionEquality()
                 .equals(other.waitingList, waitingList) &&
@@ -2912,6 +2943,7 @@ class _$_DataManaged implements _DataManaged {
       const DeepCollectionEquality().hash(shownTasks),
       const DeepCollectionEquality().hash(expandedTask),
       const DeepCollectionEquality().hash(done),
+      const DeepCollectionEquality().hash(expenses),
       const DeepCollectionEquality().hash(sipped),
       const DeepCollectionEquality().hash(waitingList),
       const DeepCollectionEquality().hash(selectedList),
@@ -2931,6 +2963,7 @@ class _$_DataManaged implements _DataManaged {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2938,8 +2971,8 @@ class _$_DataManaged implements _DataManaged {
             bool emptyingWaitingList)
         dataManaged,
   }) {
-    return dataManaged(shownTasks, expandedTask, done, sipped, waitingList,
-        selectedList, emptyingSelectedList, emptyingWaitingList);
+    return dataManaged(shownTasks, expandedTask, done, expenses, sipped,
+        waitingList, selectedList, emptyingSelectedList, emptyingWaitingList);
   }
 
   @override
@@ -2950,6 +2983,7 @@ class _$_DataManaged implements _DataManaged {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2957,7 +2991,7 @@ class _$_DataManaged implements _DataManaged {
             bool emptyingWaitingList)?
         dataManaged,
   }) {
-    return dataManaged?.call(shownTasks, expandedTask, done, sipped,
+    return dataManaged?.call(shownTasks, expandedTask, done, expenses, sipped,
         waitingList, selectedList, emptyingSelectedList, emptyingWaitingList);
   }
 
@@ -2969,6 +3003,7 @@ class _$_DataManaged implements _DataManaged {
             List<TaskTile> shownTasks,
             TaskTile? expandedTask,
             TaskTile? done,
+            double? expenses,
             TaskTile? sipped,
             List<TaskTile> waitingList,
             List<TaskTile> selectedList,
@@ -2978,8 +3013,8 @@ class _$_DataManaged implements _DataManaged {
     required TResult orElse(),
   }) {
     if (dataManaged != null) {
-      return dataManaged(shownTasks, expandedTask, done, sipped, waitingList,
-          selectedList, emptyingSelectedList, emptyingWaitingList);
+      return dataManaged(shownTasks, expandedTask, done, expenses, sipped,
+          waitingList, selectedList, emptyingSelectedList, emptyingWaitingList);
     }
     return orElse();
   }
@@ -3021,6 +3056,7 @@ abstract class _DataManaged implements TasksListState {
       List<TaskTile> shownTasks,
       TaskTile? expandedTask,
       TaskTile? done,
+      double? expenses,
       TaskTile? sipped,
       List<TaskTile> waitingList,
       List<TaskTile> selectedList,
@@ -3030,6 +3066,7 @@ abstract class _DataManaged implements TasksListState {
   List<TaskTile> get shownTasks;
   TaskTile? get expandedTask;
   TaskTile? get done;
+  double? get expenses;
   TaskTile? get sipped;
   List<TaskTile> get waitingList;
   List<TaskTile> get selectedList;

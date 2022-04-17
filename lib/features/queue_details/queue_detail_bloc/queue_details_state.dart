@@ -9,5 +9,7 @@ class QueueDetailsState with _$QueueDetailsState {
 
   const factory QueueDetailsState.queueLeft() = _QueueLeft;
 
+  const factory QueueDetailsState.queueUpdating() = _QueueUpdating;
+
   const factory QueueDetailsState.queueFreezed() = _QueueFreezed;
 }
