@@ -70,7 +70,7 @@ class _ExpandedDoneButtonState extends State<_ExpandedDoneButton>
                 },
               );
             } else {
-              widget.removeItem(context, widget.taskModel,
+              await widget.removeItem(context, widget.taskModel,
                   expanded: true, done: true);
               context
                   .read<TasksListBloc>()

@@ -3,7 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/core/api/api_tasks.dart';
+
+import '../../features.dart';
 
 part 'queue_details_bloc.freezed.dart';
 part 'queue_details_event.dart';
@@ -26,6 +28,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     on<_SubmitEdits>(_submitEdits);
     on<_CancelEdits>(_cancelEdits);
     on<_UpdateQueue>(_updateQueue);
+    on<_AddProgress>(_addProgress);
   }
 
   void _leaveRequested(
@@ -90,6 +93,23 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _UpdateQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
+    await updateQueue(emit);
+  }
+
+  void _addProgress(
+    _AddProgress event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    emit(QueueDetailsState.queueUpdating());
+    await ApiTasksService.deleteTask(
+      task: TaskModel(
+        id: currentQueue.id,
+        name: currentQueue.name,
+        color: currentQueue.color,
+        trackExpenses: currentQueue.trackExpenses,
+      ),
+      expenses: event.value,
+    );
     await updateQueue(emit);
   }
 

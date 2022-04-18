@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:auto_route/src/router/auto_router_x.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/core/widget/task_expenses.dart';
-import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
+import '../bloc/bloc.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
 import 'package:inno_queue/features/tasks/widgets/task_tile/task_tile.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
@@ -26,6 +27,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   late List<TaskTile> _initTiles;
   late AnimationController _expandAnimationController;
   late Animation _expandAnimation;
+  late TasksBloc tasksBloc;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
@@ -53,9 +55,12 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    tasksBloc = context.read<TasksBloc>();
     return BlocProvider(
-      create: (_) => getIt.get<TasksListBloc>()
-        ..add(TasksListEvent.initTasks(widget.items)),
+      create: (_) {
+        return getIt.get<TasksListBloc>()
+          ..add(TasksListEvent.initTasks(widget.items));
+      },
       child: BlocBuilder<TasksListBloc, TasksListState>(
         builder: (context, state) {
           return state.when(
@@ -175,11 +180,11 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void removeItem(BuildContext context, TaskModel task,
+  Future<void> removeItem(BuildContext context, TaskModel task,
       {bool expanded = false,
       bool skip = false,
       bool done = false,
-      double? expenses}) {
+      double? expenses}) async {
     _listKey.currentState!.removeItem(
       currentItems.indexOf(task),
       (context, animation) => Padding(
@@ -196,14 +201,24 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     );
 
     if (skip) {
-      ApiTasksService.skipTask(task: task);
+      if (currentItems.length == 1) {
+        await ApiTasksService.skipTask(task: task);
+        context.read<TasksBloc>().add(const TasksEvent.loadRequested());
+      } else {
+        ApiTasksService.skipTask(task: task);
+      }
     } else if (done) {
-      ApiTasksService.deleteTask(task: task, expenses: expenses);
+      if (currentItems.length == 1) {
+        await ApiTasksService.deleteTask(task: task);
+        tasksBloc.add(const TasksEvent.loadRequested());
+      } else {
+        ApiTasksService.skipTask(task: task);
+      }
     }
   }
 
   void emptyWaitingList(
-      BuildContext context, TaskModel task, double? expenses) {
+      BuildContext context, TaskModel task, double? expenses) async {
     if (task.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -218,13 +233,13 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
         },
       );
     } else {
-      removeItem(context, task, done: true);
+      await removeItem(context, task, done: true);
       context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(task));
     }
   }
 
   void emptySelectedListOnDone(
-      BuildContext context, TaskModel task, double? expenses) {
+      BuildContext context, TaskModel task, double? expenses) async {
     if (task.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -239,20 +254,27 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
         },
       );
     } else {
-      removeItem(context, task, done: true, expenses: expenses);
+      await removeItem(context, task, done: true, expenses: expenses);
       context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(task));
     }
   }
 
-  void emptySelectedListOnSkip(BuildContext context, TaskModel task) {
-    removeItem(context, task, skip: true);
+  void emptySelectedListOnSkip(BuildContext context, TaskModel task) async {
+    await removeItem(context, task, skip: true);
     context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(task));
   }
 
-  void _onDismissed(BuildContext context, TaskModel task) {
+  void _onDismissed(BuildContext context, TaskModel task) async {
     _listKey.currentState!
         .removeItem(currentItems.indexOf(task), (context, animation) => Wrap());
-    ApiTasksService.skipTask(task: task);
+
+    if (currentItems.length == 1) {
+      await ApiTasksService.skipTask(task: task);
+      tasksBloc.add(const TasksEvent.loadRequested());
+    } else {
+      ApiTasksService.skipTask(task: task);
+    }
+
     context.read<TasksListBloc>().add(TasksListEvent.skipTask(task));
   }
 }

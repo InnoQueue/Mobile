@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inno_queue/core/core.dart';
 import '../bloc/queues_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -31,7 +32,8 @@ class _QueuesPageState extends State<QueuesPage> {
         return state.when(
           initial: () {
             return const Center(
-                child: CircularProgressIndicator(color: Colors.grey));
+              child: CustomCircularProgressIndicator(),
+            );
           },
           dataLoaded: (active, frozen) {
             return SafeArea(
@@ -57,9 +59,17 @@ class _QueuesPageState extends State<QueuesPage> {
                   ),
                   Expanded(
                     child: _groupValue == 0
-                        ? QueueList(queues: active)
+                        ? Scrollbar(
+                            child: QueueList(
+                            queues: active,
+                            active: true,
+                          ))
                         : _groupValue == 1
-                            ? QueueList(queues: frozen)
+                            ? Scrollbar(
+                                child: QueueList(
+                                queues: frozen,
+                                frozen: true,
+                              ))
                             : Wrap(),
                   )
                 ],

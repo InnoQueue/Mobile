@@ -44,6 +44,12 @@ class _$QueueDetailsEventTearOff {
     return const _UpdateQueue();
   }
 
+  _AddProgress addProgress(double value) {
+    return _AddProgress(
+      value,
+    );
+  }
+
   _EditQueue editQueue() {
     return const _EditQueue();
   }
@@ -72,6 +78,7 @@ mixin _$QueueDetailsEvent {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -85,6 +92,7 @@ mixin _$QueueDetailsEvent {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -98,6 +106,7 @@ mixin _$QueueDetailsEvent {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -112,6 +121,7 @@ mixin _$QueueDetailsEvent {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -125,6 +135,7 @@ mixin _$QueueDetailsEvent {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -138,6 +149,7 @@ mixin _$QueueDetailsEvent {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -242,6 +254,7 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -258,6 +271,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -274,6 +288,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -294,6 +309,7 @@ class _$_OpenQueue implements _OpenQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -310,6 +326,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -326,6 +343,7 @@ class _$_OpenQueue implements _OpenQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -394,6 +412,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -410,6 +429,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -426,6 +446,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -446,6 +467,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -462,6 +484,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -478,6 +501,7 @@ class _$_LeaveQueue implements _LeaveQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -541,6 +565,7 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -557,6 +582,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -573,6 +599,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -593,6 +620,7 @@ class _$_InviteUser implements _InviteUser {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -609,6 +637,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -625,6 +654,7 @@ class _$_InviteUser implements _InviteUser {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -688,6 +718,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -704,6 +735,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -720,6 +752,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -740,6 +773,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -756,6 +790,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -772,6 +807,7 @@ class _$_FreezeQueue implements _FreezeQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -835,6 +871,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -851,6 +888,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -867,6 +905,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -887,6 +926,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -903,6 +943,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -919,6 +960,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -982,6 +1024,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -998,6 +1041,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1014,6 +1058,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1034,6 +1079,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -1050,6 +1096,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1066,6 +1113,7 @@ class _$_UpdateQueue implements _UpdateQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1080,6 +1128,188 @@ class _$_UpdateQueue implements _UpdateQueue {
 
 abstract class _UpdateQueue implements QueueDetailsEvent {
   const factory _UpdateQueue() = _$_UpdateQueue;
+}
+
+/// @nodoc
+abstract class _$AddProgressCopyWith<$Res> {
+  factory _$AddProgressCopyWith(
+          _AddProgress value, $Res Function(_AddProgress) then) =
+      __$AddProgressCopyWithImpl<$Res>;
+  $Res call({double value});
+}
+
+/// @nodoc
+class __$AddProgressCopyWithImpl<$Res>
+    extends _$QueueDetailsEventCopyWithImpl<$Res>
+    implements _$AddProgressCopyWith<$Res> {
+  __$AddProgressCopyWithImpl(
+      _AddProgress _value, $Res Function(_AddProgress) _then)
+      : super(_value, (v) => _then(v as _AddProgress));
+
+  @override
+  _AddProgress get _value => super._value as _AddProgress;
+
+  @override
+  $Res call({
+    Object? value = freezed,
+  }) {
+    return _then(_AddProgress(
+      value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AddProgress implements _AddProgress {
+  const _$_AddProgress(this.value);
+
+  @override
+  final double value;
+
+  @override
+  String toString() {
+    return 'QueueDetailsEvent.addProgress(value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _AddProgress &&
+            const DeepCollectionEquality().equals(other.value, value));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(value));
+
+  @JsonKey(ignore: true)
+  @override
+  _$AddProgressCopyWith<_AddProgress> get copyWith =>
+      __$AddProgressCopyWithImpl<_AddProgress>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(QueueModel queue) openQueue,
+    required TResult Function() leaveQueue,
+    required TResult Function() inviteUser,
+    required TResult Function() freezeQueue,
+    required TResult Function() unfreezeQueue,
+    required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
+    required TResult Function() editQueue,
+    required TResult Function() cancelEdits,
+    required TResult Function(QueueModel updatedQueue) submitEdits,
+  }) {
+    return addProgress(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? unfreezeQueue,
+    TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+  }) {
+    return addProgress?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(QueueModel queue)? openQueue,
+    TResult Function()? leaveQueue,
+    TResult Function()? inviteUser,
+    TResult Function()? freezeQueue,
+    TResult Function()? unfreezeQueue,
+    TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
+    TResult Function()? editQueue,
+    TResult Function()? cancelEdits,
+    TResult Function(QueueModel updatedQueue)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (addProgress != null) {
+      return addProgress(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenQueue value) openQueue,
+    required TResult Function(_LeaveQueue value) leaveQueue,
+    required TResult Function(_InviteUser value) inviteUser,
+    required TResult Function(_FreezeQueue value) freezeQueue,
+    required TResult Function(_UnfreezeQueue value) unfreezeQueue,
+    required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
+    required TResult Function(_EditQueue value) editQueue,
+    required TResult Function(_CancelEdits value) cancelEdits,
+    required TResult Function(_SubmitEdits value) submitEdits,
+  }) {
+    return addProgress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_UnfreezeQueue value)? unfreezeQueue,
+    TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+  }) {
+    return addProgress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenQueue value)? openQueue,
+    TResult Function(_LeaveQueue value)? leaveQueue,
+    TResult Function(_InviteUser value)? inviteUser,
+    TResult Function(_FreezeQueue value)? freezeQueue,
+    TResult Function(_UnfreezeQueue value)? unfreezeQueue,
+    TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
+    TResult Function(_EditQueue value)? editQueue,
+    TResult Function(_CancelEdits value)? cancelEdits,
+    TResult Function(_SubmitEdits value)? submitEdits,
+    required TResult orElse(),
+  }) {
+    if (addProgress != null) {
+      return addProgress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddProgress implements QueueDetailsEvent {
+  const factory _AddProgress(double value) = _$_AddProgress;
+
+  double get value;
+  @JsonKey(ignore: true)
+  _$AddProgressCopyWith<_AddProgress> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1128,6 +1358,7 @@ class _$_EditQueue implements _EditQueue {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -1144,6 +1375,7 @@ class _$_EditQueue implements _EditQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1160,6 +1392,7 @@ class _$_EditQueue implements _EditQueue {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1180,6 +1413,7 @@ class _$_EditQueue implements _EditQueue {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -1196,6 +1430,7 @@ class _$_EditQueue implements _EditQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1212,6 +1447,7 @@ class _$_EditQueue implements _EditQueue {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1275,6 +1511,7 @@ class _$_CancelEdits implements _CancelEdits {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -1291,6 +1528,7 @@ class _$_CancelEdits implements _CancelEdits {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1307,6 +1545,7 @@ class _$_CancelEdits implements _CancelEdits {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1327,6 +1566,7 @@ class _$_CancelEdits implements _CancelEdits {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -1343,6 +1583,7 @@ class _$_CancelEdits implements _CancelEdits {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1359,6 +1600,7 @@ class _$_CancelEdits implements _CancelEdits {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1456,6 +1698,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
     required TResult Function() updateQueue,
+    required TResult Function(double value) addProgress,
     required TResult Function() editQueue,
     required TResult Function() cancelEdits,
     required TResult Function(QueueModel updatedQueue) submitEdits,
@@ -1472,6 +1715,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1488,6 +1732,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
     TResult Function()? updateQueue,
+    TResult Function(double value)? addProgress,
     TResult Function()? editQueue,
     TResult Function()? cancelEdits,
     TResult Function(QueueModel updatedQueue)? submitEdits,
@@ -1508,6 +1753,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     required TResult Function(_FreezeQueue value) freezeQueue,
     required TResult Function(_UnfreezeQueue value) unfreezeQueue,
     required TResult Function(_UpdateQueue value) updateQueue,
+    required TResult Function(_AddProgress value) addProgress,
     required TResult Function(_EditQueue value) editQueue,
     required TResult Function(_CancelEdits value) cancelEdits,
     required TResult Function(_SubmitEdits value) submitEdits,
@@ -1524,6 +1770,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,
@@ -1540,6 +1787,7 @@ class _$_SubmitEdits implements _SubmitEdits {
     TResult Function(_FreezeQueue value)? freezeQueue,
     TResult Function(_UnfreezeQueue value)? unfreezeQueue,
     TResult Function(_UpdateQueue value)? updateQueue,
+    TResult Function(_AddProgress value)? addProgress,
     TResult Function(_EditQueue value)? editQueue,
     TResult Function(_CancelEdits value)? cancelEdits,
     TResult Function(_SubmitEdits value)? submitEdits,

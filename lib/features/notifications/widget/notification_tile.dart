@@ -11,9 +11,10 @@ class NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
+        color: Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
@@ -24,11 +25,14 @@ class NotificationTile extends StatelessWidget {
               notificationModel.message ?? '',
               style: Theme.of(context).textTheme.notificationMessageTextStyle,
             ),
-            const SizedBox(height: 1.9),
+            const SizedBox(height: 5),
             Text(
               DateFormat('kk:mm dd.MM.yyyy')
                   .format(notificationModel.timestamp!),
-              style: Theme.of(context).textTheme.notificationDateTextStyle,
+              style: Theme.of(context)
+                  .textTheme
+                  .notificationDateTextStyle
+                  .copyWith(color: Colors.grey.shade600),
             ),
           ],
         ),

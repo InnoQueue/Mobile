@@ -128,10 +128,4 @@ class TaskTileState extends State<TaskTile> {
         .read<TasksListBloc>()
         .add(TasksListEvent.removeFromWaitingList(widget.taskModel));
   }
-
-  setExpanded(bool expanded) {
-    setState(() {
-      _expanded = expanded;
-    });
-  }
 }

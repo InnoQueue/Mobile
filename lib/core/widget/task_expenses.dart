@@ -1,12 +1,7 @@
-import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/features.dart';
-import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
-import 'package:inno_queue/routes/app_router.dart';
 import 'package:provider/src/provider.dart';
 
 class TaskExpensesDialog extends StatefulWidget {
@@ -93,12 +88,14 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
               color: Colors.black,
             ),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (widget.taskModel != null) {
               removeItemOnApproved();
             } else {
-              addProgress();
+              context.read<QueueDetailsBloc>().add(
+                  QueueDetailsEvent.addProgress(double.parse(valueText ?? '')));
             }
+
             Navigator.of(context).pop();
           },
         ),
@@ -123,19 +120,6 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
         widget.taskModel!,
         expenses: double.parse(valueText ?? '')));
     emptyList(false);
-  }
-
-  void addProgress() {
-    ApiTasksService.deleteTask(
-      task: TaskModel(
-        id: widget.queueModel!.id,
-        name: widget.queueModel!.name,
-        color: widget.queueModel!.color,
-        trackExpenses: widget.queueModel!.trackExpenses,
-      ),
-      expenses: double.parse(valueText ?? ''),
-    );
-    context.read<QueueDetailsBloc>().add(QueueDetailsEvent.updateQueue());
   }
 
   void emptyList(bool pass) {

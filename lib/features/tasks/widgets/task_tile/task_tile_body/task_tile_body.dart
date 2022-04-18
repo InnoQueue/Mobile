@@ -1,12 +1,17 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
+import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/routes/app_router.dart';
+import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 
 part 'done_button.dart';
 part 'expanded_skip_button.dart';
 part 'expanded_done_button.dart';
+part 'expanded_open_queue_button.dart';
 part 'shaken_sign.dart';
 part 'task_name.dart';
 part 'shaken_indicator.dart';
@@ -95,20 +100,10 @@ class _BodyState extends State<TaskTileBody> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 10,
                   children: [
-                    AnimatedScale(
-                      duration: const Duration(milliseconds: 200),
-                      scale: widget.expanded ? 1 : 0,
-                      child: GestureDetector(
-                        child: const Icon(Icons.list),
-                        onTap: () {
-                          // context
-                          //     .read<AppBarBloc>()
-                          //     .add(RouteChangedEvent(widget.taskModel.));
-                          // context.read<QueueDetailsBloc>().add(
-                          //     QueueDetailsEvent.openQueue(widget.taskModel.));
-                          // context.router.push(const QueueDetailsRoute());
-                        },
-                      ),
+                    _ExpandedOpenQueueButton(
+                      isExpanded: widget.expanded,
+                      taskModel: widget.taskModel,
+                      key: const ValueKey("ExpandedOpenQueueButton"),
                     ),
                     _ExpandedSkipButton(
                       taskModel: widget.taskModel,

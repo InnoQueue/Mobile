@@ -63,7 +63,8 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
             initial: () => Wrap(),
             queueUpdating: () {
               return const Center(
-                  child: CircularProgressIndicator(color: Colors.grey));
+                child: CustomCircularProgressIndicator(),
+              );
             },
             queueOpened: (queue, editable) {
               originalQueue = queue;

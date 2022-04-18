@@ -29,7 +29,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           if (!snapshot.hasData) return const SizedBox.shrink();
           var notifications = snapshot.data;
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[

@@ -54,7 +54,7 @@ class _ExpandedSkipButtonState extends State<_ExpandedSkipButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            widget.removeItem(context, widget.taskModel,
+            await widget.removeItem(context, widget.taskModel,
                 expanded: true, skip: true);
             context
                 .read<TasksListBloc>()

@@ -20,6 +20,17 @@ class ApiQueues extends ApiBase {
     );
   }
 
+  static Future<Response> getQueue(token, {required int id}) async {
+    return ApiBase.dio.get(
+      "${ApiBase.baseUrl}/queues/$id",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
   static Future<Response> addQueue(
     token, {
     required String name,
@@ -136,6 +147,12 @@ class ApiQueuesService {
       frozen.add(QueueModel.fromJson(queue));
     }
     return Pair(active, frozen);
+  }
+
+  static Future<QueueModel> getQueue(int id) async {
+    final String token = await ApiBaseService.getToken();
+    final data = (await ApiQueues.getQueue(token, id: id)).data;
+    return QueueModel.fromJson(data);
   }
 
   static Future<void> addQueue({

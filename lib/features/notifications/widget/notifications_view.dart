@@ -13,31 +13,23 @@ class NotificationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> notifcationTiles = _buildTiles();
-
     if (notifications.isNotEmpty) {
       return Column(
         children: [
           Text(notificationsType),
-          const SizedBox(height: 8),
-          ...notifcationTiles,
+          const SizedBox(height: 10),
+          ListView.separated(
+            shrinkWrap: true,
+            itemCount: notifications.length,
+            itemBuilder: (context, index) =>
+                NotificationTile(notifications[index]),
+            separatorBuilder: (context, index) => const SizedBox(height: 10),
+          ),
+          const SizedBox(height: 10),
         ],
       );
     } else {
       return const SizedBox.shrink();
     }
-  }
-
-  List<Widget> _buildTiles() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < notifications.length; i++) {
-      widgets.add(
-        SizedBox(
-          width: double.infinity,
-          child: NotificationTile(notifications[i]),
-        ),
-      );
-    }
-    return widgets;
   }
 }

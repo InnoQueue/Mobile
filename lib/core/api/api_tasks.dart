@@ -29,8 +29,6 @@ class ApiTasks extends ApiBase {
       "expenses": expenses,
     };
 
-    print(expenses);
-
     return ApiBase.dio.post(
       "${ApiBase.baseUrl}/tasks/done",
       options: Options(
