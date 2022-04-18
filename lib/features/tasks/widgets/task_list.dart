@@ -22,7 +22,8 @@ class TaskList extends StatefulWidget {
 }
 
 class TaskListState extends State<TaskList> with TickerProviderStateMixin {
-  late List<TaskTile> _items;
+  late List<TaskModel> currentItems;
+  late List<TaskTile> _initTiles;
   late AnimationController _expandAnimationController;
   late Animation _expandAnimation;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
@@ -30,7 +31,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _items = widget.items
+    _initTiles = widget.items
         .map((item) => TaskTile(
               taskModel: item,
               removeItem: removeItem,
@@ -53,14 +54,15 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt.get<TasksListBloc>()..add(TasksListEvent.initTasks(_items)),
+      create: (_) => getIt.get<TasksListBloc>()
+        ..add(TasksListEvent.initTasks(widget.items)),
       child: BlocBuilder<TasksListBloc, TasksListState>(
         builder: (context, state) {
           return state.when(
             initial: () => Wrap(),
             dataManaged: (items, expanded, done, expenses, skipped, waitingList,
                 selectedList, emptyingSelectedList, emptyingWaitingList) {
+              currentItems = items;
               manageExpanded(expanded);
               if (!emptyingSelectedList) {
                 if (selectedList.isNotEmpty) {
@@ -117,7 +119,8 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                             closeOnScroll: true,
                             enabled: !isExpanded && selectedList.isEmpty,
                             key: Key(items[index].hashCode.toString()),
-                            child: items[index],
+                            child: _initTiles
+                                .firstWhere((e) => e.taskModel == items[index]),
                             endActionPane: ActionPane(
                               extentRatio: 0.25,
                               motion: const ScrollMotion(),
@@ -162,7 +165,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     );
   }
 
-  void manageExpanded(TaskTile? expanded) {
+  void manageExpanded(TaskModel? expanded) {
     if (expanded != null) {
       _expandAnimationController.reverse();
     } else {
@@ -172,20 +175,20 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void removeItem(BuildContext context, TaskTile tile,
+  void removeItem(BuildContext context, TaskModel task,
       {bool expanded = false,
       bool skip = false,
       bool done = false,
       double? expenses}) {
     _listKey.currentState!.removeItem(
-      _items.indexOf(tile),
+      currentItems.indexOf(task),
       (context, animation) => Padding(
         padding: EdgeInsets.symmetric(horizontal: expanded ? 0 : 10),
         child: SizeTransition(
           sizeFactor: animation,
           child: FadeTransition(
             opacity: animation,
-            child: tile,
+            child: _initTiles.firstWhere((e) => e.taskModel == task),
           ),
         ),
       ),
@@ -193,62 +196,63 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     );
 
     if (skip) {
-      ApiTasksService.skipTask(task: tile.taskModel);
+      ApiTasksService.skipTask(task: task);
     } else if (done) {
-      ApiTasksService.deleteTask(task: tile.taskModel, expenses: expenses);
+      ApiTasksService.deleteTask(task: task, expenses: expenses);
     }
   }
 
-  void emptyWaitingList(BuildContext context, TaskTile tile, double? expenses) {
-    if (tile.taskModel.trackExpenses) {
+  void emptyWaitingList(
+      BuildContext context, TaskModel task, double? expenses) {
+    if (task.trackExpenses) {
       showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext _) {
           return TaskExpensesDialog(
               buildContext: context,
-              taskTile: tile,
+              taskModel: task,
               removeItem: removeItem,
               expanded: false,
               emptyingWaitingList: true);
         },
       );
     } else {
-      removeItem(context, tile, done: true);
-      context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(tile));
+      removeItem(context, task, done: true);
+      context.read<TasksListBloc>().add(TasksListEvent.emptyWaitingList(task));
     }
   }
 
   void emptySelectedListOnDone(
-      BuildContext context, TaskTile tile, double? expenses) {
-    if (tile.taskModel.trackExpenses) {
+      BuildContext context, TaskModel task, double? expenses) {
+    if (task.trackExpenses) {
       showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext _) {
           return TaskExpensesDialog(
               buildContext: context,
-              taskTile: tile,
+              taskModel: task,
               removeItem: removeItem,
               expanded: false,
               emptyingSelectedList: true);
         },
       );
     } else {
-      removeItem(context, tile, done: true, expenses: expenses);
-      context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
+      removeItem(context, task, done: true, expenses: expenses);
+      context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(task));
     }
   }
 
-  void emptySelectedListOnSkip(BuildContext context, TaskTile tile) {
-    removeItem(context, tile, skip: true);
-    context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(tile));
+  void emptySelectedListOnSkip(BuildContext context, TaskModel task) {
+    removeItem(context, task, skip: true);
+    context.read<TasksListBloc>().add(TasksListEvent.emptySelectedList(task));
   }
 
-  void _onDismissed(BuildContext context, TaskTile item) {
+  void _onDismissed(BuildContext context, TaskModel task) {
     _listKey.currentState!
-        .removeItem(_items.indexOf(item), (context, animation) => Wrap());
-    ApiTasksService.skipTask(task: item.taskModel);
-    context.read<TasksListBloc>().add(TasksListEvent.skipTask(item));
+        .removeItem(currentItems.indexOf(task), (context, animation) => Wrap());
+    ApiTasksService.skipTask(task: task);
+    context.read<TasksListBloc>().add(TasksListEvent.skipTask(task));
   }
 }

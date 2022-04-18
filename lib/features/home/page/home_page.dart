@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/features/home/widgets/bottom_bar.dart';
-import 'package:inno_queue/features/home/widgets/qr_alert.dart';
+import 'package:inno_queue/features/home/widgets/widgets.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
@@ -13,7 +12,11 @@ import '../../../const/const.dart';
 
 import '../../features.dart';
 
-part 'app_bar_buttons.dart';
+part 'app_bar_buttons/back_button.dart';
+part 'app_bar_buttons/add_button.dart';
+part 'app_bar_buttons/animated_button.dart';
+part 'app_bar_buttons/qr_button.dart';
+part 'app_bar_buttons/more_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

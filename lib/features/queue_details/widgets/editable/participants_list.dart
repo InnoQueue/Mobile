@@ -19,12 +19,19 @@ class EditableParticipants extends StatefulWidget {
 }
 
 class _EditableParticipantsState extends State<EditableParticipants> {
-  late List<UserModel> _items;
+  late List<dynamic> _items;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
+    // _items = [];
+    // for (UserModel user in widget.queueModel.participants) {
+    //   _items.add(user);
+    //   if (user != widget.queueModel.participants.last) {
+    //     _items.add(_Separator());
+    //   }
+    // }
     _items = [...widget.queueModel.participants];
   }
 
@@ -33,7 +40,7 @@ class _EditableParticipantsState extends State<EditableParticipants> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.queueModel.participants.isNotEmpty)
+        if (_items.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: queueDetailsPadding, vertical: 10),
@@ -46,15 +53,20 @@ class _EditableParticipantsState extends State<EditableParticipants> {
           key: _listKey,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          initialItemCount: widget.queueModel.participants.length,
+          initialItemCount: _items.length,
           itemBuilder: (context, index, animation) => Slidable(
             closeOnScroll: true,
             key: Key(_items[index].hashCode.toString()),
-            child: ParticipantTile(
-              user: widget.queueModel.participants[index],
-              queue: widget.queueModel,
-              onTap: _dismiss,
-              index: index,
+            child: Column(
+              children: [
+                EditableParticipantTile(
+                  user: _items[index],
+                  queue: widget.queueModel,
+                  onTap: _dismiss,
+                  index: index,
+                ),
+                if (_items[index] != _items.last) _Separator(),
+              ],
             ),
             endActionPane: ActionPane(
               extentRatio: 0.25,
@@ -77,8 +89,8 @@ class _EditableParticipantsState extends State<EditableParticipants> {
                   },
                   backgroundColor: const Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
-                  icon: Icons.clear,
-                  label: 'Skip',
+                  icon: Icons.delete_outline,
+                  label: 'Delete',
                 ),
               ],
             ),
@@ -102,6 +114,29 @@ class _EditableParticipantsState extends State<EditableParticipants> {
         _onDismissed(context, _items[index]);
       }),
       duration: const Duration(milliseconds: 300),
+    );
+  }
+}
+
+class _Separator extends StatelessWidget {
+  const _Separator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: const [
+        Divider(
+          height: 0.5,
+          color: Colors.white,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: queueDetailsPadding),
+          child: Divider(
+            height: 0.5,
+            color: Colors.grey,
+          ),
+        ),
+      ],
     );
   }
 }

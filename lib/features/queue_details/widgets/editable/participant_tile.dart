@@ -5,12 +5,12 @@ import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 
-class ParticipantTile extends StatefulWidget {
+class EditableParticipantTile extends StatefulWidget {
   final UserModel user;
   final QueueModel queue;
   final Function onTap;
   final int index;
-  const ParticipantTile({
+  const EditableParticipantTile({
     required this.user,
     required this.queue,
     required this.onTap,
@@ -19,10 +19,11 @@ class ParticipantTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ParticipantTile> createState() => _ParticipantTileState();
+  State<EditableParticipantTile> createState() =>
+      _EditableParticipantTileState();
 }
 
-class _ParticipantTileState extends State<ParticipantTile> {
+class _EditableParticipantTileState extends State<EditableParticipantTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,14 +38,9 @@ class _ParticipantTileState extends State<ParticipantTile> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.user.name,
-                    style: Theme.of(context).textTheme.userNameStyle,
-                  ),
-                ],
+              child: Text(
+                widget.user.name,
+                style: Theme.of(context).textTheme.userNameStyle,
               ),
             ),
             _RemoveButton(

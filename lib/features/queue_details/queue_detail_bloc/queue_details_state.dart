@@ -12,4 +12,6 @@ class QueueDetailsState with _$QueueDetailsState {
   const factory QueueDetailsState.queueUpdating() = _QueueUpdating;
 
   const factory QueueDetailsState.queueFreezed() = _QueueFreezed;
+
+  const factory QueueDetailsState.queueUnfreezed() = _QueueUnfreezed;
 }

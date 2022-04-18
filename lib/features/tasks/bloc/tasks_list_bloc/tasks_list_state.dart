@@ -5,13 +5,13 @@ class TasksListState with _$TasksListState {
   const factory TasksListState.initial() = _Initial;
 
   const factory TasksListState.dataManaged(
-    List<TaskTile> shownTasks,
-    TaskTile? expandedTask,
-    TaskTile? done,
+    List<TaskModel> shownTasks,
+    TaskModel? expandedTask,
+    TaskModel? done,
     double? expenses,
-    TaskTile? sipped,
-    List<TaskTile> waitingList,
-    List<TaskTile> selectedList,
+    TaskModel? sipped,
+    List<TaskModel> waitingList,
+    List<TaskModel> selectedList,
     bool emptyingSelectedList,
     bool emptyingWaitingList,
   ) = _DataManaged;

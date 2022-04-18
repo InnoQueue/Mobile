@@ -11,12 +11,12 @@ part 'tasks_list_state.dart';
 
 @Injectable()
 class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
-  late List<TaskTile> _tasks;
-  TaskTile? _expanded;
-  TaskTile? _done;
-  TaskTile? _skipped;
-  List<TaskTile> _waitingList = [];
-  List<TaskTile> _selectedList = [];
+  late List<TaskModel> _tasks;
+  TaskModel? _expanded;
+  TaskModel? _done;
+  TaskModel? _skipped;
+  List<TaskModel> _waitingList = [];
+  List<TaskModel> _selectedList = [];
   bool timeOut = false;
   bool emptyingSelectedList = false;
   bool emptyingWaitingList = false;
@@ -85,7 +85,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     emit(const TasksListState.initial());
     _waitingList.add(event.task);
     emitDataManged(emit);
-    List<TaskTile> _tempWaitingList = [..._waitingList];
+    List<TaskModel> _tempWaitingList = [..._waitingList];
     await Future.delayed(const Duration(seconds: 1));
     checkListForEquality(_tempWaitingList, emit);
   }
@@ -123,7 +123,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
     Emitter<TasksListState> emit,
   ) async {
     _waitingList.remove(event.task);
-    List<TaskTile> _tempWaitingList = [..._waitingList];
+    List<TaskModel> _tempWaitingList = [..._waitingList];
     await Future.delayed(const Duration(seconds: 1));
     checkListForEquality(_tempWaitingList, emit);
   }
@@ -209,7 +209,7 @@ class TasksListBloc extends Bloc<TasksListEvent, TasksListState> {
   }
 
   void checkListForEquality(
-    List<TaskTile> tempWaitingList,
+    List<TaskModel> tempWaitingList,
     Emitter<TasksListState> emit,
   ) {
     if (tempWaitingList.length == _waitingList.length) {

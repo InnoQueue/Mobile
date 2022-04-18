@@ -1,21 +1,21 @@
-part of 'task_tile.dart';
+part of 'task_tile_body.dart';
 
-class ExpandedDoneButton extends StatefulWidget {
+class _ExpandedDoneButton extends StatefulWidget {
   final bool isExpanded;
-  final TaskTile taskTile;
+  final TaskModel taskModel;
   final Function removeItem;
-  const ExpandedDoneButton({
-    required this.taskTile,
+  const _ExpandedDoneButton({
+    required this.taskModel,
     required this.isExpanded,
     required this.removeItem,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ExpandedDoneButton> createState() => _ExpandedDoneButtonState();
+  State<_ExpandedDoneButton> createState() => _ExpandedDoneButtonState();
 }
 
-class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
+class _ExpandedDoneButtonState extends State<_ExpandedDoneButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation scaleAnimation;
@@ -55,14 +55,14 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            if (widget.taskTile.taskModel.trackExpenses) {
+            if (widget.taskModel.trackExpenses) {
               showDialog<void>(
                 context: context,
                 barrierDismissible: false, // user must tap button!
                 builder: (BuildContext _) {
                   return TaskExpensesDialog(
                     buildContext: context,
-                    taskTile: widget.taskTile,
+                    taskModel: widget.taskModel,
                     removeItem: widget.removeItem,
                     expanded: widget.isExpanded,
                     reverseAnimation: reverseAnimation,
@@ -70,11 +70,11 @@ class _ExpandedDoneButtonState extends State<ExpandedDoneButton>
                 },
               );
             } else {
-              widget.removeItem(context, widget.taskTile,
+              widget.removeItem(context, widget.taskModel,
                   expanded: true, done: true);
               context
                   .read<TasksListBloc>()
-                  .add(TasksListEvent.setTaskDone(widget.taskTile));
+                  .add(TasksListEvent.setTaskDone(widget.taskModel));
             }
           }
         },

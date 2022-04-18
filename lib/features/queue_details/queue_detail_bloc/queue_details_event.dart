@@ -10,6 +10,8 @@ class QueueDetailsEvent with _$QueueDetailsEvent {
 
   const factory QueueDetailsEvent.freezeQueue() = _FreezeQueue;
 
+  const factory QueueDetailsEvent.unfreezeQueue() = _UnfreezeQueue;
+
   const factory QueueDetailsEvent.updateQueue() = _UpdateQueue;
 
   const factory QueueDetailsEvent.editQueue() = _EditQueue;

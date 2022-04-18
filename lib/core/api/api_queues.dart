@@ -71,6 +71,20 @@ class ApiQueues extends ApiBase {
     );
   }
 
+  static Future<Response> unfreezeQueue(
+    token, {
+    required QueueModel queue,
+  }) async {
+    return ApiBase.dio.post(
+      "${ApiBase.baseUrl}/queues/unfreeze/${queue.id}",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
   static Future<Response> shakeUser(
     token, {
     required QueueModel queue,
@@ -153,6 +167,16 @@ class ApiQueuesService {
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.freezeQueue(
+      token,
+      queue: queue,
+    );
+  }
+
+  static Future<void> unfreezeQueue({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    await ApiQueues.unfreezeQueue(
       token,
       queue: queue,
     );

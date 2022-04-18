@@ -10,12 +10,12 @@ class EditableHeader extends StatefulWidget {
   final QueueModel queueModel;
   final Function updateName;
   final Function updateColor;
-  const EditableHeader(
-      {required this.queueModel,
-      required this.updateColor,
-      required this.updateName,
-      Key? key})
-      : super(key: key);
+  const EditableHeader({
+    required this.queueModel,
+    required this.updateColor,
+    required this.updateName,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EditableHeader> createState() => _EditableHeaderState();
@@ -40,24 +40,8 @@ class _EditableHeaderState extends State<EditableHeader> {
           width: 20,
         ),
         Flexible(
-          child: TextField(
-            controller: TextEditingController()..text = widget.queueModel.name,
-            style: const TextStyle(
-              overflow: TextOverflow.ellipsis,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
-            cursorColor: Colors.black,
-            cursorWidth: 1.5,
-            decoration: const InputDecoration(
-              hintText: "Queue name",
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-            ),
+          child: _TextField(
+            queueName: widget.queueModel.name,
             onSubmitted: (newValue) {
               widget.updateName(newValue);
             },
@@ -128,6 +112,45 @@ class _EditButton extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class _TextField extends StatefulWidget {
+  final String queueName;
+  final Function onSubmitted;
+  const _TextField({
+    required this.queueName,
+    required this.onSubmitted,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_TextField> createState() => _TextFieldState();
+}
+
+class _TextFieldState extends State<_TextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: TextEditingController()..text = widget.queueName,
+      style: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ),
+      cursorColor: Colors.black,
+      cursorWidth: 1.5,
+      decoration: const InputDecoration(
+        hintText: "Queue name",
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
+      ),
+      onSubmitted: (newValue) => widget.onSubmitted(newValue),
     );
   }
 }

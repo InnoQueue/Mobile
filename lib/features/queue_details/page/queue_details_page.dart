@@ -2,15 +2,9 @@ import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/core/widget/task_expenses.dart';
+import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
-import 'package:inno_queue/features/queue_details/widgets/editable/editable.dart';
-import 'package:inno_queue/features/queue_details/widgets/editable/participants_list.dart';
-import 'package:inno_queue/features/queue_details/widgets/editable/track_expenses_button.dart';
-import 'package:inno_queue/features/queue_details/widgets/static/static.dart';
-import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
-import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
-import 'package:inno_queue/shared/models/user/user_model.dart';
+import 'package:inno_queue/shared/shared.dart';
 
 class QueueDetailsPage extends StatefulWidget {
   const QueueDetailsPage({
@@ -24,50 +18,6 @@ class QueueDetailsPage extends StatefulWidget {
 class _QueueDetailsPageState extends State<QueueDetailsPage> {
   QueueModel? updatedQueue;
   late QueueModel originalQueue;
-
-  Future<bool> _onWillPop(bool editable, bool changesApplied) async {
-    if (editable && changesApplied) {
-      return (await showDialog(
-            context: context,
-            builder: (context) => new AlertDialog(
-              title: new Text('Are you sure?'),
-              content: new Text('Do you want to cancel changes'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: new Text(
-                    'No',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    cancelChanges();
-                    updatedQueue = originalQueue;
-                    Navigator.of(context).pop(false);
-                  },
-                  child: new Text(
-                    'Yes',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )) ??
-          false;
-    } else if (editable && !changesApplied) {
-      cancelChanges();
-      updatedQueue = null;
-    } else {
-      Navigator.of(context).pop();
-      context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
-    }
-    return false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +41,23 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
           return state.when(
             queueLeft: () {
               context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
-              context.router.pop();
+              Future.delayed(Duration.zero, () async {
+                context.router.pop();
+              });
               return Wrap();
             },
             queueFreezed: () {
               context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
-              context.router.pop();
+              Future.delayed(Duration.zero, () async {
+                context.router.pop();
+              });
+              return Wrap();
+            },
+            queueUnfreezed: () {
+              context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+              Future.delayed(Duration.zero, () async {
+                context.router.pop();
+              });
               return Wrap();
             },
             initial: () => Wrap(),
@@ -174,6 +135,50 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
         },
       );
     });
+  }
+
+  Future<bool> _onWillPop(bool editable, bool changesApplied) async {
+    if (editable && changesApplied) {
+      return (await showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+              title: new Text('Are you sure?'),
+              content: new Text('Do you want to cancel changes'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: new Text(
+                    'No',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    cancelChanges();
+                    updatedQueue = originalQueue;
+                    Navigator.of(context).pop(false);
+                  },
+                  child: new Text(
+                    'Yes',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )) ??
+          false;
+    } else if (editable && !changesApplied) {
+      cancelChanges();
+      updatedQueue = null;
+    } else {
+      Navigator.of(context).pop();
+      context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+    }
+    return false;
   }
 
   void updateName(String name) {

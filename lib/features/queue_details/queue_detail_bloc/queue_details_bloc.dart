@@ -20,7 +20,8 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     });
 
     on<_LeaveQueue>(_leaveRequested);
-    on<_FreezeQueue>(_freezeReqeusted);
+    on<_FreezeQueue>(_freezeRequested);
+    on<_UnfreezeQueue>(_unfreezeRequested);
     on<_EditQueue>(_editQueue);
     on<_SubmitEdits>(_submitEdits);
     on<_CancelEdits>(_cancelEdits);
@@ -38,13 +39,24 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     emit(const QueueDetailsState.queueLeft());
   }
 
-  void _freezeReqeusted(
+  void _freezeRequested(
     _FreezeQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
     var queueToFreeze = currentQueue;
     await ApiQueuesService.freezeQueue(
       queue: queueToFreeze,
+    );
+    emit(const QueueDetailsState.queueFreezed());
+  }
+
+  void _unfreezeRequested(
+    _UnfreezeQueue event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    var queueToUnfreeze = currentQueue;
+    await ApiQueuesService.unfreezeQueue(
+      queue: queueToUnfreeze,
     );
     emit(const QueueDetailsState.queueFreezed());
   }

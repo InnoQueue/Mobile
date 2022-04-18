@@ -5,16 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/core/widget/task_expenses.dart';
-import 'package:inno_queue/features/tasks/bloc/tasks_list_bloc/tasks_list_bloc.dart';
-import 'package:inno_queue/features/tasks/model/task_model.dart';
-import 'package:inno_queue/features/tasks/widgets/animated_icon.dart';
-import 'package:inno_queue/features/tasks/widgets/task_list.dart';
-
-part 'task_tile_body.dart';
-part 'done_button.dart';
-part 'expanded_done_button.dart';
-part 'expanded_skip_button.dart';
+import 'package:inno_queue/features/features.dart';
+import '../task_tile/task_tile_body/task_tile_body.dart';
 
 class TaskTile extends StatefulWidget {
   final TaskModel taskModel;
@@ -58,8 +50,8 @@ class TaskTileState extends State<TaskTile> {
       state.when(
         dataManaged:
             (v0, expandedTask, v1, v2, v3, waitingList, selectedList, v4, v5) {
-          _expanded = expandedTask == widget;
-          _selected = selectedList.contains(widget);
+          _expanded = expandedTask == widget.taskModel;
+          _selected = selectedList.contains(widget.taskModel);
           _noItemSelected = selectedList.isEmpty;
         },
         initial: () => null,
@@ -74,8 +66,8 @@ class TaskTileState extends State<TaskTile> {
             duration: const Duration(milliseconds: 200),
             color: Colors.white,
             height: _expanded ? 1.8 * tileHeight : tileHeight,
-            child: _Body(
-              taskTile: widget,
+            child: TaskTileBody(
+              taskModel: widget.taskModel,
               expanded: _expanded,
               selected: _selected,
               noItemSelected: _noItemSelected,
@@ -91,7 +83,7 @@ class TaskTileState extends State<TaskTile> {
             if (_expanded) {
               context
                   .read<TasksListBloc>()
-                  .add(TasksListEvent.expandTask(widget));
+                  .add(TasksListEvent.expandTask(widget.taskModel));
             } else {
               context
                   .read<TasksListBloc>()
@@ -101,11 +93,11 @@ class TaskTileState extends State<TaskTile> {
             if (_selected) {
               context
                   .read<TasksListBloc>()
-                  .add(TasksListEvent.removeFromSelectedList(widget));
+                  .add(TasksListEvent.removeFromSelectedList(widget.taskModel));
             } else {
               context
                   .read<TasksListBloc>()
-                  .add(TasksListEvent.addToSelectedList(widget));
+                  .add(TasksListEvent.addToSelectedList(widget.taskModel));
             }
           }
         }),
@@ -115,7 +107,7 @@ class TaskTileState extends State<TaskTile> {
               HapticFeedback.lightImpact();
               context
                   .read<TasksListBloc>()
-                  .add(TasksListEvent.addToSelectedList(widget));
+                  .add(TasksListEvent.addToSelectedList(widget.taskModel));
             }
           });
         },
@@ -125,14 +117,16 @@ class TaskTileState extends State<TaskTile> {
 
   setDone() {
     done = true;
-    context.read<TasksListBloc>().add(TasksListEvent.addToWaitingList(widget));
+    context
+        .read<TasksListBloc>()
+        .add(TasksListEvent.addToWaitingList(widget.taskModel));
   }
 
   setUndone() async {
     done = false;
     context
         .read<TasksListBloc>()
-        .add(TasksListEvent.removeFromWaitingList(widget));
+        .add(TasksListEvent.removeFromWaitingList(widget.taskModel));
   }
 
   setExpanded(bool expanded) {

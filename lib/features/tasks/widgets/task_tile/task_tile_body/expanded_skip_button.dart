@@ -1,21 +1,21 @@
-part of 'task_tile.dart';
+part of 'task_tile_body.dart';
 
-class ExpandedSkipButton extends StatefulWidget {
+class _ExpandedSkipButton extends StatefulWidget {
   final bool isExpanded;
-  final TaskTile taskTile;
+  final TaskModel taskModel;
   final Function removeItem;
-  const ExpandedSkipButton(
+  const _ExpandedSkipButton(
       {required this.isExpanded,
-      required this.taskTile,
+      required this.taskModel,
       required this.removeItem,
       Key? key})
       : super(key: key);
 
   @override
-  State<ExpandedSkipButton> createState() => _ExpandedSkipButtonState();
+  State<_ExpandedSkipButton> createState() => _ExpandedSkipButtonState();
 }
 
-class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
+class _ExpandedSkipButtonState extends State<_ExpandedSkipButton>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation scaleAnimation;
@@ -54,11 +54,11 @@ class _ExpandedSkipButtonState extends State<ExpandedSkipButton>
         listener: (AnimationStatus status) async {
           if (status == AnimationStatus.completed) {
             await Future.delayed(const Duration(milliseconds: 200));
-            widget.removeItem(context, widget.taskTile,
+            widget.removeItem(context, widget.taskModel,
                 expanded: true, skip: true);
             context
                 .read<TasksListBloc>()
-                .add(TasksListEvent.skipTask(widget.taskTile));
+                .add(TasksListEvent.skipTask(widget.taskModel));
           }
         },
         duration: const Duration(milliseconds: 300),

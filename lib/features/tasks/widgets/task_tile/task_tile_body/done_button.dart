@@ -1,15 +1,15 @@
-part of 'task_tile.dart';
+part of 'task_tile_body.dart';
 
 class _DoneButton extends StatefulWidget {
   final bool expanded;
   final bool noItemSelected;
-  final TaskTile taskTile;
+  final TaskModel taskModel;
   final Function setDone;
   final Function setUndone;
   const _DoneButton(
       {this.expanded = false,
       this.noItemSelected = true,
-      required this.taskTile,
+      required this.taskModel,
       required this.setDone,
       required this.setUndone,
       Key? key})
@@ -29,7 +29,7 @@ class _DoneButtonState extends State<_DoneButton> {
         state.when(
           dataManaged: (v0, expandedTask, v1, v2, v3, waitingList, selectedList,
               v4, v5) {
-            done = waitingList.contains(widget.taskTile);
+            done = waitingList.contains(widget.taskModel);
           },
           initial: () => null,
         );

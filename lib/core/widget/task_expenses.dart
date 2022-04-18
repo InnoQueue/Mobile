@@ -11,7 +11,7 @@ import 'package:provider/src/provider.dart';
 
 class TaskExpensesDialog extends StatefulWidget {
   final BuildContext buildContext;
-  final TaskTile? taskTile;
+  final TaskModel? taskModel;
   final QueueModel? queueModel;
   final Function? removeItem;
   final bool expanded;
@@ -20,7 +20,7 @@ class TaskExpensesDialog extends StatefulWidget {
   final Function? reverseAnimation;
   const TaskExpensesDialog({
     required this.buildContext,
-    this.taskTile,
+    this.taskModel,
     this.removeItem,
     this.queueModel,
     this.expanded = false,
@@ -35,20 +35,19 @@ class TaskExpensesDialog extends StatefulWidget {
 }
 
 class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
-  final TextEditingController _textFieldController = TextEditingController();
   String? valueText;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.taskTile != null
-          ? widget.taskTile!.taskModel.name
+      title: Text(widget.taskModel != null
+          ? widget.taskModel!.name
           : widget.queueModel != null
               ? widget.queueModel!.name
               : ""),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text(widget.taskTile != null
+            Text(widget.taskModel != null
                 ? 'Enter how much it cost:'
                 : widget.queueModel != null
                     ? 'Enter how much you spent:'
@@ -56,25 +55,12 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
             Row(
               children: [
                 Expanded(
-                  child: TextField(
+                  child: _TaskExpensesTextField(
                     onChanged: (value) {
                       setState(() {
                         valueText = value;
                       });
                     },
-                    keyboardType: TextInputType.number,
-                    controller: _textFieldController,
-                    cursorColor: Colors.black,
-                    cursorWidth: 1.5,
-                    decoration: const InputDecoration(
-                      hintText: "price",
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                    ),
                   ),
                 ),
                 Container(
@@ -98,13 +84,7 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
               color: Colors.black,
             ),
           ),
-          onPressed: () {
-            emptyList(true);
-            if (widget.reverseAnimation != null) {
-              widget.reverseAnimation!();
-            }
-            Navigator.of(context).pop();
-          },
+          onPressed: () => handleCancel(),
         ),
         TextButton(
           child: const Text(
@@ -113,29 +93,11 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
               color: Colors.black,
             ),
           ),
-          onPressed: () async {
-            if (widget.taskTile != null) {
-              widget.removeItem!(widget.buildContext, widget.taskTile,
-                  expanded: widget.expanded,
-                  done: true,
-                  expenses: double.parse(valueText ?? ''));
-              widget.buildContext.read<TasksListBloc>().add(
-                  TasksListEvent.setTaskDone(widget.taskTile!,
-                      expenses: double.parse(valueText ?? '')));
-              emptyList(false);
+          onPressed: () {
+            if (widget.taskModel != null) {
+              removeItemOnApproved();
             } else {
-              ApiTasksService.deleteTask(
-                task: TaskModel(
-                  id: widget.queueModel!.id,
-                  name: widget.queueModel!.name,
-                  color: widget.queueModel!.color,
-                  trackExpenses: widget.queueModel!.trackExpenses,
-                ),
-                expenses: double.parse(valueText ?? ''),
-              );
-              context
-                  .read<QueueDetailsBloc>()
-                  .add(QueueDetailsEvent.updateQueue());
+              addProgress();
             }
             Navigator.of(context).pop();
           },
@@ -144,16 +106,83 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
     );
   }
 
+  void handleCancel() {
+    emptyList(true);
+    if (widget.reverseAnimation != null) {
+      widget.reverseAnimation!();
+    }
+    Navigator.of(context).pop();
+  }
+
+  void removeItemOnApproved() {
+    widget.removeItem!(widget.buildContext, widget.taskModel,
+        expanded: widget.expanded,
+        done: true,
+        expenses: double.parse(valueText ?? ''));
+    widget.buildContext.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
+        widget.taskModel!,
+        expenses: double.parse(valueText ?? '')));
+    emptyList(false);
+  }
+
+  void addProgress() {
+    ApiTasksService.deleteTask(
+      task: TaskModel(
+        id: widget.queueModel!.id,
+        name: widget.queueModel!.name,
+        color: widget.queueModel!.color,
+        trackExpenses: widget.queueModel!.trackExpenses,
+      ),
+      expenses: double.parse(valueText ?? ''),
+    );
+    context.read<QueueDetailsBloc>().add(QueueDetailsEvent.updateQueue());
+  }
+
   void emptyList(bool pass) {
     if (widget.emptyingWaitingList) {
       widget.buildContext
           .read<TasksListBloc>()
-          .add(TasksListEvent.emptyWaitingList(widget.taskTile!, pass: pass));
+          .add(TasksListEvent.emptyWaitingList(widget.taskModel!, pass: pass));
     }
     if (widget.emptyingSelectedList) {
       widget.buildContext
           .read<TasksListBloc>()
-          .add(TasksListEvent.emptySelectedList(widget.taskTile!, pass: pass));
+          .add(TasksListEvent.emptySelectedList(widget.taskModel!, pass: pass));
     }
+  }
+}
+
+class _TaskExpensesTextField extends StatefulWidget {
+  final Function onChanged;
+  const _TaskExpensesTextField({
+    required this.onChanged,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_TaskExpensesTextField> createState() => _TaskExpensesTextFieldState();
+}
+
+class _TaskExpensesTextFieldState extends State<_TaskExpensesTextField> {
+  final TextEditingController _textFieldController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onChanged: (value) => widget.onChanged(value),
+      keyboardType: TextInputType.number,
+      controller: _textFieldController,
+      cursorColor: Colors.black,
+      cursorWidth: 1.5,
+      decoration: const InputDecoration(
+        hintText: "price",
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+      ),
+    );
   }
 }

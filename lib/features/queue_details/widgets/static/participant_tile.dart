@@ -19,6 +19,36 @@ class ParticipantTile extends StatefulWidget {
 }
 
 class _ParticipantTileState extends State<ParticipantTile> {
+  late bool onDutyTile;
+
+  @override
+  void initState() {
+    super.initState();
+    onDutyTile = widget.queue.crrentUser == widget.user;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return onDutyTile
+        ? _OnDutyTile(user: widget.user, queue: widget.queue)
+        : _RegularTile(user: widget.user);
+  }
+}
+
+class _OnDutyTile extends StatefulWidget {
+  final UserModel user;
+  final QueueModel queue;
+  const _OnDutyTile({
+    required this.user,
+    required this.queue,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_OnDutyTile> createState() => _OnDutyTileState();
+}
+
+class _OnDutyTileState extends State<_OnDutyTile> {
   final _shakeDuration = const Duration(milliseconds: 250);
   final _shakeDelta = 20;
   final _shakeCurve = Curves.bounceOut;
@@ -29,12 +59,6 @@ class _ParticipantTileState extends State<ParticipantTile> {
 
   // ignore: prefer_typing_uninitialized_variables
   var _shakeKey;
-
-  @override
-  void initState() {
-    super.initState();
-    onDutyTile = widget.queue.crrentUser == widget.user;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +74,8 @@ class _ParticipantTileState extends State<ParticipantTile> {
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: onDutyTile
-              ? const Border.symmetric(
-                  horizontal: BorderSide(color: Colors.grey, width: 0.5))
-              : null,
+          border: const Border.symmetric(
+              horizontal: BorderSide(color: Colors.grey, width: 0.5)),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
@@ -69,55 +91,42 @@ class _ParticipantTileState extends State<ParticipantTile> {
                       widget.user.name,
                       style: Theme.of(context).textTheme.userNameStyle,
                     ),
-                    if (onDutyTile)
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '${widget.user.expenses}₽ spent',
-                            style: Theme.of(context).textTheme.expensesStyle,
-                          ),
-                        ],
-                      )
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          '${widget.user.expenses}₽ spent',
+                          style: Theme.of(context).textTheme.expensesStyle,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
-              if (onDutyTile)
-                if (!widget.queue.isOnDuty)
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      splashFactory: NoSplash.splashFactory,
-                      padding: EdgeInsets.zero,
-                      minimumSize: Size.zero,
-                    ),
-                    onPressed: () {
-                      HapticFeedback.lightImpact();
-                      setState(() {
-                        ApiQueuesService.shakeUser(queue: widget.queue);
-                        _shakeEnd = 1.0;
-                        _shakeText = 'shook';
-                        _shakeKey = UniqueKey();
-                      });
-                    },
-                    child: Text(
-                      _shakeText,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black.withOpacity(0.75),
-                      ),
-                    ),
-                  )
-                else
-                  Wrap()
-              else
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: queueDetailsPadding / 2),
+              if (!widget.queue.isOnDuty)
+                TextButton(
+                  style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                  ),
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    setState(() {
+                      ApiQueuesService.shakeUser(queue: widget.queue);
+                      _shakeEnd = 1.0;
+                      _shakeText = 'shook';
+                      _shakeKey = UniqueKey();
+                    });
+                  },
                   child: Text(
-                    '${widget.user.expenses}₽ spent',
-                    style: Theme.of(context).textTheme.expensesStyle,
+                    _shakeText,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black.withOpacity(0.75),
+                    ),
                   ),
                 )
             ],
@@ -129,4 +138,48 @@ class _ParticipantTileState extends State<ParticipantTile> {
 
   double shake(double animation) =>
       2 * (0.5 - (0.5 - _shakeCurve.transform(animation)).abs());
+}
+
+class _RegularTile extends StatelessWidget {
+  final UserModel user;
+  const _RegularTile({
+    required this.user,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.name,
+                    style: Theme.of(context).textTheme.userNameStyle,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: queueDetailsPadding / 2),
+              child: Text(
+                '${user.expenses}₽ spent',
+                style: Theme.of(context).textTheme.expensesStyle,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
