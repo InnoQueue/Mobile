@@ -90,8 +90,7 @@ class _MoreButtonState extends State<_MoreButton> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext _) {
-        //TODO: Create a widget that shows QR code and passowrd and return it
-        return AlertDialog();
+        return InviteUserAlert(queueModel: currectQueue);
       },
     );
   }

@@ -4,6 +4,7 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 
 import 'api_base.dart';
 
@@ -107,6 +108,39 @@ class ApiQueues extends ApiBase {
           "user-token": token,
         },
       ),
+    );
+  }
+
+  static Future<Response> inviteUser(
+    token, {
+    required QueueModel queue,
+  }) async {
+    return ApiBase.dio.get(
+      "${ApiBase.baseUrl}/queues/invite/${queue.id}",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
+  static Future<Response> joinQueue(
+    token, {
+    required String pincode,
+  }) async {
+    var params = {
+      "pin_code": pincode,
+    };
+
+    return ApiBase.dio.post(
+      "${ApiBase.baseUrl}/queues/join/",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+      data: jsonEncode(params),
     );
   }
 
@@ -217,5 +251,35 @@ class ApiQueuesService {
       token,
       queue: queue,
     );
+  }
+
+  static Future<String> inviteUser({
+    required QueueModel queue,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+    final data = (await ApiQueues.inviteUser(
+      token,
+      queue: queue,
+    ))
+        .data;
+
+    return PincodeModel.fromJson(data).pincode;
+  }
+
+  static Future<bool> joinQueue({
+    required String pincode,
+  }) async {
+    final String token = await ApiBaseService.getToken();
+
+    try {
+      final data = (await ApiQueues.joinQueue(
+        token,
+        pincode: pincode,
+      ));
+
+      return data.statusCode! / 100 == 2;
+    } on DioError catch (e) {
+      return false;
+    }
   }
 }
