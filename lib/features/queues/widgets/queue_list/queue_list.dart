@@ -29,7 +29,7 @@ class QueueList extends StatelessWidget {
         ? NoItemsWidget(
             imagePath: 'images/idk.gif',
             message:
-                'No ${frozen ? 'frozen ' : ''}queues yet\n${active ? 'Add' : 'Freeeze'} one!',
+                'No ${active ? 'active ' : 'frozen '}queues yet\n${active ? 'Add' : 'Freeeze'} one!',
           )
         : Padding(
             padding: const EdgeInsets.only(bottom: 10),
