@@ -34,7 +34,7 @@ class _BottomBarItemState extends State<_BottomBarItem> {
     return Expanded(
       child: InkWell(
         child: Container(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           height: 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
+import 'package:inno_queue/shared/models/token/token_model.dart';
 
 @Injectable()
 class ApiBase {
@@ -8,7 +9,8 @@ class ApiBase {
   static const String baseUrl = 'https://innoqueue.herokuapp.com';
 
   static Future<String> getToken() async {
-    return "11111"; // not implemented on backend yet
+    //return "sVZYTsX66nXILoxJ";
+    return "11111";
   }
 }
 
@@ -19,6 +21,14 @@ class ApiBaseService {
     token = await CacheService.checkToken("");
     if (token.isEmpty) {
       token = await ApiBase.getToken();
+
+      // var data = (await ApiBase.dio.get(
+      //   "${ApiBase.baseUrl}/user/signup",
+      // ))
+      //     .data;
+
+      // token = TokenModel.fromJson(data).token;
+      // print(token);
       CacheService.checkToken(token);
     }
     return token;

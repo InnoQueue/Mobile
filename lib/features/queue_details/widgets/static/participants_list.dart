@@ -56,12 +56,12 @@ class Participants extends StatelessWidget {
                   queue: queueModel,
                 ),
                 separatorBuilder: (context, index) => Stack(
-                  children: const [
+                  children: [
                     Divider(
                       height: 0.5,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
-                    Padding(
+                    const Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: queueDetailsPadding),
                       child: Divider(

@@ -17,7 +17,7 @@ class _QueueTileState extends State<QueueTile> {
     return GestureDetector(
       child: Container(
         height: tileHeight,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         child: _Body(
           color: colors[widget.queueModel.color] ?? Colors.white,
           name: widget.queueModel.name,

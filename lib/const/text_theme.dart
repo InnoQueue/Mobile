@@ -28,13 +28,11 @@ extension CustomTextTheme on TextTheme {
     return const TextStyle(
       fontSize: 17,
       fontWeight: FontWeight.w400,
-      color: Colors.black,
     );
   }
 
   TextStyle get appBarTextStyle {
     return const TextStyle(
-      color: Colors.black,
       fontSize: 27,
       fontWeight: FontWeight.bold,
     );
@@ -43,7 +41,6 @@ extension CustomTextTheme on TextTheme {
   TextStyle tileNameTextStyle(bool? expanded) {
     return TextStyle(
       fontSize: (expanded ?? false) ? 23 : 20,
-      color: Colors.black,
     );
   }
 
@@ -55,22 +52,18 @@ extension CustomTextTheme on TextTheme {
   }
 
   TextStyle get buttonTextStyle {
-    return const TextStyle(
-      color: Colors.black,
-    );
+    return const TextStyle();
   }
 
   TextStyle get notificationMessageTextStyle {
     return const TextStyle(
       fontSize: 18,
-      color: Colors.black,
     );
   }
 
   TextStyle get notificationDateTextStyle {
     return const TextStyle(
       fontSize: 12,
-      color: Colors.black,
     );
   }
 

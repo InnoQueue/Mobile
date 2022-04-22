@@ -80,8 +80,6 @@ class _ExpandedDoneButtonState extends State<_ExpandedDoneButton>
         },
         duration: const Duration(milliseconds: 300),
         clockwise: false,
-        endIconColor: Colors.black,
-        startIconColor: Colors.black,
         onTap: () {
           _controller.forward();
         },

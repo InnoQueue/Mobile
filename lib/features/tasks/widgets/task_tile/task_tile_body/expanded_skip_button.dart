@@ -63,8 +63,6 @@ class _ExpandedSkipButtonState extends State<_ExpandedSkipButton>
         },
         duration: const Duration(milliseconds: 300),
         clockwise: false,
-        endIconColor: Colors.black,
-        startIconColor: Colors.black,
         onTap: () {
           _controller.forward();
         },

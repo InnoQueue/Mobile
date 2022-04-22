@@ -35,7 +35,6 @@ class _MoreButtonState extends State<_MoreButton> {
       child: PopupMenuButton<String>(
           icon: const Icon(
             Icons.more_vert,
-            color: Colors.black,
             size: 30,
           ),
           onSelected: _onSelected,

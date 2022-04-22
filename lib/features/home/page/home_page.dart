@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> {
           return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
             builder: (context, state) => Scaffold(
               key: homePageScaffoldKey,
-              backgroundColor: Colors.blueGrey[50],
               resizeToAvoidBottomInset: false,
               appBar: _appBarBuilder(
                 router,
@@ -57,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                 selected: selected,
                 number: counter,
               ),
+              //backgroundColor: Colors.blueGrey[50],
               body: child,
               bottomNavigationBar: const BottomBar(),
               floatingActionButton:
@@ -133,10 +133,9 @@ class _HomePageState extends State<HomePage> {
       return [
         _AnimatedButton(
           actions: true,
-          icon: Icon(
+          icon: const Icon(
             Icons.done,
             size: 30,
-            color: Colors.black,
           ),
           onTap: () {
             context
@@ -151,10 +150,9 @@ class _HomePageState extends State<HomePage> {
         ? [
             _AnimatedButton(
               actions: true,
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete_outline,
                 size: 30,
-                color: Colors.black,
               ),
               onTap: () {
                 context
@@ -164,10 +162,9 @@ class _HomePageState extends State<HomePage> {
             ),
             _AnimatedButton(
               actions: true,
-              icon: Icon(
+              icon: const Icon(
                 Icons.done,
                 size: 30,
-                color: Colors.black,
               ),
               onTap: () {
                 context
@@ -193,10 +190,9 @@ class _HomePageState extends State<HomePage> {
     if (routeName == QueueDetailsRoute.name && areEditable) {
       return _AnimatedButton(
         leading: true,
-        icon: Icon(
+        icon: const Icon(
           Icons.clear,
           size: 30,
-          color: Colors.black,
         ),
         onTap: () {
           context
@@ -211,10 +207,9 @@ class _HomePageState extends State<HomePage> {
         : selected
             ? _AnimatedButton(
                 leading: true,
-                icon: Icon(
+                icon: const Icon(
                   Icons.clear,
                   size: 30,
-                  color: Colors.black,
                 ),
                 onTap: () {
                   context

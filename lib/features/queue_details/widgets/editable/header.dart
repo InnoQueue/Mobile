@@ -231,21 +231,12 @@ class _UpdateColorBottomSheetState extends State<_UpdateColorBottomSheet> {
           ),
           const SizedBox(height: 60),
           ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(Colors.black.withOpacity(0.8)),
-            ),
             child: Container(
               height: 55,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              child: Text(
-                'Update Color',
-                style: Theme.of(context)
-                    .textTheme
-                    .largeButtonTextSrtyle
-                    .copyWith(color: Colors.white),
-              ),
+              child: Text('Update Color',
+                  style: Theme.of(context).textTheme.largeButtonTextSrtyle),
             ),
             onPressed: () {
               widget.updateColor(_currentColorName);
