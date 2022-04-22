@@ -57,7 +57,7 @@ class _ExpandedOpenQueueButtonState extends State<_ExpandedOpenQueueButton>
               .read<QueueDetailsBloc>()
               .add(QueueDetailsEvent.openQueue(queueToOpen));
           context.read<TasksListBloc>().add(TasksListEvent.shrinkTask());
-          context.router.push(const QueueDetailsRoute());
+          getIt<AppRouter>().push(const QueueDetailsRoute());
         },
       ),
     );

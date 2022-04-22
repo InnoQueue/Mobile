@@ -4,7 +4,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CacheService {
-
   static Future<bool> checkFirstLaunch() async {
     final prefs = await SharedPreferences.getInstance();
     final bool? isFirstLaunch = prefs.getBool('isFirstLaunch');
@@ -21,5 +20,4 @@ abstract class CacheService {
     }
     return tokenCached;
   }
-
 }

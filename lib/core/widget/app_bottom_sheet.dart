@@ -27,9 +27,10 @@ class AppBottomSheet extends StatelessWidget {
               horizontal: 20,
               vertical: 15,
             ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(15.0)),
             ),
             child: IntrinsicHeight(child: content),
           );

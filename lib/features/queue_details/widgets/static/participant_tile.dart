@@ -73,7 +73,7 @@ class _OnDutyTileState extends State<_OnDutyTile> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           border: const Border.symmetric(
               horizontal: BorderSide(color: Colors.grey, width: 0.5)),
         ),
@@ -106,13 +106,8 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                 ),
               ),
               if (!widget.queue.isOnDuty)
-                TextButton(
-                  style: TextButton.styleFrom(
-                    splashFactory: NoSplash.splashFactory,
-                    padding: EdgeInsets.zero,
-                    minimumSize: Size.zero,
-                  ),
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     HapticFeedback.lightImpact();
                     setState(() {
                       ApiQueuesService.shakeUser(queue: widget.queue);
@@ -123,9 +118,8 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                   },
                   child: Text(
                     _shakeText,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black.withOpacity(0.75),
+                    style: const TextStyle(
+                      fontSize: 18,
                     ),
                   ),
                 )
@@ -151,7 +145,7 @@ class _RegularTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      color: Colors.white,
+      color: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
         child: Row(

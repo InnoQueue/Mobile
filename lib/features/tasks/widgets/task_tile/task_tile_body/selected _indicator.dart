@@ -26,6 +26,7 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
             width: widget.expanded ? 18 * 1.25 : 18,
           ),
           AnimatedContainer(
+            alignment: Alignment.center,
             duration: const Duration(milliseconds: 200),
             width:
                 (widget.expanded ? 18 * 1.25 : 18) * (widget.selected ? 1 : 0),
@@ -35,14 +36,22 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
               color: Colors.green,
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
                 width: 1.2,
               ),
             ),
-            child: const Icon(
-              Icons.done,
-              color: Colors.white,
-              size: 10,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 10 * (widget.selected ? 1 : 0),
+              height: 10 * (widget.selected ? 1 : 0),
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: Icon(
+                  Icons.done,
+                  color: widget.selected ? Colors.white : Colors.transparent,
+                  size: 10,
+                ),
+              ),
             ),
           ),
         ],

@@ -75,18 +75,12 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
         TextButton(
           child: const Text(
             'Cancel',
-            style: TextStyle(
-              color: Colors.black,
-            ),
           ),
           onPressed: () => handleCancel(),
         ),
         TextButton(
           child: const Text(
             'Approve',
-            style: TextStyle(
-              color: Colors.black,
-            ),
           ),
           onPressed: () async {
             if (widget.taskModel != null) {

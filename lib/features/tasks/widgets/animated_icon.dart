@@ -6,8 +6,6 @@ class AnimateIcon extends StatefulWidget {
     required this.startIcon,
     required this.endIcon,
     this.size,
-    this.startIconColor,
-    this.endIconColor,
     this.duration,
     this.clockwise,
     required this.controller,
@@ -19,7 +17,6 @@ class AnimateIcon extends StatefulWidget {
   final Duration? duration;
   final bool? clockwise;
   final double? size;
-  final Color? startIconColor, endIconColor;
   final AnimateIconController controller;
   final Function? onTap;
   final Function? listener;
@@ -109,7 +106,6 @@ class _AnimateIconsState extends State<AnimateIcon>
             child: Icon(
               widget.startIcon,
               size: widget.size,
-              color: widget.startIconColor ?? Theme.of(context).primaryColor,
             ),
             onTap: _onStartIconPress,
           ),
@@ -126,7 +122,6 @@ class _AnimateIconsState extends State<AnimateIcon>
             child: Icon(
               widget.endIcon,
               size: widget.size,
-              color: widget.endIconColor ?? Theme.of(context).primaryColor,
             ),
             onTap: _onEndIconPress,
           ),

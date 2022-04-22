@@ -109,10 +109,6 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
             ),
             const SizedBox(height: 60),
             ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.black.withOpacity(0.8)),
-              ),
               child: Container(
                 height: 55,
                 alignment: Alignment.center,

@@ -28,8 +28,8 @@ class _EditableParticipantTileState extends State<EditableParticipantTile> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: queueDetailsPadding),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),

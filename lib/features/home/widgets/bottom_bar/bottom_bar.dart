@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
 part 'bottom_bar_item.dart';
 

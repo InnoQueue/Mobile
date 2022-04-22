@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
+import 'package:provider/provider.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/core/provider/theme_provider.dart';
 import 'package:inno_queue/features/settings/page/settings_const.dart';
 import 'package:inno_queue/features/settings/widget/notification_switch_label.dart';
 
@@ -95,6 +97,40 @@ class _SettingsPageState extends State<SettingsPage> {
                         const SizedBox(height: 4),
                   ),
                 ),
+                const SizedBox(height: 24),
+                Consumer<ThemeProvider>(builder: (context, provider, child) {
+                  return DropdownButton<String>(
+                    value: provider.currentTheme,
+                    items: [
+                      //Light, dark, and system
+                      DropdownMenuItem<String>(
+                        value: 'light',
+                        child: Text(
+                          'Light',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+
+                      DropdownMenuItem<String>(
+                        value: 'dark',
+                        child: Text(
+                          'Dark',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'system',
+                        child: Text(
+                          'System',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                      ),
+                    ],
+                    onChanged: (String? value) {
+                      provider.changeTheme(value ?? 'system');
+                    },
+                  );
+                }),
               ],
             ),
           );

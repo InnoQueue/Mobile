@@ -14,7 +14,14 @@ class _TaskName extends StatelessWidget {
     return Expanded(
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 200),
-        child: Text(name),
+        child: Text(
+          name,
+          style: TextStyle(
+            color: Theme.of(context).primaryColorBrightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
         style: Theme.of(context).textTheme.tileNameTextStyle(isExpanded),
         overflow: TextOverflow.ellipsis,
       ),

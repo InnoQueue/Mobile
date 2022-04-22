@@ -5,6 +5,7 @@ import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 

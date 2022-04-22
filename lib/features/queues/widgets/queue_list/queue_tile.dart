@@ -17,20 +17,20 @@ class _QueueTileState extends State<QueueTile> {
     return GestureDetector(
       child: Container(
         height: tileHeight,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         child: _Body(
           color: colors[widget.queueModel.color] ?? Colors.white,
           name: widget.queueModel.name,
         ),
       ),
-      onTap: () {
+      onTap: () async {
         context
             .read<AppBarBloc>()
             .add(RouteChangedEvent(widget.queueModel.name));
         context
             .read<QueueDetailsBloc>()
             .add(QueueDetailsEvent.openQueue(widget.queueModel));
-        context.router.push(const QueueDetailsRoute());
+        getIt<AppRouter>().push(const QueueDetailsRoute());
       },
     );
   }

@@ -64,7 +64,7 @@ class TaskTileState extends State<TaskTile> {
             padding: EdgeInsets.only(
                 top: (tileHeight - 40) / 2 + (_expanded ? 5 : 0)),
             duration: const Duration(milliseconds: 200),
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
             height: _expanded ? 1.8 * tileHeight : tileHeight,
             child: TaskTileBody(
               taskModel: widget.taskModel,

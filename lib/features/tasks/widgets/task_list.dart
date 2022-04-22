@@ -203,7 +203,7 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     if (skip) {
       if (currentItems.length == 1) {
         await ApiTasksService.skipTask(task: task);
-        context.read<TasksBloc>().add(const TasksEvent.loadRequested());
+        tasksBloc.add(const TasksEvent.loadRequested());
       } else {
         ApiTasksService.skipTask(task: task);
       }

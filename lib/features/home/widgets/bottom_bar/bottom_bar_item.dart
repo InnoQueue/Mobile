@@ -34,7 +34,7 @@ class _BottomBarItemState extends State<_BottomBarItem> {
     return Expanded(
       child: InkWell(
         child: Container(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           height: 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -42,12 +42,22 @@ class _BottomBarItemState extends State<_BottomBarItem> {
               Icon(
                 widget.leadingIcon,
                 size: 30,
-                color: _active ? Colors.black : Colors.grey,
+                color: _active
+                    ? (Theme.of(context).primaryColorBrightness ==
+                            Brightness.dark
+                        ? Colors.white
+                        : Colors.black)
+                    : Colors.grey,
               ),
               Text(
                 widget.title,
                 style: TextStyle(
-                  color: _active ? Colors.black : Colors.grey,
+                  color: _active
+                      ? (Theme.of(context).primaryColorBrightness ==
+                              Brightness.dark
+                          ? Colors.white
+                          : Colors.black)
+                      : Colors.grey,
                   fontSize: 15,
                 ),
               )
@@ -69,8 +79,12 @@ class _BottomBarItemState extends State<_BottomBarItem> {
     widget.setActive(widget);
     var page = await buildPageAsync();
     if (widget.route != null) {
-      _.router.root.pop();
-      _.router.popAndPush(page);
+      getIt<AppRouter>().root.pop();
+      if (context.router.stack.length <= 1) {
+        getIt<AppRouter>().push(page);
+      } else {
+        getIt<AppRouter>().replace(page);
+      }
     }
   }
 

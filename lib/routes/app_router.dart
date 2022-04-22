@@ -9,7 +9,6 @@ part 'app_router.gr.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
-  preferRelativeImports: false,
   routes: <AutoRoute>[
     AutoRoute(
       page: SplashPage,
