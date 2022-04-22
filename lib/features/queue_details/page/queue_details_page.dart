@@ -75,58 +75,93 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                       top: 20,
                       bottom: 10,
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: editable
-                                ? EditableHeader(
-                                    queueModel: updatedQueue ?? queue,
-                                    updateColor: updateColor,
-                                    updateName: updateName,
-                                  )
-                                : Header(queueModel: queue),
-                          ),
-                          if (!editable)
-                            const SizedBox(
-                              height: 20,
+                    child: !(queue.participants.isEmpty && !editable)
+                        ? SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: editable
+                                      ? EditableHeader(
+                                          queueModel: updatedQueue ?? queue,
+                                          updateColor: updateColor,
+                                          updateName: updateName,
+                                        )
+                                      : Header(queueModel: queue),
+                                ),
+                                if (!editable)
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                if (!editable)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: queueDetailsPadding),
+                                    child: _AddProgressButton(
+                                      queue: queue,
+                                    ),
+                                  ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                editable
+                                    ? EditableParticipants(
+                                        queueModel: updatedQueue ?? queue,
+                                        removeParticipant: removeParticipant,
+                                      )
+                                    : Participants(
+                                        queueModel: queue,
+                                      ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                if (editable)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: TrackExpensesButton(
+                                      initValue:
+                                          (updatedQueue ?? queue).trackExpenses,
+                                      updateTracker: updateTracker,
+                                    ),
+                                  ),
+                              ],
                             ),
-                          if (!editable)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: queueDetailsPadding),
-                              child: _AddProgressButton(
+                          )
+                        : Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Header(queueModel: queue),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: queueDetailsPadding),
+                                child: _AddProgressButton(
+                                  queue: queue,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ParticipantTile(
+                                user: queue.crrentUser,
                                 queue: queue,
                               ),
-                            ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          editable
-                              ? EditableParticipants(
-                                  queueModel: updatedQueue ?? queue,
-                                  removeParticipant: removeParticipant,
-                                )
-                              : Participants(
-                                  queueModel: queue,
+                              const Expanded(
+                                child: NoItemsWidget(
+                                  imagePath: 'images/crying.gif',
+                                  message:
+                                      "There's only you here!\nInvite your roomates to the queue",
                                 ),
-                          const SizedBox(
-                            height: 20,
+                              )
+                            ],
                           ),
-                          if (editable)
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: TrackExpensesButton(
-                                initValue:
-                                    (updatedQueue ?? queue).trackExpenses,
-                                updateTracker: updateTracker,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
                   ),
                 ),
                 onWillPop: () => _onWillPop(editable, updatedQueue != null),
@@ -142,13 +177,13 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
     if (editable && changesApplied) {
       return (await showDialog(
             context: context,
-            builder: (context) => new AlertDialog(
-              title: new Text('Are you sure?'),
-              content: new Text('Do you want to cancel changes'),
+            builder: (context) => AlertDialog(
+              title: const Text('Are you sure?'),
+              content: const Text('Do you want to cancel changes'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: new Text(
+                  child: const Text(
                     'No',
                     style: TextStyle(
                       color: Colors.black,
@@ -161,7 +196,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                     updatedQueue = originalQueue;
                     Navigator.of(context).pop(false);
                   },
-                  child: new Text(
+                  child: const Text(
                     'Yes',
                     style: TextStyle(
                       color: Colors.black,

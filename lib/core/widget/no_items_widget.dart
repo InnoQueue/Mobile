@@ -33,9 +33,6 @@ class NoItemsWidget extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
           ),
-          const SizedBox(
-            height: 60,
-          ),
         ],
       ),
     );
