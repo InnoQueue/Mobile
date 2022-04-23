@@ -62,7 +62,6 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Text(
               'or enter code',
-              style: TextStyle(color: Colors.black),
             ),
           ),
           SizedBox(
@@ -96,14 +95,12 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
           onPressed: () => Navigator.pop(context, 'Cancel'),
           child: const Text(
             'Cancel',
-            style: TextStyle(color: Colors.black),
           ),
         ),
         TextButton(
           onPressed: () => joinQueue(currentText ?? ''),
           child: const Text(
             'OK',
-            style: TextStyle(color: Colors.black),
           ),
         ),
       ],

@@ -33,7 +33,10 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
             height:
                 (widget.expanded ? 18 * 1.25 : 18) * (widget.selected ? 1 : 0),
             decoration: BoxDecoration(
-              color: Colors.green,
+              color:
+                  Theme.of(context).primaryColorBrightness == Brightness.light
+                      ? Colors.green
+                      : Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
                 color: Theme.of(context).primaryColor,
@@ -42,14 +45,18 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
             ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              width: 10 * (widget.selected ? 1 : 0),
-              height: 10 * (widget.selected ? 1 : 0),
+              width: 12 * (widget.selected ? 1 : 0),
+              height: 12 * (widget.selected ? 1 : 0),
               child: FittedBox(
                 fit: BoxFit.fill,
                 child: Icon(
                   Icons.done,
-                  color: widget.selected ? Colors.white : Colors.transparent,
-                  size: 10,
+                  color: widget.selected
+                      ? (Theme.of(context).primaryColorBrightness ==
+                              Brightness.light
+                          ? Colors.white
+                          : Colors.black)
+                      : Colors.transparent,
                 ),
               ),
             ),

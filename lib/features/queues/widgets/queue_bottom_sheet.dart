@@ -94,7 +94,8 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                       FlutterSwitch(
                         width: 60,
                         height: 30,
-                        activeColor: Colors.black.withOpacity(0.7),
+                        activeColor: Colors.grey[700] ?? Colors.black,
+                        inactiveColor: Colors.grey[400] ?? Colors.white,
                         value: _toggleValue,
                         onToggle: (newValue) {
                           setState(() {

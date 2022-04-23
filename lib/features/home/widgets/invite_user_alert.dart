@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/features.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import 'package:inno_queue/core/api/api_queues.dart';
+import 'package:inno_queue/features/features.dart';
 
 class InviteUserAlert extends StatefulWidget {
   final QueueModel queueModel;
@@ -43,8 +44,9 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomPaint(
-              size: const Size.square(200),
-              painter: QrPainter(
+              size: const Size.square(220),
+              painter: _BackgroundPainter(customSize: 220),
+              foregroundPainter: QrPainter(
                 data: widget.queueModel.link,
                 version: QrVersions.auto,
                 eyeStyle: QrEyeStyle(
@@ -59,8 +61,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
             ),
           ),
           const Text(
-            'or share the code',
-            style: TextStyle(color: Colors.black),
+            'or share the code:',
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15),
@@ -84,10 +85,28 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
           onPressed: () => Navigator.pop(context, 'Cancel'),
           child: const Text(
             'Cancel',
-            style: TextStyle(color: Colors.black),
           ),
         ),
       ],
     );
   }
+}
+
+class _BackgroundPainter extends CustomPainter {
+  double customSize;
+
+  _BackgroundPainter({
+    required this.customSize,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint1 = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+    canvas.drawRect(Offset.zero & Size(customSize, customSize), paint1);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

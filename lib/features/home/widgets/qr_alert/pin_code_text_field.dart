@@ -19,6 +19,11 @@ class _PinCodeTextField extends StatefulWidget {
 
 class _PinCodeTextFieldState extends State<_PinCodeTextField> {
   TextEditingController textEditingController = TextEditingController();
+  late bool isLight =
+      Theme.of(context).primaryColorBrightness == Brightness.light;
+  late Color fillColor = Theme.of(context).primaryColor;
+  late Color borderColor =
+      isLight ? Colors.grey : Theme.of(context).primaryColorLight;
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +36,21 @@ class _PinCodeTextFieldState extends State<_PinCodeTextField> {
         borderRadius: BorderRadius.circular(5),
         fieldHeight: 40,
         fieldWidth: 30,
-        activeFillColor: Colors.white,
-        inactiveFillColor: Colors.white,
-        selectedFillColor: Colors.white,
-        inactiveColor: Colors.grey,
-        activeColor: Colors.grey,
-        selectedColor: Colors.grey,
-        disabledColor: Colors.grey,
+        activeFillColor: fillColor,
+        inactiveFillColor: fillColor,
+        selectedFillColor: fillColor,
+        inactiveColor: borderColor,
+        activeColor: borderColor,
+        selectedColor: borderColor,
+        disabledColor: borderColor,
       ),
       showCursor: true,
-      cursorColor: Colors.black,
+      cursorColor: isLight ? Colors.black : Colors.white,
       animationDuration: const Duration(milliseconds: 200),
       enableActiveFill: true,
+      textStyle: TextStyle(
+        color: isLight ? Colors.black : Colors.white,
+      ),
       controller: textEditingController,
       onTap: () => widget.closeQr(),
       onChanged: (value) {
