@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/src/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -38,7 +39,8 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Scan QR code'),
+      title: Text(AppLocalizations.of(context)!.translate('scan qr code') ??
+          'Scan QR code'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -58,11 +60,12 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
               },
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: Text(
-              'or enter code',
-              style: TextStyle(color: Colors.black),
+              (AppLocalizations.of(context)!.translate('or enter pin-code') ??
+                      'or enter pin-code') +
+                  ':',
             ),
           ),
           SizedBox(
@@ -94,16 +97,14 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text(
-            'Cancel',
-            style: TextStyle(color: Colors.black),
+          child: Text(
+            AppLocalizations.of(context)!.translate('cancel') ?? 'Cancel',
           ),
         ),
         TextButton(
           onPressed: () => joinQueue(currentText ?? ''),
-          child: const Text(
-            'OK',
-            style: TextStyle(color: Colors.black),
+          child: Text(
+            AppLocalizations.of(context)!.translate('ok') ?? 'OK',
           ),
         ),
       ],

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 
 class ParticipantTile extends StatefulWidget {
@@ -97,7 +98,7 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                           height: 8,
                         ),
                         Text(
-                          '${widget.user.expenses}₽ spent',
+                          '${widget.user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
                           style: Theme.of(context).textTheme.expensesStyle,
                         ),
                       ],
@@ -117,8 +118,9 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                     });
                   },
                   child: Text(
-                    _shakeText,
+                    AppLocalizations.of(context)!.translate(_shakeText) ?? '',
                     style: const TextStyle(
+                      fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
                   ),
@@ -167,7 +169,7 @@ class _RegularTile extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: queueDetailsPadding / 2),
               child: Text(
-                '${user.expenses}₽ spent',
+                '${user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
                 style: Theme.of(context).textTheme.expensesStyle,
               ),
             )

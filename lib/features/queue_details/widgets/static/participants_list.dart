@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'participant_tile.dart';
 
 class Participants extends StatelessWidget {
@@ -20,7 +21,7 @@ class Participants extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: queueDetailsPadding, vertical: 10),
           child: Text(
-            'On duty:',
+            '${AppLocalizations.of(context)!.translate('on duty') ?? 'On duty'}:',
             style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
           ),
         ),
@@ -33,7 +34,7 @@ class Participants extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: queueDetailsPadding, vertical: 10),
             child: Text(
-              'Other participants in the queue:',
+              '${AppLocalizations.of(context)!.translate('other participants') ?? 'Other participants in the queue:'}:',
               style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
             ),
           )
@@ -42,10 +43,11 @@ class Participants extends StatelessWidget {
             height: 20,
           ),
         queueModel.participants.isEmpty
-            ? const NoItemsWidget(
+            ? NoItemsWidget(
                 imagePath: 'images/crying.gif',
-                message:
-                    "There's only you here!\nInvite your roomates to the queue",
+                message: AppLocalizations.of(context)!
+                        .translate('no queue participants') ??
+                    '',
               )
             : ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),

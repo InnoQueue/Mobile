@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/shared.dart';
 
 class QueueDetailsPage extends StatefulWidget {
@@ -153,11 +154,12 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                 user: queue.crrentUser,
                                 queue: queue,
                               ),
-                              const Expanded(
+                              Expanded(
                                 child: NoItemsWidget(
                                   imagePath: 'images/crying.gif',
-                                  message:
-                                      "There's only you here!\nInvite your roomates to the queue",
+                                  message: AppLocalizations.of(context)!
+                                          .translate('no queue participants') ??
+                                      '',
                                 ),
                               )
                             ],
@@ -280,7 +282,8 @@ class _AddProgressButton extends StatelessWidget {
         height: 40,
         alignment: Alignment.center,
         child: Text(
-          'Add Progress',
+          AppLocalizations.of(context)!.translate('add progress') ??
+              'Add Progress',
           style: Theme.of(context).textTheme.largeButtonTextSrtyle,
         ),
       ),

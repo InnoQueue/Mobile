@@ -15,16 +15,16 @@ class _MoreButtonState extends State<_MoreButton> {
     super.initState();
     var currentQueue = context.read<QueueDetailsBloc>().currentQueue;
     String? freeze = currentQueue.isActive && !currentQueue.isOnDuty
-        ? 'Freeze queue'
+        ? 'freeze queue'
         : !currentQueue.isActive
-            ? 'Unfreeze queue'
+            ? 'unfreeze queue'
             : null;
 
     myMenuItems = [
-      if (currentQueue.isAdmin) 'Edit',
-      'Invite user',
+      if (currentQueue.isAdmin) 'edit',
+      'invite user',
       if (freeze != null) freeze,
-      currentQueue.isAdmin ? 'Delete queue' : 'Leave queue',
+      currentQueue.isAdmin ? 'delete queue' : 'leave queue',
     ];
   }
 
@@ -35,6 +35,7 @@ class _MoreButtonState extends State<_MoreButton> {
       child: PopupMenuButton<String>(
           icon: const Icon(
             Icons.more_vert,
+            color: Colors.black,
             size: 30,
           ),
           onSelected: _onSelected,
@@ -42,7 +43,7 @@ class _MoreButtonState extends State<_MoreButton> {
             return myMenuItems.map((String choice) {
               return PopupMenuItem<String>(
                 child: Text(
-                  choice,
+                  AppLocalizations.of(context)!.translate(choice) ?? choice,
                   style: Theme.of(context).textTheme.popupMenuItemStyle,
                 ),
                 value: choice,
@@ -53,27 +54,28 @@ class _MoreButtonState extends State<_MoreButton> {
   }
 
   void _onSelected(String item) {
+    print(item);
     switch (item) {
-      case 'Invite user':
+      case 'invite user':
         _showQr();
         break;
-      case 'Delete queue':
-      case 'Leave queue':
+      case 'delete queue':
+      case 'leave queue':
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.leaveQueue());
         break;
-      case 'Freeze queue':
+      case 'freeze queue':
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.freezeQueue());
         break;
-      case 'Unfreeze queue':
+      case 'unfreeze queue':
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.unfreezeQueue());
         break;
-      case 'Edit':
+      case 'edit':
         context
             .read<QueueDetailsBloc>()
             .add(const QueueDetailsEvent.editQueue());

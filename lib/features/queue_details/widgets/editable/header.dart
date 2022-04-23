@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 
 class EditableHeader extends StatefulWidget {
   final QueueModel queueModel;
@@ -191,7 +192,8 @@ class _UpdateColorBottomSheetState extends State<_UpdateColorBottomSheet> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Choose color',
+              AppLocalizations.of(context)!.translate('choose color') ??
+                  'Choose color',
               style: Theme.of(context).textTheme.bottomSheetTitleStyle,
             ),
           ),
@@ -235,7 +237,9 @@ class _UpdateColorBottomSheetState extends State<_UpdateColorBottomSheet> {
               height: 55,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              child: Text('Update Color',
+              child: Text(
+                  AppLocalizations.of(context)!.translate('update color') ??
+                      'Update color',
                   style: Theme.of(context).textTheme.largeButtonTextSrtyle),
             ),
             onPressed: () {

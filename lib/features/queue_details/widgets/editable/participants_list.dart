@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/queue_details/widgets/editable/participant_tile.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 
 class EditableParticipants extends StatefulWidget {
@@ -45,7 +46,9 @@ class _EditableParticipantsState extends State<EditableParticipants> {
             padding: const EdgeInsets.symmetric(
                 horizontal: queueDetailsPadding, vertical: 10),
             child: Text(
-              'Participants in the queue:',
+              (AppLocalizations.of(context)!.translate('participants') ??
+                      'Participants in the queue') +
+                  ':',
               style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
             ),
           ),
@@ -90,7 +93,8 @@ class _EditableParticipantsState extends State<EditableParticipants> {
                   backgroundColor: const Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
                   icon: Icons.delete_outline,
-                  label: 'Delete',
+                  label: AppLocalizations.of(context)!.translate('delete') ??
+                      'Delete',
                 ),
               ],
             ),

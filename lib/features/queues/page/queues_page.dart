@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import '../bloc/queues_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -14,10 +15,7 @@ class QueuesPage extends StatefulWidget {
 
 class _QueuesPageState extends State<QueuesPage> {
   int? _groupValue = 0;
-  final Map<int, Widget> _tabs = {
-    0: const Text('Active'),
-    1: const Text('Frozen'),
-  };
+  Map<int, Widget>? _tabs;
 
   @override
   void initState() {
@@ -27,6 +25,14 @@ class _QueuesPageState extends State<QueuesPage> {
 
   @override
   Widget build(BuildContext context) {
+    _tabs ??= {
+      0: Text(
+        AppLocalizations.of(context)!.translate('active') ?? 'Active',
+      ),
+      1: Text(
+        AppLocalizations.of(context)!.translate('frozen') ?? 'Frozen',
+      ),
+    };
     return BlocBuilder<QueuesBloc, QueuesState>(
       builder: (context, state) {
         return state.when(
@@ -46,7 +52,7 @@ class _QueuesPageState extends State<QueuesPage> {
                     width: MediaQuery.of(context).size.width,
                     child: CupertinoSlidingSegmentedControl<int>(
                       groupValue: _groupValue,
-                      children: _tabs,
+                      children: _tabs ?? {},
                       onValueChanged: (value) {
                         setState(() {
                           _groupValue = value;

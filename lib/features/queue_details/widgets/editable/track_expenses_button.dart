@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 
 class TrackExpensesButton extends StatefulWidget {
   final bool initValue;
@@ -20,9 +21,10 @@ class _TrackExpensesButtonState extends State<TrackExpensesButton> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text(
-          'Track expenses',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.translate('track expenses') ??
+              'Track expenses',
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -31,7 +33,8 @@ class _TrackExpensesButtonState extends State<TrackExpensesButton> {
         FlutterSwitch(
           width: 60,
           height: 30,
-          activeColor: Colors.black.withOpacity(0.7),
+          activeColor: Colors.grey[700] ?? Colors.black,
+          inactiveColor: Colors.grey[400] ?? Colors.white,
           value: _toggleValue,
           onToggle: (newValue) {
             setState(() {

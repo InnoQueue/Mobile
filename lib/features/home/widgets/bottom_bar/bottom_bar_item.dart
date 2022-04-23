@@ -50,7 +50,8 @@ class _BottomBarItemState extends State<_BottomBarItem> {
                     : Colors.grey,
               ),
               Text(
-                widget.title,
+                AppLocalizations.of(context)!.translate(widget.title) ??
+                    widget.title,
                 style: TextStyle(
                   color: _active
                       ? (Theme.of(context).primaryColorBrightness ==
@@ -78,6 +79,9 @@ class _BottomBarItemState extends State<_BottomBarItem> {
   void _onTap(BuildContext _) async {
     widget.setActive(widget);
     var page = await buildPageAsync();
+    if (page.routeName != TasksRoute.name) {
+      context.read<SelectTasksBloc>().add(const SelectTasksEvent.unselect());
+    }
     if (widget.route != null) {
       getIt<AppRouter>().root.pop();
       if (context.router.stack.length <= 1) {
