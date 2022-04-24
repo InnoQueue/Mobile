@@ -50,7 +50,8 @@ class _BottomBarItemState extends State<_BottomBarItem> {
                     : Colors.grey,
               ),
               Text(
-                widget.title,
+                AppLocalizations.of(context)!.translate(widget.title) ??
+                    widget.title,
                 style: TextStyle(
                   color: _active
                       ? (Theme.of(context).primaryColorBrightness ==

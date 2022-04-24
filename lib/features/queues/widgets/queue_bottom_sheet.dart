@@ -5,6 +5,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/queues/bloc/queues_bloc.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 
 class QueueBottomSheet extends StatefulWidget {
@@ -45,7 +46,8 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Create new queue',
+                AppLocalizations.of(context)!.translate('create new queue') ??
+                    'Create new queue',
                 style: Theme.of(context).textTheme.bottomSheetTitleStyle,
               ),
             ),
@@ -83,9 +85,11 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      const Text(
-                        'Track expenses',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!
+                                .translate('track expenses') ??
+                            'Track expenses',
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -115,12 +119,9 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 child: Text(
-                  'Create',
-                  style: Theme.of(context)
-                      .textTheme
-                      .largeButtonTextSrtyle
-                      .copyWith(color: Colors.white),
-                ),
+                    AppLocalizations.of(context)!.translate('create') ??
+                        'Create',
+                    style: Theme.of(context).textTheme.largeButtonTextSrtyle),
               ),
               onPressed: _onPressed,
             ),

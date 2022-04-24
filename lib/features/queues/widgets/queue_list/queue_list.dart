@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
@@ -29,8 +30,11 @@ class QueueList extends StatelessWidget {
     return queues.isEmpty
         ? NoItemsWidget(
             imagePath: 'images/idk.gif',
-            message:
-                'No ${active ? 'active ' : 'frozen '}queues yet\n${active ? 'Add' : 'Freeeze'} one!',
+            message: active
+                ? AppLocalizations.of(context)!.translate('no active queues') ??
+                    ''
+                : AppLocalizations.of(context)!.translate('no frozen queues') ??
+                    '',
           )
         : Padding(
             padding: const EdgeInsets.only(bottom: 10),

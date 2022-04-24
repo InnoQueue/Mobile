@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
+import '../../../features.dart';
 import 'participant_tile.dart';
 
 class Participants extends StatelessWidget {
-  final QueueModel queueModel;
+  final QueueDetailsModel queueDetailsModel;
   const Participants({
-    required this.queueModel,
+    required this.queueDetailsModel,
     Key? key,
   }) : super(key: key);
 
@@ -20,20 +21,20 @@ class Participants extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: queueDetailsPadding, vertical: 10),
           child: Text(
-            'On duty:',
+            '${AppLocalizations.of(context)!.translate('on duty') ?? 'On duty'}:',
             style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
           ),
         ),
         ParticipantTile(
-          user: queueModel.crrentUser,
-          queue: queueModel,
+          user: queueDetailsModel.crrentUser,
+          queueDetailsModel: queueDetailsModel,
         ),
-        if (queueModel.participants.isNotEmpty)
+        if (queueDetailsModel.participants.isNotEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: queueDetailsPadding, vertical: 10),
             child: Text(
-              'Other participants in the queue:',
+              '${AppLocalizations.of(context)!.translate('other participants') ?? 'Other participants in the queue:'}:',
               style: Theme.of(context).textTheme.queueDetailsHeadingStyle,
             ),
           )
@@ -41,19 +42,20 @@ class Participants extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-        queueModel.participants.isEmpty
-            ? const NoItemsWidget(
+        queueDetailsModel.participants.isEmpty
+            ? NoItemsWidget(
                 imagePath: 'images/crying.gif',
-                message:
-                    "There's only you here!\nInvite your roomates to the queue",
+                message: AppLocalizations.of(context)!
+                        .translate('no queue participants') ??
+                    '',
               )
             : ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: queueModel.participants.length,
+                itemCount: queueDetailsModel.participants.length,
                 itemBuilder: (context, index) => ParticipantTile(
-                  user: queueModel.participants[index],
-                  queue: queueModel,
+                  user: queueDetailsModel.participants[index],
+                  queueDetailsModel: queueDetailsModel,
                 ),
                 separatorBuilder: (context, index) => Stack(
                   children: [

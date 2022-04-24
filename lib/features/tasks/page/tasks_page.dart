@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
@@ -27,9 +28,12 @@ class _TasksPageState extends State<TasksPage> {
               dataLoaded: (tasks) {
                 return SafeArea(
                     child: tasks.isEmpty
-                        ? const NoItemsWidget(
+                        ? NoItemsWidget(
                             imagePath: 'images/sleeping.gif',
-                            message: 'No tasks set yet')
+                            message: AppLocalizations.of(context)!
+                                    .translate('no tasks') ??
+                                '',
+                          )
                         : Padding(
                             padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: TaskList(

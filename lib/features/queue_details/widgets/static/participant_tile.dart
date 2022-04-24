@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
+
+import '../../../features.dart';
 
 class ParticipantTile extends StatefulWidget {
   final UserModel user;
-  final QueueModel queue;
+  final QueueDetailsModel queueDetailsModel;
   const ParticipantTile({
     required this.user,
-    required this.queue,
+    required this.queueDetailsModel,
     Key? key,
   }) : super(key: key);
 
@@ -24,23 +26,24 @@ class _ParticipantTileState extends State<ParticipantTile> {
   @override
   void initState() {
     super.initState();
-    onDutyTile = widget.queue.crrentUser == widget.user;
+    onDutyTile = widget.queueDetailsModel.crrentUser == widget.user;
   }
 
   @override
   Widget build(BuildContext context) {
     return onDutyTile
-        ? _OnDutyTile(user: widget.user, queue: widget.queue)
+        ? _OnDutyTile(
+            user: widget.user, queueDetailsModel: widget.queueDetailsModel)
         : _RegularTile(user: widget.user);
   }
 }
 
 class _OnDutyTile extends StatefulWidget {
   final UserModel user;
-  final QueueModel queue;
+  final QueueDetailsModel queueDetailsModel;
   const _OnDutyTile({
     required this.user,
-    required this.queue,
+    required this.queueDetailsModel,
     Key? key,
   }) : super(key: key);
 
@@ -97,7 +100,7 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                           height: 8,
                         ),
                         Text(
-                          '${widget.user.expenses}₽ spent',
+                          '${widget.user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
                           style: Theme.of(context).textTheme.expensesStyle,
                         ),
                       ],
@@ -105,20 +108,22 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                   ],
                 ),
               ),
-              if (!widget.queue.isOnDuty)
+              if (!widget.queueDetailsModel.isOnDuty)
                 GestureDetector(
                   onTap: () {
                     HapticFeedback.lightImpact();
                     setState(() {
-                      ApiQueuesService.shakeUser(queue: widget.queue);
+                      ApiQueuesService.shakeUser(
+                          id: widget.queueDetailsModel.id);
                       _shakeEnd = 1.0;
                       _shakeText = 'shook';
                       _shakeKey = UniqueKey();
                     });
                   },
                   child: Text(
-                    _shakeText,
+                    AppLocalizations.of(context)!.translate(_shakeText) ?? '',
                     style: const TextStyle(
+                      fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
                   ),
@@ -167,7 +172,7 @@ class _RegularTile extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: queueDetailsPadding / 2),
               child: Text(
-                '${user.expenses}₽ spent',
+                '${user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
                 style: Theme.of(context).textTheme.expensesStyle,
               ),
             )

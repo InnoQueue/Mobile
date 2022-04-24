@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 class AppRes {
-  static const String todoTasks = 'To-do tasks';
-  static const String queues = 'Queues';
-  static const String notifications = 'Notifications';
-  static const String settings = 'Settings';
+  static const String todoTasks = 'to-do tasks';
+  static const String queues = 'queues';
+  static const String notifications = 'notifications';
+  static const String settings = 'settings';
 
   // splash page
   static const howToUse = {

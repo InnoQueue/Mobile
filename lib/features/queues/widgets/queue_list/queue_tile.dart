@@ -29,7 +29,7 @@ class _QueueTileState extends State<QueueTile> {
             .add(RouteChangedEvent(widget.queueModel.name));
         context
             .read<QueueDetailsBloc>()
-            .add(QueueDetailsEvent.openQueue(widget.queueModel));
+            .add(QueueDetailsEvent.loadRequested(widget.queueModel.id));
         getIt<AppRouter>().push(const QueueDetailsRoute());
       },
     );

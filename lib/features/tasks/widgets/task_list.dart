@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/core/widget/task_expenses.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import '../bloc/bloc.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
 import 'package:inno_queue/features/tasks/widgets/task_tile/task_tile.dart';
@@ -152,7 +153,9 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                                   backgroundColor: const Color(0xFFFE4A49),
                                   foregroundColor: Colors.white,
                                   icon: Icons.clear,
-                                  label: 'Skip',
+                                  label: AppLocalizations.of(context)!
+                                          .translate('skip') ??
+                                      'Skip',
                                 ),
                               ],
                             ),

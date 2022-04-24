@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 
@@ -57,10 +58,10 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> leaveQueue(
     token, {
-    required QueueModel queue,
+    required int id,
   }) async {
     return ApiBase.dio.delete(
-      "${ApiBase.baseUrl}/queues/${queue.id}",
+      "${ApiBase.baseUrl}/queues/$id",
       options: Options(
         headers: {
           "user-token": token,
@@ -71,10 +72,10 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> freezeQueue(
     token, {
-    required QueueModel queue,
+    required int id,
   }) async {
     return ApiBase.dio.post(
-      "${ApiBase.baseUrl}/queues/freeze/${queue.id}",
+      "${ApiBase.baseUrl}/queues/freeze/$id",
       options: Options(
         headers: {
           "user-token": token,
@@ -85,10 +86,10 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> unfreezeQueue(
     token, {
-    required QueueModel queue,
+    required int id,
   }) async {
     return ApiBase.dio.post(
-      "${ApiBase.baseUrl}/queues/unfreeze/${queue.id}",
+      "${ApiBase.baseUrl}/queues/unfreeze/$id",
       options: Options(
         headers: {
           "user-token": token,
@@ -99,10 +100,10 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> shakeUser(
     token, {
-    required QueueModel queue,
+    required int id,
   }) async {
     return ApiBase.dio.post(
-      "${ApiBase.baseUrl}/queues/shake/${queue.id}",
+      "${ApiBase.baseUrl}/queues/shake/$id",
       options: Options(
         headers: {
           "user-token": token,
@@ -113,10 +114,10 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> inviteUser(
     token, {
-    required QueueModel queue,
+    required int id,
   }) async {
     return ApiBase.dio.get(
-      "${ApiBase.baseUrl}/queues/invite/${queue.id}",
+      "${ApiBase.baseUrl}/queues/invite/$id",
       options: Options(
         headers: {
           "user-token": token,
@@ -146,14 +147,14 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> updateQueue(
     token, {
-    required QueueModel queue,
+    required QueueDetailsModel queueDetails,
   }) async {
     var params = {
-      "id": queue.id,
-      "name": queue.name,
-      "color": queue.color,
-      "track_expenses": queue.trackExpenses,
-      "participants": queue.participants.map((e) => e.id).toList(),
+      "id": queueDetails.id,
+      "name": queueDetails.name,
+      "color": queueDetails.color,
+      "track_expenses": queueDetails.trackExpenses,
+      "participants": queueDetails.participants.map((e) => e.id).toList(),
     };
 
     return ApiBase.dio.patch(
@@ -183,10 +184,10 @@ class ApiQueuesService {
     return Pair(active, frozen);
   }
 
-  static Future<QueueModel> getQueue(int id) async {
+  static Future<QueueDetailsModel> getQueue(int id) async {
     final String token = await ApiBaseService.getToken();
     final data = (await ApiQueues.getQueue(token, id: id)).data;
-    return QueueModel.fromJson(data);
+    return QueueDetailsModel.fromJson(data);
   }
 
   static Future<void> addQueue({
@@ -204,62 +205,62 @@ class ApiQueuesService {
   }
 
   static Future<void> leaveQueue({
-    required QueueModel queue,
+    required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.leaveQueue(
       token,
-      queue: queue,
+      id: id,
     );
   }
 
   static Future<void> freezeQueue({
-    required QueueModel queue,
+    required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.freezeQueue(
       token,
-      queue: queue,
+      id: id,
     );
   }
 
   static Future<void> unfreezeQueue({
-    required QueueModel queue,
+    required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.unfreezeQueue(
       token,
-      queue: queue,
+      id: id,
     );
   }
 
   static Future<void> updateQueue({
-    required QueueModel queue,
+    required QueueDetailsModel queueDetails,
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.updateQueue(
       token,
-      queue: queue,
+      queueDetails: queueDetails,
     );
   }
 
   static Future<void> shakeUser({
-    required QueueModel queue,
+    required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
     await ApiQueues.shakeUser(
       token,
-      queue: queue,
+      id: id,
     );
   }
 
   static Future<String> inviteUser({
-    required QueueModel queue,
+    required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
     final data = (await ApiQueues.inviteUser(
       token,
-      queue: queue,
+      id: id,
     ))
         .data;
 
@@ -278,7 +279,7 @@ class ApiQueuesService {
       ));
 
       return data.statusCode! / 100 == 2;
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return false;
     }
   }

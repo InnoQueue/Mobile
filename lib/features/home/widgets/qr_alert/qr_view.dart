@@ -5,11 +5,13 @@ class _QrView extends StatefulWidget {
   final bool showQrButton;
   final Function openQr;
   final Function hideQrButton;
+  final Function shakeQr;
   const _QrView({
     required this.qrOpen,
     required this.showQrButton,
     required this.openQr,
     required this.hideQrButton,
+    required this.shakeQr,
     Key? key,
   }) : super(key: key);
 
@@ -67,9 +69,26 @@ class _QrViewState extends State<_QrView> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        result = scanData;
+        join(scanData);
       });
     });
+  }
+
+  void join(Barcode scanData) async {
+    if (scanData != result) {
+      bool joinResult =
+          await ApiQueuesService.joinQueue(pincode: scanData.code!);
+      if (joinResult) {
+        Navigator.pop(context);
+        context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
+      } else {
+        readQr();
+        widget.shakeQr();
+      }
+      result = scanData;
+    } else {
+      readQr();
+    }
   }
 
   @override

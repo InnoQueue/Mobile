@@ -2,12 +2,13 @@ import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:provider/src/provider.dart';
 
 class TaskExpensesDialog extends StatefulWidget {
   final BuildContext buildContext;
   final TaskModel? taskModel;
-  final QueueModel? queueModel;
+  final QueueDetailsModel? queueDetialsModel;
   final Function? removeItem;
   final bool expanded;
   final bool emptyingWaitingList;
@@ -17,7 +18,7 @@ class TaskExpensesDialog extends StatefulWidget {
     required this.buildContext,
     this.taskModel,
     this.removeItem,
-    this.queueModel,
+    this.queueDetialsModel,
     this.expanded = false,
     this.emptyingWaitingList = false,
     this.emptyingSelectedList = false,
@@ -36,16 +37,19 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
     return AlertDialog(
       title: Text(widget.taskModel != null
           ? widget.taskModel!.name
-          : widget.queueModel != null
-              ? widget.queueModel!.name
+          : widget.queueDetialsModel != null
+              ? widget.queueDetialsModel!.name
               : ""),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
             Text(widget.taskModel != null
-                ? 'Enter how much it cost:'
-                : widget.queueModel != null
-                    ? 'Enter how much you spent:'
+                ? AppLocalizations.of(context)!.translate('how much it cost') ??
+                    'Enter how much it cost:'
+                : widget.queueDetialsModel != null
+                    ? AppLocalizations.of(context)!
+                            .translate('how much you spent') ??
+                        'Enter how much you spent:'
                     : ""),
             Row(
               children: [
@@ -73,14 +77,14 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text(
-            'Cancel',
+          child: Text(
+            AppLocalizations.of(context)!.translate('cancel') ?? 'Cancel',
           ),
           onPressed: () => handleCancel(),
         ),
         TextButton(
-          child: const Text(
-            'Approve',
+          child: Text(
+            AppLocalizations.of(context)!.translate('approve') ?? 'Approve',
           ),
           onPressed: () async {
             if (widget.taskModel != null) {
@@ -152,12 +156,12 @@ class _TaskExpensesTextFieldState extends State<_TaskExpensesTextField> {
       controller: _textFieldController,
       cursorColor: Colors.black,
       cursorWidth: 1.5,
-      decoration: const InputDecoration(
-        hintText: "price",
-        enabledBorder: UnderlineInputBorder(
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.translate('price') ?? "price",
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),

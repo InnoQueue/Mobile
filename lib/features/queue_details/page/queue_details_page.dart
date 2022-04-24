@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/shared.dart';
 
 class QueueDetailsPage extends StatefulWidget {
@@ -16,8 +17,8 @@ class QueueDetailsPage extends StatefulWidget {
 }
 
 class _QueueDetailsPageState extends State<QueueDetailsPage> {
-  QueueModel? updatedQueue;
-  late QueueModel originalQueue;
+  QueueDetailsModel? updatedQueueDetails;
+  late QueueDetailsModel originalQueueDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +28,12 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
         initial: () {},
         updateRequested: () {
           submitChanges();
-          context
-              .read<AppBarBloc>()
-              .add(RouteChangedEvent((updatedQueue ?? originalQueue).name));
+          context.read<AppBarBloc>().add(RouteChangedEvent(
+              (updatedQueueDetails ?? originalQueueDetails).name));
         },
         cancelRequested: () {
           cancelChanges();
-          updatedQueue = null;
+          updatedQueueDetails = null;
         },
       );
       return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
@@ -60,14 +60,17 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
               });
               return Wrap();
             },
-            initial: () => Wrap(),
-            queueUpdating: () {
-              return const Center(
-                child: CustomCircularProgressIndicator(),
-              );
-            },
-            queueOpened: (queue, editable) {
-              originalQueue = queue;
+            initial: () => const Center(
+              child: CustomCircularProgressIndicator(),
+            ),
+            queueUpdating: () => const Center(
+              child: CustomCircularProgressIndicator(),
+            ),
+            queueOpened: (queueDetails, editable) {
+              originalQueueDetails = queueDetails;
+              context
+                  .read<AppBarBloc>()
+                  .add(RouteChangedEvent(originalQueueDetails.name));
               return WillPopScope(
                 child: SafeArea(
                   child: Padding(
@@ -75,7 +78,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                       top: 20,
                       bottom: 10,
                     ),
-                    child: !(queue.participants.isEmpty && !editable)
+                    child: !(queueDetails.participants.isEmpty && !editable)
                         ? SingleChildScrollView(
                             child: Column(
                               children: [
@@ -84,11 +87,13 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                       horizontal: 20),
                                   child: editable
                                       ? EditableHeader(
-                                          queueModel: updatedQueue ?? queue,
+                                          queueDetailsModel:
+                                              updatedQueueDetails ??
+                                                  queueDetails,
                                           updateColor: updateColor,
                                           updateName: updateName,
                                         )
-                                      : Header(queueModel: queue),
+                                      : Header(queueDetailsModel: queueDetails),
                                 ),
                                 if (!editable)
                                   const SizedBox(
@@ -99,7 +104,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: queueDetailsPadding),
                                     child: _AddProgressButton(
-                                      queue: queue,
+                                      queueDetialsModel: queueDetails,
                                     ),
                                   ),
                                 const SizedBox(
@@ -107,11 +112,12 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                 ),
                                 editable
                                     ? EditableParticipants(
-                                        queueModel: updatedQueue ?? queue,
+                                        queueDetailsModel:
+                                            updatedQueueDetails ?? queueDetails,
                                         removeParticipant: removeParticipant,
                                       )
                                     : Participants(
-                                        queueModel: queue,
+                                        queueDetailsModel: queueDetails,
                                       ),
                                 const SizedBox(
                                   height: 20,
@@ -122,7 +128,8 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                         horizontal: 15),
                                     child: TrackExpensesButton(
                                       initValue:
-                                          (updatedQueue ?? queue).trackExpenses,
+                                          (updatedQueueDetails ?? queueDetails)
+                                              .trackExpenses,
                                       updateTracker: updateTracker,
                                     ),
                                   ),
@@ -134,7 +141,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
-                                child: Header(queueModel: queue),
+                                child: Header(queueDetailsModel: queueDetails),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -143,28 +150,30 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: queueDetailsPadding),
                                 child: _AddProgressButton(
-                                  queue: queue,
+                                  queueDetialsModel: queueDetails,
                                 ),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
                               ParticipantTile(
-                                user: queue.crrentUser,
-                                queue: queue,
+                                user: queueDetails.crrentUser,
+                                queueDetailsModel: queueDetails,
                               ),
-                              const Expanded(
+                              Expanded(
                                 child: NoItemsWidget(
                                   imagePath: 'images/crying.gif',
-                                  message:
-                                      "There's only you here!\nInvite your roomates to the queue",
+                                  message: AppLocalizations.of(context)!
+                                          .translate('no queue participants') ??
+                                      '',
                                 ),
                               )
                             ],
                           ),
                   ),
                 ),
-                onWillPop: () => _onWillPop(editable, updatedQueue != null),
+                onWillPop: () =>
+                    _onWillPop(editable, updatedQueueDetails != null),
               );
             },
           );
@@ -193,7 +202,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                 TextButton(
                   onPressed: () {
                     cancelChanges();
-                    updatedQueue = originalQueue;
+                    updatedQueueDetails = originalQueueDetails;
                     Navigator.of(context).pop(false);
                   },
                   child: const Text(
@@ -209,7 +218,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
           false;
     } else if (editable && !changesApplied) {
       cancelChanges();
-      updatedQueue = null;
+      updatedQueueDetails = null;
     } else {
       Navigator.of(context).pop();
       context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
@@ -219,13 +228,15 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
 
   void updateName(String name) {
     setState(() {
-      updatedQueue = (updatedQueue ?? originalQueue).copyWith(name: name);
+      updatedQueueDetails =
+          (updatedQueueDetails ?? originalQueueDetails).copyWith(name: name);
     });
   }
 
   void updateColor(String color) {
     setState(() {
-      updatedQueue = (updatedQueue ?? originalQueue).copyWith(
+      updatedQueueDetails =
+          (updatedQueueDetails ?? originalQueueDetails).copyWith(
         color: color,
       );
     });
@@ -233,9 +244,11 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
 
   void removeParticipant(UserModel user) {
     setState(() {
-      updatedQueue = (updatedQueue ?? originalQueue).copyWith(
-        participants: [...(updatedQueue ?? originalQueue).participants]
-          ..remove(user),
+      updatedQueueDetails =
+          (updatedQueueDetails ?? originalQueueDetails).copyWith(
+        participants: [
+          ...(updatedQueueDetails ?? originalQueueDetails).participants
+        ]..remove(user),
       );
     });
   }
@@ -247,16 +260,16 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
 
   void updateTracker(bool value) {
     setState(() {
-      updatedQueue = (updatedQueue ?? originalQueue).copyWith(
+      updatedQueueDetails =
+          (updatedQueueDetails ?? originalQueueDetails).copyWith(
         trackExpenses: value,
       );
     });
   }
 
   void submitChanges() {
-    context
-        .read<QueueDetailsBloc>()
-        .add(QueueDetailsEvent.submitEdits((updatedQueue ?? originalQueue)));
+    context.read<QueueDetailsBloc>().add(QueueDetailsEvent.submitEdits(
+        (updatedQueueDetails ?? originalQueueDetails)));
     context.read<EditQueueBloc>().add(const EditQueueEvent.reset());
   }
 
@@ -267,9 +280,9 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
 }
 
 class _AddProgressButton extends StatelessWidget {
-  final QueueModel queue;
+  final QueueDetailsModel queueDetialsModel;
   const _AddProgressButton({
-    required this.queue,
+    required this.queueDetialsModel,
     Key? key,
   }) : super(key: key);
 
@@ -280,7 +293,8 @@ class _AddProgressButton extends StatelessWidget {
         height: 40,
         alignment: Alignment.center,
         child: Text(
-          'Add Progress',
+          AppLocalizations.of(context)!.translate('add progress') ??
+              'Add Progress',
           style: Theme.of(context).textTheme.largeButtonTextSrtyle,
         ),
       ),
@@ -291,7 +305,7 @@ class _AddProgressButton extends StatelessWidget {
           builder: (BuildContext _) {
             return TaskExpensesDialog(
               buildContext: context,
-              queueModel: queue,
+              queueDetialsModel: queueDetialsModel,
             );
           },
         );

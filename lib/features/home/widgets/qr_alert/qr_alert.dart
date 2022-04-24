@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/src/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -17,13 +18,14 @@ class QrAlert extends StatefulWidget {
   State<QrAlert> createState() => _QrAlertState();
 }
 
-class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
+class _QrAlertState extends State<QrAlert> with TickerProviderStateMixin {
   String? currentText;
 
   bool qrOpen = true;
   bool showQrButton = false;
 
   late AnimationController _controller;
+  late AnimationController _qrController;
   final Tween<Offset> _tween =
       Tween(begin: Offset.zero, end: const Offset(0.000001, 0.0));
 
@@ -33,39 +35,51 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
 
     _controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
+
+    _qrController = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Scan QR code'),
+      title: Text(AppLocalizations.of(context)!.translate('scan qr code') ??
+          'Scan QR code'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           IntrinsicHeight(
-            child: _QrView(
-              qrOpen: qrOpen,
-              showQrButton: showQrButton,
-              openQr: () {
-                setState(() {
-                  qrOpen = true;
-                });
-              },
-              hideQrButton: () {
-                setState(() {
-                  showQrButton = false;
-                });
-              },
+            child: SlideTransition(
+              transformHitTests: false,
+              position: _tween.animate(CurvedAnimation(
+                  parent: _qrController, curve: const ShakeCurve(coef: 0.5))),
+              child: _QrView(
+                qrOpen: qrOpen,
+                showQrButton: showQrButton,
+                shakeQr: shakeQr,
+                openQr: () {
+                  setState(() {
+                    qrOpen = true;
+                  });
+                },
+                hideQrButton: () {
+                  setState(() {
+                    showQrButton = false;
+                  });
+                },
+              ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: Text(
-              'or enter code',
+              (AppLocalizations.of(context)!.translate('or enter pin-code') ??
+                      'or enter pin-code') +
+                  ':',
             ),
           ),
           SizedBox(
-            width: 150,
+            width: 200,
             child: SlideTransition(
               transformHitTests: false,
               position: _tween.animate(CurvedAnimation(
@@ -93,14 +107,14 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text(
-            'Cancel',
+          child: Text(
+            AppLocalizations.of(context)!.translate('cancel') ?? 'Cancel',
           ),
         ),
         TextButton(
           onPressed: () => joinQueue(currentText ?? ''),
-          child: const Text(
-            'OK',
+          child: Text(
+            AppLocalizations.of(context)!.translate('ok') ?? 'OK',
           ),
         ),
       ],
@@ -120,6 +134,13 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
     }
   }
 
+  void shakeQr() {
+    setState(() {
+      _qrController.reset();
+      _qrController.forward();
+    });
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -128,10 +149,14 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
 }
 
 class ShakeCurve extends Curve {
-  const ShakeCurve();
+  final double coef;
+  const ShakeCurve({this.coef = 1});
 
   @override
   double transformInternal(double t) {
-    return 2 * 100000 * (0.5 - (0.5 - Curves.bounceOut.transform(t)).abs());
+    return coef *
+        2 *
+        100000 *
+        (0.5 - (0.5 - Curves.bounceOut.transform(t)).abs());
   }
 }

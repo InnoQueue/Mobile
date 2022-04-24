@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:inno_queue/const/appres.dart';
+import 'package:inno_queue/core/provider/language_provider.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
@@ -69,7 +71,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: AppButton(
-                        text: 'Save name',
+                        text: AppLocalizations.of(context)!
+                                .translate('save name') ??
+                            'Save name',
                         onPressed: () =>
                             _onChanged("name", _nameFieldController.text),
                       ),
@@ -79,14 +83,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 24),
                 Expanded(
                   child: ListView.separated(
-                    itemCount: 6,
-                    itemBuilder: (context, index) => index != 5
+                    itemCount: 7,
+                    itemBuilder: (context, index) => index < 5
                         ? Row(
                             children: [
                               Expanded(
                                 child: NotificationSwitchLabel(
                                   SettingsRes.notificationLabels[index],
                                 ),
+                              ),
+                              const SizedBox(
+                                width: 15,
                               ),
                               FlutterSwitch(
                                 width: 60,
@@ -100,7 +107,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                             ],
                           )
-                        : const ThemeDropdownMenu(),
+                        : (index == 5)
+                            ? const ThemeDropdownMenu()
+                            : const LanguageDropdownMenu(),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 10),
                   ),
@@ -136,27 +145,81 @@ class _ThemeDropdownMenuState extends State<ThemeDropdownMenu> {
       return Row(
         children: [
           const Expanded(
-            child: NotificationSwitchLabel('Theme'),
+            child: NotificationSwitchLabel('theme'),
           ),
           DropdownButton<String>(
             dropdownColor: Theme.of(context).primaryColor,
             value: provider.currentTheme,
-            items: const [
+            items: [
               DropdownMenuItem<String>(
                 value: 'light',
-                child: Text('Light', style: TextStyle(fontSize: 14)),
+                child: Text(
+                  AppLocalizations.of(context)!.translate('light') ?? 'Light',
+                  style: const TextStyle(fontSize: 14),
+                ),
               ),
               DropdownMenuItem<String>(
                 value: 'dark',
-                child: Text('Dark', style: TextStyle(fontSize: 14)),
+                child: Text(
+                  AppLocalizations.of(context)!.translate('dark') ?? 'Dark',
+                  style: const TextStyle(fontSize: 14),
+                ),
               ),
               DropdownMenuItem<String>(
                 value: 'system',
-                child: Text('System', style: TextStyle(fontSize: 14)),
+                child: Text(
+                  AppLocalizations.of(context)!.translate('system') ?? 'System',
+                  style: const TextStyle(fontSize: 14),
+                ),
               ),
             ],
             onChanged: (String? value) {
               provider.changeTheme(value ?? 'system');
+            },
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class LanguageDropdownMenu extends StatefulWidget {
+  const LanguageDropdownMenu({Key? key}) : super(key: key);
+
+  @override
+  State<LanguageDropdownMenu> createState() => _LanguageDropdownMenuState();
+}
+
+class _LanguageDropdownMenuState extends State<LanguageDropdownMenu> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<LanguageProvider>(builder: (context, provider, child) {
+      return Row(
+        children: [
+          const Expanded(
+            child: NotificationSwitchLabel('Language'),
+          ),
+          DropdownButton<String>(
+            dropdownColor: Theme.of(context).primaryColor,
+            value: provider.currentLanguage,
+            items: [
+              DropdownMenuItem<String>(
+                value: 'ru',
+                child: Text(
+                  AppLocalizations.of(context)!.translate('ru') ?? 'Russian',
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              DropdownMenuItem<String>(
+                value: 'en',
+                child: Text(
+                  AppLocalizations.of(context)!.translate('en') ?? 'English',
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+            ],
+            onChanged: (String? value) {
+              provider.changeLnaguage(value ?? 'en');
             },
           ),
         ],

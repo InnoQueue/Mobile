@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 import 'package:inno_queue/features/notifications/widget/notifications_view.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -34,9 +35,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
               child: Column(
                 children: <Widget>[
                   const SizedBox(height: 16),
-                  NotificationsView("unread", notifications.first),
+                  NotificationsView(
+                      AppLocalizations.of(context)!.translate("unread") ??
+                          "unread",
+                      notifications.first),
                   const SizedBox(height: 16),
-                  NotificationsView("all", notifications.last),
+                  NotificationsView(
+                      AppLocalizations.of(context)!.translate("all") ?? "all",
+                      notifications.last),
                 ],
               ),
             ),
