@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/features/queue_details/widgets/editable/participant_tile.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 
+import '../../../features.dart';
+
 class EditableParticipants extends StatefulWidget {
-  final QueueModel queueModel;
+  final QueueDetailsModel queueDetailsModel;
   final Function removeParticipant;
   const EditableParticipants({
-    required this.queueModel,
+    required this.queueDetailsModel,
     required this.removeParticipant,
     Key? key,
   }) : super(key: key);
@@ -26,14 +26,7 @@ class _EditableParticipantsState extends State<EditableParticipants> {
   @override
   void initState() {
     super.initState();
-    // _items = [];
-    // for (UserModel user in widget.queueModel.participants) {
-    //   _items.add(user);
-    //   if (user != widget.queueModel.participants.last) {
-    //     _items.add(_Separator());
-    //   }
-    // }
-    _items = [...widget.queueModel.participants];
+    _items = [...widget.queueDetailsModel.participants];
   }
 
   @override
@@ -64,11 +57,10 @@ class _EditableParticipantsState extends State<EditableParticipants> {
               children: [
                 EditableParticipantTile(
                   user: _items[index],
-                  queue: widget.queueModel,
                   onTap: _dismiss,
                   index: index,
                 ),
-                if (_items[index] != _items.last) _Separator(),
+                if (_items[index] != _items.last) const _Separator(),
               ],
             ),
             endActionPane: ActionPane(

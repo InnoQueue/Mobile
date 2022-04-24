@@ -4,15 +4,16 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 
+import '../../../features.dart';
+
 class EditableHeader extends StatefulWidget {
-  final QueueModel queueModel;
+  final QueueDetailsModel queueDetailsModel;
   final Function updateName;
   final Function updateColor;
   const EditableHeader({
-    required this.queueModel,
+    required this.queueDetailsModel,
     required this.updateColor,
     required this.updateName,
     Key? key,
@@ -30,9 +31,9 @@ class _EditableHeaderState extends State<EditableHeader> {
         Stack(
           alignment: Alignment.topRight,
           children: [
-            _Avatar(queueModel: widget.queueModel),
+            _Avatar(queueDetailsModel: widget.queueDetailsModel),
             _EditButton(
-              color: widget.queueModel.color,
+              color: widget.queueDetailsModel.color,
               updateColor: widget.updateColor,
             ),
           ],
@@ -42,7 +43,7 @@ class _EditableHeaderState extends State<EditableHeader> {
         ),
         Flexible(
           child: _TextField(
-            queueName: widget.queueModel.name,
+            queueName: widget.queueDetailsModel.name,
             onSubmitted: (newValue) {
               widget.updateName(newValue);
             },
@@ -54,9 +55,9 @@ class _EditableHeaderState extends State<EditableHeader> {
 }
 
 class _Avatar extends StatelessWidget {
-  final QueueModel queueModel;
+  final QueueDetailsModel queueDetailsModel;
   const _Avatar({
-    required this.queueModel,
+    required this.queueDetailsModel,
     Key? key,
   }) : super(key: key);
 
@@ -67,7 +68,7 @@ class _Avatar extends StatelessWidget {
       width: 60,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: colors[queueModel.color],
+        color: colors[queueDetailsModel.color],
       ),
     );
   }

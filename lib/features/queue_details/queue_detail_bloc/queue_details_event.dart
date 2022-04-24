@@ -2,9 +2,9 @@ part of 'queue_details_bloc.dart';
 
 @freezed
 class QueueDetailsEvent with _$QueueDetailsEvent {
-  const factory QueueDetailsEvent.openQueue(QueueModel queue) = _OpenQueue;
-
   const factory QueueDetailsEvent.leaveQueue() = _LeaveQueue;
+
+  const factory QueueDetailsEvent.loadRequested(int id) = _LoadRequested;
 
   const factory QueueDetailsEvent.inviteUser() = _InviteUser;
 
@@ -20,6 +20,6 @@ class QueueDetailsEvent with _$QueueDetailsEvent {
 
   const factory QueueDetailsEvent.cancelEdits() = _CancelEdits;
 
-  const factory QueueDetailsEvent.submitEdits(QueueModel updatedQueue) =
-      _SubmitEdits;
+  const factory QueueDetailsEvent.submitEdits(
+      QueueDetailsModel updatedQueueDetails) = _SubmitEdits;
 }

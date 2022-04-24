@@ -18,13 +18,14 @@ class QrAlert extends StatefulWidget {
   State<QrAlert> createState() => _QrAlertState();
 }
 
-class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
+class _QrAlertState extends State<QrAlert> with TickerProviderStateMixin {
   String? currentText;
 
   bool qrOpen = true;
   bool showQrButton = false;
 
   late AnimationController _controller;
+  late AnimationController _qrController;
   final Tween<Offset> _tween =
       Tween(begin: Offset.zero, end: const Offset(0.000001, 0.0));
 
@@ -33,6 +34,9 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+
+    _qrController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
   }
 
@@ -45,19 +49,25 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         children: [
           IntrinsicHeight(
-            child: _QrView(
-              qrOpen: qrOpen,
-              showQrButton: showQrButton,
-              openQr: () {
-                setState(() {
-                  qrOpen = true;
-                });
-              },
-              hideQrButton: () {
-                setState(() {
-                  showQrButton = false;
-                });
-              },
+            child: SlideTransition(
+              transformHitTests: false,
+              position: _tween.animate(CurvedAnimation(
+                  parent: _qrController, curve: const ShakeCurve(coef: 0.5))),
+              child: _QrView(
+                qrOpen: qrOpen,
+                showQrButton: showQrButton,
+                shakeQr: shakeQr,
+                openQr: () {
+                  setState(() {
+                    qrOpen = true;
+                  });
+                },
+                hideQrButton: () {
+                  setState(() {
+                    showQrButton = false;
+                  });
+                },
+              ),
             ),
           ),
           Padding(
@@ -69,7 +79,7 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
             ),
           ),
           SizedBox(
-            width: 150,
+            width: 200,
             child: SlideTransition(
               transformHitTests: false,
               position: _tween.animate(CurvedAnimation(
@@ -124,6 +134,13 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
     }
   }
 
+  void shakeQr() {
+    setState(() {
+      _qrController.reset();
+      _qrController.forward();
+    });
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -132,10 +149,14 @@ class _QrAlertState extends State<QrAlert> with SingleTickerProviderStateMixin {
 }
 
 class ShakeCurve extends Curve {
-  const ShakeCurve();
+  final double coef;
+  const ShakeCurve({this.coef = 1});
 
   @override
   double transformInternal(double t) {
-    return 2 * 100000 * (0.5 - (0.5 - Curves.bounceOut.transform(t)).abs());
+    return coef *
+        2 *
+        100000 *
+        (0.5 - (0.5 - Curves.bounceOut.transform(t)).abs());
   }
 }

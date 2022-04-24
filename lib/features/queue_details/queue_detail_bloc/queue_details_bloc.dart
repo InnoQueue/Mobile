@@ -13,14 +13,9 @@ part 'queue_details_state.dart';
 
 @Injectable()
 class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
-  late QueueModel currentQueue;
+  late QueueDetailsModel currentQueueDetails;
 
   QueueDetailsBloc() : super(const _Initial()) {
-    on<_OpenQueue>((event, emit) {
-      currentQueue = event.queue;
-      emit(QueueDetailsState.queueOpened(currentQueue, false));
-    });
-
     on<_LeaveQueue>(_leaveRequested);
     on<_FreezeQueue>(_freezeRequested);
     on<_UnfreezeQueue>(_unfreezeRequested);
@@ -29,15 +24,25 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     on<_CancelEdits>(_cancelEdits);
     on<_UpdateQueue>(_updateQueue);
     on<_AddProgress>(_addProgress);
+    on<_LoadRequested>(_loadRequested);
+  }
+
+  void _loadRequested(
+    _LoadRequested event,
+    Emitter<QueueDetailsState> emit,
+  ) async {
+    emit(const QueueDetailsState.initial());
+    currentQueueDetails = await ApiQueuesService.getQueue(event.id);
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
   }
 
   void _leaveRequested(
     _LeaveQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    var queueToLeave = currentQueue;
+    var queueToLeave = currentQueueDetails;
     await ApiQueuesService.leaveQueue(
-      queue: queueToLeave,
+      id: queueToLeave.id,
     );
     emit(const QueueDetailsState.queueLeft());
   }
@@ -46,9 +51,9 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _FreezeQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    var queueToFreeze = currentQueue;
+    var queueToFreeze = currentQueueDetails;
     await ApiQueuesService.freezeQueue(
-      queue: queueToFreeze,
+      id: queueToFreeze.id,
     );
     emit(const QueueDetailsState.queueFreezed());
   }
@@ -57,9 +62,9 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _UnfreezeQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    var queueToUnfreeze = currentQueue;
+    var queueToUnfreeze = currentQueueDetails;
     await ApiQueuesService.unfreezeQueue(
-      queue: queueToUnfreeze,
+      id: queueToUnfreeze.id,
     );
     emit(const QueueDetailsState.queueFreezed());
   }
@@ -68,16 +73,16 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _EditQueue event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(QueueDetailsState.queueOpened(currentQueue, true));
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, true));
   }
 
   void _submitEdits(
     _SubmitEdits event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(QueueDetailsState.queueUpdating());
+    emit(const QueueDetailsState.queueUpdating());
     await ApiQueuesService.updateQueue(
-      queue: event.updatedQueue,
+      queueDetails: event.updatedQueueDetails,
     );
     await updateQueue(emit);
   }
@@ -86,7 +91,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _CancelEdits event,
     Emitter<QueueDetailsState> emit,
   ) {
-    emit(QueueDetailsState.queueOpened(currentQueue, false));
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
   }
 
   void _updateQueue(
@@ -100,13 +105,13 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _AddProgress event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(QueueDetailsState.queueUpdating());
+    emit(const QueueDetailsState.queueUpdating());
     await ApiTasksService.deleteTask(
       task: TaskModel(
-        id: currentQueue.id,
-        name: currentQueue.name,
-        color: currentQueue.color,
-        trackExpenses: currentQueue.trackExpenses,
+        id: currentQueueDetails.id,
+        name: currentQueueDetails.name,
+        color: currentQueueDetails.color,
+        trackExpenses: currentQueueDetails.trackExpenses,
       ),
       expenses: event.value,
     );
@@ -114,14 +119,10 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   }
 
   Future<void> updateQueue(Emitter<QueueDetailsState> emit) async {
-    emit(QueueDetailsState.queueUpdating());
-    Pair<List<QueueModel>, List<QueueModel>> queues =
-        await ApiQueuesService.getQueues();
-
-    List<QueueModel> allQueues = queues.first..addAll(queues.last);
-    QueueModel updatedQueue =
-        allQueues.firstWhere((element) => element.id == currentQueue.id);
-    currentQueue = updatedQueue;
-    emit(QueueDetailsState.queueOpened(updatedQueue, false));
+    emit(const QueueDetailsState.queueUpdating());
+    QueueDetailsModel updatedQueueDetails =
+        await ApiQueuesService.getQueue(currentQueueDetails.id);
+    currentQueueDetails = updatedQueueDetails;
+    emit(QueueDetailsState.queueOpened(updatedQueueDetails, false));
   }
 }

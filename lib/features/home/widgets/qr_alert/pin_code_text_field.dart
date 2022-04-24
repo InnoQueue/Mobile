@@ -29,7 +29,7 @@ class _PinCodeTextFieldState extends State<_PinCodeTextField> {
   Widget build(BuildContext context) {
     return PinCodeTextField(
       appContext: context,
-      length: 4,
+      length: 6,
       animationType: AnimationType.fade,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,

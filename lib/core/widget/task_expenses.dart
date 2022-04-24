@@ -8,7 +8,7 @@ import 'package:provider/src/provider.dart';
 class TaskExpensesDialog extends StatefulWidget {
   final BuildContext buildContext;
   final TaskModel? taskModel;
-  final QueueModel? queueModel;
+  final QueueDetailsModel? queueDetialsModel;
   final Function? removeItem;
   final bool expanded;
   final bool emptyingWaitingList;
@@ -18,7 +18,7 @@ class TaskExpensesDialog extends StatefulWidget {
     required this.buildContext,
     this.taskModel,
     this.removeItem,
-    this.queueModel,
+    this.queueDetialsModel,
     this.expanded = false,
     this.emptyingWaitingList = false,
     this.emptyingSelectedList = false,
@@ -37,8 +37,8 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
     return AlertDialog(
       title: Text(widget.taskModel != null
           ? widget.taskModel!.name
-          : widget.queueModel != null
-              ? widget.queueModel!.name
+          : widget.queueDetialsModel != null
+              ? widget.queueDetialsModel!.name
               : ""),
       content: SingleChildScrollView(
         child: ListBody(
@@ -46,7 +46,7 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
             Text(widget.taskModel != null
                 ? AppLocalizations.of(context)!.translate('how much it cost') ??
                     'Enter how much it cost:'
-                : widget.queueModel != null
+                : widget.queueDetialsModel != null
                     ? AppLocalizations.of(context)!
                             .translate('how much you spent') ??
                         'Enter how much you spent:'

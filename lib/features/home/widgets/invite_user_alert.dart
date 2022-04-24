@@ -3,16 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/features.dart';
 
 class InviteUserAlert extends StatefulWidget {
-  final QueueModel queueModel;
-  const InviteUserAlert({required this.queueModel, Key? key}) : super(key: key);
+  final QueueDetailsModel queueDetailsModel;
+  const InviteUserAlert({
+    required this.queueDetailsModel,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<InviteUserAlert> createState() => _InviteUserAlertState();
@@ -29,7 +30,8 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
   }
 
   void fetchPincode() async {
-    pincode = await ApiQueuesService.inviteUser(queue: widget.queueModel);
+    pincode =
+        await ApiQueuesService.inviteUser(id: widget.queueDetailsModel.id);
     setState(() {
       pincodeFetched = true;
     });
@@ -49,7 +51,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
               size: const Size.square(220),
               painter: _BackgroundPainter(customSize: 220),
               foregroundPainter: QrPainter(
-                data: widget.queueModel.link,
+                data: '11',
                 version: QrVersions.auto,
                 eyeStyle: QrEyeStyle(
                   eyeShape: QrEyeShape.square,
