@@ -6,10 +6,8 @@ import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/features.dart';
 
-import 'package:inno_queue/core/api/api_queues.dart';
-import 'package:inno_queue/features/features.dart';
+import '../../features.dart';
 
 class InviteUserAlert extends StatefulWidget {
   final QueueDetailsModel queueDetailsModel;
