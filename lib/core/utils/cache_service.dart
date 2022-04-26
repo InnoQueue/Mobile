@@ -8,16 +8,37 @@ abstract class CacheService {
     final prefs = await SharedPreferences.getInstance();
     final bool? isFirstLaunch = prefs.getBool('isFirstLaunch');
     await prefs.setBool('isFirstLaunch', false);
+    bool result = isFirstLaunch ?? true;
+    if (result) {
+      await removeOldToken();
+    }
     return isFirstLaunch ?? true;
   }
 
-  static Future<String> checkToken(String token) async {
+  static Future<bool> removeOldToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
+    return true;
+  }
+
+  static Future<bool> checkToken() async {
     final prefs = await SharedPreferences.getInstance();
     final String? tokenCached = prefs.getString('token');
     if (tokenCached == null) {
-      await prefs.setString('token', token);
-      return token;
+      return false;
     }
-    return tokenCached;
+    return true;
+  }
+
+  static Future<bool> setToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+    return true;
+  }
+
+  static Future<String> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    return token ?? "";
   }
 }

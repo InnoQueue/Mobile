@@ -22,9 +22,12 @@ PincodeModel _$PincodeModelFromJson(Map<String, dynamic> json) {
 class _$PincodeModelTearOff {
   const _$PincodeModelTearOff();
 
-  _PincodeModel call({@JsonKey(name: 'pin_code') required String pincode}) {
+  _PincodeModel call(
+      {@JsonKey(name: 'pin_code') required String pincode,
+      @JsonKey(name: 'qr_code') required String qrcode}) {
     return _PincodeModel(
       pincode: pincode,
+      qrcode: qrcode,
     );
   }
 
@@ -40,6 +43,8 @@ const $PincodeModel = _$PincodeModelTearOff();
 mixin _$PincodeModel {
   @JsonKey(name: 'pin_code')
   String get pincode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'qr_code')
+  String get qrcode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +57,9 @@ abstract class $PincodeModelCopyWith<$Res> {
   factory $PincodeModelCopyWith(
           PincodeModel value, $Res Function(PincodeModel) then) =
       _$PincodeModelCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'pin_code') String pincode});
+  $Res call(
+      {@JsonKey(name: 'pin_code') String pincode,
+      @JsonKey(name: 'qr_code') String qrcode});
 }
 
 /// @nodoc
@@ -66,11 +73,16 @@ class _$PincodeModelCopyWithImpl<$Res> implements $PincodeModelCopyWith<$Res> {
   @override
   $Res call({
     Object? pincode = freezed,
+    Object? qrcode = freezed,
   }) {
     return _then(_value.copyWith(
       pincode: pincode == freezed
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      qrcode: qrcode == freezed
+          ? _value.qrcode
+          : qrcode // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -83,7 +95,9 @@ abstract class _$PincodeModelCopyWith<$Res>
           _PincodeModel value, $Res Function(_PincodeModel) then) =
       __$PincodeModelCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'pin_code') String pincode});
+  $Res call(
+      {@JsonKey(name: 'pin_code') String pincode,
+      @JsonKey(name: 'qr_code') String qrcode});
 }
 
 /// @nodoc
@@ -99,11 +113,16 @@ class __$PincodeModelCopyWithImpl<$Res> extends _$PincodeModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pincode = freezed,
+    Object? qrcode = freezed,
   }) {
     return _then(_PincodeModel(
       pincode: pincode == freezed
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
+              as String,
+      qrcode: qrcode == freezed
+          ? _value.qrcode
+          : qrcode // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -112,7 +131,9 @@ class __$PincodeModelCopyWithImpl<$Res> extends _$PincodeModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_PincodeModel implements _PincodeModel {
-  const _$_PincodeModel({@JsonKey(name: 'pin_code') required this.pincode});
+  const _$_PincodeModel(
+      {@JsonKey(name: 'pin_code') required this.pincode,
+      @JsonKey(name: 'qr_code') required this.qrcode});
 
   factory _$_PincodeModel.fromJson(Map<String, dynamic> json) =>
       _$$_PincodeModelFromJson(json);
@@ -120,10 +141,13 @@ class _$_PincodeModel implements _PincodeModel {
   @override
   @JsonKey(name: 'pin_code')
   final String pincode;
+  @override
+  @JsonKey(name: 'qr_code')
+  final String qrcode;
 
   @override
   String toString() {
-    return 'PincodeModel(pincode: $pincode)';
+    return 'PincodeModel(pincode: $pincode, qrcode: $qrcode)';
   }
 
   @override
@@ -131,12 +155,15 @@ class _$_PincodeModel implements _PincodeModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PincodeModel &&
-            const DeepCollectionEquality().equals(other.pincode, pincode));
+            const DeepCollectionEquality().equals(other.pincode, pincode) &&
+            const DeepCollectionEquality().equals(other.qrcode, qrcode));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(pincode));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(pincode),
+      const DeepCollectionEquality().hash(qrcode));
 
   @JsonKey(ignore: true)
   @override
@@ -151,7 +178,8 @@ class _$_PincodeModel implements _PincodeModel {
 
 abstract class _PincodeModel implements PincodeModel {
   const factory _PincodeModel(
-      {@JsonKey(name: 'pin_code') required String pincode}) = _$_PincodeModel;
+      {@JsonKey(name: 'pin_code') required String pincode,
+      @JsonKey(name: 'qr_code') required String qrcode}) = _$_PincodeModel;
 
   factory _PincodeModel.fromJson(Map<String, dynamic> json) =
       _$_PincodeModel.fromJson;
@@ -159,6 +187,9 @@ abstract class _PincodeModel implements PincodeModel {
   @override
   @JsonKey(name: 'pin_code')
   String get pincode;
+  @override
+  @JsonKey(name: 'qr_code')
+  String get qrcode;
   @override
   @JsonKey(ignore: true)
   _$PincodeModelCopyWith<_PincodeModel> get copyWith =>

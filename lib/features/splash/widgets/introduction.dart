@@ -21,10 +21,8 @@ class IntroductionPage extends StatelessWidget {
       imagePadding: EdgeInsets.zero,
     );
 
-    final introKey = GlobalKey<IntroductionScreenState>();
-
     void _onIntroEnd() {
-      context.router.replaceNamed('/home');
+      context.router.replaceNamed('/registration');
     }
 
     return IntroductionScreen(

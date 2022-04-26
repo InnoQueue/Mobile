@@ -38,7 +38,7 @@
     "light": "Светлая",
     "system": "Системная",
     "save name": "Сохранить имя",
-    "scan the qr code": "Отсканируйте QR-код",
+    "scan the qr code for": "Отсканируйте QR-код для",
     "scan qr code": "Отсканировать QR-код",
     "or enter pin-code": "или введите пин-код",
     "or share the pin-code": "или поделитесь пин-кодом",
@@ -52,5 +52,7 @@
     "no queue participants": "Вы тут одни!\nПригласите соседей в очередь!",
     "no active queues": "Нет активных очередей\nПопробуйте добавить!",
     "no frozen queues": "Нет замороженных очередей\nПопробуйте заморозить!",
-    "no tasks": "Пока нет заданий"
+    "no tasks": "Пока нет заданий",
+    "join this queue": "Присоединяйся к очереди",
+    "on InnoQueue using this QR-code or the pin-code:": "в InnoQueue с помощью QR-кода или пин-кода:"
 }

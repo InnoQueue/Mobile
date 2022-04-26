@@ -5,9 +5,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inno_queue/core/provider/language_provider.dart';
 import 'package:inno_queue/core/provider/theme_provider.dart';
 import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
+import 'package:inno_queue/routes/logging_route_observer.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:route_observer_mixin/route_observer_mixin.dart';
 
 import 'features/queues/bloc/queues_bloc.dart';
 import 'helpers/app_localizations.dart';
@@ -66,7 +68,6 @@ class _MyAppState extends State<MyApp> {
                 _router,
                 navigatorObservers: () => [
                   AutoRouteObserver(),
-                  //LoggingRouteObserver(),
                 ],
               ),
               supportedLocales: const [

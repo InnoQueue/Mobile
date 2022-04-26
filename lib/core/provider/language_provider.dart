@@ -31,7 +31,7 @@ class LanguageProvider extends ChangeNotifier {
   initialize() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
 
-    currentLanguage = _prefs.getString('language') ?? 'system';
+    currentLanguage = _prefs.getString('language') ?? 'en';
     notifyListeners();
   }
 }

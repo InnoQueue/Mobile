@@ -20,13 +20,13 @@ class _QrView extends StatefulWidget {
 }
 
 class _QrViewState extends State<_QrView> {
+  late StreamSubscription subscription;
   QRViewController? controller;
   Barcode? result;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
   Widget build(BuildContext context) {
-    readQr();
     return AnimatedContainer(
       padding: const EdgeInsets.only(top: 15),
       duration: const Duration(milliseconds: 200),
@@ -49,7 +49,7 @@ class _QrViewState extends State<_QrView> {
             )
           : QRView(
               key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+              onQRViewCreated: setSubscription,
               overlay: QrScannerOverlayShape(
                 borderColor: Colors.white,
                 cutOutHeight: 200,
@@ -65,29 +65,28 @@ class _QrViewState extends State<_QrView> {
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  void setSubscription(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        join(scanData);
-      });
+    subscription = controller.scannedDataStream.listen((scanData) {
+      join(scanData);
     });
   }
 
   void join(Barcode scanData) async {
-    if (scanData != result) {
+    if (result == null || scanData.code != result!.code) {
+      subscription.pause();
       bool joinResult =
-          await ApiQueuesService.joinQueue(pincode: scanData.code!);
+          await ApiQueuesService.joinQueue(qrcode: scanData.code!);
       if (joinResult) {
         Navigator.pop(context);
         context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
       } else {
-        readQr();
-        widget.shakeQr();
+        setState(() {
+          widget.shakeQr();
+        });
       }
       result = scanData;
-    } else {
-      readQr();
+      subscription.resume();
     }
   }
 
@@ -104,13 +103,6 @@ class _QrViewState extends State<_QrView> {
       controller!.pauseCamera();
     } else if (Platform.isIOS) {
       controller!.resumeCamera();
-    }
-  }
-
-  void readQr() async {
-    if (result != null) {
-      controller!.pauseCamera();
-      controller!.dispose();
     }
   }
 }

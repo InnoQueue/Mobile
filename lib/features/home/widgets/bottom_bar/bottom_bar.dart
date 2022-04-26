@@ -9,7 +9,11 @@ import 'package:provider/src/provider.dart';
 part 'bottom_bar_item.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
+  final String currentRoute;
+  const BottomBar({
+    Key? key,
+    required this.currentRoute,
+  }) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -56,6 +60,11 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    for (_BottomBarItem item in _items) {
+      if (item.route!.routeName == widget.currentRoute) {
+        setActive(item);
+      }
+    }
     return Row(
       children: _items,
     );

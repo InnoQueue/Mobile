@@ -194,6 +194,10 @@ class _LanguageDropdownMenuState extends State<LanguageDropdownMenu> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageProvider>(builder: (context, provider, child) {
+      if (!AppLocalizations.delegate
+          .isSupported(Locale(provider.currentLanguage, ''))) {
+        provider.currentLanguage = Localizations.localeOf(context).languageCode;
+      }
       return Row(
         children: [
           const Expanded(

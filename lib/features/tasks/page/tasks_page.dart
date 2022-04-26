@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
+import 'package:inno_queue/routes/app_router.dart';
 import '../bloc/bloc.dart';
 import '../widgets/widgets.dart';
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _QrAlertState extends State<QrAlert> with TickerProviderStateMixin {
             child: SlideTransition(
               transformHitTests: false,
               position: _tween.animate(CurvedAnimation(
-                  parent: _qrController, curve: const ShakeCurve(coef: 0.5))),
+                  parent: _qrController, curve: const ShakeCurve(coef: 0.75))),
               child: _QrView(
                 qrOpen: qrOpen,
                 showQrButton: showQrButton,

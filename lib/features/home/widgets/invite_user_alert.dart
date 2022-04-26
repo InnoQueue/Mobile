@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:inno_queue/core/api/api_queues.dart';
@@ -22,7 +23,7 @@ class InviteUserAlert extends StatefulWidget {
 
 class _InviteUserAlertState extends State<InviteUserAlert> {
   bool pincodeFetched = false;
-  late String pincode;
+  late PincodeModel pincode;
 
   @override
   void initState() {
@@ -41,29 +42,37 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.translate('scan the qr code') ??
-          'Scan the QR code'),
+      title: Text(
+          (AppLocalizations.of(context)!.translate('scan the qr code for') ??
+                  'Scan the QR code for') +
+              '\n${widget.queueDetailsModel.name}:'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
-            child: CustomPaint(
-              size: const Size.square(220),
-              painter: _BackgroundPainter(customSize: 220),
-              foregroundPainter: QrPainter(
-                data: '11',
-                version: QrVersions.auto,
-                eyeStyle: QrEyeStyle(
-                  eyeShape: QrEyeShape.square,
-                  color: Colors.grey.shade900,
-                ),
-                dataModuleStyle: QrDataModuleStyle(
-                  dataModuleShape: QrDataModuleShape.circle,
-                  color: Colors.grey.shade900,
-                ),
-              ),
-            ),
+            child: pincodeFetched
+                ? SizedBox(
+                    width: 220,
+                    height: 220,
+                    child: QrImage(
+                      dataModuleStyle: const QrDataModuleStyle(
+                        dataModuleShape: QrDataModuleShape.circle,
+                        color: Colors.black,
+                      ),
+                      backgroundColor: Colors.white,
+                      data: pincode.qrcode,
+                      version: QrVersions.auto,
+                    ),
+                  )
+                : const SizedBox(
+                    height: 220,
+                    width: 220,
+                    child: SpinKitThreeBounce(
+                      size: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
           ),
           Text(
             '${AppLocalizations.of(context)!.translate('or share the pin-code') ?? 'or share the pin-code'}:',
@@ -74,7 +83,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
               height: 25,
               child: Center(
                 child: pincodeFetched
-                    ? Text(pincode)
+                    ? Text(pincode.pincode)
                     : const SpinKitThreeBounce(
                         size: 20,
                         color: Colors.grey,

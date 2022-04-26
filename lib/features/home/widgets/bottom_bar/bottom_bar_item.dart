@@ -77,7 +77,6 @@ class _BottomBarItemState extends State<_BottomBarItem> {
   }
 
   void _onTap(BuildContext _) async {
-    widget.setActive(widget);
     var page = await buildPageAsync();
     if (page.routeName != TasksRoute.name) {
       context.read<SelectTasksBloc>().add(const SelectTasksEvent.unselect());

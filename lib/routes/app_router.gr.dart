@@ -21,6 +21,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SplashPage());
     },
+    RegistrationRouter.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const RegistrationPage());
+    },
     HomeRouter.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const HomePage());
@@ -52,6 +56,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig('/#redirect',
             path: '/', redirectTo: '/splash', fullMatch: true),
         RouteConfig(SplashRouter.name, path: '/splash'),
+        RouteConfig(RegistrationRouter.name, path: '/registration'),
         RouteConfig(HomeRouter.name, path: '/home', children: [
           RouteConfig(TasksRoute.name, path: '', parent: HomeRouter.name),
           RouteConfig(QueuesRoute.name,
@@ -72,6 +77,15 @@ class SplashRouter extends PageRouteInfo<void> {
   const SplashRouter() : super(SplashRouter.name, path: '/splash');
 
   static const String name = 'SplashRouter';
+}
+
+/// generated route for
+/// [RegistrationPage]
+class RegistrationRouter extends PageRouteInfo<void> {
+  const RegistrationRouter()
+      : super(RegistrationRouter.name, path: '/registration');
+
+  static const String name = 'RegistrationRouter';
 }
 
 /// generated route for

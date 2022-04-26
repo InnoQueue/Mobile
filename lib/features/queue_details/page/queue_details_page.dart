@@ -230,6 +230,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
     setState(() {
       updatedQueueDetails =
           (updatedQueueDetails ?? originalQueueDetails).copyWith(name: name);
+      context.read<AppBarBloc>().add(RouteChangedEvent(name));
     });
   }
 

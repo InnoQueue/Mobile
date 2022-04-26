@@ -38,7 +38,7 @@
     "light": "Light",
     "system": "System",
     "save name": "Save name",
-    "scan the qr code": "Scan the QR code",
+    "scan the qr code for": "Scan the QR code for",
     "scan qr code": "Scan QR code",
     "or enter pin-code": "or enter pin-code",
     "or share the pin-code": "or share the pin-code",
@@ -52,5 +52,7 @@
     "no queue participants": "There's only you here!\nInvite your roomates to the queue",
     "no active queues": "No active queues yet\nAdd one!",
     "no frozen queues": "No frozen queues yet\nFreeze one!",
-    "no tasks": "No tasks set yet"
+    "no tasks": "No tasks set yet",
+    "join this queue": "Join this queue",
+    "on InnoQueue using this QR-code or the pin-code:": "on InnoQueue using this QR-code or the pin-code:"
 }

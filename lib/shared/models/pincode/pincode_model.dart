@@ -7,6 +7,7 @@ part 'pincode_model.g.dart';
 class PincodeModel with _$PincodeModel {
   const factory PincodeModel({
     @JsonKey(name: 'pin_code') required String pincode,
+    @JsonKey(name: 'qr_code') required String qrcode,
   }) = _PincodeModel;
 
   factory PincodeModel.fromJson(Map<String, dynamic> json) =>

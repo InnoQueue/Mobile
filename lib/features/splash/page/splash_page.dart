@@ -30,7 +30,6 @@ class _SplashPageState extends State<SplashPage> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (!snapshot.hasData) return const SizedBox.shrink();
             if (snapshot.data == true) {
-              ApiBaseService.getToken();
               return const IntroductionPage();
             } else {
               context.router.replaceNamed('/home');

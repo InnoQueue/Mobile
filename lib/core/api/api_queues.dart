@@ -128,11 +128,21 @@ class ApiQueues extends ApiBase {
 
   static Future<Response> joinQueue(
     token, {
-    required String pincode,
+    String? pincode,
+    String? qrcode,
   }) async {
-    var params = {
-      "pin_code": pincode,
-    };
+    var params = {};
+    if (pincode != null) {
+      params = {
+        "pin_code": pincode,
+      };
+    }
+
+    if (qrcode != null) {
+      params = {
+        "qr_code": qrcode,
+      };
+    }
 
     return ApiBase.dio.post(
       "${ApiBase.baseUrl}/queues/join/",
@@ -254,7 +264,7 @@ class ApiQueuesService {
     );
   }
 
-  static Future<String> inviteUser({
+  static Future<PincodeModel> inviteUser({
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
@@ -264,11 +274,12 @@ class ApiQueuesService {
     ))
         .data;
 
-    return PincodeModel.fromJson(data).pincode;
+    return PincodeModel.fromJson(data);
   }
 
   static Future<bool> joinQueue({
-    required String pincode,
+    String? pincode,
+    String? qrcode,
   }) async {
     final String token = await ApiBaseService.getToken();
 
@@ -276,6 +287,7 @@ class ApiQueuesService {
       final data = (await ApiQueues.joinQueue(
         token,
         pincode: pincode,
+        qrcode: qrcode,
       ));
 
       return data.statusCode! / 100 == 2;
