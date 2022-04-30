@@ -9,7 +9,6 @@ import 'package:inno_queue/routes/logging_route_observer.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:route_observer_mixin/route_observer_mixin.dart';
 
 import 'features/queues/bloc/queues_bloc.dart';
 import 'helpers/app_localizations.dart';

@@ -79,8 +79,8 @@ flutter:
     - images/idk.gif
     - images/sleeping.gif
     - images/crying.gif
-    - images/logo.png
-    - images/logo.jpg
+#    - images/logo.png
+#    - images/logo.jpg
     - language/ru.json
     - language/en.json
 
