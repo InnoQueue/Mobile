@@ -2,7 +2,7 @@
 
 > Semester 6, 3rd study-year, Innopolis University.
 
-**Flutter Project**. For this project, the [Backend](https://github.com/InnoQueue/Backend) project for the REST API was developed (please take into account this contribution 🙏).
+**Flutter Project**. For this project, the [Backend](https://github.com/InnoQueue/Backend) project for the REST API was developed (please **do not** take into account this contribution 🙏).
 
 ## Team
 - **name**: Haskell
