@@ -7,9 +7,7 @@ class NotificationsView extends StatelessWidget {
   final String notificationsType;
   final List<NotificationModel> notifications;
 
-  const NotificationsView(this.notificationsType, this.notifications,
-      {Key? key})
-      : super(key: key);
+  const NotificationsView(this.notificationsType, this.notifications, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +17,10 @@ class NotificationsView extends StatelessWidget {
           Text(notificationsType),
           const SizedBox(height: 10),
           ListView.separated(
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: notifications.length,
-            itemBuilder: (context, index) =>
-                NotificationTile(notifications[index]),
+            itemBuilder: (context, index) => NotificationTile(notifications[index]),
             separatorBuilder: (context, index) => const SizedBox(height: 10),
           ),
           const SizedBox(height: 10),
