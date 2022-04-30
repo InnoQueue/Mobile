@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:inno_queue/const/appres.dart';
-import 'package:inno_queue/core/provider/language_provider.dart';
-import 'package:inno_queue/helpers/app_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/core/provider/language_provider.dart';
 import 'package:inno_queue/core/provider/theme_provider.dart';
 import 'package:inno_queue/features/settings/page/settings_const.dart';
 import 'package:inno_queue/features/settings/widget/notification_switch_label.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final String defaultName = "Unnamed #41";
+  final String defaultName = "Unnamed";
 
   late final Map<String, dynamic> defaultBody;
   late Future<Map<String, dynamic>> serverDefaultBodyFuture;
@@ -31,14 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    defaultBody = {
-      "name": defaultName,
-      "n1": true,
-      "n2": true,
-      "n3": true,
-      "n4": true,
-      "n5": true
-    };
+    defaultBody = {"name": defaultName, "n1": true, "n2": true, "n3": true, "n4": true, "n5": true};
     serverDefaultBodyFuture = ApiSettingsService.getFields();
     serverDefaultBodyFuture.then((value) => setState(() {
           currentState = value;
@@ -71,15 +63,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: AppButton(
-                        text: AppLocalizations.of(context)!
-                                .translate('save name') ??
-                            'Save name',
-                        onPressed: () =>
-                            _onChanged("name", _nameFieldController.text),
+                        text: AppLocalizations.of(context)!.translate('save name') ?? 'Save name',
+                        onPressed: () => _onChanged("name", _nameFieldController.text),
                       ),
                     ),
                   ],
-                ), // todo -> text field
+                ),
                 const SizedBox(height: 24),
                 Expanded(
                   child: ListView.separated(
@@ -110,8 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         : (index == 5)
                             ? const ThemeDropdownMenu()
                             : const LanguageDropdownMenu(),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 10),
+                    separatorBuilder: (context, index) => const SizedBox(height: 10),
                   ),
                 ),
               ],
@@ -125,8 +113,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void _onChanged(String key, dynamic changedValue) {
     ApiSettingsService.setFields(currentState, {key: changedValue});
     setState(() {
-      currentState =
-          ApiSettingsService.makeBody(currentState, {key: changedValue});
+      currentState = ApiSettingsService.makeBody(currentState, {key: changedValue});
     });
   }
 }
@@ -194,8 +181,7 @@ class _LanguageDropdownMenuState extends State<LanguageDropdownMenu> {
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageProvider>(builder: (context, provider, child) {
-      if (!AppLocalizations.delegate
-          .isSupported(Locale(provider.currentLanguage, ''))) {
+      if (!AppLocalizations.delegate.isSupported(Locale(provider.currentLanguage, ''))) {
         provider.currentLanguage = Localizations.localeOf(context).languageCode;
       }
       return Row(

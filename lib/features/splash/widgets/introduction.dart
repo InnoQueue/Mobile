@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import '../../features.dart';
-
 class IntroductionPage extends StatelessWidget {
   const IntroductionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var pageDecoration = PageDecoration(
-      titlePadding:
-          EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
-      titleTextStyle:
-          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titlePadding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
       pageColor: Colors.blueGrey[50],
@@ -39,16 +35,7 @@ class IntroductionPage extends StatelessWidget {
           decoration: pageDecoration,
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: true,
-                color: "WHITE",
-                name: 'Task #1',
-                trackExpenses: false,
-              ),
-              removeItem: () {},
-            ),
+            child: Image.asset(AppRes.howToUse['page-2']!['img']!),
           ),
         ),
         PageViewModel(
@@ -57,16 +44,7 @@ class IntroductionPage extends StatelessWidget {
           decoration: pageDecoration,
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: false,
-                color: "BLUE",
-                name: 'Task #3',
-                trackExpenses: false,
-              ),
-              removeItem: () {},
-            ),
+            child: Image.asset(AppRes.howToUse['page-3']!['img']!),
           ),
         ),
         PageViewModel(
@@ -75,7 +53,7 @@ class IntroductionPage extends StatelessWidget {
           decoration: pageDecoration,
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset('images/introduction-sample.png'),
+            child: Image.asset(AppRes.howToUse['page-4']!['img']!),
           ),
         ),
         PageViewModel(
@@ -84,15 +62,27 @@ class IntroductionPage extends StatelessWidget {
           decoration: pageDecoration,
           footer: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TaskTile(
-              taskModel: const TaskModel(
-                id: -1,
-                isImportant: false,
-                color: "AMBER",
-                name: 'Complete me!   👉',
-                trackExpenses: false,
-              ),
-              removeItem: () {},
+            child: Image.asset(AppRes.howToUse['page-5']!['img']!),
+          ),
+        ),
+        PageViewModel(
+          title: AppRes.howToUse['page-6']!['title'],
+          body: AppRes.howToUse['page-6']!['text'],
+          decoration: pageDecoration,
+          footer: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Image.asset(AppRes.howToUse['page-6']!['img']!),
+          ),
+        ),
+        PageViewModel(
+          title: AppRes.howToUse['page-7']!['title'],
+          body: AppRes.howToUse['page-7']!['text'],
+          decoration: pageDecoration,
+          footer: const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Icon(
+              Icons.qr_code,
+              size: 50,
             ),
           ),
         ),
