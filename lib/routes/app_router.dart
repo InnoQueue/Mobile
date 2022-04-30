@@ -11,41 +11,41 @@ part 'app_router.gr.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(
+    CustomRoute(
       page: SplashPage,
       path: '/splash',
       name: "SplashRouter",
       initial: true,
     ),
-    AutoRoute(
+    CustomRoute(
       page: RegistrationPage,
       path: '/registration',
       name: "RegistrationRouter",
       initial: true,
     ),
-    AutoRoute(
+    CustomRoute(
       page: HomePage,
-      path: '/home',
+      path: '/home/',
       name: "HomeRouter",
       initial: false,
       children: [
-        AutoRoute(
+        CustomRoute(
           path: '',
           page: TasksPage,
         ),
-        AutoRoute(
+        CustomRoute(
           path: kQueuesEndpoint,
           page: QueuesPage,
         ),
-        AutoRoute(
+        CustomRoute(
           path: kNotificationsEndpoint,
           page: NotificationsPage,
         ),
-        AutoRoute(
+        CustomRoute(
           path: kSettingsEndpoint,
           page: SettingsPage,
         ),
-        AutoRoute(
+        CustomRoute(
           path: kQueueDetailsEndpoint,
           page: QueueDetailsPage,
         ),

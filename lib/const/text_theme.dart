@@ -33,7 +33,7 @@ extension CustomTextTheme on TextTheme {
 
   TextStyle get appBarTextStyle {
     return const TextStyle(
-      fontSize: 27,
+      fontSize: 23,
       fontWeight: FontWeight.bold,
     );
   }

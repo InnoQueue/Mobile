@@ -73,7 +73,6 @@ class _HomePageState extends State<HomePage> {
                 selected: selected,
                 number: counter,
               ),
-              //backgroundColor: Colors.blueGrey[50],
               body: child,
               bottomNavigationBar: BottomBar(
                 currentRoute: router.current.route.name,

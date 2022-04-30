@@ -33,8 +33,13 @@ class _ParticipantTileState extends State<ParticipantTile> {
   Widget build(BuildContext context) {
     return onDutyTile
         ? _OnDutyTile(
-            user: widget.user, queueDetailsModel: widget.queueDetailsModel)
-        : _RegularTile(user: widget.user);
+            user: widget.user,
+            queueDetailsModel: widget.queueDetailsModel,
+          )
+        : _RegularTile(
+            user: widget.user,
+            queueDetailsModel: widget.queueDetailsModel,
+          );
   }
 }
 
@@ -80,6 +85,7 @@ class _OnDutyTileState extends State<_OnDutyTile> {
           border: const Border.symmetric(
               horizontal: BorderSide(color: Colors.grey, width: 0.5)),
         ),
+        height: 70,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
           child: Row(
@@ -94,21 +100,23 @@ class _OnDutyTileState extends State<_OnDutyTile> {
                       widget.user.name,
                       style: Theme.of(context).textTheme.userNameStyle,
                     ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          '${widget.user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
-                          style: Theme.of(context).textTheme.expensesStyle,
-                        ),
-                      ],
-                    )
+                    if (widget.queueDetailsModel.trackExpenses)
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            '${widget.user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
+                            style: Theme.of(context).textTheme.expensesStyle,
+                          ),
+                        ],
+                      )
                   ],
                 ),
               ),
-              if (!widget.queueDetailsModel.isOnDuty)
+              if (!widget.queueDetailsModel.isOnDuty &&
+                  widget.queueDetailsModel.isActive)
                 GestureDetector(
                   onTap: () {
                     HapticFeedback.lightImpact();
@@ -141,8 +149,10 @@ class _OnDutyTileState extends State<_OnDutyTile> {
 
 class _RegularTile extends StatelessWidget {
   final UserModel user;
+  final QueueDetailsModel queueDetailsModel;
   const _RegularTile({
     required this.user,
+    required this.queueDetailsModel,
     Key? key,
   }) : super(key: key);
 
@@ -151,6 +161,7 @@ class _RegularTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       color: Theme.of(context).primaryColor,
+      height: 50,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
         child: Row(
@@ -168,14 +179,15 @@ class _RegularTile extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: queueDetailsPadding / 2),
-              child: Text(
-                '${user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
-                style: Theme.of(context).textTheme.expensesStyle,
-              ),
-            )
+            if (queueDetailsModel.trackExpenses)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: queueDetailsPadding / 2),
+                child: Text(
+                  '${user.expenses}₽ ${AppLocalizations.of(context)!.translate('spent') ?? 'spent'}',
+                  style: Theme.of(context).textTheme.expensesStyle,
+                ),
+              )
           ],
         ),
       ),

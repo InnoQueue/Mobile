@@ -18,36 +18,60 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     SplashRouter.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SplashPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const SplashPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     RegistrationRouter.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const RegistrationPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const RegistrationPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     HomeRouter.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HomePage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const HomePage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     TasksRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const TasksPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const TasksPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     QueuesRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const QueuesPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const QueuesPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     NotificationsRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const NotificationsPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const NotificationsPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     SettingsRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SettingsPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const SettingsPage(),
+          opaque: true,
+          barrierDismissible: false);
     },
     QueueDetailsRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const QueueDetailsPage());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const QueueDetailsPage(),
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
@@ -57,7 +81,7 @@ class _$AppRouter extends RootStackRouter {
             path: '/', redirectTo: '/splash', fullMatch: true),
         RouteConfig(SplashRouter.name, path: '/splash'),
         RouteConfig(RegistrationRouter.name, path: '/registration'),
-        RouteConfig(HomeRouter.name, path: '/home', children: [
+        RouteConfig(HomeRouter.name, path: '/home/', children: [
           RouteConfig(TasksRoute.name, path: '', parent: HomeRouter.name),
           RouteConfig(QueuesRoute.name,
               path: 'queues', parent: HomeRouter.name),
@@ -92,7 +116,7 @@ class RegistrationRouter extends PageRouteInfo<void> {
 /// [HomePage]
 class HomeRouter extends PageRouteInfo<void> {
   const HomeRouter({List<PageRouteInfo>? children})
-      : super(HomeRouter.name, path: '/home', initialChildren: children);
+      : super(HomeRouter.name, path: '/home/', initialChildren: children);
 
   static const String name = 'HomeRouter';
 }

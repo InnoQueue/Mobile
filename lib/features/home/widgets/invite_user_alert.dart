@@ -58,7 +58,11 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
                     child: QrImage(
                       dataModuleStyle: const QrDataModuleStyle(
                         dataModuleShape: QrDataModuleShape.circle,
-                        color: Colors.black,
+                        color: Color(0xFF353535),
+                      ),
+                      eyeStyle: const QrEyeStyle(
+                        eyeShape: QrEyeShape.square,
+                        color: Color(0xFF353535),
                       ),
                       backgroundColor: Colors.white,
                       data: pincode.qrcode,
