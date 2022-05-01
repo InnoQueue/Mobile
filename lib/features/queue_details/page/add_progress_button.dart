@@ -20,16 +20,22 @@ class _AddProgressButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext _) {
-            return TaskExpensesDialog(
-              buildContext: context,
-              queueDetialsModel: queueDetialsModel,
-            );
-          },
-        );
+        if (queueDetialsModel.trackExpenses) {
+          showDialog<void>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext _) {
+              return TaskExpensesDialog(
+                buildContext: context,
+                queueDetialsModel: queueDetialsModel,
+              );
+            },
+          );
+        } else {
+          context
+              .read<QueueDetailsBloc>()
+              .add(const QueueDetailsEvent.addProgress(0));
+        }
       },
     );
   }

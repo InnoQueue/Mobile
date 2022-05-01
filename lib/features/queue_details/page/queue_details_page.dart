@@ -57,22 +57,33 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                   .read<AppBarBloc>()
                   .add(RouteChangedEvent(originalQueueDetails.name));
               return WillPopScope(
-                child: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      bottom: 10,
-                    ),
-                    child: _Body(
-                      originalQueueDetails: queueDetails,
-                      updatedQueueDetails: updatedQueueDetails,
-                      editable: editable,
-                      updateColor: updateColor,
-                      updateName: updateName,
-                      removeParticipant: removeParticipant,
-                      updateTracker: updateTracker,
+                child: GestureDetector(
+                  child: Container(
+                    color: Colors.grey[900],
+                    child: SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          bottom: 10,
+                        ),
+                        child: _Body(
+                          originalQueueDetails: queueDetails,
+                          updatedQueueDetails: updatedQueueDetails,
+                          editable: editable,
+                          updateColor: updateColor,
+                          updateName: updateName,
+                          removeParticipant: removeParticipant,
+                          updateTracker: updateTracker,
+                        ),
+                      ),
                     ),
                   ),
+                  onHorizontalDragUpdate: (details) {
+                    int sensitivity = 15;
+                    if (details.delta.dx > sensitivity) {
+                      context.router.pop();
+                    }
+                  },
                 ),
                 onWillPop: () =>
                     _onWillPop(editable, updatedQueueDetails != null),

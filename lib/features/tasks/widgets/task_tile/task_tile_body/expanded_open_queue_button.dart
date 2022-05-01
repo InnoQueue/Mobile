@@ -52,9 +52,11 @@ class _ExpandedOpenQueueButtonState extends State<_ExpandedOpenQueueButton>
               .read<AppBarBloc>()
               .add(RouteChangedEvent(widget.taskModel.name));
           context.read<TasksListBloc>().add(const TasksListEvent.shrinkTask());
-          context
-              .read<QueueDetailsBloc>()
-              .add(QueueDetailsEvent.loadRequested(widget.taskModel.id));
+          context.read<QueueDetailsBloc>().add(QueueDetailsEvent.loadRequested(
+                id: widget.taskModel.id,
+                hash_code: widget.taskModel.hash,
+                checkCache: true,
+              ));
           getIt<AppRouter>().push(const QueueDetailsRoute());
         },
       ),

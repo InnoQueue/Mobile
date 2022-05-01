@@ -12,6 +12,7 @@ _$_TaskModel _$$_TaskModelFromJson(Map<String, dynamic> json) => _$_TaskModel(
       color: json['color'] as String,
       isImportant: json['is_important'] as bool?,
       trackExpenses: json['track_expenses'] as bool,
+      hash: json['hash_code'] as int,
     );
 
 Map<String, dynamic> _$$_TaskModelToJson(_$_TaskModel instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$_TaskModelToJson(_$_TaskModel instance) =>
       'color': instance.color,
       'is_important': instance.isImportant,
       'track_expenses': instance.trackExpenses,
+      'hash_code': instance.hash,
     };

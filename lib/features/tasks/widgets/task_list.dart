@@ -187,10 +187,10 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
       }
     } else if (done) {
       if (currentItems.length == 1) {
-        await ApiTasksService.deleteTask(task: task, expenses: expenses);
+        await ApiTasksService.deleteTask(taskId: task.id, expenses: expenses);
         tasksBloc.add(const TasksEvent.loadRequested());
       } else {
-        ApiTasksService.deleteTask(task: task, expenses: expenses);
+        ApiTasksService.deleteTask(taskId: task.id, expenses: expenses);
       }
     }
   }

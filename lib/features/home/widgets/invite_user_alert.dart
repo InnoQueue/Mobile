@@ -57,12 +57,17 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
                     height: 220,
                     child: QrImage(
                       dataModuleStyle: const QrDataModuleStyle(
-                        dataModuleShape: QrDataModuleShape.circle,
+                        dataModuleShape: QrDataModuleShape.square,
                         color: Color(0xFF353535),
                       ),
                       eyeStyle: const QrEyeStyle(
                         eyeShape: QrEyeShape.square,
                         color: Color(0xFF353535),
+                      ),
+                      embeddedImage:
+                          const AssetImage('images/logo_outlined.png'),
+                      embeddedImageStyle: QrEmbeddedImageStyle(
+                        size: const Size(50, 50),
                       ),
                       backgroundColor: Colors.white,
                       data: pincode.qrcode,

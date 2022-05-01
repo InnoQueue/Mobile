@@ -27,13 +27,15 @@ class _$TaskModelTearOff {
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'color') required String color,
       @JsonKey(name: 'is_important') bool? isImportant,
-      @JsonKey(name: 'track_expenses') required bool trackExpenses}) {
+      @JsonKey(name: 'track_expenses') required bool trackExpenses,
+      @JsonKey(name: 'hash_code') required int hash}) {
     return _TaskModel(
       id: id,
       name: name,
       color: color,
       isImportant: isImportant,
       trackExpenses: trackExpenses,
+      hash: hash,
     );
   }
 
@@ -57,6 +59,8 @@ mixin _$TaskModel {
   bool? get isImportant => throw _privateConstructorUsedError;
   @JsonKey(name: 'track_expenses')
   bool get trackExpenses => throw _privateConstructorUsedError;
+  @JsonKey(name: 'hash_code')
+  int get hash => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -73,7 +77,8 @@ abstract class $TaskModelCopyWith<$Res> {
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
       @JsonKey(name: 'is_important') bool? isImportant,
-      @JsonKey(name: 'track_expenses') bool trackExpenses});
+      @JsonKey(name: 'track_expenses') bool trackExpenses,
+      @JsonKey(name: 'hash_code') int hash});
 }
 
 /// @nodoc
@@ -91,6 +96,7 @@ class _$TaskModelCopyWithImpl<$Res> implements $TaskModelCopyWith<$Res> {
     Object? color = freezed,
     Object? isImportant = freezed,
     Object? trackExpenses = freezed,
+    Object? hash = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -113,6 +119,10 @@ class _$TaskModelCopyWithImpl<$Res> implements $TaskModelCopyWith<$Res> {
           ? _value.trackExpenses
           : trackExpenses // ignore: cast_nullable_to_non_nullable
               as bool,
+      hash: hash == freezed
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -128,7 +138,8 @@ abstract class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Res> {
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'color') String color,
       @JsonKey(name: 'is_important') bool? isImportant,
-      @JsonKey(name: 'track_expenses') bool trackExpenses});
+      @JsonKey(name: 'track_expenses') bool trackExpenses,
+      @JsonKey(name: 'hash_code') int hash});
 }
 
 /// @nodoc
@@ -147,6 +158,7 @@ class __$TaskModelCopyWithImpl<$Res> extends _$TaskModelCopyWithImpl<$Res>
     Object? color = freezed,
     Object? isImportant = freezed,
     Object? trackExpenses = freezed,
+    Object? hash = freezed,
   }) {
     return _then(_TaskModel(
       id: id == freezed
@@ -169,6 +181,10 @@ class __$TaskModelCopyWithImpl<$Res> extends _$TaskModelCopyWithImpl<$Res>
           ? _value.trackExpenses
           : trackExpenses // ignore: cast_nullable_to_non_nullable
               as bool,
+      hash: hash == freezed
+          ? _value.hash
+          : hash // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -181,7 +197,8 @@ class _$_TaskModel implements _TaskModel {
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'color') required this.color,
       @JsonKey(name: 'is_important') this.isImportant,
-      @JsonKey(name: 'track_expenses') required this.trackExpenses});
+      @JsonKey(name: 'track_expenses') required this.trackExpenses,
+      @JsonKey(name: 'hash_code') required this.hash});
 
   factory _$_TaskModel.fromJson(Map<String, dynamic> json) =>
       _$$_TaskModelFromJson(json);
@@ -201,10 +218,13 @@ class _$_TaskModel implements _TaskModel {
   @override
   @JsonKey(name: 'track_expenses')
   final bool trackExpenses;
+  @override
+  @JsonKey(name: 'hash_code')
+  final int hash;
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, name: $name, color: $color, isImportant: $isImportant, trackExpenses: $trackExpenses)';
+    return 'TaskModel(id: $id, name: $name, color: $color, isImportant: $isImportant, trackExpenses: $trackExpenses, hash: $hash)';
   }
 
   @override
@@ -218,7 +238,8 @@ class _$_TaskModel implements _TaskModel {
             const DeepCollectionEquality()
                 .equals(other.isImportant, isImportant) &&
             const DeepCollectionEquality()
-                .equals(other.trackExpenses, trackExpenses));
+                .equals(other.trackExpenses, trackExpenses) &&
+            const DeepCollectionEquality().equals(other.hash, hash));
   }
 
   @override
@@ -228,7 +249,8 @@ class _$_TaskModel implements _TaskModel {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(color),
       const DeepCollectionEquality().hash(isImportant),
-      const DeepCollectionEquality().hash(trackExpenses));
+      const DeepCollectionEquality().hash(trackExpenses),
+      const DeepCollectionEquality().hash(hash));
 
   @JsonKey(ignore: true)
   @override
@@ -243,12 +265,12 @@ class _$_TaskModel implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   const factory _TaskModel(
-          {@JsonKey(name: 'queue_id') required int id,
-          @JsonKey(name: 'name') required String name,
-          @JsonKey(name: 'color') required String color,
-          @JsonKey(name: 'is_important') bool? isImportant,
-          @JsonKey(name: 'track_expenses') required bool trackExpenses}) =
-      _$_TaskModel;
+      {@JsonKey(name: 'queue_id') required int id,
+      @JsonKey(name: 'name') required String name,
+      @JsonKey(name: 'color') required String color,
+      @JsonKey(name: 'is_important') bool? isImportant,
+      @JsonKey(name: 'track_expenses') required bool trackExpenses,
+      @JsonKey(name: 'hash_code') required int hash}) = _$_TaskModel;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$_TaskModel.fromJson;
@@ -268,6 +290,9 @@ abstract class _TaskModel implements TaskModel {
   @override
   @JsonKey(name: 'track_expenses')
   bool get trackExpenses;
+  @override
+  @JsonKey(name: 'hash_code')
+  int get hash;
   @override
   @JsonKey(ignore: true)
   _$TaskModelCopyWith<_TaskModel> get copyWith =>

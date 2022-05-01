@@ -11,6 +11,7 @@ class TaskModel with _$TaskModel {
     @JsonKey(name: 'color') required String color,
     @JsonKey(name: 'is_important') bool? isImportant,
     @JsonKey(name: 'track_expenses') required bool trackExpenses,
+    @JsonKey(name: 'hash_code') required int hash,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>

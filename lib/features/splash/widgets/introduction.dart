@@ -9,8 +9,10 @@ class IntroductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pageDecoration = PageDecoration(
-      titlePadding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
-      titleTextStyle: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titlePadding:
+          EdgeInsets.only(top: MediaQuery.of(context).size.height / 5),
+      titleTextStyle:
+          const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
       pageColor: Colors.blueGrey[50],

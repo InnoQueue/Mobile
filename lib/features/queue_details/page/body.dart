@@ -44,13 +44,11 @@ class __BodyState extends State<_Body> {
                         )
                       : Header(queueDetailsModel: currentQueueDetails),
                 ),
-                if (!widget.editable && currentQueueDetails.trackExpenses)
+                if (!widget.editable && widget.originalQueueDetails.isActive)
                   const SizedBox(
                     height: 20,
                   ),
-                if (!widget.editable &&
-                    currentQueueDetails.trackExpenses &&
-                    currentQueueDetails.isActive)
+                if (!widget.editable && currentQueueDetails.isActive)
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: queueDetailsPadding),
@@ -89,7 +87,8 @@ class __BodyState extends State<_Body> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Header(queueDetailsModel: widget.originalQueueDetails),
               ),
-              if (widget.originalQueueDetails.trackExpenses)
+              if (widget.originalQueueDetails.trackExpenses &&
+                  widget.originalQueueDetails.isActive)
                 const SizedBox(
                   height: 20,
                 ),
@@ -106,7 +105,7 @@ class __BodyState extends State<_Body> {
                 height: 20,
               ),
               ParticipantTile(
-                user: widget.originalQueueDetails.crrentUser,
+                user: widget.originalQueueDetails.currentUser,
                 queueDetailsModel: widget.originalQueueDetails,
               ),
               Expanded(

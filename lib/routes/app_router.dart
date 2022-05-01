@@ -52,7 +52,7 @@ part 'app_router.gr.dart';
         CustomRoute(
           path: kQueueDetailsEndpoint,
           page: QueueDetailsPage,
-          transitionsBuilder: TransitionsBuilders.fadeIn,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
       ],
     ),

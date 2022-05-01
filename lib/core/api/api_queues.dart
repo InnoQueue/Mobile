@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:inno_queue/core/hive/hive_service.dart';
 import 'package:inno_queue/features/features.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 
 import 'api_base.dart';
@@ -194,10 +195,38 @@ class ApiQueuesService {
     return Pair(active, frozen);
   }
 
-  static Future<QueueDetailsModel> getQueue(int id) async {
-    final String token = await ApiBaseService.getToken();
-    final data = (await ApiQueues.getQueue(token, id: id)).data;
-    return QueueDetailsModel.fromJson(data);
+  static Future<QueueDetailsModel> getQueue({
+    required int id,
+    required int? hash,
+    required bool checkCache,
+  }) async {
+    String name = "queue" + id.toString();
+
+    Future<QueueDetailsModel> queueRequest() async {
+      final String token = await ApiBaseService.getToken();
+      final data = (await ApiQueues.getQueue(token, id: id)).data;
+
+      QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(data);
+
+      var queueBox = await Hive.openBox(name);
+      queueBox.deleteAll(queueBox.keys);
+      queueBox.put(hash ?? queueDetails.hash, queueDetails);
+
+      print('added to cache');
+      return QueueDetailsModel.fromJson(data);
+    }
+
+    if (checkCache) {
+      var queueBox = await Hive.openBox(name);
+      if (queueBox.length != 0) {
+        if (queueBox.keys.first != null && queueBox.keys.first == hash) {
+          print('returned from cache');
+          return queueBox.get(hash);
+        }
+      }
+    }
+
+    return queueRequest();
   }
 
   static Future<void> addQueue({

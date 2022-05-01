@@ -21,11 +21,11 @@ class ApiTasks extends ApiBase {
 
   static Future<Response> deleteTask(
     token, {
-    required TaskModel task,
+    required int id,
     double? expenses,
   }) async {
     var params = {
-      "task_id": task.id,
+      "task_id": id,
       "expenses": expenses,
     };
 
@@ -64,6 +64,7 @@ class ApiTasksService {
   static Future<List<TaskModel>> getTasks() async {
     final String token = await ApiBaseService.getToken();
     final response = await ApiTasks.getTasks(token);
+    print(response);
     List<TaskModel> tasks = [];
     for (int i = 0; i < response.data.length; i++) {
       tasks.add(TaskModel.fromJson(response.data[i]));
@@ -72,13 +73,13 @@ class ApiTasksService {
   }
 
   static Future<void> deleteTask({
-    required TaskModel task,
+    required int taskId,
     double? expenses,
   }) async {
     final String token = await ApiBaseService.getToken();
     var response = await ApiTasks.deleteTask(
       token,
-      task: task,
+      id: taskId,
       expenses: expenses,
     );
   }

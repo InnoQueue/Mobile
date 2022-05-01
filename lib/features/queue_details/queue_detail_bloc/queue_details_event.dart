@@ -4,7 +4,10 @@ part of 'queue_details_bloc.dart';
 class QueueDetailsEvent with _$QueueDetailsEvent {
   const factory QueueDetailsEvent.leaveQueue() = _LeaveQueue;
 
-  const factory QueueDetailsEvent.loadRequested(int id) = _LoadRequested;
+  const factory QueueDetailsEvent.loadRequested(
+      {required int id,
+      required int hash_code,
+      required bool checkCache}) = _LoadRequested;
 
   const factory QueueDetailsEvent.inviteUser() = _InviteUser;
 
