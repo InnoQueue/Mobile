@@ -5,6 +5,7 @@ import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/shared/shared.dart';
 
 part 'body.dart';
@@ -31,8 +32,6 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
         initial: () {},
         updateRequested: () {
           submitChanges();
-          context.read<AppBarBloc>().add(RouteChangedEvent(
-              (updatedQueueDetails ?? originalQueueDetails).name));
         },
         cancelRequested: () {
           cancelChanges();
@@ -151,7 +150,6 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
     setState(() {
       updatedQueueDetails =
           (updatedQueueDetails ?? originalQueueDetails).copyWith(name: name);
-      context.read<AppBarBloc>().add(RouteChangedEvent(name));
     });
   }
 

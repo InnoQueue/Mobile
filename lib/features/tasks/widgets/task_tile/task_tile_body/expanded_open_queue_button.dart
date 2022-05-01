@@ -48,9 +48,7 @@ class _ExpandedOpenQueueButtonState extends State<_ExpandedOpenQueueButton>
       child: GestureDetector(
         child: const Icon(Icons.list),
         onTap: () async {
-          context
-              .read<AppBarBloc>()
-              .add(RouteChangedEvent(widget.taskModel.name));
+          getIt.get<AppBarBloc>().add(RouteChangedEvent(widget.taskModel.name));
           context.read<TasksListBloc>().add(const TasksListEvent.shrinkTask());
           context.read<QueueDetailsBloc>().add(QueueDetailsEvent.loadRequested(
                 id: widget.taskModel.id,

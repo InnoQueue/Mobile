@@ -31,54 +31,61 @@ class __BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     return !(widget.originalQueueDetails.participants.isEmpty &&
             !widget.editable)
-        ? SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: widget.editable
-                      ? EditableHeader(
-                          queueDetailsModel: currentQueueDetails,
-                          updateColor: widget.updateColor,
-                          updateName: widget.updateName,
-                        )
-                      : Header(queueDetailsModel: currentQueueDetails),
-                ),
-                if (!widget.editable && widget.originalQueueDetails.isActive)
+        ? NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (OverscrollIndicatorNotification overScroll) {
+              overScroll.disallowIndicator();
+              return false;
+            },
+            child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: widget.editable
+                        ? EditableHeader(
+                            queueDetailsModel: currentQueueDetails,
+                            updateColor: widget.updateColor,
+                            updateName: widget.updateName,
+                          )
+                        : Header(queueDetailsModel: currentQueueDetails),
+                  ),
+                  if (!widget.editable && widget.originalQueueDetails.isActive)
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  if (!widget.editable && currentQueueDetails.isActive)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: queueDetailsPadding),
+                      child: _AddProgressButton(
+                        queueDetialsModel: currentQueueDetails,
+                      ),
+                    ),
                   const SizedBox(
                     height: 20,
                   ),
-                if (!widget.editable && currentQueueDetails.isActive)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: queueDetailsPadding),
-                    child: _AddProgressButton(
-                      queueDetialsModel: currentQueueDetails,
-                    ),
+                  widget.editable
+                      ? EditableParticipants(
+                          queueDetailsModel: currentQueueDetails,
+                          removeParticipant: widget.removeParticipant,
+                        )
+                      : Participants(
+                          queueDetailsModel: currentQueueDetails,
+                        ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                const SizedBox(
-                  height: 20,
-                ),
-                widget.editable
-                    ? EditableParticipants(
-                        queueDetailsModel: currentQueueDetails,
-                        removeParticipant: widget.removeParticipant,
-                      )
-                    : Participants(
-                        queueDetailsModel: currentQueueDetails,
+                  if (widget.editable)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: TrackExpensesButton(
+                        initValue: currentQueueDetails.trackExpenses,
+                        updateTracker: widget.updateTracker,
                       ),
-                const SizedBox(
-                  height: 20,
-                ),
-                if (widget.editable)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TrackExpensesButton(
-                      initValue: currentQueueDetails.trackExpenses,
-                      updateTracker: widget.updateTracker,
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           )
         : Column(

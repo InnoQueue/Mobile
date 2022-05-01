@@ -132,10 +132,18 @@ class _TextField extends StatefulWidget {
 }
 
 class _TextFieldState extends State<_TextField> {
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.queueName;
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: TextEditingController()..text = widget.queueName,
+      controller: controller,
       style: const TextStyle(
         overflow: TextOverflow.ellipsis,
         fontSize: 20,
@@ -152,7 +160,10 @@ class _TextFieldState extends State<_TextField> {
           borderSide: BorderSide(color: Colors.transparent),
         ),
       ),
-      onSubmitted: (newValue) => widget.onSubmitted(newValue),
+      onSubmitted: (newValue) {
+        widget.onSubmitted(newValue);
+        controller.text = newValue;
+      },
     );
   }
 }

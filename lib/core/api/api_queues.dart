@@ -205,11 +205,11 @@ class ApiQueuesService {
     Future<QueueDetailsModel> queueRequest() async {
       final String token = await ApiBaseService.getToken();
       final data = (await ApiQueues.getQueue(token, id: id)).data;
-      print(data);
 
       QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(data);
 
       var queueBox = await Hive.openBox(name);
+      queueBox.deleteAll(queueBox.keys);
       queueBox.put(hash ?? queueDetails.hash, queueDetails);
 
       print('added to cache');

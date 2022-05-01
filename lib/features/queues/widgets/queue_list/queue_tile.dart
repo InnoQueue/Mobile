@@ -24,9 +24,7 @@ class _QueueTileState extends State<QueueTile> {
         ),
       ),
       onTap: () async {
-        context
-            .read<AppBarBloc>()
-            .add(RouteChangedEvent(widget.queueModel.name));
+        getIt.get<AppBarBloc>().add(RouteChangedEvent(widget.queueModel.name));
         context.read<QueueDetailsBloc>().add(QueueDetailsEvent.loadRequested(
               id: widget.queueModel.id,
               hash_code: widget.queueModel.hash,

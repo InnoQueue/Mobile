@@ -11,7 +11,7 @@ class RouteChangedEvent extends RouteEvent {
 
 @Injectable()
 class AppBarBloc extends Bloc<RouteEvent, String> {
-  AppBarBloc(String initialState) : super(TasksRoute.name) {
+  AppBarBloc() : super(TasksRoute.name) {
     on<RouteChangedEvent>((event, emit) => emit(event.newRoute));
   }
 }

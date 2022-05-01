@@ -40,8 +40,10 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
             ))
         .toList();
 
-    _expandAnimationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    _expandAnimation = Tween(begin: 0.0, end: 15.0).animate(_expandAnimationController);
+    _expandAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
+    _expandAnimation =
+        Tween(begin: 0.0, end: 15.0).animate(_expandAnimationController);
   }
 
   @override
@@ -55,21 +57,26 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     tasksBloc = context.read<TasksBloc>();
     return BlocProvider(
       create: (_) {
-        return getIt.get<TasksListBloc>()..add(TasksListEvent.initTasks(widget.items));
+        return getIt.get<TasksListBloc>()
+          ..add(TasksListEvent.initTasks(widget.items));
       },
       child: BlocBuilder<TasksListBloc, TasksListState>(
         builder: (context, state) {
           return state.when(
             initial: () => Wrap(),
-            dataManaged: (items, expanded, done, expenses, skipped, waitingList, selectedList, emptyingSelectedList,
-                emptyingWaitingList) {
+            dataManaged: (items, expanded, done, expenses, skipped, waitingList,
+                selectedList, emptyingSelectedList, emptyingWaitingList) {
               currentItems = items;
               manageExpanded(expanded);
               if (!emptyingSelectedList) {
                 if (selectedList.isNotEmpty) {
-                  context.read<SelectTasksBloc>().add(SelectTasksEvent.select(selectedList.length));
+                  context
+                      .read<SelectTasksBloc>()
+                      .add(SelectTasksEvent.select(selectedList.length));
                 } else {
-                  context.read<SelectTasksBloc>().add(const SelectTasksEvent.unselect());
+                  context
+                      .read<SelectTasksBloc>()
+                      .add(const SelectTasksEvent.unselect());
                 }
               }
               if (emptyingWaitingList) {
@@ -77,11 +84,13 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                   emptyWaitingList(context, waitingList[0], expenses);
                 });
               }
-              return BlocBuilder<SelectTasksBloc, SelectTasksState>(builder: (context, state) {
+              return BlocBuilder<SelectTasksBloc, SelectTasksState>(
+                  builder: (context, state) {
                 state.maybeWhen(
                   allDone: () => Timer.run(() {
                     if (selectedList.isNotEmpty) {
-                      emptySelectedListOnDone(context, selectedList[0], expenses);
+                      emptySelectedListOnDone(
+                          context, selectedList[0], expenses);
                     }
                   }),
                   allSkipped: () => Timer.run(() {
@@ -89,10 +98,13 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                       emptySelectedListOnSkip(context, selectedList[0]);
                     }
                   }),
-                  cleared: () => context.read<TasksListBloc>().add(const TasksListEvent.unselect()),
+                  cleared: () => context
+                      .read<TasksListBloc>()
+                      .add(const TasksListEvent.unselect()),
                   orElse: () {},
                 );
                 return AnimatedList(
+                  physics: const ClampingScrollPhysics(),
                   key: _listKey,
                   initialItemCount: items.length,
                   itemBuilder: (context, index, animation) {
@@ -101,21 +113,25 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                       duration: const Duration(milliseconds: 200),
                       padding: isExpanded
                           ? const EdgeInsets.symmetric(vertical: 5)
-                          : const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          : const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                       child: AnimatedBuilder(
                         animation: _expandAnimationController,
                         builder: (context, child) => ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(isExpanded ? _expandAnimation.value : 15)),
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              isExpanded ? _expandAnimation.value : 15)),
                           child: Slidable(
                             closeOnScroll: true,
                             enabled: !isExpanded && selectedList.isEmpty,
                             key: Key(items[index].hashCode.toString()),
-                            child: _initTiles.firstWhere((e) => e.taskModel == items[index]),
+                            child: _initTiles
+                                .firstWhere((e) => e.taskModel == items[index]),
                             endActionPane: ActionPane(
                               extentRatio: 0.25,
                               motion: const ScrollMotion(),
                               dismissible: DismissiblePane(
-                                  resizeDuration: const Duration(milliseconds: 200),
+                                  resizeDuration:
+                                      const Duration(milliseconds: 200),
                                   onDismissed: () {
                                     _onDismissed(context, items[index]);
                                   }),
@@ -124,16 +140,21 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
                                   autoClose: false,
                                   onPressed: (_) {
                                     Slidable.of(_)!.dismiss(
-                                      ResizeRequest(const Duration(milliseconds: 200), () {
+                                      ResizeRequest(
+                                          const Duration(milliseconds: 200),
+                                          () {
                                         _onDismissed(context, items[index]);
                                       }),
-                                      duration: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
                                     );
                                   },
                                   backgroundColor: const Color(0xFFFE4A49),
                                   foregroundColor: Colors.white,
                                   icon: Icons.clear,
-                                  label: AppLocalizations.of(context)!.translate('skip') ?? 'Skip',
+                                  label: AppLocalizations.of(context)!
+                                          .translate('skip') ??
+                                      'Skip',
                                 ),
                               ],
                             ),
@@ -162,7 +183,10 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   }
 
   Future<void> removeItem(BuildContext context, TaskModel task,
-      {bool expanded = false, bool skip = false, bool done = false, double? expenses}) async {
+      {bool expanded = false,
+      bool skip = false,
+      bool done = false,
+      double? expenses}) async {
     _listKey.currentState!.removeItem(
       currentItems.indexOf(task),
       (context, animation) => Padding(
@@ -195,7 +219,8 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void emptyWaitingList(BuildContext context, TaskModel task, double? expenses) async {
+  void emptyWaitingList(
+      BuildContext context, TaskModel task, double? expenses) async {
     if (task.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -215,7 +240,8 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
     }
   }
 
-  void emptySelectedListOnDone(BuildContext context, TaskModel task, double? expenses) async {
+  void emptySelectedListOnDone(
+      BuildContext context, TaskModel task, double? expenses) async {
     if (task.trackExpenses) {
       showDialog<void>(
         context: context,
@@ -241,7 +267,8 @@ class TaskListState extends State<TaskList> with TickerProviderStateMixin {
   }
 
   void _onDismissed(BuildContext context, TaskModel task) async {
-    _listKey.currentState!.removeItem(currentItems.indexOf(task), (context, animation) => Wrap());
+    _listKey.currentState!
+        .removeItem(currentItems.indexOf(task), (context, animation) => Wrap());
 
     if (currentItems.length == 1) {
       await ApiTasksService.skipTask(task: task);

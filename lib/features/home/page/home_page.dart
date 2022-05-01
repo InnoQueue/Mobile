@@ -52,38 +52,43 @@ class _HomePageState extends State<HomePage> {
         final router = context.router;
 
         return BlocBuilder<SelectTasksBloc, SelectTasksState>(
-            builder: (context, state) {
-          bool selected = false;
-          int counter = 0;
-          state.maybeWhen(
-            orElse: () {},
-            selected: (number) {
-              selected = true;
-              counter = number;
-            },
-          );
+          builder: (context, state) {
+            bool selected = false;
+            int counter = 0;
+            state.maybeWhen(
+              orElse: () {},
+              selected: (number) {
+                selected = true;
+                counter = number;
+              },
+            );
 
-          return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
-            builder: (context, state) => Scaffold(
-              key: homePageScaffoldKey,
-              resizeToAvoidBottomInset: false,
-              appBar: _appBarBuilder(
-                router,
-                context,
-                selected: selected,
-                number: counter,
-              ),
-              body: child,
-              bottomNavigationBar: BottomBar(
-                currentRoute: router.current.route.name,
-              ),
-              floatingActionButton:
-                  (context.router.current.name == QueuesRoute.name)
-                      ? const _AddButton()
-                      : null,
-            ),
-          );
-        });
+            return BlocBuilder<AppBarBloc, String>(
+              builder: (context, state) {
+                return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
+                  builder: (context, state) => Scaffold(
+                    key: homePageScaffoldKey,
+                    resizeToAvoidBottomInset: false,
+                    appBar: _appBarBuilder(
+                      router,
+                      context,
+                      selected: selected,
+                      number: counter,
+                    ),
+                    body: child,
+                    bottomNavigationBar: BottomBar(
+                      currentRoute: router.current.route.name,
+                    ),
+                    floatingActionButton:
+                        (context.router.current.name == QueuesRoute.name)
+                            ? const _AddButton()
+                            : null,
+                  ),
+                );
+              },
+            );
+          },
+        );
       },
     );
   }

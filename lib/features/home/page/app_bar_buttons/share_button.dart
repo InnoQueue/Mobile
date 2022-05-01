@@ -92,22 +92,32 @@ class _ShareButtonState extends State<_ShareButton> {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            height: 300,
-            width: 300,
-            child: QrImage(
-              dataModuleStyle: const QrDataModuleStyle(
-                dataModuleShape: QrDataModuleShape.circle,
-                color: Color(0xFF353535),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                height: 300,
+                width: 300,
+                child: QrImage(
+                  dataModuleStyle: const QrDataModuleStyle(
+                    dataModuleShape: QrDataModuleShape.square,
+                    color: Color(0xFF353535),
+                  ),
+                  eyeStyle: const QrEyeStyle(
+                    eyeShape: QrEyeShape.square,
+                    color: Color(0xFF353535),
+                  ),
+                  backgroundColor: Colors.white,
+                  data: pincode.qrcode,
+                  version: QrVersions.auto,
+                ),
               ),
-              eyeStyle: const QrEyeStyle(
-                eyeShape: QrEyeShape.square,
-                color: Color(0xFF353535),
+              Image.asset(
+                'images/logo_outlined.png',
+                width: 95,
+                height: 95,
               ),
-              backgroundColor: Colors.white,
-              data: pincode.qrcode,
-              version: QrVersions.auto,
-            ),
+            ],
           ),
           const SizedBox(
             height: 20,

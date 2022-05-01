@@ -67,7 +67,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
                       embeddedImage:
                           const AssetImage('images/logo_outlined.png'),
                       embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: const Size(50, 50),
+                        size: const Size(70, 70),
                       ),
                       backgroundColor: Colors.white,
                       data: pincode.qrcode,

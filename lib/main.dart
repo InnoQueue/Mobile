@@ -22,6 +22,8 @@ import 'shared/bloc/appbar/appbar_bloc.dart';
 void main() async {
   configureDependencies();
   getIt.registerSingleton<AppRouter>(AppRouter());
+  getIt.registerSingleton<AppBarBloc>(AppBarBloc());
+
   await Hive.initFlutter();
   Hive.registerAdapter(QueueDetailsModelAdapter());
   Hive.registerAdapter(UserModelAdapter());
@@ -56,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(create: (_) => getIt.get<QueuesBloc>()),
         BlocProvider(create: (_) => getIt.get<QueueDetailsBloc>()),
-        BlocProvider(create: (_) => AppBarBloc(HomeRouter.name)),
+        BlocProvider(create: (_) => getIt.get<AppBarBloc>()),
         BlocProvider(create: (_) => getIt.get<SelectTasksBloc>()),
         BlocProvider(create: (_) => getIt.get<EditQueueBloc>())
       ],

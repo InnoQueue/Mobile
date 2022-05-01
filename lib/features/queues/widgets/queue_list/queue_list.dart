@@ -39,6 +39,7 @@ class QueueList extends StatelessWidget {
         : Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: ListView.separated(
+              physics: const ClampingScrollPhysics(),
               itemCount: queues.length,
               itemBuilder: (context, index) {
                 return ClipRRect(
