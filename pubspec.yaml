@@ -78,7 +78,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - images/introduction-sample.png
+    - images/introduction-samples/
     - images/idk.gif
     - images/sleeping.gif
     - images/crying.gif
