@@ -44,11 +44,21 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
             queueLeft: () => leaveAndLoad(context),
             queueFreezed: () => leaveAndLoad(context),
             queueUnfreezed: () => leaveAndLoad(context),
-            initial: () => const Center(
-              child: CustomCircularProgressIndicator(),
+            initial: () => Container(
+              color: Theme.of(context).primaryColorBrightness == Brightness.dark
+                  ? Colors.grey[900]
+                  : Colors.blueGrey[50],
+              child: const Center(
+                child: CustomCircularProgressIndicator(),
+              ),
             ),
-            queueUpdating: () => const Center(
-              child: CustomCircularProgressIndicator(),
+            queueUpdating: () => Container(
+              color: Theme.of(context).primaryColorBrightness == Brightness.dark
+                  ? Colors.grey[900]
+                  : Colors.blueGrey[50],
+              child: const Center(
+                child: CustomCircularProgressIndicator(),
+              ),
             ),
             queueOpened: (queueDetails, editable) {
               originalQueueDetails = queueDetails;
@@ -58,7 +68,10 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
               return WillPopScope(
                 child: GestureDetector(
                   child: Container(
-                    color: Colors.grey[900],
+                    color: Theme.of(context).primaryColorBrightness ==
+                            Brightness.dark
+                        ? Colors.grey[900]
+                        : Colors.blueGrey[50],
                     child: SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.only(
