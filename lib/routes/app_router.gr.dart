@@ -74,7 +74,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const QueueDetailsPage(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
           opaque: true,
           barrierDismissible: false);
     }

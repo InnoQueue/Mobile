@@ -26,7 +26,7 @@ class Participants extends StatelessWidget {
           ),
         ),
         ParticipantTile(
-          user: queueDetailsModel.crrentUser,
+          user: queueDetailsModel.currentUser,
           queueDetailsModel: queueDetailsModel,
         ),
         if (queueDetailsModel.participants.isNotEmpty)

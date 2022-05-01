@@ -22,9 +22,12 @@ class _$QueueDetailsEventTearOff {
     return const _LeaveQueue();
   }
 
-  _LoadRequested loadRequested(int id) {
+  _LoadRequested loadRequested(
+      {required int id, required int hash_code, required bool checkCache}) {
     return _LoadRequested(
-      id,
+      id: id,
+      hash_code: hash_code,
+      checkCache: checkCache,
     );
   }
 
@@ -73,7 +76,8 @@ mixin _$QueueDetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -88,7 +92,7 @@ mixin _$QueueDetailsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -102,7 +106,7 @@ mixin _$QueueDetailsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -218,7 +222,8 @@ class _$_LeaveQueue implements _LeaveQueue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -236,7 +241,7 @@ class _$_LeaveQueue implements _LeaveQueue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -253,7 +258,7 @@ class _$_LeaveQueue implements _LeaveQueue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -335,7 +340,7 @@ abstract class _$LoadRequestedCopyWith<$Res> {
   factory _$LoadRequestedCopyWith(
           _LoadRequested value, $Res Function(_LoadRequested) then) =
       __$LoadRequestedCopyWithImpl<$Res>;
-  $Res call({int id});
+  $Res call({int id, int hash_code, bool checkCache});
 }
 
 /// @nodoc
@@ -352,12 +357,22 @@ class __$LoadRequestedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? hash_code = freezed,
+    Object? checkCache = freezed,
   }) {
     return _then(_LoadRequested(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      hash_code: hash_code == freezed
+          ? _value.hash_code
+          : hash_code // ignore: cast_nullable_to_non_nullable
+              as int,
+      checkCache: checkCache == freezed
+          ? _value.checkCache
+          : checkCache // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -365,14 +380,19 @@ class __$LoadRequestedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadRequested implements _LoadRequested {
-  const _$_LoadRequested(this.id);
+  const _$_LoadRequested(
+      {required this.id, required this.hash_code, required this.checkCache});
 
   @override
   final int id;
+  @override
+  final int hash_code;
+  @override
+  final bool checkCache;
 
   @override
   String toString() {
-    return 'QueueDetailsEvent.loadRequested(id: $id)';
+    return 'QueueDetailsEvent.loadRequested(id: $id, hash_code: $hash_code, checkCache: $checkCache)';
   }
 
   @override
@@ -380,12 +400,18 @@ class _$_LoadRequested implements _LoadRequested {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LoadRequested &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.hash_code, hash_code) &&
+            const DeepCollectionEquality()
+                .equals(other.checkCache, checkCache));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(hash_code),
+      const DeepCollectionEquality().hash(checkCache));
 
   @JsonKey(ignore: true)
   @override
@@ -396,7 +422,8 @@ class _$_LoadRequested implements _LoadRequested {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -407,14 +434,14 @@ class _$_LoadRequested implements _LoadRequested {
     required TResult Function(QueueDetailsModel updatedQueueDetails)
         submitEdits,
   }) {
-    return loadRequested(id);
+    return loadRequested(id, hash_code, checkCache);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -424,14 +451,14 @@ class _$_LoadRequested implements _LoadRequested {
     TResult Function()? cancelEdits,
     TResult Function(QueueDetailsModel updatedQueueDetails)? submitEdits,
   }) {
-    return loadRequested?.call(id);
+    return loadRequested?.call(id, hash_code, checkCache);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -443,7 +470,7 @@ class _$_LoadRequested implements _LoadRequested {
     required TResult orElse(),
   }) {
     if (loadRequested != null) {
-      return loadRequested(id);
+      return loadRequested(id, hash_code, checkCache);
     }
     return orElse();
   }
@@ -505,9 +532,14 @@ class _$_LoadRequested implements _LoadRequested {
 }
 
 abstract class _LoadRequested implements QueueDetailsEvent {
-  const factory _LoadRequested(int id) = _$_LoadRequested;
+  const factory _LoadRequested(
+      {required int id,
+      required int hash_code,
+      required bool checkCache}) = _$_LoadRequested;
 
   int get id;
+  int get hash_code;
+  bool get checkCache;
   @JsonKey(ignore: true)
   _$LoadRequestedCopyWith<_LoadRequested> get copyWith =>
       throw _privateConstructorUsedError;
@@ -555,7 +587,8 @@ class _$_InviteUser implements _InviteUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -573,7 +606,7 @@ class _$_InviteUser implements _InviteUser {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -590,7 +623,7 @@ class _$_InviteUser implements _InviteUser {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -709,7 +742,8 @@ class _$_FreezeQueue implements _FreezeQueue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -727,7 +761,7 @@ class _$_FreezeQueue implements _FreezeQueue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -744,7 +778,7 @@ class _$_FreezeQueue implements _FreezeQueue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -863,7 +897,8 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -881,7 +916,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -898,7 +933,7 @@ class _$_UnfreezeQueue implements _UnfreezeQueue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1017,7 +1052,8 @@ class _$_UpdateQueue implements _UpdateQueue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -1035,7 +1071,7 @@ class _$_UpdateQueue implements _UpdateQueue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1052,7 +1088,7 @@ class _$_UpdateQueue implements _UpdateQueue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1195,7 +1231,8 @@ class _$_AddProgress implements _AddProgress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -1213,7 +1250,7 @@ class _$_AddProgress implements _AddProgress {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1230,7 +1267,7 @@ class _$_AddProgress implements _AddProgress {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1353,7 +1390,8 @@ class _$_EditQueue implements _EditQueue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -1371,7 +1409,7 @@ class _$_EditQueue implements _EditQueue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1388,7 +1426,7 @@ class _$_EditQueue implements _EditQueue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1507,7 +1545,8 @@ class _$_CancelEdits implements _CancelEdits {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -1525,7 +1564,7 @@ class _$_CancelEdits implements _CancelEdits {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1542,7 +1581,7 @@ class _$_CancelEdits implements _CancelEdits {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1625,8 +1664,6 @@ abstract class _$SubmitEditsCopyWith<$Res> {
           _SubmitEdits value, $Res Function(_SubmitEdits) then) =
       __$SubmitEditsCopyWithImpl<$Res>;
   $Res call({QueueDetailsModel updatedQueueDetails});
-
-  $QueueDetailsModelCopyWith<$Res> get updatedQueueDetails;
 }
 
 /// @nodoc
@@ -1650,14 +1687,6 @@ class __$SubmitEditsCopyWithImpl<$Res>
           : updatedQueueDetails // ignore: cast_nullable_to_non_nullable
               as QueueDetailsModel,
     ));
-  }
-
-  @override
-  $QueueDetailsModelCopyWith<$Res> get updatedQueueDetails {
-    return $QueueDetailsModelCopyWith<$Res>(_value.updatedQueueDetails,
-        (value) {
-      return _then(_value.copyWith(updatedQueueDetails: value));
-    });
   }
 }
 
@@ -1696,7 +1725,8 @@ class _$_SubmitEdits implements _SubmitEdits {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() leaveQueue,
-    required TResult Function(int id) loadRequested,
+    required TResult Function(int id, int hash_code, bool checkCache)
+        loadRequested,
     required TResult Function() inviteUser,
     required TResult Function() freezeQueue,
     required TResult Function() unfreezeQueue,
@@ -1714,7 +1744,7 @@ class _$_SubmitEdits implements _SubmitEdits {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -1731,7 +1761,7 @@ class _$_SubmitEdits implements _SubmitEdits {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? leaveQueue,
-    TResult Function(int id)? loadRequested,
+    TResult Function(int id, int hash_code, bool checkCache)? loadRequested,
     TResult Function()? inviteUser,
     TResult Function()? freezeQueue,
     TResult Function()? unfreezeQueue,
@@ -2070,8 +2100,6 @@ abstract class _$QueueOpenedCopyWith<$Res> {
           _QueueOpened value, $Res Function(_QueueOpened) then) =
       __$QueueOpenedCopyWithImpl<$Res>;
   $Res call({QueueDetailsModel queueDetails, bool editable});
-
-  $QueueDetailsModelCopyWith<$Res> get queueDetails;
 }
 
 /// @nodoc
@@ -2100,13 +2128,6 @@ class __$QueueOpenedCopyWithImpl<$Res>
           : editable // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
-  }
-
-  @override
-  $QueueDetailsModelCopyWith<$Res> get queueDetails {
-    return $QueueDetailsModelCopyWith<$Res>(_value.queueDetails, (value) {
-      return _then(_value.copyWith(queueDetails: value));
-    });
   }
 }
 

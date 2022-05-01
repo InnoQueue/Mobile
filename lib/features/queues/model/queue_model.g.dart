@@ -11,6 +11,7 @@ _$_QueueModel _$$_QueueModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       name: json['name'] as String,
       color: json['color'] as String,
+      hash: json['hash_code'] as int,
     );
 
 Map<String, dynamic> _$$_QueueModelToJson(_$_QueueModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_QueueModelToJson(_$_QueueModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'color': instance.color,
+      'hash_code': instance.hash,
     };

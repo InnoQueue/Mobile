@@ -26,7 +26,7 @@ class _ParticipantTileState extends State<ParticipantTile> {
   @override
   void initState() {
     super.initState();
-    onDutyTile = widget.queueDetailsModel.crrentUser == widget.user;
+    onDutyTile = widget.queueDetailsModel.currentUser == widget.user;
   }
 
   @override
@@ -161,7 +161,7 @@ class _RegularTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       color: Theme.of(context).primaryColor,
-      height: 50,
+      height: 55,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),
         child: Row(

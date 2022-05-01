@@ -78,6 +78,9 @@ class _ShareButtonState extends State<_ShareButton> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           Text(
             queueDetails.name,
             style: const TextStyle(
@@ -116,6 +119,9 @@ class _ShareButtonState extends State<_ShareButton> {
               fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
+          ),
+          const SizedBox(
+            height: 20,
           ),
         ],
       ),

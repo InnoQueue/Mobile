@@ -32,7 +32,11 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     Emitter<QueueDetailsState> emit,
   ) async {
     emit(const QueueDetailsState.initial());
-    currentQueueDetails = await ApiQueuesService.getQueue(event.id);
+    currentQueueDetails = await ApiQueuesService.getQueue(
+      id: event.id,
+      hash: event.hash_code,
+      checkCache: event.checkCache,
+    );
     emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
   }
 
@@ -107,12 +111,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   ) async {
     emit(const QueueDetailsState.queueUpdating());
     await ApiTasksService.deleteTask(
-      task: TaskModel(
-        id: currentQueueDetails.id,
-        name: currentQueueDetails.name,
-        color: currentQueueDetails.color,
-        trackExpenses: currentQueueDetails.trackExpenses,
-      ),
+      taskId: currentQueueDetails.id,
       expenses: event.value,
     );
     await updateQueue(emit);
@@ -120,8 +119,11 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
 
   Future<void> updateQueue(Emitter<QueueDetailsState> emit) async {
     emit(const QueueDetailsState.queueUpdating());
-    QueueDetailsModel updatedQueueDetails =
-        await ApiQueuesService.getQueue(currentQueueDetails.id);
+    QueueDetailsModel updatedQueueDetails = await ApiQueuesService.getQueue(
+      id: currentQueueDetails.id,
+      hash: null,
+      checkCache: false,
+    );
     currentQueueDetails = updatedQueueDetails;
     emit(QueueDetailsState.queueOpened(updatedQueueDetails, false));
   }

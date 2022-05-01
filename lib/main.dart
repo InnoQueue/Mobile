@@ -1,24 +1,30 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inno_queue/const/themes.dart';
 import 'package:inno_queue/core/provider/language_provider.dart';
 import 'package:inno_queue/core/provider/theme_provider.dart';
-import 'package:inno_queue/features/queue_details/queue_detail_bloc/queue_details_bloc.dart';
+import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
+import 'package:inno_queue/shared/models/user/user_model.dart';
 import 'package:provider/provider.dart';
 
-import 'features/queues/bloc/queues_bloc.dart';
 import 'helpers/app_localizations.dart';
 import 'helpers/getit_service_locator.dart';
 import 'routes/app_router.dart';
 import 'shared/bloc/appbar/appbar_bloc.dart';
 
-void main() {
+void main() async {
   configureDependencies();
   getIt.registerSingleton<AppRouter>(AppRouter());
+  await Hive.initFlutter();
+  Hive.registerAdapter(QueueDetailsModelAdapter());
+  Hive.registerAdapter(UserModelAdapter());
   runApp(
     MultiProvider(
       providers: [

@@ -27,9 +27,11 @@ class _QueueTileState extends State<QueueTile> {
         context
             .read<AppBarBloc>()
             .add(RouteChangedEvent(widget.queueModel.name));
-        context
-            .read<QueueDetailsBloc>()
-            .add(QueueDetailsEvent.loadRequested(widget.queueModel.id));
+        context.read<QueueDetailsBloc>().add(QueueDetailsEvent.loadRequested(
+              id: widget.queueModel.id,
+              hash_code: widget.queueModel.hash,
+              checkCache: true,
+            ));
         getIt<AppRouter>().push(const QueueDetailsRoute());
       },
     );
