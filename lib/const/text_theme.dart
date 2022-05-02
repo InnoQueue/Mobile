@@ -40,7 +40,7 @@ extension CustomTextTheme on TextTheme {
 
   TextStyle tileNameTextStyle(bool? expanded) {
     return TextStyle(
-      fontSize: (expanded ?? false) ? 23 : 20,
+      fontSize: (expanded ?? false) ? 20 : 18,
     );
   }
 

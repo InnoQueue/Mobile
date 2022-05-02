@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppRes {
   static const String todoTasks = 'to-do tasks';
   static const String queues = 'queues';
@@ -16,12 +18,14 @@ class AppRes {
     },
     'page-2': {
       'title': 'How do I work with Todos?',
-      'text': "When a task is followed by a red dot to the left of it, it means the task is Urgent!",
+      'text':
+          "When a task is followed by a red dot to the left of it, it means the task is Urgent!",
       'img': "$imgPath/urgent.png",
     },
     'page-3': {
       'title': 'How do I work with Todos?',
-      'text': "The colored circle inside the task is just a color tag for your convenience.",
+      'text':
+          "The colored circle inside the task is just a color tag for your convenience.",
       'img': "$imgPath/color-tag.png",
     },
     'page-4': {
@@ -31,12 +35,14 @@ class AppRes {
     },
     'page-5': {
       'title': 'How do I work with Todos?',
-      'text': "Or you can mark them complete tapping the circle to the right side of the task.",
+      'text':
+          "Or you can mark them complete tapping the circle to the right side of the task.",
       'img': "$imgPath/complete.png",
     },
     'page-6': {
       'title': 'How do I work with Todos?',
-      'text': "You can select multiple todos holding your finger on one of the tasks.",
+      'text':
+          "You can select multiple todos holding your finger on one of the tasks.",
       'img': "$imgPath/multiple.png",
     },
     'page-7': {
@@ -68,4 +74,13 @@ class AppRes {
     1,
     0,
   ]);
+
+  static const inputDecoration = InputDecoration(
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+  );
 }

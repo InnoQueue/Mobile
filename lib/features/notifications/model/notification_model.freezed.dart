@@ -22,9 +22,19 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
 class _$NotificationModelTearOff {
   const _$NotificationModelTearOff();
 
-  _NotificationModel call({String? message, DateTime? timestamp}) {
+  _NotificationModel call(
+      {@JsonKey(name: 'message_type') required String msgType,
+      @JsonKey(name: 'participant_id') required int participantId,
+      @JsonKey(name: 'participant_name') required String participantName,
+      @JsonKey(name: 'queue_id') required int queueId,
+      @JsonKey(name: 'queue_name') required String queueName,
+      @JsonKey(name: 'timestamp') required DateTime timestamp}) {
     return _NotificationModel(
-      message: message,
+      msgType: msgType,
+      participantId: participantId,
+      participantName: participantName,
+      queueId: queueId,
+      queueName: queueName,
       timestamp: timestamp,
     );
   }
@@ -39,8 +49,18 @@ const $NotificationModel = _$NotificationModelTearOff();
 
 /// @nodoc
 mixin _$NotificationModel {
-  String? get message => throw _privateConstructorUsedError;
-  DateTime? get timestamp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message_type')
+  String get msgType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'participant_id')
+  int get participantId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'participant_name')
+  String get participantName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'queue_id')
+  int get queueId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'queue_name')
+  String get queueName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'timestamp')
+  DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +73,13 @@ abstract class $NotificationModelCopyWith<$Res> {
   factory $NotificationModelCopyWith(
           NotificationModel value, $Res Function(NotificationModel) then) =
       _$NotificationModelCopyWithImpl<$Res>;
-  $Res call({String? message, DateTime? timestamp});
+  $Res call(
+      {@JsonKey(name: 'message_type') String msgType,
+      @JsonKey(name: 'participant_id') int participantId,
+      @JsonKey(name: 'participant_name') String participantName,
+      @JsonKey(name: 'queue_id') int queueId,
+      @JsonKey(name: 'queue_name') String queueName,
+      @JsonKey(name: 'timestamp') DateTime timestamp});
 }
 
 /// @nodoc
@@ -67,18 +93,38 @@ class _$NotificationModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? message = freezed,
+    Object? msgType = freezed,
+    Object? participantId = freezed,
+    Object? participantName = freezed,
+    Object? queueId = freezed,
+    Object? queueName = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      message: message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+      msgType: msgType == freezed
+          ? _value.msgType
+          : msgType // ignore: cast_nullable_to_non_nullable
+              as String,
+      participantId: participantId == freezed
+          ? _value.participantId
+          : participantId // ignore: cast_nullable_to_non_nullable
+              as int,
+      participantName: participantName == freezed
+          ? _value.participantName
+          : participantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      queueId: queueId == freezed
+          ? _value.queueId
+          : queueId // ignore: cast_nullable_to_non_nullable
+              as int,
+      queueName: queueName == freezed
+          ? _value.queueName
+          : queueName // ignore: cast_nullable_to_non_nullable
+              as String,
       timestamp: timestamp == freezed
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -90,7 +136,13 @@ abstract class _$NotificationModelCopyWith<$Res>
           _NotificationModel value, $Res Function(_NotificationModel) then) =
       __$NotificationModelCopyWithImpl<$Res>;
   @override
-  $Res call({String? message, DateTime? timestamp});
+  $Res call(
+      {@JsonKey(name: 'message_type') String msgType,
+      @JsonKey(name: 'participant_id') int participantId,
+      @JsonKey(name: 'participant_name') String participantName,
+      @JsonKey(name: 'queue_id') int queueId,
+      @JsonKey(name: 'queue_name') String queueName,
+      @JsonKey(name: 'timestamp') DateTime timestamp});
 }
 
 /// @nodoc
@@ -106,18 +158,38 @@ class __$NotificationModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? message = freezed,
+    Object? msgType = freezed,
+    Object? participantId = freezed,
+    Object? participantName = freezed,
+    Object? queueId = freezed,
+    Object? queueName = freezed,
     Object? timestamp = freezed,
   }) {
     return _then(_NotificationModel(
-      message: message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+      msgType: msgType == freezed
+          ? _value.msgType
+          : msgType // ignore: cast_nullable_to_non_nullable
+              as String,
+      participantId: participantId == freezed
+          ? _value.participantId
+          : participantId // ignore: cast_nullable_to_non_nullable
+              as int,
+      participantName: participantName == freezed
+          ? _value.participantName
+          : participantName // ignore: cast_nullable_to_non_nullable
+              as String,
+      queueId: queueId == freezed
+          ? _value.queueId
+          : queueId // ignore: cast_nullable_to_non_nullable
+              as int,
+      queueName: queueName == freezed
+          ? _value.queueName
+          : queueName // ignore: cast_nullable_to_non_nullable
+              as String,
       timestamp: timestamp == freezed
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
     ));
   }
 }
@@ -126,19 +198,40 @@ class __$NotificationModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_NotificationModel extends _NotificationModel
     with DiagnosticableTreeMixin {
-  _$_NotificationModel({this.message, this.timestamp}) : super._();
+  _$_NotificationModel(
+      {@JsonKey(name: 'message_type') required this.msgType,
+      @JsonKey(name: 'participant_id') required this.participantId,
+      @JsonKey(name: 'participant_name') required this.participantName,
+      @JsonKey(name: 'queue_id') required this.queueId,
+      @JsonKey(name: 'queue_name') required this.queueName,
+      @JsonKey(name: 'timestamp') required this.timestamp})
+      : super._();
 
   factory _$_NotificationModel.fromJson(Map<String, dynamic> json) =>
       _$$_NotificationModelFromJson(json);
 
   @override
-  final String? message;
+  @JsonKey(name: 'message_type')
+  final String msgType;
   @override
-  final DateTime? timestamp;
+  @JsonKey(name: 'participant_id')
+  final int participantId;
+  @override
+  @JsonKey(name: 'participant_name')
+  final String participantName;
+  @override
+  @JsonKey(name: 'queue_id')
+  final int queueId;
+  @override
+  @JsonKey(name: 'queue_name')
+  final String queueName;
+  @override
+  @JsonKey(name: 'timestamp')
+  final DateTime timestamp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NotificationModel(message: $message, timestamp: $timestamp)';
+    return 'NotificationModel(msgType: $msgType, participantId: $participantId, participantName: $participantName, queueId: $queueId, queueName: $queueName, timestamp: $timestamp)';
   }
 
   @override
@@ -146,7 +239,11 @@ class _$_NotificationModel extends _NotificationModel
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'NotificationModel'))
-      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('msgType', msgType))
+      ..add(DiagnosticsProperty('participantId', participantId))
+      ..add(DiagnosticsProperty('participantName', participantName))
+      ..add(DiagnosticsProperty('queueId', queueId))
+      ..add(DiagnosticsProperty('queueName', queueName))
       ..add(DiagnosticsProperty('timestamp', timestamp));
   }
 
@@ -155,14 +252,24 @@ class _$_NotificationModel extends _NotificationModel
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NotificationModel &&
-            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.msgType, msgType) &&
+            const DeepCollectionEquality()
+                .equals(other.participantId, participantId) &&
+            const DeepCollectionEquality()
+                .equals(other.participantName, participantName) &&
+            const DeepCollectionEquality().equals(other.queueId, queueId) &&
+            const DeepCollectionEquality().equals(other.queueName, queueName) &&
             const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(msgType),
+      const DeepCollectionEquality().hash(participantId),
+      const DeepCollectionEquality().hash(participantName),
+      const DeepCollectionEquality().hash(queueId),
+      const DeepCollectionEquality().hash(queueName),
       const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
@@ -177,7 +284,13 @@ class _$_NotificationModel extends _NotificationModel
 }
 
 abstract class _NotificationModel extends NotificationModel {
-  factory _NotificationModel({String? message, DateTime? timestamp}) =
+  factory _NotificationModel(
+          {@JsonKey(name: 'message_type') required String msgType,
+          @JsonKey(name: 'participant_id') required int participantId,
+          @JsonKey(name: 'participant_name') required String participantName,
+          @JsonKey(name: 'queue_id') required int queueId,
+          @JsonKey(name: 'queue_name') required String queueName,
+          @JsonKey(name: 'timestamp') required DateTime timestamp}) =
       _$_NotificationModel;
   _NotificationModel._() : super._();
 
@@ -185,9 +298,23 @@ abstract class _NotificationModel extends NotificationModel {
       _$_NotificationModel.fromJson;
 
   @override
-  String? get message;
+  @JsonKey(name: 'message_type')
+  String get msgType;
   @override
-  DateTime? get timestamp;
+  @JsonKey(name: 'participant_id')
+  int get participantId;
+  @override
+  @JsonKey(name: 'participant_name')
+  String get participantName;
+  @override
+  @JsonKey(name: 'queue_id')
+  int get queueId;
+  @override
+  @JsonKey(name: 'queue_name')
+  String get queueName;
+  @override
+  @JsonKey(name: 'timestamp')
+  DateTime get timestamp;
   @override
   @JsonKey(ignore: true)
   _$NotificationModelCopyWith<_NotificationModel> get copyWith =>

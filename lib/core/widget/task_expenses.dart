@@ -1,5 +1,6 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
@@ -154,9 +155,8 @@ class _TaskExpensesTextFieldState extends State<_TaskExpensesTextField> {
       onChanged: (value) => widget.onChanged(value),
       keyboardType: TextInputType.number,
       controller: _textFieldController,
-      cursorColor: Colors.black,
-      cursorWidth: 1.5,
-      decoration: InputDecoration(
+      cursorColor: Colors.grey,
+      decoration: AppRes.inputDecoration.copyWith(
         hintText: AppLocalizations.of(context)!.translate('price') ?? "price",
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),

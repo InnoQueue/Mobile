@@ -5,5 +5,6 @@ class SettingsRes {
     "n3",
     "n4",
     "n5",
+    "n6",
   ];
 }

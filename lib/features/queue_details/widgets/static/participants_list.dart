@@ -3,7 +3,6 @@ import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import '../../../features.dart';
-import 'participant_tile.dart';
 
 class Participants extends StatelessWidget {
   final QueueDetailsModel queueDetailsModel;
@@ -49,29 +48,24 @@ class Participants extends StatelessWidget {
                         .translate('no queue participants') ??
                     '',
               )
-            : ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: queueDetailsModel.participants.length,
-                itemBuilder: (context, index) => ParticipantTile(
-                  user: queueDetailsModel.participants[index],
-                  queueDetailsModel: queueDetailsModel,
-                ),
-                separatorBuilder: (context, index) => Stack(
-                  children: [
-                    Divider(
+            : Container(
+                color: Theme.of(context).primaryColor,
+                child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: queueDetailsModel.participants.length,
+                  itemBuilder: (context, index) => ParticipantTile(
+                    user: queueDetailsModel.participants[index],
+                    queueDetailsModel: queueDetailsModel,
+                  ),
+                  separatorBuilder: (context, index) => const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: queueDetailsPadding),
+                    child: Divider(
                       height: 0.5,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.grey,
                     ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: queueDetailsPadding),
-                      child: Divider(
-                        height: 0.5,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
       ],

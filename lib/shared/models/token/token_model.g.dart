@@ -9,9 +9,11 @@ part of 'token_model.dart';
 _$_TokenModel _$$_TokenModelFromJson(Map<String, dynamic> json) =>
     _$_TokenModel(
       token: json['token'] as String,
+      userId: json['user_id'] as int,
     );
 
 Map<String, dynamic> _$$_TokenModelToJson(_$_TokenModel instance) =>
     <String, dynamic>{
       'token': instance.token,
+      'user_id': instance.userId,
     };

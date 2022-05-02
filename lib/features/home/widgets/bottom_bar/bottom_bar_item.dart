@@ -35,7 +35,7 @@ class _BottomBarItemState extends State<_BottomBarItem> {
       child: InkWell(
         child: Container(
           color: Theme.of(context).primaryColor,
-          height: 80,
+          height: 70,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -59,7 +59,7 @@ class _BottomBarItemState extends State<_BottomBarItem> {
                           ? Colors.white
                           : Colors.black)
                       : Colors.grey,
-                  fontSize: 15,
+                  fontSize: 13,
                 ),
               )
             ],

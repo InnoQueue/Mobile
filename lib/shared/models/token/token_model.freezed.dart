@@ -22,9 +22,12 @@ TokenModel _$TokenModelFromJson(Map<String, dynamic> json) {
 class _$TokenModelTearOff {
   const _$TokenModelTearOff();
 
-  _TokenModel call({@JsonKey(name: 'token') required String token}) {
+  _TokenModel call(
+      {@JsonKey(name: 'token') required String token,
+      @JsonKey(name: 'user_id') required int userId}) {
     return _TokenModel(
       token: token,
+      userId: userId,
     );
   }
 
@@ -40,6 +43,8 @@ const $TokenModel = _$TokenModelTearOff();
 mixin _$TokenModel {
   @JsonKey(name: 'token')
   String get token => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  int get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +57,9 @@ abstract class $TokenModelCopyWith<$Res> {
   factory $TokenModelCopyWith(
           TokenModel value, $Res Function(TokenModel) then) =
       _$TokenModelCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'token') String token});
+  $Res call(
+      {@JsonKey(name: 'token') String token,
+      @JsonKey(name: 'user_id') int userId});
 }
 
 /// @nodoc
@@ -66,12 +73,17 @@ class _$TokenModelCopyWithImpl<$Res> implements $TokenModelCopyWith<$Res> {
   @override
   $Res call({
     Object? token = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -82,7 +94,9 @@ abstract class _$TokenModelCopyWith<$Res> implements $TokenModelCopyWith<$Res> {
           _TokenModel value, $Res Function(_TokenModel) then) =
       __$TokenModelCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'token') String token});
+  $Res call(
+      {@JsonKey(name: 'token') String token,
+      @JsonKey(name: 'user_id') int userId});
 }
 
 /// @nodoc
@@ -98,12 +112,17 @@ class __$TokenModelCopyWithImpl<$Res> extends _$TokenModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? token = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_TokenModel(
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -111,7 +130,9 @@ class __$TokenModelCopyWithImpl<$Res> extends _$TokenModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TokenModel implements _TokenModel {
-  const _$_TokenModel({@JsonKey(name: 'token') required this.token});
+  const _$_TokenModel(
+      {@JsonKey(name: 'token') required this.token,
+      @JsonKey(name: 'user_id') required this.userId});
 
   factory _$_TokenModel.fromJson(Map<String, dynamic> json) =>
       _$$_TokenModelFromJson(json);
@@ -119,10 +140,13 @@ class _$_TokenModel implements _TokenModel {
   @override
   @JsonKey(name: 'token')
   final String token;
+  @override
+  @JsonKey(name: 'user_id')
+  final int userId;
 
   @override
   String toString() {
-    return 'TokenModel(token: $token)';
+    return 'TokenModel(token: $token, userId: $userId)';
   }
 
   @override
@@ -130,12 +154,15 @@ class _$_TokenModel implements _TokenModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TokenModel &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality().equals(other.token, token) &&
+            const DeepCollectionEquality().equals(other.userId, userId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(token),
+      const DeepCollectionEquality().hash(userId));
 
   @JsonKey(ignore: true)
   @override
@@ -149,8 +176,9 @@ class _$_TokenModel implements _TokenModel {
 }
 
 abstract class _TokenModel implements TokenModel {
-  const factory _TokenModel({@JsonKey(name: 'token') required String token}) =
-      _$_TokenModel;
+  const factory _TokenModel(
+      {@JsonKey(name: 'token') required String token,
+      @JsonKey(name: 'user_id') required int userId}) = _$_TokenModel;
 
   factory _TokenModel.fromJson(Map<String, dynamic> json) =
       _$_TokenModel.fromJson;
@@ -158,6 +186,9 @@ abstract class _TokenModel implements TokenModel {
   @override
   @JsonKey(name: 'token')
   String get token;
+  @override
+  @JsonKey(name: 'user_id')
+  int get userId;
   @override
   @JsonKey(ignore: true)
   _$TokenModelCopyWith<_TokenModel> get copyWith =>

@@ -1,4 +1,5 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
@@ -7,6 +8,7 @@ import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/shared/shared.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 part 'body.dart';
 part 'add_progress_button.dart';
@@ -23,6 +25,17 @@ class QueueDetailsPage extends StatefulWidget {
 class _QueueDetailsPageState extends State<QueueDetailsPage> {
   QueueDetailsModel? updatedQueueDetails;
   late QueueDetailsModel originalQueueDetails;
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh(QueueDetailsBloc bloc) async {
+    bloc.add(QueueDetailsEvent.loadRequested(
+      id: originalQueueDetails.id,
+      hash_code: originalQueueDetails.hashCode,
+      checkCache: false,
+    ));
+    _refreshController.refreshCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,67 +53,88 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
       );
       return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
         builder: (context, state) {
-          return state.when(
-            queueLeft: () => leaveAndLoad(context),
-            queueFreezed: () => leaveAndLoad(context),
-            queueUnfreezed: () => leaveAndLoad(context),
-            initial: () => Container(
-              color: Theme.of(context).primaryColorBrightness == Brightness.dark
-                  ? Colors.grey[900]
-                  : Colors.blueGrey[50],
-              child: const Center(
-                child: CustomCircularProgressIndicator(),
+          return NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overscroll) {
+              overscroll.disallowIndicator();
+              return true;
+            },
+            child: SmartRefresher(
+              enablePullDown: state.maybeWhen(
+                queueOpened: (_, _editable) => !_editable,
+                orElse: () => false,
               ),
-            ),
-            queueUpdating: () => Container(
-              color: Theme.of(context).primaryColorBrightness == Brightness.dark
-                  ? Colors.grey[900]
-                  : Colors.blueGrey[50],
-              child: const Center(
-                child: CustomCircularProgressIndicator(),
+              controller: _refreshController,
+              onRefresh: () => _onRefresh(context.read<QueueDetailsBloc>()),
+              header: const ClassicHeader(
+                completeDuration: Duration.zero,
+                completeText: '',
+                completeIcon: null,
               ),
-            ),
-            queueOpened: (queueDetails, editable) {
-              originalQueueDetails = queueDetails;
-              context
-                  .read<AppBarBloc>()
-                  .add(RouteChangedEvent(originalQueueDetails.name));
-              return WillPopScope(
-                child: GestureDetector(
-                  child: Container(
-                    color: Theme.of(context).primaryColorBrightness ==
-                            Brightness.dark
-                        ? Colors.grey[900]
-                        : Colors.blueGrey[50],
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                          bottom: 10,
-                        ),
-                        child: _Body(
-                          originalQueueDetails: queueDetails,
-                          updatedQueueDetails: updatedQueueDetails,
-                          editable: editable,
-                          updateColor: updateColor,
-                          updateName: updateName,
-                          removeParticipant: removeParticipant,
-                          updateTracker: updateTracker,
+              child: state.when(
+                queueLeft: () => leaveAndLoad(context),
+                queueFreezed: () => leaveAndLoad(context),
+                queueUnfreezed: () => leaveAndLoad(context),
+                initial: () => Container(
+                  color: Theme.of(context).primaryColorBrightness ==
+                          Brightness.dark
+                      ? Colors.grey[900]
+                      : Colors.blueGrey[50],
+                  child: const Center(
+                    child: CustomCircularProgressIndicator(),
+                  ),
+                ),
+                queueUpdating: () => Container(
+                  color: Theme.of(context).primaryColorBrightness ==
+                          Brightness.dark
+                      ? Colors.grey[900]
+                      : Colors.blueGrey[50],
+                  child: const Center(
+                    child: CustomCircularProgressIndicator(),
+                  ),
+                ),
+                queueOpened: (queueDetails, editable) {
+                  originalQueueDetails = queueDetails;
+                  context
+                      .read<AppBarBloc>()
+                      .add(RouteChangedEvent(originalQueueDetails.name));
+                  return WillPopScope(
+                    child: GestureDetector(
+                      child: Container(
+                        color: Theme.of(context).primaryColorBrightness ==
+                                Brightness.dark
+                            ? Colors.grey[900]
+                            : Colors.blueGrey[50],
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              bottom: 10,
+                            ),
+                            child: _Body(
+                              originalQueueDetails: queueDetails,
+                              updatedQueueDetails: updatedQueueDetails,
+                              editable: editable,
+                              updateColor: updateColor,
+                              updateName: updateName,
+                              removeParticipant: removeParticipant,
+                              updateTracker: updateTracker,
+                            ),
+                          ),
                         ),
                       ),
+                      onHorizontalDragUpdate: (details) {
+                        int sensitivity = 15;
+                        if (details.delta.dx > sensitivity) {
+                          context.router.pop();
+                        }
+                      },
                     ),
-                  ),
-                  onHorizontalDragUpdate: (details) {
-                    int sensitivity = 15;
-                    if (details.delta.dx > sensitivity) {
-                      context.router.pop();
-                    }
-                  },
-                ),
-                onWillPop: () =>
-                    _onWillPop(editable, updatedQueueDetails != null),
-              );
-            },
+                    onWillPop: () =>
+                        _onWillPop(editable, updatedQueueDetails != null),
+                  );
+                },
+              ),
+            ),
           );
         },
       );

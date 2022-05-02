@@ -114,8 +114,8 @@ class _ShareButtonState extends State<_ShareButton> {
               ),
               Image.asset(
                 'images/logo_outlined.png',
-                width: 95,
-                height: 95,
+                width: 70,
+                height: 70,
               ),
             ],
           ),

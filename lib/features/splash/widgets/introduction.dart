@@ -15,7 +15,9 @@ class IntroductionPage extends StatelessWidget {
           const TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: const TextStyle(fontSize: 19.0),
       bodyPadding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 16.0),
-      pageColor: Colors.blueGrey[50],
+      pageColor: Theme.of(context).primaryColorBrightness == Brightness.dark
+          ? Colors.grey[900]
+          : Colors.blueGrey[50],
       imagePadding: EdgeInsets.zero,
     );
 
@@ -24,7 +26,10 @@ class IntroductionPage extends StatelessWidget {
     }
 
     return IntroductionScreen(
-      globalBackgroundColor: Colors.blueGrey[50],
+      globalBackgroundColor:
+          Theme.of(context).primaryColorBrightness == Brightness.dark
+              ? Colors.grey[900]
+              : Colors.blueGrey[50],
       pages: [
         PageViewModel(
           title: AppRes.howToUse['page-1']!['title'],
@@ -99,14 +104,15 @@ class IntroductionPage extends StatelessWidget {
       back: const Icon(Icons.arrow_back),
       next: const Icon(Icons.arrow_forward),
       curve: Curves.fastLinearToSlowEaseIn,
-      controlsMargin: const EdgeInsets.all(16),
+      controlsMargin: const EdgeInsets.all(20),
       controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
       dotsDecorator: const DotsDecorator(
+        spacing: EdgeInsets.all(3),
         size: Size(8.0, 8.0),
         color: Color(0xFFBDBDBD),
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
         ),
       ),
     );

@@ -7,7 +7,6 @@ abstract class CacheService {
   static Future<bool> checkFirstLaunch() async {
     final prefs = await SharedPreferences.getInstance();
     final bool? isFirstLaunch = prefs.getBool('isFirstLaunch');
-    await prefs.setBool('isFirstLaunch', false);
     bool result = isFirstLaunch ?? true;
     if (result) {
       await removeOldToken();
@@ -40,5 +39,17 @@ abstract class CacheService {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     return token ?? "";
+  }
+
+  static Future<bool> setUserId(int id) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('user_id', id);
+    return true;
+  }
+
+  static Future<int> getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    int? id = prefs.getInt('user_id');
+    return id ?? -1;
   }
 }

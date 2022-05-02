@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/features/registration/page/registration_page.dart';
+import 'package:inno_queue/features/settings/page/language_settings_page.dart';
+import 'package:inno_queue/features/settings/page/notification_settings_page.dart';
+import 'package:inno_queue/features/settings/page/theme_settings_page.dart';
 import 'package:inno_queue/features/splash/page/splash_page.dart';
 import '../const/const.dart';
 import '../features/features.dart';
@@ -52,6 +55,21 @@ part 'app_router.gr.dart';
         CustomRoute(
           path: kQueueDetailsEndpoint,
           page: QueueDetailsPage,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+        ),
+        CustomRoute(
+          path: kNotificationSettingsEndpoint,
+          page: NotificationSettingsPage,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+        ),
+        CustomRoute(
+          path: kThemeSettingsEndpoint,
+          page: ThemeSettingsPage,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+        ),
+        CustomRoute(
+          path: kLangaugeSettingsEndpoint,
+          page: LanguageSettingsPage,
           transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
       ],

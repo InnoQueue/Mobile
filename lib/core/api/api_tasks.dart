@@ -49,7 +49,7 @@ class ApiTasks extends ApiBase {
       "expenses": null,
     };
     return ApiBase.dio.post(
-      "${ApiBase.baseUrl}/tasks/done",
+      "${ApiBase.baseUrl}/tasks/skip",
       options: Options(
         headers: {
           "user-token": token,
@@ -64,7 +64,6 @@ class ApiTasksService {
   static Future<List<TaskModel>> getTasks() async {
     final String token = await ApiBaseService.getToken();
     final response = await ApiTasks.getTasks(token);
-    print(response);
     List<TaskModel> tasks = [];
     for (int i = 0; i < response.data.length; i++) {
       tasks.add(TaskModel.fromJson(response.data[i]));

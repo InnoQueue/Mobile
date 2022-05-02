@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 
 class AppTextField extends StatelessWidget {
@@ -16,16 +17,10 @@ class AppTextField extends StatelessWidget {
     return TextField(
       cursorWidth: 2,
       controller: controller,
-      decoration: InputDecoration(
+      cursorColor: Colors.grey,
+      decoration: AppRes.inputDecoration.copyWith(
         hintText: AppLocalizations.of(context)!.translate('input name') ??
             'input name',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.grey, width: 2),
-        ),
       ),
     );
   }

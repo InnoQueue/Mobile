@@ -22,7 +22,7 @@ class UserModel {
   @JsonKey(name: 'user')
   String name;
   @HiveField(2)
-  double expenses;
+  double? expenses;
   @HiveField(3)
   @JsonKey(name: 'is_active')
   bool isActive;

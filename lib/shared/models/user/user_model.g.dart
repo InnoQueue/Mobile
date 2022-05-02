@@ -7,7 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 abstract class _$UserModelCWProxy {
-  UserModel expenses(double expenses);
+  UserModel expenses(double? expenses);
 
   UserModel id(int id);
 
@@ -36,7 +36,7 @@ class _$UserModelCWProxyImpl implements _$UserModelCWProxy {
   const _$UserModelCWProxyImpl(this._value);
 
   @override
-  UserModel expenses(double expenses) => this(expenses: expenses);
+  UserModel expenses(double? expenses) => this(expenses: expenses);
 
   @override
   UserModel id(int id) => this(id: id);
@@ -62,10 +62,10 @@ class _$UserModelCWProxyImpl implements _$UserModelCWProxy {
     Object? name = const $CopyWithPlaceholder(),
   }) {
     return UserModel(
-      expenses: expenses == const $CopyWithPlaceholder() || expenses == null
+      expenses: expenses == const $CopyWithPlaceholder()
           ? _value.expenses
           // ignore: cast_nullable_to_non_nullable
-          : expenses as double,
+          : expenses as double?,
       id: id == const $CopyWithPlaceholder() || id == null
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     return UserModel(
       id: fields[0] as int,
       name: fields[1] as String,
-      expenses: fields[2] as double,
+      expenses: fields[2] as double?,
       isActive: fields[3] as bool,
     );
   }
@@ -141,7 +141,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       id: json['user_id'] as int,
       name: json['user'] as String,
-      expenses: (json['expenses'] as num).toDouble(),
+      expenses: (json['expenses'] as num?)?.toDouble(),
       isActive: json['is_active'] as bool,
     );
 

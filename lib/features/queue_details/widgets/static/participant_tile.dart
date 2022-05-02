@@ -160,7 +160,6 @@ class _RegularTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      color: Theme.of(context).primaryColor,
       height: 55,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: queueDetailsPadding),

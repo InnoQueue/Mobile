@@ -7,6 +7,7 @@ part 'token_model.g.dart';
 class TokenModel with _$TokenModel {
   const factory TokenModel({
     @JsonKey(name: 'token') required String token,
+    @JsonKey(name: 'user_id') required int userId,
   }) = _TokenModel;
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>

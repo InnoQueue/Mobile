@@ -77,6 +77,30 @@ class _$AppRouter extends RootStackRouter {
           transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
           opaque: true,
           barrierDismissible: false);
+    },
+    NotificationSettingsRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const NotificationSettingsPage(),
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    ThemeSettingsRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const ThemeSettingsPage(),
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    LanguageSettingsRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const LanguageSettingsPage(),
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
@@ -95,7 +119,13 @@ class _$AppRouter extends RootStackRouter {
           RouteConfig(SettingsRoute.name,
               path: 'settings', parent: HomeRouter.name),
           RouteConfig(QueueDetailsRoute.name,
-              path: 'queue-details', parent: HomeRouter.name)
+              path: 'queue-details', parent: HomeRouter.name),
+          RouteConfig(NotificationSettingsRoute.name,
+              path: 'notification-settings', parent: HomeRouter.name),
+          RouteConfig(ThemeSettingsRoute.name,
+              path: 'theme-settings', parent: HomeRouter.name),
+          RouteConfig(LanguageSettingsRoute.name,
+              path: 'langage-settings', parent: HomeRouter.name)
         ])
       ];
 }
@@ -166,4 +196,31 @@ class QueueDetailsRoute extends PageRouteInfo<void> {
       : super(QueueDetailsRoute.name, path: 'queue-details');
 
   static const String name = 'QueueDetailsRoute';
+}
+
+/// generated route for
+/// [NotificationSettingsPage]
+class NotificationSettingsRoute extends PageRouteInfo<void> {
+  const NotificationSettingsRoute()
+      : super(NotificationSettingsRoute.name, path: 'notification-settings');
+
+  static const String name = 'NotificationSettingsRoute';
+}
+
+/// generated route for
+/// [ThemeSettingsPage]
+class ThemeSettingsRoute extends PageRouteInfo<void> {
+  const ThemeSettingsRoute()
+      : super(ThemeSettingsRoute.name, path: 'theme-settings');
+
+  static const String name = 'ThemeSettingsRoute';
+}
+
+/// generated route for
+/// [LanguageSettingsPage]
+class LanguageSettingsRoute extends PageRouteInfo<void> {
+  const LanguageSettingsRoute()
+      : super(LanguageSettingsRoute.name, path: 'langage-settings');
+
+  static const String name = 'LanguageSettingsRoute';
 }

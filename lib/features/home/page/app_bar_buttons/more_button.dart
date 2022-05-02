@@ -55,16 +55,23 @@ class _MoreButtonState extends State<_MoreButton> {
   }
 
   void _onSelected(String item) {
-    print(item);
     switch (item) {
       case 'invite user':
         _showQr();
         break;
       case 'delete queue':
+        _showDialog(
+            'Delete queue',
+            () => context
+                .read<QueueDetailsBloc>()
+                .add(const QueueDetailsEvent.leaveQueue()));
+        break;
       case 'leave queue':
-        context
-            .read<QueueDetailsBloc>()
-            .add(const QueueDetailsEvent.leaveQueue());
+        _showDialog(
+            'Leave queue',
+            () => context
+                .read<QueueDetailsBloc>()
+                .add(const QueueDetailsEvent.leaveQueue()));
         break;
       case 'freeze queue':
         context
@@ -94,6 +101,36 @@ class _MoreButtonState extends State<_MoreButton> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext _) {
         return InviteUserAlert(queueDetailsModel: currentQueueDetails);
+      },
+    );
+  }
+
+  Future<void> _showDialog(String title, Function action) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: Text('Are you sure, you want to ${title.toLowerCase()}'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                action();
+              },
+            ),
+          ],
+        );
       },
     );
   }

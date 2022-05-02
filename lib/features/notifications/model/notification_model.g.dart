@@ -8,15 +8,21 @@ part of 'notification_model.dart';
 
 _$_NotificationModel _$$_NotificationModelFromJson(Map<String, dynamic> json) =>
     _$_NotificationModel(
-      message: json['message'] as String?,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      msgType: json['message_type'] as String,
+      participantId: json['participant_id'] as int,
+      participantName: json['participant_name'] as String,
+      queueId: json['queue_id'] as int,
+      queueName: json['queue_name'] as String,
+      timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$$_NotificationModelToJson(
         _$_NotificationModel instance) =>
     <String, dynamic>{
-      'message': instance.message,
-      'timestamp': instance.timestamp?.toIso8601String(),
+      'message_type': instance.msgType,
+      'participant_id': instance.participantId,
+      'participant_name': instance.participantName,
+      'queue_id': instance.queueId,
+      'queue_name': instance.queueName,
+      'timestamp': instance.timestamp.toIso8601String(),
     };

@@ -1,6 +1,8 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
+import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/core/utils/cache_service.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
 import 'package:inno_queue/features/notifications/widget/notifications_view.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
@@ -14,11 +16,13 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage> {
   late Future<Pair<List<NotificationModel>, List<NotificationModel>>> future;
+  late Future<int> futureUserId;
 
   @override
   void initState() {
     super.initState();
     future = ApiNotificationsService.getNotifications();
+    futureUserId = CacheService.getUserId();
   }
 
   @override
@@ -27,26 +31,53 @@ class _NotificationsPageState extends State<NotificationsPage> {
       child: FutureBuilder(
         future: future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) return const SizedBox.shrink();
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CustomCircularProgressIndicator(),
+            );
+          }
           var notifications = snapshot.data;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(height: 16),
-                  NotificationsView(
-                      AppLocalizations.of(context)!.translate("unread") ??
-                          "unread",
-                      notifications.first),
-                  const SizedBox(height: 16),
-                  NotificationsView(
-                      AppLocalizations.of(context)!.translate("all") ?? "all",
-                      notifications.last),
-                ],
-              ),
-            ),
-          );
+          return FutureBuilder(
+              future: futureUserId,
+              builder: (context, AsyncSnapshot userIdSnapshot) {
+                if (!userIdSnapshot.hasData) {
+                  return const Center(
+                    child: CustomCircularProgressIndicator(),
+                  );
+                }
+                var userId = userIdSnapshot.data;
+                return SafeArea(
+                  minimum: const EdgeInsets.all(10),
+                  child: NotificationListener<OverscrollIndicatorNotification>(
+                    onNotification: (overscroll) {
+                      overscroll.disallowIndicator();
+                      return true;
+                    },
+                    child: Scrollbar(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            NotificationsView(
+                              notificationsType: AppLocalizations.of(context)!
+                                      .translate("unread") ??
+                                  "unread",
+                              notifications: notifications.first,
+                              userId: userId,
+                            ),
+                            NotificationsView(
+                              notificationsType: AppLocalizations.of(context)!
+                                      .translate("all") ??
+                                  "all",
+                              notifications: notifications.last,
+                              userId: userId,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              });
         },
       ),
     );

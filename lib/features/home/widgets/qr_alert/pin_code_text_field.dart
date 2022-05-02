@@ -28,6 +28,7 @@ class _PinCodeTextFieldState extends State<_PinCodeTextField> {
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
+      keyboardType: TextInputType.number,
       appContext: context,
       length: 6,
       animationType: AnimationType.fade,

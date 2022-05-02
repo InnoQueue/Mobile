@@ -69,7 +69,7 @@ class _BodyState extends State<_Body> {
         Expanded(
           child: Text(
             widget.name,
-            style: const TextStyle(fontSize: 20),
+            style: Theme.of(context).textTheme.tileNameTextStyle(false),
             overflow: TextOverflow.ellipsis,
           ),
         ),

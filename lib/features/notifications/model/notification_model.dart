@@ -8,8 +8,15 @@ part 'notification_model.g.dart';
 class NotificationModel with _$NotificationModel {
   const NotificationModel._(); // Added constructor
 
-  factory NotificationModel({String? message, DateTime? timestamp}) =
-      _NotificationModel;
+  factory NotificationModel({
+    @JsonKey(name: 'message_type') required String msgType,
+    @JsonKey(name: 'participant_id') required int participantId,
+    @JsonKey(name: 'participant_name') required String participantName,
+    @JsonKey(name: 'queue_id') required int queueId,
+    @JsonKey(name: 'queue_name') required String queueName,
+    @JsonKey(name: 'timestamp') required DateTime timestamp,
+  }) = _NotificationModel;
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);
+  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$NotificationModelFromJson(json);
 }

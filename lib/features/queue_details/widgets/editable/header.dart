@@ -149,14 +149,14 @@ class _TextFieldState extends State<_TextField> {
         fontSize: 20,
         fontWeight: FontWeight.w400,
       ),
-      cursorColor: Colors.black,
+      cursorColor: Colors.grey,
       cursorWidth: 1.5,
-      decoration: const InputDecoration(
+      decoration: AppRes.inputDecoration.copyWith(
         hintText: "Queue name",
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
         ),
       ),
