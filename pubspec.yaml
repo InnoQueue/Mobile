@@ -63,6 +63,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  firebase_core: ^1.15.0
+  firebase_messaging: ^11.2.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

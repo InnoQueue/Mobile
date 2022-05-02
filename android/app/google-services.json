@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1085125156884",
+    "project_id": "innoqueue",
+    "storage_bucket": "innoqueue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085125156884:android:40587358523d1f587d0701",
+        "android_client_info": {
+          "package_name": "com.example.inno_queue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085125156884-m6ha4r1dndls5qsfeng12nt7g1t9vnkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiKumajU59IQtRBJcpm8vzvnYDpujCZEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085125156884-m6ha4r1dndls5qsfeng12nt7g1t9vnkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
