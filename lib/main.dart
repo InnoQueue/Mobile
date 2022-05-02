@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -91,9 +92,7 @@ class _MyAppState extends State<MyApp> {
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
               ],
-              locale: languageProvider.currentLanguage != 'system'
-                  ? languageProvider.locale
-                  : null,
+              locale: languageProvider.currentLanguage != 'system' ? languageProvider.locale : null,
               localeResolutionCallback: (locale, supportedLocales) {
                 for (var supportedLocale in supportedLocales) {
                   if (supportedLocale.languageCode == locale!.languageCode &&
@@ -108,5 +107,35 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    _initPushNotifications();
+    super.initState();
+  }
+
+  void _initPushNotifications() async {
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+    _fcm.requestPermission();
+
+    String? fcmToken = await _fcm.getToken();
+    print("==== FCM TOKEN ====");
+    print(fcmToken);
+    print("===================");
+
+    // FirebaseMessaging.onBackgroundMessage((RemoteMessage? msg) async {
+    //   print("new message in background: ${msg?.data}");
+    //   if (msg?.notification != null) {
+    //     print("also notification!");
+    //   }
+    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
+      print("new msg.data: ${msg.data}");
+      if (msg.notification != null) {
+        print("also notification: ${msg.notification}!");
+      }
+    });
   }
 }
