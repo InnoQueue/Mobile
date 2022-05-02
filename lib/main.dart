@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -27,6 +28,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(QueueDetailsModelAdapter());
   Hive.registerAdapter(UserModelAdapter());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MultiProvider(
       providers: [

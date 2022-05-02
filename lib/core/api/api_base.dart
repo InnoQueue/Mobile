@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
 import 'package:inno_queue/shared/models/token/token_model.dart';
@@ -10,9 +11,10 @@ class ApiBase {
   static final Dio dio = Dio();
   static const String baseUrl = 'https://innoqueue.herokuapp.com';
 
-  static Future<String> getToken(String name) async {
+  static Future<String> getToken(String name, String fcmToken) async {
     var params = {
       "user_name": name,
+      "fcm_token": fcmToken,
     };
     var data = (await ApiBase.dio.post(
       "${ApiBase.baseUrl}/user/signup",
@@ -25,13 +27,12 @@ class ApiBase {
 }
 
 class ApiBaseService {
-  // todo : add caching for token on first start
   static Future<String> getToken({String? name}) async {
     String token = "";
     bool tokenPresent = await CacheService.checkToken();
     if (!tokenPresent) {
-      print('NAAAAAAAAAAAME ' + (name ?? ""));
-      token = await ApiBase.getToken(name ?? "");
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      token = await ApiBase.getToken(name ?? "", fcmToken ?? "");
       CacheService.setToken(token);
     } else {
       token = await CacheService.getToken();
