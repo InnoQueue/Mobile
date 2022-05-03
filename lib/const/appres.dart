@@ -31,7 +31,7 @@ class AppRes {
     {
       'title': 'How do I use Queues?',
       'text': "😳 To register progress press the Add Progress button and the system will recognize your contribution.\n\n"
-          "😇 Even if it's not your turn, the app will count it and skip you the next time it is your turn.",
+          "😇 Even if it's not your turn, the app will count it and skip you the next time it is your turn.\n",
       'img': "$imgPath/add-progress.png",
     },
     {
