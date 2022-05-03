@@ -21,7 +21,7 @@ class AppRes {
           "Here's how it works:\n\n"
           "👉 You create a Queue.\n"
           "👉 You invite your friends.\n"
-          "👉 The app will do the rest for you!\t",
+          "👉 The app will do the rest for you!",
     },
     {
       'title': "Queues are circular",
@@ -32,7 +32,7 @@ class AppRes {
       'title': 'How do I use Queues?',
       'text': "😳 To register progress press the Add Progress button and the system will recognize your contribution.\n\n"
           "😇 Even if it's not your turn, the app will count it and skip you the next time it is your turn.",
-      'img': "$imgPath/complete.png",
+      'img': "$imgPath/add-progress.png",
     },
     {
       'title': 'How do I use Queues?',

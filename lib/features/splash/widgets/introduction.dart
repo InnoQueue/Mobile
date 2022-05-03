@@ -2,7 +2,6 @@ import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:scroll_shadow_container/scroll_shadow_container.dart';
 
 class IntroductionPage extends StatelessWidget {
   const IntroductionPage({Key? key}) : super(key: key);
