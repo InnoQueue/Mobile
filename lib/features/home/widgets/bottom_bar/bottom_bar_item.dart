@@ -44,7 +44,6 @@ class _BottomBarItemState extends State<_BottomBarItem>
     _active = widget.active;
 
     FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
-      print('lol');
       setState(() {
         if (msg.notification != null) {
           showNotification = true;
