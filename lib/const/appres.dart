@@ -24,8 +24,8 @@ class AppRes {
           "👉 The app will do the rest for you!\t",
     },
     {
-      'title': "Queues are circular ↻",
-      'text': "Meaning, each person in the Queue will do the chores one by one and after that the Queue starts over.",
+      'title': "Queues are circular",
+      'text': "↻ Meaning, each person in the Queue will do the chores one by one and after that the Queue starts over.",
       'img': '$imgPath/queue-flow.png',
     },
     {

@@ -60,7 +60,7 @@ class IntroductionPage extends StatelessWidget {
                       ? Image.asset(AppRes.howToUse[i]['img']!)
                       : const SizedBox.shrink()),
                   (AppRes.howToUse[i]['icon'] != null
-                      ? Icon(AppRes.howToUse[i]['icon'], color: Colors.blueGrey[900], size: 64)
+                      ? Icon(AppRes.howToUse[i]['icon'], color: oppositeColor, size: 64)
                       : const SizedBox.shrink()),
                 ],
               )),
