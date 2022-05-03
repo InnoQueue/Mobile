@@ -69,8 +69,6 @@ dependencies:
   firebase_analytics: 9.1.1
   firebase_analytics_web: ^0.4.0+7
 
-  scroll_shadow_container:
-
 dependency_overrides:
   firebase_messaging_platform_interface: 3.1.6
 
