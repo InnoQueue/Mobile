@@ -1,3 +1,5 @@
+[![Hits-of-Code](https://hitsofcode.com/github/InnoQueue/Mobile?branch=main)](https://hitsofcode.com/github/InnoQueue/Mobile/view?branch=main)
+
 # Cross-platform Mobile Development with Flutter S22 elective.
 
 > Semester 6, 3rd study-year, Innopolis University.
