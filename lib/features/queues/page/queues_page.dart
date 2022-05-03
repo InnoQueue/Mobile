@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/core/widget/updatable_page.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../bloc/queues_bloc.dart';
@@ -17,18 +18,11 @@ class QueuesPage extends StatefulWidget {
 class _QueuesPageState extends State<QueuesPage> {
   int? _groupValue = 0;
   Map<int, Widget>? _tabs;
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
     super.initState();
     context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
-  }
-
-  void _onRefresh(QueuesBloc bloc) async {
-    bloc.add(const QueuesEvent.loadRequested());
-    _refreshController.refreshCompleted();
   }
 
   @override
@@ -43,31 +37,34 @@ class _QueuesPageState extends State<QueuesPage> {
     };
     return BlocBuilder<QueuesBloc, QueuesState>(
       builder: (context, state) {
-        return NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (overscroll) {
-            overscroll.disallowIndicator();
-            return true;
+        return UpdatablePage(
+          enablePullDown: state.maybeWhen(
+            dataLoaded: (_, __) => true,
+            orElse: () => false,
+          ),
+          onRefresh: () {
+            context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
           },
-          child: SmartRefresher(
-            enablePullDown: state.maybeWhen(
-              dataLoaded: (_, __) => true,
-              orElse: () => false,
-            ),
-            controller: _refreshController,
-            onRefresh: () => _onRefresh(context.read<QueuesBloc>()),
-            header: const ClassicHeader(
-              completeDuration: Duration.zero,
-              completeText: '',
-              completeIcon: null,
-            ),
-            child: state.when(
-              initial: () {
-                return const Center(
+          refreshDone: !context.read<QueuesBloc>().loading,
+          child: state.when(
+            initial: () {
+              return Container(
+                color:
+                    Theme.of(context).primaryColorBrightness == Brightness.dark
+                        ? Colors.grey[900]
+                        : Colors.blueGrey[50],
+                child: const Center(
                   child: CustomCircularProgressIndicator(),
-                );
-              },
-              dataLoaded: (active, frozen) {
-                return SafeArea(
+                ),
+              );
+            },
+            dataLoaded: (active, frozen) {
+              return Container(
+                color:
+                    Theme.of(context).primaryColorBrightness == Brightness.dark
+                        ? Colors.grey[900]
+                        : Colors.blueGrey[50],
+                child: SafeArea(
                     child: Container(
                   alignment: Alignment.topCenter,
                   padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
@@ -105,9 +102,9 @@ class _QueuesPageState extends State<QueuesPage> {
                       )
                     ],
                   ),
-                ));
-              },
-            ),
+                )),
+              );
+            },
           ),
         );
       },

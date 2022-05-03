@@ -2,14 +2,16 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
-import 'package:inno_queue/features/tasks/model/task_model.dart';
 
+import 'package:inno_queue/features/tasks/model/task_model.dart';
 part 'tasks_bloc.freezed.dart';
 part 'tasks_event.dart';
 part 'tasks_state.dart';
 
 @Injectable()
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
+  List<TaskModel>? cachedTasks;
+  bool loading = false;
   TasksBloc() : super(const _Initial()) {
     on<_LoadRequested>(_loadRequested);
   }
@@ -18,12 +20,19 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     _LoadRequested event,
     Emitter<TasksState> emit,
   ) async {
-    emit(const TasksState.initial());
+    loading = true;
+    if (cachedTasks == null) {
+      emit(const TasksState.initial());
+    } else {
+      emit(TasksState.dataLoaded(cachedTasks!));
+    }
     emit(await _loadData());
+    loading = false;
   }
 
   Future<TasksState> _loadData() async {
     List<TaskModel> tasks = await ApiTasksService.getTasks();
+    cachedTasks = tasks;
     return TasksState.dataLoaded(tasks);
   }
 }

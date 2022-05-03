@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:inno_queue/features/home/widgets/share_button.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -42,10 +43,18 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(
-          (AppLocalizations.of(context)!.translate('scan the qr code for') ??
-                  'Scan the QR code for') +
-              '\n${widget.queueDetailsModel.name}:'),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Text((AppLocalizations.of(context)!
+                        .translate('scan the qr code for') ??
+                    'Scan the QR code for') +
+                '\n${widget.queueDetailsModel.name}:'),
+          ),
+          const ShareButton(),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

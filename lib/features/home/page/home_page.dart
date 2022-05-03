@@ -4,24 +4,16 @@ import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/home/widgets/invite_user_alert.dart';
 import 'package:inno_queue/features/home/widgets/widgets.dart';
-import 'package:inno_queue/features/registration/page/registration_page.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
-import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../../const/const.dart';
 
 import '../../features.dart';
@@ -31,7 +23,6 @@ part 'app_bar_buttons/add_button.dart';
 part 'app_bar_buttons/animated_button.dart';
 part 'app_bar_buttons/qr_button.dart';
 part 'app_bar_buttons/more_button.dart';
-part 'app_bar_buttons/share_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -200,7 +191,6 @@ class _HomePageState extends State<HomePage> {
           ]
         : [
             if (routeName == QueuesRoute.name) const _QrButton(),
-            if (routeName == QueueDetailsRoute.name) const _ShareButton(),
             if (routeName == QueueDetailsRoute.name) const _MoreButton(),
           ];
   }

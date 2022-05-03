@@ -202,20 +202,6 @@ class ApiQueuesService {
   }) async {
     String name = "queue" + id.toString();
 
-    Future<QueueDetailsModel> queueRequest() async {
-      final String token = await ApiBaseService.getToken();
-      final data = (await ApiQueues.getQueue(token, id: id)).data;
-
-      QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(data);
-
-      var queueBox = await Hive.openBox(name);
-      queueBox.deleteAll(queueBox.keys);
-      queueBox.put(hash ?? queueDetails.hash, queueDetails);
-
-      print('added to cache');
-      return QueueDetailsModel.fromJson(data);
-    }
-
     if (checkCache) {
       var queueBox = await Hive.openBox(name);
       if (queueBox.length != 0) {
@@ -226,7 +212,17 @@ class ApiQueuesService {
       }
     }
 
-    return queueRequest();
+    final String token = await ApiBaseService.getToken();
+    final data = (await ApiQueues.getQueue(token, id: id)).data;
+
+    QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(data);
+
+    var queueBox = await Hive.openBox(name);
+    queueBox.deleteAll(queueBox.keys);
+    queueBox.put(hash ?? queueDetails.hash, queueDetails);
+
+    print('added to cache');
+    return QueueDetailsModel.fromJson(data);
   }
 
   static Future<void> addQueue({

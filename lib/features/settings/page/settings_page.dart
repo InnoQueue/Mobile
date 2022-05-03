@@ -89,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 24,
                 ),
                 Container(
-                  color: Theme.of(context).primaryColor.withOpacity(0.5),
+                  color: Theme.of(context).primaryColor,
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {

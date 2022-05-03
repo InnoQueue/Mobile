@@ -35,38 +35,41 @@ part 'app_router.gr.dart';
         CustomRoute(
           path: '',
           page: TasksPage,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
         ),
         CustomRoute(
           path: kQueuesEndpoint,
           page: QueuesPage,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
         ),
         CustomRoute(
-          path: kNotificationsEndpoint,
-          page: NotificationsPage,
-        ),
+            path: kNotificationsEndpoint,
+            page: NotificationsPage,
+            transitionsBuilder: TransitionsBuilders.fadeIn),
         CustomRoute(
           path: kSettingsEndpoint,
           page: SettingsPage,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
         ),
         CustomRoute(
           path: kQueueDetailsEndpoint,
           page: QueueDetailsPage,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
         CustomRoute(
           path: kNotificationSettingsEndpoint,
           page: NotificationSettingsPage,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
         CustomRoute(
           path: kThemeSettingsEndpoint,
           page: ThemeSettingsPage,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
         CustomRoute(
           path: kLangaugeSettingsEndpoint,
           page: LanguageSettingsPage,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         ),
       ],
     ),

@@ -14,6 +14,7 @@ part 'queue_details_state.dart';
 @Injectable()
 class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   late QueueDetailsModel currentQueueDetails;
+  bool loading = false;
 
   QueueDetailsBloc() : super(const _Initial()) {
     on<_LeaveQueue>(_leaveRequested);
@@ -84,7 +85,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _SubmitEdits event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(const QueueDetailsState.queueUpdating());
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
     await ApiQueuesService.updateQueue(
       queueDetails: event.updatedQueueDetails,
     );
@@ -109,7 +110,7 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     _AddProgress event,
     Emitter<QueueDetailsState> emit,
   ) async {
-    emit(const QueueDetailsState.queueUpdating());
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
     await ApiTasksService.deleteTask(
       taskId: currentQueueDetails.id,
       expenses: event.value,
@@ -118,7 +119,8 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   }
 
   Future<void> updateQueue(Emitter<QueueDetailsState> emit) async {
-    emit(const QueueDetailsState.queueUpdating());
+    loading = true;
+    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
     QueueDetailsModel updatedQueueDetails = await ApiQueuesService.getQueue(
       id: currentQueueDetails.id,
       hash: null,
@@ -126,5 +128,6 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     );
     currentQueueDetails = updatedQueueDetails;
     emit(QueueDetailsState.queueOpened(updatedQueueDetails, false));
+    loading = false;
   }
 }

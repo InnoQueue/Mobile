@@ -24,11 +24,10 @@ class _Body extends StatefulWidget {
 }
 
 class __BodyState extends State<_Body> {
-  late var currentQueueDetails =
-      widget.updatedQueueDetails ?? widget.originalQueueDetails;
-
   @override
   Widget build(BuildContext context) {
+    var currentQueueDetails =
+        widget.updatedQueueDetails ?? widget.originalQueueDetails;
     return !(widget.originalQueueDetails.participants.isEmpty &&
             !widget.editable)
         ? NotificationListener<OverscrollIndicatorNotification>(

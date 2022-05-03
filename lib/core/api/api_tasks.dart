@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
+import 'package:inno_queue/helpers/getit_service_locator.dart';
 
 import 'api_base.dart';
 
@@ -68,6 +69,7 @@ class ApiTasksService {
     for (int i = 0; i < response.data.length; i++) {
       tasks.add(TaskModel.fromJson(response.data[i]));
     }
+
     return tasks;
   }
 

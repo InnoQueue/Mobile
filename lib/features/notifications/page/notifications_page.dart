@@ -1,12 +1,17 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
+import 'package:inno_queue/core/widget/updatable_page.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
+import 'package:inno_queue/features/notifications/notifications_bloc/notifications_bloc.dart';
 import 'package:inno_queue/features/notifications/widget/notifications_view.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:provider/src/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -22,13 +27,17 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   void initState() {
     super.initState();
-    future = ApiNotificationsService.getNotifications();
+    context
+        .read<NotificationsBloc>()
+        .add(const NotificationsEvent.loadRequested());
     futureUserId = CacheService.getUserId();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
       if (mounted) {
         setState(() {
-          future = ApiNotificationsService.getNotifications();
+          context
+              .read<NotificationsBloc>()
+              .add(const NotificationsEvent.loadRequested());
           futureUserId = CacheService.getUserId();
           print("new msg.data: ${msg.data}");
           if (msg.notification != null) {
@@ -42,27 +51,37 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder(
-        future: future,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CustomCircularProgressIndicator(),
-            );
-          }
-          var notifications = snapshot.data;
-          return FutureBuilder(
-              future: futureUserId,
-              builder: (context, AsyncSnapshot userIdSnapshot) {
-                if (!userIdSnapshot.hasData) {
-                  return const Center(
+      minimum: const EdgeInsets.all(10),
+      child: Container(
+        color: Theme.of(context).primaryColorBrightness == Brightness.dark
+            ? Colors.grey[900]
+            : Colors.blueGrey[50],
+        child: FutureBuilder(
+          future: futureUserId,
+          builder: (context, AsyncSnapshot userIdSnapshot) {
+            if (!userIdSnapshot.hasData) {
+              return Wrap();
+            }
+            var userId = userIdSnapshot.data;
+            return BlocBuilder<NotificationsBloc, NotificationsState>(
+                builder: (context, state) {
+              return UpdatablePage(
+                enablePullDown: state.maybeWhen(
+                  dataLoaded: (_, __) => true,
+                  orElse: () => false,
+                ),
+                onRefresh: () {
+                  context
+                      .read<NotificationsBloc>()
+                      .add(const NotificationsEvent.loadRequested());
+                },
+                refreshDone: !context.read<NotificationsBloc>().loading,
+                child: state.when(
+                  initial: () => const Center(
                     child: CustomCircularProgressIndicator(),
-                  );
-                }
-                var userId = userIdSnapshot.data;
-                return SafeArea(
-                  minimum: const EdgeInsets.all(10),
-                  child: NotificationListener<OverscrollIndicatorNotification>(
+                  ),
+                  dataLoaded: (unreadNotifications, allNotifications) =>
+                      NotificationListener<OverscrollIndicatorNotification>(
                     onNotification: (overscroll) {
                       overscroll.disallowIndicator();
                       return true;
@@ -75,14 +94,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
                               notificationsType: AppLocalizations.of(context)!
                                       .translate("unread") ??
                                   "unread",
-                              notifications: notifications.first,
+                              notifications: unreadNotifications,
                               userId: userId,
                             ),
                             NotificationsView(
                               notificationsType: AppLocalizations.of(context)!
                                       .translate("all") ??
                                   "all",
-                              notifications: notifications.last,
+                              notifications: allNotifications,
                               userId: userId,
                             ),
                           ],
@@ -90,9 +109,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       ),
                     ),
                   ),
-                );
-              });
-        },
+                ),
+              );
+            });
+          },
+        ),
       ),
     );
   }

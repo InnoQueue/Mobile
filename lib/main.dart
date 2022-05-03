@@ -16,6 +16,7 @@ import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart'
 import 'package:inno_queue/shared/models/user/user_model.dart';
 import 'package:provider/provider.dart';
 
+import 'features/notifications/notifications_bloc/notifications_bloc.dart';
 import 'helpers/app_localizations.dart';
 import 'helpers/getit_service_locator.dart';
 import 'routes/app_router.dart';
@@ -62,7 +63,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => getIt.get<TasksBloc>()),
         BlocProvider(create: (_) => getIt.get<QueuesBloc>()),
+        BlocProvider(create: (_) => getIt.get<NotificationsBloc>()),
         BlocProvider(create: (_) => getIt.get<QueueDetailsBloc>()),
         BlocProvider(create: (_) => getIt.get<AppBarBloc>()),
         BlocProvider(create: (_) => getIt.get<SelectTasksBloc>()),

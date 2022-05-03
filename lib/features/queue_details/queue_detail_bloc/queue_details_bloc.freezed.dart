@@ -1863,10 +1863,6 @@ class _$QueueDetailsStateTearOff {
     return const _QueueLeft();
   }
 
-  _QueueUpdating queueUpdating() {
-    return const _QueueUpdating();
-  }
-
   _QueueFreezed queueFreezed() {
     return const _QueueFreezed();
   }
@@ -1887,7 +1883,6 @@ mixin _$QueueDetailsState {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) =>
@@ -1898,7 +1893,6 @@ mixin _$QueueDetailsState {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) =>
@@ -1909,7 +1903,6 @@ mixin _$QueueDetailsState {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -1920,7 +1913,6 @@ mixin _$QueueDetailsState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) =>
@@ -1930,7 +1922,6 @@ mixin _$QueueDetailsState {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) =>
@@ -1940,7 +1931,6 @@ mixin _$QueueDetailsState {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
@@ -2007,7 +1997,6 @@ class _$_Initial implements _Initial {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) {
@@ -2021,7 +2010,6 @@ class _$_Initial implements _Initial {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) {
@@ -2035,7 +2023,6 @@ class _$_Initial implements _Initial {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -2052,7 +2039,6 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) {
@@ -2065,7 +2051,6 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) {
@@ -2078,7 +2063,6 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
@@ -2174,7 +2158,6 @@ class _$_QueueOpened implements _QueueOpened {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) {
@@ -2188,7 +2171,6 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) {
@@ -2202,7 +2184,6 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -2219,7 +2200,6 @@ class _$_QueueOpened implements _QueueOpened {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) {
@@ -2232,7 +2212,6 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) {
@@ -2245,7 +2224,6 @@ class _$_QueueOpened implements _QueueOpened {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
@@ -2312,7 +2290,6 @@ class _$_QueueLeft implements _QueueLeft {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) {
@@ -2326,7 +2303,6 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) {
@@ -2340,7 +2316,6 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -2357,7 +2332,6 @@ class _$_QueueLeft implements _QueueLeft {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) {
@@ -2370,7 +2344,6 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) {
@@ -2383,7 +2356,6 @@ class _$_QueueLeft implements _QueueLeft {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
@@ -2397,138 +2369,6 @@ class _$_QueueLeft implements _QueueLeft {
 
 abstract class _QueueLeft implements QueueDetailsState {
   const factory _QueueLeft() = _$_QueueLeft;
-}
-
-/// @nodoc
-abstract class _$QueueUpdatingCopyWith<$Res> {
-  factory _$QueueUpdatingCopyWith(
-          _QueueUpdating value, $Res Function(_QueueUpdating) then) =
-      __$QueueUpdatingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$QueueUpdatingCopyWithImpl<$Res>
-    extends _$QueueDetailsStateCopyWithImpl<$Res>
-    implements _$QueueUpdatingCopyWith<$Res> {
-  __$QueueUpdatingCopyWithImpl(
-      _QueueUpdating _value, $Res Function(_QueueUpdating) _then)
-      : super(_value, (v) => _then(v as _QueueUpdating));
-
-  @override
-  _QueueUpdating get _value => super._value as _QueueUpdating;
-}
-
-/// @nodoc
-
-class _$_QueueUpdating implements _QueueUpdating {
-  const _$_QueueUpdating();
-
-  @override
-  String toString() {
-    return 'QueueDetailsState.queueUpdating()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _QueueUpdating);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(QueueDetailsModel queueDetails, bool editable)
-        queueOpened,
-    required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
-    required TResult Function() queueFreezed,
-    required TResult Function() queueUnfreezed,
-  }) {
-    return queueUpdating();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(QueueDetailsModel queueDetails, bool editable)?
-        queueOpened,
-    TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
-    TResult Function()? queueFreezed,
-    TResult Function()? queueUnfreezed,
-  }) {
-    return queueUpdating?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(QueueDetailsModel queueDetails, bool editable)?
-        queueOpened,
-    TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
-    TResult Function()? queueFreezed,
-    TResult Function()? queueUnfreezed,
-    required TResult orElse(),
-  }) {
-    if (queueUpdating != null) {
-      return queueUpdating();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_QueueOpened value) queueOpened,
-    required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
-    required TResult Function(_QueueFreezed value) queueFreezed,
-    required TResult Function(_QueueUnfreezed value) queueUnfreezed,
-  }) {
-    return queueUpdating(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_QueueOpened value)? queueOpened,
-    TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
-    TResult Function(_QueueFreezed value)? queueFreezed,
-    TResult Function(_QueueUnfreezed value)? queueUnfreezed,
-  }) {
-    return queueUpdating?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_QueueOpened value)? queueOpened,
-    TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
-    TResult Function(_QueueFreezed value)? queueFreezed,
-    TResult Function(_QueueUnfreezed value)? queueUnfreezed,
-    required TResult orElse(),
-  }) {
-    if (queueUpdating != null) {
-      return queueUpdating(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _QueueUpdating implements QueueDetailsState {
-  const factory _QueueUpdating() = _$_QueueUpdating;
 }
 
 /// @nodoc
@@ -2576,7 +2416,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) {
@@ -2590,7 +2429,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) {
@@ -2604,7 +2442,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -2621,7 +2458,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) {
@@ -2634,7 +2470,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) {
@@ -2647,7 +2482,6 @@ class _$_QueueFreezed implements _QueueFreezed {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
@@ -2708,7 +2542,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     required TResult Function(QueueDetailsModel queueDetails, bool editable)
         queueOpened,
     required TResult Function() queueLeft,
-    required TResult Function() queueUpdating,
     required TResult Function() queueFreezed,
     required TResult Function() queueUnfreezed,
   }) {
@@ -2722,7 +2555,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
   }) {
@@ -2736,7 +2568,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     TResult Function(QueueDetailsModel queueDetails, bool editable)?
         queueOpened,
     TResult Function()? queueLeft,
-    TResult Function()? queueUpdating,
     TResult Function()? queueFreezed,
     TResult Function()? queueUnfreezed,
     required TResult orElse(),
@@ -2753,7 +2584,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     required TResult Function(_Initial value) initial,
     required TResult Function(_QueueOpened value) queueOpened,
     required TResult Function(_QueueLeft value) queueLeft,
-    required TResult Function(_QueueUpdating value) queueUpdating,
     required TResult Function(_QueueFreezed value) queueFreezed,
     required TResult Function(_QueueUnfreezed value) queueUnfreezed,
   }) {
@@ -2766,7 +2596,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
   }) {
@@ -2779,7 +2608,6 @@ class _$_QueueUnfreezed implements _QueueUnfreezed {
     TResult Function(_Initial value)? initial,
     TResult Function(_QueueOpened value)? queueOpened,
     TResult Function(_QueueLeft value)? queueLeft,
-    TResult Function(_QueueUpdating value)? queueUpdating,
     TResult Function(_QueueFreezed value)? queueFreezed,
     TResult Function(_QueueUnfreezed value)? queueUnfreezed,
     required TResult orElse(),
