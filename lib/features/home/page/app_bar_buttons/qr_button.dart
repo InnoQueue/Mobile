@@ -9,7 +9,7 @@ class _QrButton extends StatelessWidget {
       padding: const EdgeInsets.only(right: 10.0),
       child: IconButton(
         icon: const Icon(
-          Icons.qr_code,
+          Icons.qr_code_rounded,
           size: 30,
         ),
         onPressed: () => showDialog<String>(
