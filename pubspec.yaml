@@ -87,13 +87,8 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
+    - images/
     - images/introduction-samples/
-    - images/idk.gif
-    - images/sleeping.gif
-    - images/crying.gif
-    - images/logo.png
-    - images/logo.jpg
-    - images/logo_outlined.png
     - language/ru.json
     - language/en.json
 
