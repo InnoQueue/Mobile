@@ -6,6 +6,7 @@ class _BottomBarItem extends StatefulWidget {
     required this.leadingIcon,
     required this.route,
     required this.setActive,
+    required this.setShowNotification,
     this.active = false,
     Key? key,
   }) : super(key: key);
@@ -14,19 +15,62 @@ class _BottomBarItem extends StatefulWidget {
   final IconData leadingIcon;
   final PageRouteInfo? route;
   final Function setActive;
+  final Function setShowNotification;
   final bool active;
 
   @override
   State<_BottomBarItem> createState() => _BottomBarItemState();
 }
 
-class _BottomBarItemState extends State<_BottomBarItem> {
+class _BottomBarItemState extends State<_BottomBarItem>
+    with WidgetsBindingObserver {
   late bool _active;
+  bool showNotification = false;
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
+    checkNewNotifications().then((result) {
+      setState(() {});
+    });
+
+    WidgetsBinding.instance!.addObserver(this);
     _active = widget.active;
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
+      print('lol');
+      setState(() {
+        if (msg.notification != null) {
+          showNotification = true;
+        }
+      });
+    });
+
+    FirebaseMessaging.onBackgroundMessage((RemoteMessage? msg) async {
+      if (msg != null) {
+        print("new message in background: ${msg.data}");
+        if (msg.notification != null) {
+          print("also notification!");
+        }
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        await checkNewNotifications();
+        setState(() {});
+        break;
+      default:
+    }
   }
 
   @override
@@ -39,15 +83,27 @@ class _BottomBarItemState extends State<_BottomBarItem> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                widget.leadingIcon,
-                size: 30,
-                color: _active
-                    ? (Theme.of(context).primaryColorBrightness ==
-                            Brightness.dark
-                        ? Colors.white
-                        : Colors.black)
-                    : Colors.grey,
+              Stack(
+                children: [
+                  Icon(
+                    widget.leadingIcon,
+                    size: 30,
+                    color: _active
+                        ? (Theme.of(context).primaryColorBrightness ==
+                                Brightness.dark
+                            ? Colors.white
+                            : Colors.black)
+                        : Colors.grey,
+                  ),
+                  if (widget.route!.routeName == NotificationsRoute.name &&
+                      showNotification)
+                    const Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Icon(Icons.brightness_1,
+                          size: 10, color: Colors.redAccent),
+                    )
+                ],
               ),
               Text(
                 AppLocalizations.of(context)!.translate(widget.title) ??
@@ -81,6 +137,13 @@ class _BottomBarItemState extends State<_BottomBarItem> {
     if (page.routeName != TasksRoute.name) {
       context.read<SelectTasksBloc>().add(const SelectTasksEvent.unselect());
     }
+
+    if (page.routeName == NotificationsRoute.name) {
+      widget.setShowNotification(false);
+    } else if (context.router.current.name == NotificationsRoute.name) {
+      widget.setShowNotification(false);
+    }
+
     if (widget.route != null) {
       getIt<AppRouter>().root.pop();
       if (context.router.stack.length <= 1) {
@@ -95,5 +158,9 @@ class _BottomBarItemState extends State<_BottomBarItem> {
     setState(() {
       _active = active;
     });
+  }
+
+  Future<void> checkNewNotifications() async {
+    showNotification = await ApiNotificationsService.getNew();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
@@ -21,7 +23,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   List<_BottomBarItem> _items = [];
-
   @override
   void initState() {
     super.initState();
@@ -32,6 +33,7 @@ class _BottomBarState extends State<BottomBar> {
         route: const TasksRoute(),
         active: true,
         setActive: setActive,
+        setShowNotification: setShowNotification,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
@@ -39,6 +41,7 @@ class _BottomBarState extends State<BottomBar> {
         title: 'queues',
         route: const QueuesRoute(),
         setActive: setActive,
+        setShowNotification: setShowNotification,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
@@ -46,6 +49,7 @@ class _BottomBarState extends State<BottomBar> {
         title: 'notifications',
         route: const NotificationsRoute(),
         setActive: setActive,
+        setShowNotification: setShowNotification,
         key: GlobalKey<_BottomBarItemState>(),
       ),
       _BottomBarItem(
@@ -53,6 +57,7 @@ class _BottomBarState extends State<BottomBar> {
         title: 'settings',
         route: const SettingsRoute(),
         setActive: setActive,
+        setShowNotification: setShowNotification,
         key: GlobalKey<_BottomBarItemState>(),
       ),
     ];
@@ -77,6 +82,17 @@ class _BottomBarState extends State<BottomBar> {
             .currentState!
             .setAtive(item == element);
       }
+    });
+  }
+
+  void setShowNotification(bool value) {
+    setState(() {
+      (_items
+              .firstWhere((element) =>
+                  element.route!.routeName == NotificationsRoute.name)
+              .key as GlobalKey<_BottomBarItemState>)
+          .currentState!
+          .showNotification = value;
     });
   }
 }

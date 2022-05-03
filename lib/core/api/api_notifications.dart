@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -10,6 +12,17 @@ class ApiNotifications extends ApiBase {
   static Future<Response> getNotifications(token) async {
     return ApiBase.dio.get(
       "${ApiBase.baseUrl}/notifications",
+      options: Options(
+        headers: {
+          "user-token": token,
+        },
+      ),
+    );
+  }
+
+  static Future<Response> getNew(token) async {
+    return ApiBase.dio.get(
+      "${ApiBase.baseUrl}/notifications/new",
       options: Options(
         headers: {
           "user-token": token,
@@ -33,5 +46,11 @@ class ApiNotificationsService {
       all.add(NotificationModel.fromJson(notification));
     }
     return Pair(unread, all);
+  }
+
+  static Future<bool> getNew() async {
+    final String token = await ApiBaseService.getToken();
+    final data = (await ApiNotifications.getNew(token)).data;
+    return data['any_new'];
   }
 }

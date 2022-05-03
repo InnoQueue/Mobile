@@ -11,7 +11,7 @@ class ApiBase {
   static final Dio dio = Dio();
   static const String baseUrl = 'https://innoqueue.herokuapp.com';
 
-  static Future<String> getToken(String name, String fcmToken) async {
+  static Future<TokenModel> getToken(String name, String fcmToken) async {
     var params = {
       "user_name": name,
       "fcm_token": fcmToken,
@@ -22,7 +22,7 @@ class ApiBase {
     ))
         .data;
 
-    return TokenModel.fromJson(data).token;
+    return TokenModel.fromJson(data);
   }
 }
 
@@ -32,8 +32,11 @@ class ApiBaseService {
     bool tokenPresent = await CacheService.checkToken();
     if (!tokenPresent) {
       String? fcmToken = await FirebaseMessaging.instance.getToken();
-      token = await ApiBase.getToken(name ?? "", fcmToken ?? "");
+      TokenModel tokenModel =
+          await ApiBase.getToken(name ?? "", fcmToken ?? "");
+      token = tokenModel.token;
       CacheService.setToken(token);
+      CacheService.setUserId(tokenModel.userId);
     } else {
       token = await CacheService.getToken();
     }

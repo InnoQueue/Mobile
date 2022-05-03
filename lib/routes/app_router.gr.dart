@@ -42,7 +42,6 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const TasksPage(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -50,7 +49,6 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const QueuesPage(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -58,7 +56,6 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const NotificationsPage(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -66,7 +63,6 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const SettingsPage(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -74,7 +70,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const QueueDetailsPage(),
-          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -82,7 +78,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const NotificationSettingsPage(),
-          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -90,7 +86,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const ThemeSettingsPage(),
-          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -98,7 +94,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const LanguageSettingsPage(),
-          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     }

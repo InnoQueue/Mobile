@@ -92,7 +92,9 @@ class _MyAppState extends State<MyApp> {
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
               ],
-              locale: languageProvider.currentLanguage != 'system' ? languageProvider.locale : null,
+              locale: languageProvider.currentLanguage != 'system'
+                  ? languageProvider.locale
+                  : null,
               localeResolutionCallback: (locale, supportedLocales) {
                 for (var supportedLocale in supportedLocales) {
                   if (supportedLocale.languageCode == locale!.languageCode &&
@@ -125,17 +127,10 @@ class _MyAppState extends State<MyApp> {
     print(fcmToken);
     print("===================");
 
-    // FirebaseMessaging.onBackgroundMessage((RemoteMessage? msg) async {
-    //   print("new message in background: ${msg?.data}");
-    //   if (msg?.notification != null) {
-    //     print("also notification!");
-    //   }
-    // });
-    FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
-      print("new msg.data: ${msg.data}");
-      if (msg.notification != null) {
-        print("also notification: ${msg.notification}!");
-      }
-    });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
 }
