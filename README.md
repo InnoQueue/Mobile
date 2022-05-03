@@ -1,8 +1,8 @@
-[![Hits-of-Code](https://hitsofcode.com/github/InnoQueue/Mobile?branch=main)](https://hitsofcode.com/github/InnoQueue/Mobile/view?branch=main)
-
 # Cross-platform Mobile Development with Flutter S22 elective.
 
 > Semester 6, 3rd study-year, Innopolis University.
+
+[![Hits-of-Code](https://hitsofcode.com/github/InnoQueue/Mobile?branch=main)](https://hitsofcode.com/github/InnoQueue/Mobile/view?branch=main)
 
 **Flutter Project**. For this project, the [Backend](https://github.com/InnoQueue/Backend) project for the REST API was developed (please **do not** take into account this contribution 🙏).
 
