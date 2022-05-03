@@ -1,4 +1,5 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/core/core.dart';
@@ -23,6 +24,19 @@ class _NotificationsPageState extends State<NotificationsPage> {
     super.initState();
     future = ApiNotificationsService.getNotifications();
     futureUserId = CacheService.getUserId();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
+      if (mounted) {
+        setState(() {
+          future = ApiNotificationsService.getNotifications();
+          futureUserId = CacheService.getUserId();
+          print("new msg.data: ${msg.data}");
+          if (msg.notification != null) {
+            print("also notification: ${msg.notification!.body}!");
+          }
+        });
+      }
+    });
   }
 
   @override

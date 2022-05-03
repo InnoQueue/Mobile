@@ -114,6 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _onChanged(String key, dynamic changedValue) {
+    FocusManager.instance.primaryFocus?.unfocus();
     ApiSettingsService.setFields(currentState, {key: changedValue});
     setState(() {
       currentState =

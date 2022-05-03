@@ -57,7 +57,7 @@ extension CustomTextTheme on TextTheme {
 
   TextStyle get notificationMessageTextStyle {
     return const TextStyle(
-      fontSize: 18,
+      fontSize: 16,
     );
   }
 
