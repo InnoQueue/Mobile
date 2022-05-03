@@ -70,6 +70,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   dataLoaded: (_, __) => true,
                   orElse: () => false,
                 ),
+                bloc: context.read<NotificationsBloc>(),
                 onRefresh: () {
                   context
                       .read<NotificationsBloc>()

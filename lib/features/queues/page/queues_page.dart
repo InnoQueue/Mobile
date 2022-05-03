@@ -45,6 +45,7 @@ class _QueuesPageState extends State<QueuesPage> {
           onRefresh: () {
             context.read<QueuesBloc>().add(const QueuesEvent.loadRequested());
           },
+          bloc: context.read<QueuesBloc>(),
           refreshDone: !context.read<QueuesBloc>().loading,
           child: state.when(
             initial: () {

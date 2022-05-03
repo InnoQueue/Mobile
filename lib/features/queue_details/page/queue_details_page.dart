@@ -55,6 +55,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                         const QueueDetailsEvent.updateQueue(),
                       );
                 },
+                bloc: context.read<QueueDetailsBloc>(),
                 enablePullDown: state.maybeWhen(
                   queueOpened: (_, _editable) => !_editable,
                   orElse: () => false,

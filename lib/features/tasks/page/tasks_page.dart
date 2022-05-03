@@ -36,6 +36,7 @@ class _TasksPageState extends State<TasksPage> {
             context.read<TasksBloc>().add(const TasksEvent.loadRequested());
           },
           refreshDone: !context.read<TasksBloc>().loading,
+          bloc: context.read<TasksBloc>(),
           child: state.when(
             initial: () => Container(
               color: Theme.of(context).primaryColorBrightness == Brightness.dark

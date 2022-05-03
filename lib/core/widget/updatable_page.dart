@@ -8,12 +8,14 @@ class UpdatablePage extends StatefulWidget {
   final bool enablePullDown;
   final Function onRefresh;
   final bool refreshDone;
+  final dynamic bloc;
   const UpdatablePage({
     Key? key,
     required this.child,
     required this.enablePullDown,
     required this.onRefresh,
     required this.refreshDone,
+    required this.bloc,
   }) : super(key: key);
 
   @override
@@ -26,7 +28,9 @@ class _UpdatablePageState extends State<UpdatablePage> {
 
   void _onRefresh() async {
     widget.onRefresh();
-    await waitWhile(() => !widget.refreshDone);
+    await waitWhile(() {
+      return !widget.bloc.loading;
+    });
     await Future.delayed(const Duration(seconds: 1), () {});
     _refreshController.refreshCompleted();
   }
