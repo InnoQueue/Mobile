@@ -11,6 +11,7 @@ class AppRes {
   // img paths
   static const imgShadowDark = 'images/shadow-dark.png';
 
+
   // splash page
   static const imgPath = "images/introduction-samples";
   static const List<Map<String, dynamic>> howToUse = [
