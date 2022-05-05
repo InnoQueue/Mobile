@@ -3,6 +3,7 @@
 > Semester 6, 3rd study-year, Innopolis University.
 
 [![Hits-of-Code](https://hitsofcode.com/github/InnoQueue/Mobile?branch=main)](https://hitsofcode.com/github/InnoQueue/Mobile/view?branch=main)
+[![Codemagic build status](https://api.codemagic.io/apps/627244bf8f3a1f16f5f33465/627244bf8f3a1f16f5f33464/status_badge.svg)](https://codemagic.io/apps/627244bf8f3a1f16f5f33465/627244bf8f3a1f16f5f33464/latest_build)
 
 **Flutter Project**. For this project, the [Backend](https://github.com/InnoQueue/Backend) project for the REST API was developed (please **do not** take into account this contribution 🙏).
 
