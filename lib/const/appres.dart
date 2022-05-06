@@ -11,7 +11,6 @@ class AppRes {
   // img paths
   static const imgShadowDark = 'images/shadow-dark.png';
 
-
   // splash page
   static const imgPath = "images/introduction-samples";
   static const List<Map<String, dynamic>> howToUse = [
@@ -31,14 +30,16 @@ class AppRes {
     },
     {
       'title': 'How do I use Queues?',
-      'text': "😳 To register progress press the Add Progress button and the system will recognize your contribution.\n\n"
-          "😇 Even if it's not your turn, the app will count it and skip you the next time it is your turn.\n",
+      'text':
+          "😳 To register progress press the Add Progress button and the system will recognize your contribution.\n\n"
+              "😇 Even if it's not your turn, the app will count it and skip you the next time it is your turn.\n",
       'img': "$imgPath/add-progress.png",
     },
     {
       'title': 'How do I use Queues?',
       'text': "\n👆 To join a Queue tap this icon and follow further instructions.\n\n",
       'icon': Icons.qr_code_rounded,
+      'sub-text': "❄️ When you're, say, leaving for summer, just **Freeze the Queue**. This will save your progress. You can return whenever.\n",
     },
     {
       'title': 'How do I use Todos?',

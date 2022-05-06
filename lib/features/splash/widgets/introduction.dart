@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+import '../../../core/widget/app_supertext.dart';
+
 class IntroductionPage extends StatelessWidget {
   const IntroductionPage({Key? key}) : super(key: key);
 
@@ -48,7 +50,6 @@ class IntroductionPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(AppRes.howToUse[i]['text'] ?? "", style: pageDecoration.bodyTextStyle),
-                  Text(AppRes.howToUse[i]['sub-text'] ?? "", style: pageDecoration.bodyTextStyle),
                 ],
               ),
               decoration: pageDecoration,
@@ -60,6 +61,12 @@ class IntroductionPage extends StatelessWidget {
                       : const SizedBox.shrink()),
                   (AppRes.howToUse[i]['icon'] != null
                       ? Icon(AppRes.howToUse[i]['icon'], color: oppositeColor, size: 64)
+                      : const SizedBox.shrink()),
+                  (AppRes.howToUse[i]['sub-text'] != null
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 48.0),
+                          child: AppSuperText(AppRes.howToUse[i]['sub-text'], style: pageDecoration.bodyTextStyle),
+                        )
                       : const SizedBox.shrink()),
                 ],
               )),
