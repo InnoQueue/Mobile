@@ -39,7 +39,7 @@ class AppRes {
       'title': 'How do I use Queues?',
       'text': "\n👆 To join a Queue tap this icon and follow further instructions.\n\n",
       'icon': Icons.qr_code_rounded,
-      'sub-text': "❄️ When you're, say, leaving for summer, just **Freeze the Queue**. This will save your progress. You can return whenever.\n",
+      'sub-text': "❄️ When you're, say, leaving for summer, just **Freeze** the Queue. This will save your progress. You can return whenever.\n",
     },
     {
       'title': 'How do I use Todos?',
