@@ -26,13 +26,18 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     } else {
       emit(TasksState.dataLoaded(cachedTasks!));
     }
-    emit(await _loadData());
+    TasksState? state = await _loadData();
+    if (state != null) {
+      emit(state);
+    }
     loading = false;
   }
 
-  Future<TasksState> _loadData() async {
-    List<TaskModel> tasks = await ApiTasksService.getTasks();
-    cachedTasks = tasks;
-    return TasksState.dataLoaded(tasks);
+  Future<TasksState?> _loadData() async {
+    List<TaskModel>? tasks = await ApiTasksService.getTasks();
+    if (tasks != null) {
+      cachedTasks = tasks;
+      return TasksState.dataLoaded(tasks);
+    }
   }
 }

@@ -4,8 +4,8 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:inno_queue/core/hive/hive_service.dart';
 import 'package:inno_queue/features/features.dart';
+import 'package:inno_queue/helpers/try_connect.dart';
 import 'package:inno_queue/shared/models/pincode/pincode_model.dart';
 
 import 'api_base.dart';
@@ -181,21 +181,26 @@ class ApiQueues extends ApiBase {
 }
 
 class ApiQueuesService {
-  static Future<Pair<List<QueueModel>, List<QueueModel>>> getQueues() async {
+  static Future<Pair<List<QueueModel>, List<QueueModel>>?> getQueues() async {
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiQueues.getQueues(token)).data;
-    List<QueueModel> active = [];
-    List<QueueModel> frozen = [];
-    for (var queue in data['active']) {
-      active.add(QueueModel.fromJson(queue));
-    }
-    for (var queue in data['frozen']) {
-      frozen.add(QueueModel.fromJson(queue));
-    }
-    return Pair(active, frozen);
+
+    var query = await HandledResponse.query(
+        () async => await ApiQueues.getQueues(token));
+
+    return query.fold((l) => null, (r) {
+      List<QueueModel> active = [];
+      List<QueueModel> frozen = [];
+      for (var queue in r.data['active']) {
+        active.add(QueueModel.fromJson(queue));
+      }
+      for (var queue in r.data['frozen']) {
+        frozen.add(QueueModel.fromJson(queue));
+      }
+      return Pair(active, frozen);
+    });
   }
 
-  static Future<QueueDetailsModel> getQueue({
+  static Future<QueueDetailsModel?> getQueue({
     required int id,
     required int? hash,
     required bool checkCache,
@@ -213,16 +218,20 @@ class ApiQueuesService {
     }
 
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiQueues.getQueue(token, id: id)).data;
 
-    QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(data);
+    var query = await HandledResponse.query(
+        () async => await ApiQueues.getQueue(token, id: id));
 
-    var queueBox = await Hive.openBox(name);
-    queueBox.deleteAll(queueBox.keys);
-    queueBox.put(hash ?? queueDetails.hash, queueDetails);
+    return query.fold((l) => null, (r) async {
+      QueueDetailsModel queueDetails = QueueDetailsModel.fromJson(r.data);
 
-    print('added to cache');
-    return QueueDetailsModel.fromJson(data);
+      var queueBox = await Hive.openBox(name);
+      queueBox.deleteAll(queueBox.keys);
+      queueBox.put(hash ?? queueDetails.hash, queueDetails);
+
+      print('added to cache');
+      return QueueDetailsModel.fromJson(r.data);
+    });
   }
 
   static Future<void> addQueue({
@@ -231,11 +240,14 @@ class ApiQueuesService {
     required bool trackExpenses,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.addQueue(
-      token,
-      name: name,
-      color: color,
-      trackExpenses: trackExpenses,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.addQueue(
+        token,
+        name: name,
+        color: color,
+        trackExpenses: trackExpenses,
+      ),
     );
   }
 
@@ -243,9 +255,12 @@ class ApiQueuesService {
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.leaveQueue(
-      token,
-      id: id,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.leaveQueue(
+        token,
+        id: id,
+      ),
     );
   }
 
@@ -253,9 +268,12 @@ class ApiQueuesService {
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.freezeQueue(
-      token,
-      id: id,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.freezeQueue(
+        token,
+        id: id,
+      ),
     );
   }
 
@@ -263,9 +281,12 @@ class ApiQueuesService {
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.unfreezeQueue(
-      token,
-      id: id,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.unfreezeQueue(
+        token,
+        id: id,
+      ),
     );
   }
 
@@ -273,9 +294,12 @@ class ApiQueuesService {
     required QueueDetailsModel queueDetails,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.updateQueue(
-      token,
-      queueDetails: queueDetails,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.updateQueue(
+        token,
+        queueDetails: queueDetails,
+      ),
     );
   }
 
@@ -283,23 +307,30 @@ class ApiQueuesService {
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
-    await ApiQueues.shakeUser(
-      token,
-      id: id,
+
+    await HandledResponse.query(
+      () async => await ApiQueues.shakeUser(
+        token,
+        id: id,
+      ),
     );
   }
 
-  static Future<PincodeModel> inviteUser({
+  static Future<PincodeModel?> inviteUser({
     required int id,
   }) async {
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiQueues.inviteUser(
-      token,
-      id: id,
-    ))
-        .data;
 
-    return PincodeModel.fromJson(data);
+    var query = await HandledResponse.query(
+      () async => await ApiQueues.inviteUser(
+        token,
+        id: id,
+      ),
+    );
+
+    return query.fold((l) => null, (r) {
+      return PincodeModel.fromJson(r.data);
+    });
   }
 
   static Future<bool> joinQueue({
@@ -308,16 +339,12 @@ class ApiQueuesService {
   }) async {
     final String token = await ApiBaseService.getToken();
 
-    try {
-      final data = (await ApiQueues.joinQueue(
-        token,
-        pincode: pincode,
-        qrcode: qrcode,
-      ));
+    final data = (await ApiQueues.joinQueue(
+      token,
+      pincode: pincode,
+      qrcode: qrcode,
+    ));
 
-      return data.statusCode! / 100 == 2;
-    } on DioError catch (_) {
-      return false;
-    }
+    return data.statusCode! / 100 == 2;
   }
 }

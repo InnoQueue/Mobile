@@ -18,6 +18,7 @@ class AppThemes {
         onPrimary: Colors.black,
       ),
     ),
+    toggleableActiveColor: Colors.black,
     colorScheme: const ColorScheme.light().copyWith(
       primary: Colors.white,
       secondary: Colors.white,
@@ -37,6 +38,7 @@ class AppThemes {
         primary: Colors.white,
       ),
     ),
+    toggleableActiveColor: Colors.white,
     primaryColor: Colors.grey[800],
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

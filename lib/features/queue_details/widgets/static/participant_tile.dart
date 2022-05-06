@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inno_queue/const/const.dart';
@@ -168,13 +169,22 @@ class _RegularTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
                   Text(
                     user.name,
                     style: Theme.of(context).textTheme.userNameStyle,
                   ),
+                  if (!user.isActive)
+                    const SizedBox(
+                      width: 5,
+                    ),
+                  if (!user.isActive)
+                    const Icon(
+                      CupertinoIcons.snow,
+                      color: Colors.grey,
+                      size: 20,
+                    )
                 ],
               ),
             ),

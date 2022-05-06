@@ -4,6 +4,7 @@ import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/api/api_tasks.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:inno_queue/helpers/text_field_validator.dart';
 import 'package:provider/src/provider.dart';
 
 class TaskExpensesDialog extends StatefulWidget {
@@ -32,6 +33,7 @@ class TaskExpensesDialog extends StatefulWidget {
 }
 
 class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
+  GlobalKey<FormState> formKey = GlobalKey();
   String? valueText;
   @override
   Widget build(BuildContext context) {
@@ -52,26 +54,29 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
                             .translate('how much you spent') ??
                         'Enter how much you spent:'
                     : ""),
-            Row(
-              children: [
-                Expanded(
-                  child: _TaskExpensesTextField(
-                    onChanged: (value) {
-                      setState(() {
-                        valueText = value;
-                      });
-                    },
+            Form(
+              key: formKey,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _TaskExpensesTextField(
+                      onChanged: (value) {
+                        setState(() {
+                          valueText = value;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  width: 15,
-                  alignment: Alignment.centerRight,
-                  child: const Text(
-                    '₽',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                )
-              ],
+                  Container(
+                    width: 15,
+                    alignment: Alignment.centerRight,
+                    child: const Text(
+                      '₽',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
@@ -88,14 +93,17 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
             AppLocalizations.of(context)!.translate('approve') ?? 'Approve',
           ),
           onPressed: () async {
-            if (widget.taskModel != null) {
-              removeItemOnApproved();
-            } else {
-              context.read<QueueDetailsBloc>().add(
-                  QueueDetailsEvent.addProgress(double.parse(valueText ?? '')));
-            }
+            if (formKey.currentState!.validate()) {
+              if (widget.taskModel != null) {
+                removeItemOnApproved();
+              } else {
+                context.read<QueueDetailsBloc>().add(
+                    QueueDetailsEvent.addProgress(
+                        double.parse(valueText!.replaceAll(',', '.'))));
+              }
 
-            Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }
           },
         ),
       ],
@@ -114,10 +122,10 @@ class _TaskExpensesDialogState extends State<TaskExpensesDialog> {
     widget.removeItem!(widget.buildContext, widget.taskModel,
         expanded: widget.expanded,
         done: true,
-        expenses: double.parse(valueText ?? ''));
+        expenses: double.parse(valueText!.replaceAll(',', '.')));
     widget.buildContext.read<TasksListBloc>().add(TasksListEvent.setTaskDone(
         widget.taskModel!,
-        expenses: double.parse(valueText ?? '')));
+        expenses: double.parse(valueText!.replaceAll(',', '.'))));
     emptyList(false);
   }
 
@@ -151,11 +159,12 @@ class _TaskExpensesTextFieldState extends State<_TaskExpensesTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: (value) => widget.onChanged(value),
       keyboardType: TextInputType.number,
       controller: _textFieldController,
       cursorColor: Colors.grey,
+      validator: TextFieldValidator.validateNumeric,
       decoration: AppRes.inputDecoration.copyWith(
         hintText: AppLocalizations.of(context)!.translate('price') ?? "price",
         enabledBorder: const UnderlineInputBorder(

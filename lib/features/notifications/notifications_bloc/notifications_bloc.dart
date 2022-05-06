@@ -29,15 +29,19 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       emit(NotificationsState.dataLoaded(
           cachedNotifications!.first, cachedNotifications!.last));
     }
-    emit(await _loadData());
+    NotificationsState? state = await _loadData();
+    if (state != null) {
+      emit(state);
+    }
     loading = false;
   }
 
-  Future<NotificationsState> _loadData() async {
-    Pair<List<NotificationModel>, List<NotificationModel>> notifications =
-        await ApiNotificationsService.getNotifications();
-    cachedNotifications = notifications;
-    return NotificationsState.dataLoaded(
-        notifications.first, notifications.last);
+  Future<NotificationsState?> _loadData() async {
+    var notifications = await ApiNotificationsService.getNotifications();
+    if (notifications != null) {
+      cachedNotifications = notifications;
+      return NotificationsState.dataLoaded(
+          notifications.first, notifications.last);
+    }
   }
 }

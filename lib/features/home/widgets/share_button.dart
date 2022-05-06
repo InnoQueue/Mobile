@@ -34,10 +34,7 @@ class ShareButtonState extends State<ShareButton> {
               size: 25,
             ),
             onPressed: () async {
-              PincodeModel pincode =
-                  await ApiQueuesService.inviteUser(id: queueDetails.id);
-
-              _onLoading(queueDetails, pincode);
+              _onLoading(queueDetails);
             },
           );
         },
@@ -47,8 +44,7 @@ class ShareButtonState extends State<ShareButton> {
 
   void _onLoading(
     QueueDetailsModel queueDetails,
-    PincodeModel pincode,
-  ) {
+  ) async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -73,6 +69,15 @@ class ShareButtonState extends State<ShareButton> {
         );
       },
     );
+
+    PincodeModel? pincode =
+        await ApiQueuesService.inviteUser(id: queueDetails.id);
+
+    if (pincode == null) {
+      Navigator.of(context).pop();
+      return;
+    }
+
     generatePath(queueDetails, pincode).then(
       (value) async {
         Navigator.pop(context);

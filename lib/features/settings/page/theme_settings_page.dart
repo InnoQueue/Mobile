@@ -10,7 +10,10 @@ class ThemeSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 32),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      color: Theme.of(context).primaryColorBrightness == Brightness.dark
+          ? Colors.grey[900]
+          : Colors.blueGrey[50],
       child: const ThemeDropdownMenu(),
     );
   }
@@ -26,44 +29,49 @@ class ThemeDropdownMenu extends StatefulWidget {
 class _ThemeDropdownMenuState extends State<ThemeDropdownMenu> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(builder: (context, provider, child) {
-      return Row(
-        children: [
-          const Expanded(
-            child: NotificationSwitchLabel('theme'),
-          ),
-          DropdownButton<String>(
-            dropdownColor: Theme.of(context).primaryColor,
-            value: provider.currentTheme,
-            items: [
-              DropdownMenuItem<String>(
-                value: 'light',
-                child: Text(
-                  AppLocalizations.of(context)!.translate('light') ?? 'Light',
-                  style: const TextStyle(fontSize: 14),
-                ),
+    return Consumer<ThemeProvider>(
+      builder: (context, provider, child) {
+        return Column(
+          children: [
+            RadioListTile(
+              value: 'light',
+              title: Text(
+                AppLocalizations.of(context)!.translate('light') ?? 'Light',
+                style: const TextStyle(fontSize: 14),
               ),
-              DropdownMenuItem<String>(
-                value: 'dark',
-                child: Text(
-                  AppLocalizations.of(context)!.translate('dark') ?? 'Dark',
-                  style: const TextStyle(fontSize: 14),
-                ),
+              groupValue: provider.currentTheme,
+              controlAffinity: ListTileControlAffinity.trailing,
+              onChanged: (String? value) {
+                provider.changeTheme(value ?? 'system');
+              },
+            ),
+            RadioListTile(
+              value: 'dark',
+              title: Text(
+                AppLocalizations.of(context)!.translate('dark') ?? 'Dark',
+                style: const TextStyle(fontSize: 14),
               ),
-              DropdownMenuItem<String>(
-                value: 'system',
-                child: Text(
-                  AppLocalizations.of(context)!.translate('system') ?? 'System',
-                  style: const TextStyle(fontSize: 14),
-                ),
+              groupValue: provider.currentTheme,
+              controlAffinity: ListTileControlAffinity.trailing,
+              onChanged: (String? value) {
+                provider.changeTheme(value ?? 'system');
+              },
+            ),
+            RadioListTile(
+              value: 'system',
+              title: Text(
+                AppLocalizations.of(context)!.translate('system') ?? 'System',
+                style: const TextStyle(fontSize: 14),
               ),
-            ],
-            onChanged: (String? value) {
-              provider.changeTheme(value ?? 'system');
-            },
-          ),
-        ],
-      );
-    });
+              groupValue: provider.currentTheme,
+              controlAffinity: ListTileControlAffinity.trailing,
+              onChanged: (String? value) {
+                provider.changeTheme(value ?? 'system');
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

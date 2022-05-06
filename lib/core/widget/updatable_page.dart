@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UpdatablePage extends StatefulWidget {
@@ -28,10 +29,10 @@ class _UpdatablePageState extends State<UpdatablePage> {
 
   void _onRefresh() async {
     widget.onRefresh();
-    await waitWhile(() {
-      return !widget.bloc.loading;
-    });
     await Future.delayed(const Duration(seconds: 1), () {});
+    await waitWhile(() {
+      return widget.bloc.loading;
+    });
     _refreshController.refreshCompleted();
   }
 
@@ -46,7 +47,11 @@ class _UpdatablePageState extends State<UpdatablePage> {
         enablePullDown: widget.enablePullDown,
         controller: _refreshController,
         onRefresh: _onRefresh,
-        header: const ClassicHeader(
+        header: ClassicHeader(
+          idleText: AppLocalizations.of(context)!.translate('pull down') ?? "",
+          releaseText: AppLocalizations.of(context)!.translate('release') ?? "",
+          refreshingText:
+              AppLocalizations.of(context)!.translate('refreshing') ?? "",
           refreshStyle: RefreshStyle.UnFollow,
           completeDuration: Duration.zero,
           completeText: '',

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:inno_queue/helpers/text_field_validator.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../features.dart';
 
@@ -25,31 +27,40 @@ class EditableHeader extends StatefulWidget {
 
 class _EditableHeaderState extends State<EditableHeader> {
   @override
+  void initState() {
+    super.initState();
+    context.read<QueueDetailsBloc>().formKey = GlobalKey<FormState>();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Stack(
-          alignment: Alignment.topRight,
-          children: [
-            _Avatar(queueDetailsModel: widget.queueDetailsModel),
-            _EditButton(
-              color: widget.queueDetailsModel.color,
-              updateColor: widget.updateColor,
-            ),
-          ],
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Flexible(
-          child: _TextField(
-            queueName: widget.queueDetailsModel.name,
-            onSubmitted: (newValue) {
-              widget.updateName(newValue);
-            },
+    return Form(
+      key: context.read<QueueDetailsBloc>().formKey,
+      child: Row(
+        children: [
+          Stack(
+            alignment: Alignment.topRight,
+            children: [
+              _Avatar(queueDetailsModel: widget.queueDetailsModel),
+              _EditButton(
+                color: widget.queueDetailsModel.color,
+                updateColor: widget.updateColor,
+              ),
+            ],
           ),
-        ),
-      ],
+          const SizedBox(
+            width: 20,
+          ),
+          Flexible(
+            child: _TextField(
+              queueName: widget.queueDetailsModel.name,
+              onSubmitted: (newValue) {
+                widget.updateName(newValue);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -142,7 +153,8 @@ class _TextFieldState extends State<_TextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: TextFieldValidator.validate,
       controller: controller,
       style: const TextStyle(
         overflow: TextOverflow.ellipsis,
@@ -160,9 +172,8 @@ class _TextFieldState extends State<_TextField> {
           borderSide: BorderSide(color: Colors.transparent),
         ),
       ),
-      onSubmitted: (newValue) {
+      onChanged: (newValue) {
         widget.onSubmitted(newValue);
-        controller.text = newValue;
       },
     );
   }

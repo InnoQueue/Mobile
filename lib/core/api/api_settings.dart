@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
+import 'package:inno_queue/helpers/try_connect.dart';
 
 import 'api_base.dart';
 
@@ -44,9 +48,20 @@ class ApiSettingsService {
     print("response data: $data");
   }
 
-  static Future<Map<String, dynamic>> getFields() async {
+  static Future<Map<String, dynamic>?> getFields() async {
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiSettings.getSettings(token)).data;
-    return data;
+
+    var query = await HandledResponse.query(
+        () async => await ApiSettings.getSettings(token));
+
+    return query.fold((l) => null, (r) async {
+      var queueBox = await Hive.openBox("settings");
+      queueBox.deleteAll(queueBox.keys);
+      queueBox.put("settings", jsonEncode(r.data));
+
+      print('updated settings cache');
+
+      return r.data;
+    });
   }
 }

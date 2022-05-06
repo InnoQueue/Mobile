@@ -1,5 +1,6 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
@@ -14,6 +15,7 @@ part 'queue_details_state.dart';
 @Injectable()
 class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
   late QueueDetailsModel currentQueueDetails;
+  GlobalKey<FormState>? formKey;
   bool loading = false;
 
   QueueDetailsBloc() : super(const _Initial()) {
@@ -33,12 +35,15 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
     Emitter<QueueDetailsState> emit,
   ) async {
     emit(const QueueDetailsState.initial());
-    currentQueueDetails = await ApiQueuesService.getQueue(
+    var queueDetails = await ApiQueuesService.getQueue(
       id: event.id,
       hash: event.hash_code,
       checkCache: event.checkCache,
     );
-    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
+    if (queueDetails != null) {
+      currentQueueDetails = queueDetails;
+      emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
+    }
   }
 
   void _leaveRequested(
@@ -120,14 +125,17 @@ class QueueDetailsBloc extends Bloc<QueueDetailsEvent, QueueDetailsState> {
 
   Future<void> updateQueue(Emitter<QueueDetailsState> emit) async {
     loading = true;
-    emit(QueueDetailsState.queueOpened(currentQueueDetails, false));
-    QueueDetailsModel updatedQueueDetails = await ApiQueuesService.getQueue(
+
+    var queueDetails = await ApiQueuesService.getQueue(
       id: currentQueueDetails.id,
       hash: null,
       checkCache: false,
     );
-    currentQueueDetails = updatedQueueDetails;
-    emit(QueueDetailsState.queueOpened(updatedQueueDetails, false));
+
+    if (queueDetails != null) {
+      currentQueueDetails = queueDetails;
+      emit(QueueDetailsState.queueOpened(queueDetails, false));
+    }
     loading = false;
   }
 }

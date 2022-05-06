@@ -6,6 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/features/home/widgets/invite_user_alert.dart';
 import 'package:inno_queue/features/home/widgets/widgets.dart';
@@ -14,6 +15,7 @@ import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
+import 'package:inno_queue/shared/bloc/server_error_bloc/server_error_bloc.dart';
 import '../../../const/const.dart';
 
 import '../../features.dart';
@@ -57,25 +59,40 @@ class _HomePageState extends State<HomePage> {
             return BlocBuilder<AppBarBloc, String>(
               builder: (context, state) {
                 return BlocBuilder<QueueDetailsBloc, QueueDetailsState>(
-                  builder: (context, state) => Scaffold(
-                    key: homePageScaffoldKey,
-                    resizeToAvoidBottomInset: false,
-                    appBar: _appBarBuilder(
-                      router,
-                      context,
-                      selected: selected,
-                      number: counter,
-                    ),
-                    body: child,
-                    bottomNavigationBar: BottomBar(
-                      currentRoute: router.current.route.name,
-                    ),
-                    floatingActionButton:
-                        (context.router.current.name == QueuesRoute.name)
-                            ? const _AddButton()
-                            : null,
-                  ),
-                );
+                    builder: (context, state) {
+                  return BlocBuilder<ServerErrorBloc, ServerErrorState>(
+                      builder: (context, state) {
+                    state.when(
+                        couldNotUpdate: () => _showToast("Could not update"),
+                        serverError: () => _showToast("Server error"),
+                        internetConnectionError: () =>
+                            _showToast("No Internet connection"),
+                        initial: () => {},
+                        connectionTimeout: () =>
+                            _showToast("Connection timeout"));
+                    context
+                        .read<ServerErrorBloc>()
+                        .add(const ServerErrorEvent.initial());
+                    return Scaffold(
+                      key: homePageScaffoldKey,
+                      resizeToAvoidBottomInset: false,
+                      appBar: _appBarBuilder(
+                        router,
+                        context,
+                        selected: selected,
+                        number: counter,
+                      ),
+                      body: child,
+                      bottomNavigationBar: BottomBar(
+                        currentRoute: router.current.route.name,
+                      ),
+                      floatingActionButton:
+                          (context.router.current.name == QueuesRoute.name)
+                              ? const _AddButton()
+                              : null,
+                    );
+                  });
+                });
               },
             );
           },
@@ -113,6 +130,15 @@ class _HomePageState extends State<HomePage> {
         break;
       case SettingsRoute.name:
         title = AppRes.settings;
+        break;
+      case NotificationSettingsRoute.name:
+        title = AppRes.notificationSettings;
+        break;
+      case ThemeSettingsRoute.name:
+        title = AppRes.themeSettings;
+        break;
+      case LanguageSettingsRoute.name:
+        title = AppRes.languageSettings;
         break;
       case QueueDetailsRoute.name:
         title = context.read<AppBarBloc>().state;
@@ -154,9 +180,15 @@ class _HomePageState extends State<HomePage> {
             size: 30,
           ),
           onTap: () {
-            context
-                .read<EditQueueBloc>()
-                .add(const EditQueueEvent.requestUpdate());
+            if (context
+                .read<QueueDetailsBloc>()
+                .formKey!
+                .currentState!
+                .validate()) {
+              context
+                  .read<EditQueueBloc>()
+                  .add(const EditQueueEvent.requestUpdate());
+            }
           },
         ),
       ];
@@ -218,7 +250,10 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return routeName == QueueDetailsRoute.name
+    return routeName == QueueDetailsRoute.name ||
+            routeName == NotificationSettingsRoute.name ||
+            routeName == ThemeSettingsRoute.name ||
+            routeName == LanguageSettingsRoute.name
         ? const _BackButton()
         : selected
             ? _AnimatedButton(
@@ -234,5 +269,17 @@ class _HomePageState extends State<HomePage> {
                 },
               )
             : null;
+  }
+
+  _showToast(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black.withOpacity(0.5),
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 }

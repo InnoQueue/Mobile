@@ -4,6 +4,7 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/notifications/model/notification_model.dart';
+import 'package:inno_queue/helpers/try_connect.dart';
 
 import 'api_base.dart';
 
@@ -33,24 +34,32 @@ class ApiNotifications extends ApiBase {
 }
 
 class ApiNotificationsService {
-  static Future<Pair<List<NotificationModel>, List<NotificationModel>>>
+  static Future<Pair<List<NotificationModel>, List<NotificationModel>>?>
       getNotifications() async {
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiNotifications.getNotifications(token)).data;
-    List<NotificationModel> unread = [];
-    List<NotificationModel> all = [];
-    for (var notification in data['unread']) {
-      unread.add(NotificationModel.fromJson(notification));
-    }
-    for (var notification in data['all']) {
-      all.add(NotificationModel.fromJson(notification));
-    }
-    return Pair(unread, all);
+
+    var query = await HandledResponse.query(
+        () async => await ApiNotifications.getNotifications(token));
+
+    return query.fold((l) => null, (r) {
+      List<NotificationModel> unread = [];
+      List<NotificationModel> all = [];
+      for (var notification in r.data['unread']) {
+        unread.add(NotificationModel.fromJson(notification));
+      }
+      for (var notification in r.data['all']) {
+        all.add(NotificationModel.fromJson(notification));
+      }
+      return Pair(unread, all);
+    });
   }
 
   static Future<bool> getNew() async {
     final String token = await ApiBaseService.getToken();
-    final data = (await ApiNotifications.getNew(token)).data;
-    return data['any_new'];
+
+    var query = await HandledResponse.query(
+        () async => await ApiNotifications.getNew(token));
+
+    return query.fold((l) => false, (r) => r.data['any_new']);
   }
 }

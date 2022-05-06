@@ -26,6 +26,7 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
   String _currentColorName = 'RED';
   final Map<ColorSwatch<int>, String> _colorNames = {};
   final nameFieldController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -54,62 +55,67 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
             const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  AppTextField(controller: nameFieldController),
-                  const SizedBox(height: 20),
-                  ColorPicker(
-                    pickersEnabled: const {
-                      ColorPickerType.accent: false,
-                      ColorPickerType.primary: false,
-                      ColorPickerType.custom: true,
-                    },
-                    customColorSwatchesAndNames: _colorNames,
-                    spacing: 5,
-                    enableShadesSelection: false,
-                    color: _currentColor,
-                    onColorChanged: (Color color) => setState(
-                      () {
-                        _currentColor = color;
-                        _currentColorName = colors.keys.firstWhere(
-                            (k) =>
-                                (colors[k] ?? Colors.white).value ==
-                                _currentColor.value,
-                            orElse: () => 'RED');
-                      },
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    AppTextField(
+                      controller: nameFieldController,
                     ),
-                    width: 30,
-                    height: 30,
-                    borderRadius: 5,
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                                .translate('track expenses') ??
-                            'Track expenses',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Spacer(),
-                      FlutterSwitch(
-                        width: 60,
-                        height: 30,
-                        activeColor: Colors.grey[700] ?? Colors.black,
-                        inactiveColor: Colors.grey[400] ?? Colors.white,
-                        value: _toggleValue,
-                        onToggle: (newValue) {
-                          setState(() {
-                            _toggleValue = newValue;
-                          });
+                    const SizedBox(height: 20),
+                    ColorPicker(
+                      pickersEnabled: const {
+                        ColorPickerType.accent: false,
+                        ColorPickerType.primary: false,
+                        ColorPickerType.custom: true,
+                      },
+                      customColorSwatchesAndNames: _colorNames,
+                      spacing: 5,
+                      enableShadesSelection: false,
+                      color: _currentColor,
+                      onColorChanged: (Color color) => setState(
+                        () {
+                          _currentColor = color;
+                          _currentColorName = colors.keys.firstWhere(
+                              (k) =>
+                                  (colors[k] ?? Colors.white).value ==
+                                  _currentColor.value,
+                              orElse: () => 'RED');
                         },
                       ),
-                    ],
-                  ),
-                ],
+                      width: 30,
+                      height: 30,
+                      borderRadius: 5,
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                                  .translate('track expenses') ??
+                              'Track expenses',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const Spacer(),
+                        FlutterSwitch(
+                          width: 60,
+                          height: 30,
+                          activeColor: Colors.grey[700] ?? Colors.black,
+                          inactiveColor: Colors.grey[400] ?? Colors.white,
+                          value: _toggleValue,
+                          onToggle: (newValue) {
+                            setState(() {
+                              _toggleValue = newValue;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 60),
@@ -123,7 +129,11 @@ class _QueueBottomSheetState extends State<QueueBottomSheet> {
                         'Create',
                     style: Theme.of(context).textTheme.largeButtonTextSrtyle),
               ),
-              onPressed: _onPressed,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _onPressed();
+                }
+              },
             ),
             ...(widget.children ?? []),
           ],

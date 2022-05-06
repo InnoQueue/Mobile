@@ -37,7 +37,8 @@ class _QrViewState extends State<_QrView> {
               child: LayoutBuilder(builder: (context, constraint) {
                 return Opacity(
                   opacity: (260 - constraint.biggest.height) / 260,
-                  child: Icon(Icons.qr_code_rounded, size: constraint.biggest.height),
+                  child: Icon(Icons.qr_code_rounded,
+                      size: constraint.biggest.height),
                 );
               }),
               onTap: () {

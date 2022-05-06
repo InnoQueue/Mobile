@@ -13,8 +13,10 @@ import 'package:inno_queue/core/provider/theme_provider.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/shared/bloc/edit_queue_bloc/edit_queue_bloc.dart';
 import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart';
+import 'package:inno_queue/shared/bloc/server_error_bloc/server_error_bloc.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/notifications/notifications_bloc/notifications_bloc.dart';
 import 'helpers/app_localizations.dart';
@@ -26,6 +28,7 @@ void main() async {
   configureDependencies();
   getIt.registerSingleton<AppRouter>(AppRouter());
   getIt.registerSingleton<AppBarBloc>(AppBarBloc());
+  getIt.registerSingleton<ServerErrorBloc>(ServerErrorBloc());
 
   await Hive.initFlutter();
   Hive.registerAdapter(QueueDetailsModelAdapter());
@@ -69,7 +72,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => getIt.get<QueueDetailsBloc>()),
         BlocProvider(create: (_) => getIt.get<AppBarBloc>()),
         BlocProvider(create: (_) => getIt.get<SelectTasksBloc>()),
-        BlocProvider(create: (_) => getIt.get<EditQueueBloc>())
+        BlocProvider(create: (_) => getIt.get<EditQueueBloc>()),
+        BlocProvider(create: (_) => getIt.get<ServerErrorBloc>()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) => Consumer<LanguageProvider>(

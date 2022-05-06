@@ -8,7 +8,13 @@ import 'package:inno_queue/shared/models/token/token_model.dart';
 
 @Injectable()
 class ApiBase {
-  static final Dio dio = Dio();
+  static final Dio dio = Dio(
+    BaseOptions(
+        receiveDataWhenStatusError: true,
+        connectTimeout: 45 * 1000, // 60 seconds
+        receiveTimeout: 45 * 1000 // 60 seconds
+        ),
+  );
   static const String baseUrl = 'https://innoqueue.herokuapp.com';
 
   static Future<TokenModel> getToken(String name, String fcmToken) async {

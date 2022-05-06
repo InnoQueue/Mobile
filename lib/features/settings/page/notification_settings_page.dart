@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/settings/page/settings_const.dart';
@@ -17,9 +20,9 @@ class NotificationSettingsPage extends StatefulWidget {
 
 class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   late final List defaultBody;
-  late Future<Map<String, dynamic>> serverDefaultBodyFuture;
+  late Future<Map<String, dynamic>?> serverDefaultBodyFuture;
 
-  late Map<String, dynamic> currentState; // todo -> bloc
+  Map<String, dynamic>? currentState; // todo -> bloc
 
   @override
   void initState() {
@@ -33,6 +36,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       "your_turn",
     ];
 
+    openCachedSettings();
     serverDefaultBodyFuture = ApiSettingsService.getFields();
     serverDefaultBodyFuture.then((value) => setState(() {
           currentState = value;
@@ -45,7 +49,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
       child: FutureBuilder(
         future: serverDefaultBodyFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) {
+          if (currentState == null) {
             return Container(
               color: Theme.of(context).primaryColorBrightness == Brightness.dark
                   ? Colors.grey[900]
@@ -72,7 +76,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                     height: 30,
                     activeColor: Colors.grey[700] ?? Colors.black,
                     inactiveColor: Colors.grey[400] ?? Colors.white,
-                    value: currentState[defaultBody[index]],
+                    value: currentState![defaultBody[index]],
                     onToggle: (newValue) {
                       _onChanged(defaultBody[index], newValue);
                     },
@@ -87,11 +91,22 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     );
   }
 
+  void openCachedSettings() async {
+    var settingsBox = await Hive.openBox("settings");
+    if (settingsBox.length != 0) {
+      print('returned settings from cache');
+      currentState = jsonDecode(settingsBox.get("settings"));
+    }
+    setState(() {});
+  }
+
   void _onChanged(String key, dynamic changedValue) {
-    ApiSettingsService.setFields(currentState, {key: changedValue});
-    setState(() {
-      currentState =
-          ApiSettingsService.makeBody(currentState, {key: changedValue});
-    });
+    if (currentState != null) {
+      ApiSettingsService.setFields(currentState!, {key: changedValue});
+      setState(() {
+        currentState =
+            ApiSettingsService.makeBody(currentState!, {key: changedValue});
+      });
+    }
   }
 }

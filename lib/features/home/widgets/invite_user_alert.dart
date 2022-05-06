@@ -24,7 +24,7 @@ class InviteUserAlert extends StatefulWidget {
 
 class _InviteUserAlertState extends State<InviteUserAlert> {
   bool pincodeFetched = false;
-  late PincodeModel pincode;
+  late PincodeModel? pincode;
 
   @override
   void initState() {
@@ -36,7 +36,9 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
     pincode =
         await ApiQueuesService.inviteUser(id: widget.queueDetailsModel.id);
     setState(() {
-      pincodeFetched = true;
+      if (pincode != null) {
+        pincodeFetched = true;
+      }
     });
   }
 
@@ -79,7 +81,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
                         size: const Size(50, 50),
                       ),
                       backgroundColor: Colors.white,
-                      data: pincode.qrcode,
+                      data: pincode!.qrcode,
                       version: QrVersions.auto,
                     ),
                   )
@@ -101,7 +103,7 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
               height: 25,
               child: Center(
                 child: pincodeFetched
-                    ? Text(pincode.pincode)
+                    ? Text(pincode!.pincode)
                     : const SpinKitThreeBounce(
                         size: 20,
                         color: Colors.grey,

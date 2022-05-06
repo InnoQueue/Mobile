@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
+import 'package:inno_queue/helpers/try_connect.dart';
 
 import 'api_base.dart';
 
@@ -62,15 +63,20 @@ class ApiTasks extends ApiBase {
 }
 
 class ApiTasksService {
-  static Future<List<TaskModel>> getTasks() async {
+  static Future<List<TaskModel>?> getTasks() async {
     final String token = await ApiBaseService.getToken();
-    final response = await ApiTasks.getTasks(token);
-    List<TaskModel> tasks = [];
-    for (int i = 0; i < response.data.length; i++) {
-      tasks.add(TaskModel.fromJson(response.data[i]));
-    }
 
-    return tasks;
+    var query =
+        await HandledResponse.query(() async => await ApiTasks.getTasks(token));
+
+    return query.fold((l) => null, (r) {
+      List<TaskModel> tasks = [];
+      for (int i = 0; i < r.data.length; i++) {
+        tasks.add(TaskModel.fromJson(r.data[i]));
+      }
+
+      return tasks;
+    });
   }
 
   static Future<void> deleteTask({
@@ -78,10 +84,13 @@ class ApiTasksService {
     double? expenses,
   }) async {
     final String token = await ApiBaseService.getToken();
-    var response = await ApiTasks.deleteTask(
-      token,
-      id: taskId,
-      expenses: expenses,
+
+    await HandledResponse.query(
+      () async => await ApiTasks.deleteTask(
+        token,
+        id: taskId,
+        expenses: expenses,
+      ),
     );
   }
 
@@ -89,9 +98,12 @@ class ApiTasksService {
     required TaskModel task,
   }) async {
     final String token = await ApiBaseService.getToken();
-    var response = await ApiTasks.skipTask(
-      token,
-      task: task,
+
+    await HandledResponse.query(
+      () async => await ApiTasks.skipTask(
+        token,
+        task: task,
+      ),
     );
   }
 }

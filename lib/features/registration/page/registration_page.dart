@@ -4,6 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
+import 'package:inno_queue/helpers/app_localizations.dart';
+import 'package:inno_queue/helpers/text_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -68,9 +70,11 @@ class _LoginAsAdminState extends State<_LoginAsAdmin> {
                         color: Colors.grey,
                       )
                     : TextButton(
-                        child: const Text(
-                          'or log in as admin',
-                          style: TextStyle(fontSize: 17),
+                        child: Text(
+                          AppLocalizations.of(context)!
+                                  .translate('or log in as admin') ??
+                              "",
+                          style: const TextStyle(fontSize: 17),
                         ),
                         onPressed: () {
                           setState(() {
@@ -107,52 +111,57 @@ class _EnterYourName extends StatefulWidget {
 class _EnterYourNameState extends State<_EnterYourName> {
   String name = "";
   bool receivingToken = false;
+  final GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text(
-          'Enter your name:',
-          style: TextStyle(
-            fontSize: 20,
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${AppLocalizations.of(context)!.translate('enter your name') ?? ""}:',
+            style: const TextStyle(
+              fontSize: 20,
+            ),
           ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.75,
-          child: TextField(
-            textAlign: TextAlign.center,
-            onChanged: (value) {
-              setState(() {
-                name = value;
-              });
-            },
-            cursorColor: Colors.grey,
-            decoration: AppRes.inputDecoration,
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: TextFormField(
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                setState(() {
+                  name = value;
+                });
+              },
+              cursorColor: Colors.grey,
+              decoration: AppRes.inputDecoration,
+              validator: TextFieldValidator.validate,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: AnimatedOpacity(
-            opacity: name == "" ? 0 : 1,
-            duration: const Duration(milliseconds: 250),
-            child: receivingToken
-                ? const SpinKitThreeBounce(
-                    size: 20,
-                    color: Colors.grey,
-                  )
-                : TextButton(
-                    child: const Text('Submit'),
-                    onPressed: () {
-                      if (name != "") {
-                        FocusScope.of(context).unfocus();
-                        getToken();
-                      }
-                    },
-                  ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: AnimatedOpacity(
+              opacity: name == "" ? 0 : 1,
+              duration: const Duration(milliseconds: 250),
+              child: receivingToken
+                  ? const SpinKitThreeBounce(
+                      size: 20,
+                      color: Colors.grey,
+                    )
+                  : TextButton(
+                      child: const Text('Submit'),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          FocusScope.of(context).unfocus();
+                          getToken();
+                        }
+                      },
+                    ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

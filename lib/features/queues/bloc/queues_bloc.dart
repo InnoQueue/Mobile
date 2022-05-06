@@ -29,15 +29,20 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
     } else {
       emit(QueuesState.dataLoaded(cachedQueues!.first, cachedQueues!.last));
     }
-    emit(await _loadData());
+    QueuesState? state = await _loadData();
+    if (state != null) {
+      emit(state);
+    }
     loading = false;
   }
 
-  Future<QueuesState> _loadData() async {
-    Pair<List<QueueModel>, List<QueueModel>> queues =
-        await ApiQueuesService.getQueues();
-    cachedQueues = queues;
-    return QueuesState.dataLoaded(queues.first, queues.last);
+  Future<QueuesState?> _loadData() async {
+    var queues = await ApiQueuesService.getQueues();
+
+    if (queues != null) {
+      cachedQueues = queues;
+      return QueuesState.dataLoaded(queues.first, queues.last);
+    }
   }
 
   void _addQueue(
@@ -54,6 +59,10 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
       color: event.color,
       trackExpenses: event.trackExpenses,
     );
-    emit(await _loadData());
+    QueuesState? state = await _loadData();
+    if (state != null) {
+      emit(state);
+    }
+    loading = false;
   }
 }
