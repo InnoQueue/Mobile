@@ -20,6 +20,7 @@ class _PinCodeTextField extends StatefulWidget {
 class _PinCodeTextFieldState extends State<_PinCodeTextField> {
   TextEditingController textEditingController = TextEditingController();
   late bool isLight =
+      // ignore: deprecated_member_use
       Theme.of(context).primaryColorBrightness == Brightness.light;
   late Color fillColor = Theme.of(context).primaryColor;
   late Color borderColor =

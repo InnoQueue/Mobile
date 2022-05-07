@@ -1,11 +1,11 @@
 
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/text_field_validator.dart';
-import 'package:provider/src/provider.dart';
 
 import '../../../features.dart';
 

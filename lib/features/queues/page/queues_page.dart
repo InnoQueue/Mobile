@@ -50,6 +50,7 @@ class _QueuesPageState extends State<QueuesPage> {
             initial: () {
               return Container(
                 color:
+                    // ignore: deprecated_member_use
                     Theme.of(context).primaryColorBrightness == Brightness.dark
                         ? Colors.grey[900]
                         : Colors.blueGrey[50],
@@ -61,6 +62,7 @@ class _QueuesPageState extends State<QueuesPage> {
             dataLoaded: (active, frozen) {
               return Container(
                 color:
+                    // ignore: deprecated_member_use
                     Theme.of(context).primaryColorBrightness == Brightness.dark
                         ? Colors.grey[900]
                         : Colors.blueGrey[50],

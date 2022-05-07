@@ -125,21 +125,21 @@ class _InviteUserAlertState extends State<InviteUserAlert> {
   }
 }
 
-class _BackgroundPainter extends CustomPainter {
-  double customSize;
-
-  _BackgroundPainter({
-    required this.customSize,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint1 = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(Offset.zero & Size(customSize, customSize), paint1);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
+// class _BackgroundPainter extends CustomPainter {
+//   double customSize;
+//
+//   _BackgroundPainter({
+//     required this.customSize,
+//   });
+//
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     var paint1 = Paint()
+//       ..color = Colors.white
+//       ..style = PaintingStyle.fill;
+//     canvas.drawRect(Offset.zero & Size(customSize, customSize), paint1);
+//   }
+//
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) => true;
+// }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
@@ -36,16 +37,22 @@ class _TabPageState extends State<TabPage> with AutoRouteAware {
   // only override if this is a tab page
   @override
   void didChangeTabRoute(TabPageRoute previousRoute) {
-    print(1);
+    if (kDebugMode) {
+      print(1);
+    }
   }
 
   @override
   void didPush() {
-    print(2);
+    if (kDebugMode) {
+      print(2);
+    }
   }
 
   @override
   void didPop() {
-    print(3);
+    if (kDebugMode) {
+      print(3);
+    }
   }
 }

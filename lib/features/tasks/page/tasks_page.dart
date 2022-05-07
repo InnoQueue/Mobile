@@ -37,6 +37,7 @@ class _TasksPageState extends State<TasksPage> {
           bloc: context.read<TasksBloc>(),
           child: state.when(
             initial: () => Container(
+              // ignore: deprecated_member_use
               color: Theme.of(context).primaryColorBrightness == Brightness.dark
                   ? Colors.grey[900]
                   : Colors.blueGrey[50],
@@ -47,6 +48,7 @@ class _TasksPageState extends State<TasksPage> {
             dataLoaded: (tasks) {
               return Container(
                 color:
+                    // ignore: deprecated_member_use
                     Theme.of(context).primaryColorBrightness == Brightness.dark
                         ? Colors.grey[900]
                         : Colors.blueGrey[50],

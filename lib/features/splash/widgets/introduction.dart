@@ -1,4 +1,4 @@
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_queue/const/appres.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
@@ -12,10 +12,12 @@ class IntroductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainColor =
+        // ignore: deprecated_member_use
         Theme.of(context).primaryColorBrightness == Brightness.dark
             ? Colors.grey[900]
             : Colors.blueGrey[50];
     final oppositeColor =
+        // ignore: deprecated_member_use
         Theme.of(context).primaryColorBrightness != Brightness.dark
             ? Colors.grey[900]
             : Colors.blueGrey[50];

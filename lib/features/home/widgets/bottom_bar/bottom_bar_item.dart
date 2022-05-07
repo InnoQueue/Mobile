@@ -44,7 +44,6 @@ class _BottomBarItemState extends State<_BottomBarItem>
     _active = widget.active;
 
     FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
-      print('lol');
       setState(() {
         if (msg.notification != null) {
           showNotification = true;
@@ -54,9 +53,13 @@ class _BottomBarItemState extends State<_BottomBarItem>
 
     FirebaseMessaging.onBackgroundMessage((RemoteMessage? msg) async {
       if (msg != null) {
-        print("new message in background: ${msg.data}");
+        if (kDebugMode) {
+          print("new message in background: ${msg.data}");
+        }
         if (msg.notification != null) {
-          print("also notification!");
+          if (kDebugMode) {
+            print("also notification!");
+          }
         }
       }
     });
@@ -89,6 +92,7 @@ class _BottomBarItemState extends State<_BottomBarItem>
                     widget.leadingIcon,
                     size: 30,
                     color: _active
+                        // ignore: deprecated_member_use
                         ? (Theme.of(context).primaryColorBrightness ==
                                 Brightness.dark
                             ? Colors.white
@@ -110,6 +114,7 @@ class _BottomBarItemState extends State<_BottomBarItem>
                     widget.title,
                 style: TextStyle(
                   color: _active
+                      // ignore: deprecated_member_use
                       ? (Theme.of(context).primaryColorBrightness ==
                               Brightness.dark
                           ? Colors.white

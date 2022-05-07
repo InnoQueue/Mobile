@@ -1,5 +1,6 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
@@ -36,9 +37,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
               .read<NotificationsBloc>()
               .add(const NotificationsEvent.loadRequested());
           futureUserId = CacheService.getUserId();
-          print("new msg.data: ${msg.data}");
+          if (kDebugMode) {
+            print("new msg.data: ${msg.data}");
+          }
           if (msg.notification != null) {
-            print("also notification: ${msg.notification!.body}!");
+            if (kDebugMode) {
+              print("also notification: ${msg.notification!.body}!");
+            }
           }
         });
       }
@@ -50,6 +55,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     return SafeArea(
       minimum: const EdgeInsets.all(10),
       child: Container(
+        // ignore: deprecated_member_use
         color: Theme.of(context).primaryColorBrightness == Brightness.dark
             ? Colors.grey[900]
             : Colors.blueGrey[50],

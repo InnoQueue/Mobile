@@ -1,4 +1,4 @@
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
@@ -27,6 +27,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // ignore: deprecated_member_use
       color: Theme.of(context).primaryColorBrightness == Brightness.dark
           ? Colors.grey[900]
           : Colors.blueGrey[50],
@@ -75,6 +76,7 @@ class _QueueDetailsPageState extends State<QueueDetailsPage> {
                       return WillPopScope(
                         child: GestureDetector(
                           child: Container(
+                            // ignore: deprecated_member_use
                             color: Theme.of(context).primaryColorBrightness ==
                                     Brightness.dark
                                 ? Colors.grey[900]

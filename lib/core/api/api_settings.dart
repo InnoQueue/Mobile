@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inno_queue/helpers/try_connect.dart';
 
@@ -43,7 +44,9 @@ class ApiSettingsService {
     final String token = await ApiBaseService.getToken();
     final body = makeBody(defaultBody, toSet);
     final data = (await ApiSettings.patchSettings(token, body)).data;
-    print("response data: $data");
+    if (kDebugMode) {
+      print("response data: $data");
+    }
   }
 
   static Future<Map<String, dynamic>?> getFields() async {
@@ -57,7 +60,9 @@ class ApiSettingsService {
       queueBox.deleteAll(queueBox.keys);
       queueBox.put("settings", jsonEncode(r.data));
 
-      print('updated settings cache');
+      if (kDebugMode) {
+        print('updated settings cache');
+      }
 
       return r.data;
     });

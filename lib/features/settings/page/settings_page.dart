@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
@@ -74,6 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (currentState == null) {
             return Container(
+              // ignore: deprecated_member_use
               color: Theme.of(context).primaryColorBrightness == Brightness.dark
                   ? Colors.grey[900]
                   : Colors.blueGrey[50],
@@ -148,7 +150,9 @@ class _SettingsPageState extends State<SettingsPage> {
   void openCachedSettings() async {
     var settingsBox = await Hive.openBox("settings");
     if (settingsBox.length != 0) {
-      print('returned settings from cache');
+      if (kDebugMode) {
+        print('returned settings from cache');
+      }
       currentState = jsonDecode(settingsBox.get("settings"));
     }
     setState(() {});

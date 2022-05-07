@@ -2,6 +2,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -129,14 +130,18 @@ class _MyAppState extends State<MyApp> {
     _fcm.requestPermission();
 
     String? fcmToken = await _fcm.getToken();
-    print("==== FCM TOKEN ====");
-    print(fcmToken);
-    print("===================");
+    if (kDebugMode) {
+      print("==== FCM TOKEN ====");
+      print(fcmToken);
+      print("===================");
+    }
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.messageId}");
+  if (kDebugMode) {
+    print("Handling a background message: ${message.messageId}");
+  }
 }

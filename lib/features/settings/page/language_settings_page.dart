@@ -10,6 +10,7 @@ class LanguageSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
+      // ignore: deprecated_member_use
       color: Theme.of(context).primaryColorBrightness == Brightness.dark
           ? Colors.grey[900]
           : Colors.blueGrey[50],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
@@ -6,7 +7,6 @@ import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/routes/app_router.dart';
 import 'package:inno_queue/shared/bloc/appbar/appbar_bloc.dart';
-import 'package:provider/src/provider.dart';
 
 part 'queue_tile.dart';
 

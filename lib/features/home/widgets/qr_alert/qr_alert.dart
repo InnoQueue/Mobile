@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:provider/src/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 part 'pin_code_text_field.dart';

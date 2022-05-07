@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/features.dart';
@@ -211,7 +212,9 @@ class ApiQueuesService {
       var queueBox = await Hive.openBox(name);
       if (queueBox.length != 0) {
         if (queueBox.keys.first != null && queueBox.keys.first == hash) {
-          print('returned from cache');
+          if (kDebugMode) {
+            print('returned from cache');
+          }
           return queueBox.get(hash);
         }
       }
@@ -229,7 +232,9 @@ class ApiQueuesService {
       queueBox.deleteAll(queueBox.keys);
       queueBox.put(hash ?? queueDetails.hash, queueDetails);
 
-      print('added to cache');
+      if (kDebugMode) {
+        print('added to cache');
+      }
       return QueueDetailsModel.fromJson(r.data);
     });
   }

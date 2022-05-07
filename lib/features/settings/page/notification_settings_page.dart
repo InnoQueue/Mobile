@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -49,6 +50,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (currentState == null) {
             return Container(
+              // ignore: deprecated_member_use
               color: Theme.of(context).primaryColorBrightness == Brightness.dark
                   ? Colors.grey[900]
                   : Colors.blueGrey[50],
@@ -92,7 +94,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   void openCachedSettings() async {
     var settingsBox = await Hive.openBox("settings");
     if (settingsBox.length != 0) {
-      print('returned settings from cache');
+      if (kDebugMode) {
+        print('returned settings from cache');
+      }
       currentState = jsonDecode(settingsBox.get("settings"));
     }
     setState(() {});

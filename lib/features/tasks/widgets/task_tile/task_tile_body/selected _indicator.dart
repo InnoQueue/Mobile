@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 part of 'task_tile_body.dart';
 
 class _SelectedIndicator extends StatefulWidget {
@@ -34,6 +36,7 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
                 (widget.expanded ? 18 * 1.25 : 18) * (widget.selected ? 1 : 0),
             decoration: BoxDecoration(
               color:
+                  // ignore: deprecated_member_use
                   Theme.of(context).primaryColorBrightness == Brightness.light
                       ? Colors.green
                       : Colors.white,
@@ -52,6 +55,7 @@ class _SelectedIndicatorState extends State<_SelectedIndicator> {
                 child: Icon(
                   Icons.done,
                   color: widget.selected
+                      // ignore: deprecated_member_use
                       ? (Theme.of(context).primaryColorBrightness ==
                               Brightness.light
                           ? Colors.white

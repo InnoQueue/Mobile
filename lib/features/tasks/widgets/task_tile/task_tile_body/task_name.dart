@@ -17,6 +17,7 @@ class _TaskName extends StatelessWidget {
         child: Text(
           name,
           style: TextStyle(
+            // ignore: deprecated_member_use
             color: Theme.of(context).primaryColorBrightness == Brightness.dark
                 ? Colors.white
                 : Colors.black,

@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 class AnimateIcon extends StatefulWidget {
   const AnimateIcon({
+    Key? key,
     required this.startIcon,
     required this.endIcon,
     this.size,
@@ -12,7 +13,8 @@ class AnimateIcon extends StatefulWidget {
     this.listener,
     this.onTap,
     required this.rotate,
-  });
+  }): super(key: key);
+
   final IconData startIcon, endIcon;
   final Duration? duration;
   final bool? clockwise;
