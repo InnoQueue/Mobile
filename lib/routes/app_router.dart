@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:inno_queue/features/queues/model/queue_model.dart';
 import 'package:inno_queue/features/registration/page/registration_page.dart';
 import 'package:inno_queue/features/settings/page/language_settings_page.dart';
 import 'package:inno_queue/features/settings/page/notification_settings_page.dart';

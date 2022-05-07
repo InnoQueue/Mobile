@@ -1,4 +1,3 @@
-import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

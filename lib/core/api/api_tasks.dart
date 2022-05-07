@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:inno_queue/features/tasks/model/task_model.dart';
-import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/helpers/try_connect.dart';
 
 import 'api_base.dart';

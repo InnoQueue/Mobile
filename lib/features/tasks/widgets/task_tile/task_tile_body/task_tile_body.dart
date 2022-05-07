@@ -1,8 +1,6 @@
-import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
-import 'package:inno_queue/core/api/api_queues.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';

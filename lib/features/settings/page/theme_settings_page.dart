@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inno_queue/core/provider/theme_provider.dart';
-import 'package:inno_queue/features/settings/widget/notification_switch_label.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:provider/provider.dart';
 

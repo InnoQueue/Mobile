@@ -1,9 +1,7 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
-import 'package:inno_queue/core/api/api_base.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
 import 'package:inno_queue/features/splash/widgets/introduction.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

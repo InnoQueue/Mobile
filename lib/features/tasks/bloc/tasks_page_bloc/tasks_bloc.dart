@@ -39,5 +39,6 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       cachedTasks = tasks;
       return TasksState.dataLoaded(tasks);
     }
+    return null;
   }
 }

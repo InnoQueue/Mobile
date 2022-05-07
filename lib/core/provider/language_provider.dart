@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inno_queue/const/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageProvider extends ChangeNotifier {

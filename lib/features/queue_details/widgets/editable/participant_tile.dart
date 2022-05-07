@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inno_queue/const/const.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 
-import '../../../features.dart';
 
 class EditableParticipantTile extends StatefulWidget {
   final UserModel user;

@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:inno_queue/core/utils/cache_service.dart';
-import 'package:inno_queue/features/notifications/model/notification_model.dart';
 import 'package:inno_queue/helpers/try_connect.dart';
 
 import 'api_base.dart';

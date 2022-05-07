@@ -2,7 +2,6 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inno_queue/core/api/api_notifications.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/core/utils/cache_service.dart';
 import 'package:inno_queue/core/widget/updatable_page.dart';
@@ -10,8 +9,6 @@ import 'package:inno_queue/features/notifications/model/notification_model.dart'
 import 'package:inno_queue/features/notifications/notifications_bloc/notifications_bloc.dart';
 import 'package:inno_queue/features/notifications/widget/notifications_view.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
-import 'package:provider/src/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({Key? key}) : super(key: key);

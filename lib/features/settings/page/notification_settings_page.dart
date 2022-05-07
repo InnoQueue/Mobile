@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,7 +7,6 @@ import 'package:inno_queue/core/api/api_settings.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/features/settings/page/settings_const.dart';
 import 'package:inno_queue/features/settings/widget/notification_switch_label.dart';
-import 'package:provider/provider.dart';
 
 class NotificationSettingsPage extends StatefulWidget {
   const NotificationSettingsPage({Key? key}) : super(key: key);

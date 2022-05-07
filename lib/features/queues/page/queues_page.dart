@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/core/widget/updatable_page.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../bloc/queues_bloc.dart';
 import '../widgets/widgets.dart';
 

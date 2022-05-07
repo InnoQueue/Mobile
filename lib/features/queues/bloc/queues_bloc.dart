@@ -43,6 +43,7 @@ class QueuesBloc extends Bloc<QueuesEvent, QueuesState> {
       cachedQueues = queues;
       return QueuesState.dataLoaded(queues.first, queues.last);
     }
+    return null;
   }
 
   void _addQueue(

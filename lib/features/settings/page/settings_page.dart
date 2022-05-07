@@ -12,7 +12,6 @@ import 'package:inno_queue/helpers/app_localizations.dart';
 import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/helpers/text_field_validator.dart';
 import 'package:inno_queue/routes/app_router.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {

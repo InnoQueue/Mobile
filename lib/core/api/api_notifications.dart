@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:dio/dio.dart';

@@ -1,5 +1,4 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inno_queue/const/const.dart';
@@ -7,9 +6,7 @@ import 'package:inno_queue/core/core.dart';
 import 'package:inno_queue/core/widget/updatable_page.dart';
 import 'package:inno_queue/features/features.dart';
 import 'package:inno_queue/helpers/app_localizations.dart';
-import 'package:inno_queue/helpers/getit_service_locator.dart';
 import 'package:inno_queue/shared/shared.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 part 'body.dart';
 part 'add_progress_button.dart';

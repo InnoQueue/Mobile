@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +15,6 @@ import 'package:inno_queue/shared/bloc/select_tasks_bloc/select_tasks_bloc.dart'
 import 'package:inno_queue/shared/bloc/server_error_bloc/server_error_bloc.dart';
 import 'package:inno_queue/shared/models/user/user_model.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/notifications/notifications_bloc/notifications_bloc.dart';
 import 'helpers/app_localizations.dart';
@@ -109,6 +107,7 @@ class _MyAppState extends State<MyApp> {
                     return supportedLocale;
                   }
                 }
+                return null;
               },
               routeInformationParser: _router.defaultRouteParser(),
             );

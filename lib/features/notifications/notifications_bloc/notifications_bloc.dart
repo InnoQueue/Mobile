@@ -43,5 +43,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       return NotificationsState.dataLoaded(
           notifications.first, notifications.last);
     }
+    return null;
   }
 }
