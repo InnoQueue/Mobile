@@ -108,7 +108,7 @@ class IntroductionPage extends StatelessWidget {
           style: pageDecoration.bodyTextStyle
               .copyWith(fontSize: 14, fontWeight: FontWeight.w600)),
       back: Icon(Icons.arrow_back, color: oppositeColor),
-      next: Icon(Icons.arrow_forward, color: oppositeColor),
+      next: Icon( Icons.arrow_forward, key: const Key("arrowFwd"), color: oppositeColor),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(20),
       controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
