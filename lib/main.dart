@@ -33,8 +33,8 @@ void main() async {
   Hive.registerAdapter(QueueDetailsModelAdapter());
   Hive.registerAdapter(UserModelAdapter());
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
 
   runApp(
     MultiProvider(
@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _initPushNotifications();
+    // _initPushNotifications();
     super.initState();
   }
 
