@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       floatingActionButton:
                           (context.router.current.name == QueuesRoute.name)
-                              ? const _AddButton()
+                              ? const AddButton()
                               : null,
                     );
                   });

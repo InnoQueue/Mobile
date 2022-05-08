@@ -1,7 +1,7 @@
 part of '../home_page.dart';
 
-class _AddButton extends StatelessWidget {
-  const _AddButton({Key? key}) : super(key: key);
+class AddButton extends StatelessWidget {
+  const AddButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
