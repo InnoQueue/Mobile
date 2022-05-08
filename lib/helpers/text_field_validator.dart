@@ -17,6 +17,7 @@ class TextFieldValidator {
       if (result == null) {
         return "Wrong format";
       } else {
+        if (!value.contains('.')) return null;
         var numberOfFractionDigits =
             value.substring(value.indexOf('.') + 1).length;
         if (numberOfFractionDigits > 2 || numberOfFractionDigits < 1) {
