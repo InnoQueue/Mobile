@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -37,7 +38,8 @@ class ApiBaseService {
     String token = "";
     bool tokenPresent = await CacheService.checkToken();
     if (!tokenPresent) {
-      String? fcmToken = await FirebaseMessaging.instance.getToken();
+
+      String? fcmToken = (Platform.isAndroid ? await FirebaseMessaging.instance.getToken() : "<ios-token>");
       TokenModel tokenModel =
           await ApiBase.getToken(name ?? "", fcmToken ?? "");
       token = tokenModel.token;

@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -33,8 +35,10 @@ void main() async {
   Hive.registerAdapter(QueueDetailsModelAdapter());
   Hive.registerAdapter(UserModelAdapter());
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if (Platform.isAndroid) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+  }
 
   runApp(
     MultiProvider(
@@ -120,7 +124,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _initPushNotifications();
+    if (Platform.isAndroid) {
+      _initPushNotifications();
+    }
     super.initState();
   }
 
