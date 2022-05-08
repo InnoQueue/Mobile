@@ -15,7 +15,7 @@
 - A user can create a queue and invite his/her roommates.
 - Users complete a queue task one by one in a loop. So, ideally, every roommate should complete a task on each iteration.
 - The app helps to remind users about to-dos and fairly automate the tasks distribution between roommates based on their contribution.
-- For the REST API, the [Backend](https://github.com/InnoQueue/Backend) project was developed (please do **not** take into account this contribution 🙏).
+- For the [REST API](https://documenter.getpostman.com/view/16213957/UVsSP4ER), the [Backend](https://github.com/InnoQueue/Backend) project was developed (please do **not** take into account this contribution 🙏).
 
 <p float="center">
 <img width="300" src="https://user-images.githubusercontent.com/49106163/167298525-fa458bd1-4e28-4593-a738-8c26a4bdf7a6.png"/>
@@ -34,23 +34,33 @@
 - PROFIT
 
 ## List of screens
-- Splash/Introduction
-- To-do tasks
-- Queues
-- Notifications
-- Settings
 
+- Splash/Introduction
 <p float="left">
 <img width="250" src="https://user-images.githubusercontent.com/19241702/159998772-dfb0de9a-2444-4354-8756-beace5c7e9e4.png"/>
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160007732-9749ea1e-3b5f-4230-9381-2e1e0f0769b9.jpeg"/>
 </p>
 
+- To-do tasks
 <p float="left">
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160007842-4ccf59b6-6c42-4a93-a3dd-1f39680d8e0c.jpeg"/>
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160008010-6cda5365-1d1d-4e4d-a99c-83a9198f32af.jpeg"/>
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160008064-7242a52f-8a03-44da-9e7b-2512c1aa7227.jpeg"/>
 </p>
 
+- Queues
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
+</p>
+
+- Notifications
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
+</p>
+
+- Settings
 <p float="left">
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
 <img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
