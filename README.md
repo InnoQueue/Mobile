@@ -48,10 +48,10 @@
 - Input expenses
 - Select several tasks
 <p float="left">
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305031-9c3177ce-0f86-4398-a510-09acb9a71141.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305039-f561ff93-bf3d-4db6-a63c-419920cba0d1.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305053-ee21117d-17d6-4916-928f-bd9f38bc9562.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305058-cae30116-50a7-42b1-aea2-ed438bb4383d.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305031-9c3177ce-0f86-4398-a510-09acb9a71141.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305039-f561ff93-bf3d-4db6-a63c-419920cba0d1.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305053-ee21117d-17d6-4916-928f-bd9f38bc9562.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305058-cae30116-50a7-42b1-aea2-ed438bb4383d.png"/>
 </p>
 
 ## Queues
@@ -87,10 +87,10 @@
 - Theme
 - Language
 <p float="left">
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305093-2cb6f67b-4637-4b1c-883f-d5aae2bfdfa2.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305097-6c68f9ce-f8dc-477e-b23e-fd2422e3778e.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305103-2890f9eb-c153-44ca-be6f-5c1d02a5a25e.png"/>
-<img width="220" src="https://user-images.githubusercontent.com/49106163/167305109-1b8bd969-da07-4fa8-9692-5274fbdd7564.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305093-2cb6f67b-4637-4b1c-883f-d5aae2bfdfa2.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305097-6c68f9ce-f8dc-477e-b23e-fd2422e3778e.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305103-2890f9eb-c153-44ca-be6f-5c1d02a5a25e.png"/>
+<img width="210" src="https://user-images.githubusercontent.com/49106163/167305109-1b8bd969-da07-4fa8-9692-5274fbdd7564.png"/>
 </p>
 
 ## List of features
