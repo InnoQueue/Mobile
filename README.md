@@ -21,7 +21,6 @@
 <img width="300" src="https://user-images.githubusercontent.com/49106163/167298525-fa458bd1-4e28-4593-a738-8c26a4bdf7a6.png"/>
 </p>
 
-
 ## 📲 APK
 - You can download the [APK file](https://github.com/InnoQueue/README/blob/main/app-release.apk) to install and use it on your Android phone *(also available on the GitHub [releases](https://github.com/InnoQueue/Mobile/releases/tag/Release) page)*
 - or you can download this GitHub project and build it for your favourite platform.
@@ -39,8 +38,8 @@
 - Welcome screen
 - Input user name
 <p float="left">
-<img width="250" src="https://user-images.githubusercontent.com/19241702/159998772-dfb0de9a-2444-4354-8756-beace5c7e9e4.png"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160007732-9749ea1e-3b5f-4230-9381-2e1e0f0769b9.jpeg"/>
+<img width="300" src="https://user-images.githubusercontent.com/49106163/167304630-ba232283-5a35-4327-8dbe-478ee2ccf7ef.png"/>
+<img width="300" src="https://user-images.githubusercontent.com/49106163/167304996-224fa0b4-954a-46e8-945e-e32bb9e7dfd5.png"/>
 </p>
 
 ## To-do tasks
@@ -49,10 +48,10 @@
 - Input expenses
 - Select several tasks
 <p float="left">
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160007842-4ccf59b6-6c42-4a93-a3dd-1f39680d8e0c.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008010-6cda5365-1d1d-4e4d-a99c-83a9198f32af.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008064-7242a52f-8a03-44da-9e7b-2512c1aa7227.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008064-7242a52f-8a03-44da-9e7b-2512c1aa7227.jpeg"/>
+<img width="230" src="https://user-images.githubusercontent.com/49106163/167305031-9c3177ce-0f86-4398-a510-09acb9a71141.png"/>
+<img width="230" src="https://user-images.githubusercontent.com/49106163/167305039-f561ff93-bf3d-4db6-a63c-419920cba0d1.png"/>
+<img width="230" src="https://user-images.githubusercontent.com/49106163/167305053-ee21117d-17d6-4916-928f-bd9f38bc9562.png"/>
+<img width="230" src="https://user-images.githubusercontent.com/49106163/167305058-cae30116-50a7-42b1-aea2-ed438bb4383d.png"/>
 </p>
 
 ## Queues
@@ -63,18 +62,23 @@
 - Edit queue
 - Invite in queue 
 <p float="left">
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
+<img width="230" src="https://user-images.githubusercontent.com/49106163/167305063-cab2a097-e01c-44b9-8803-649877a5daab.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305074-5fd5d490-8661-4ce5-88d7-d47322f0baff.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305602-f19a4260-8498-4608-a92e-8760516210e5.png"/>
 </p>
+<p float="left">
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305083-b5cdcfd7-20a4-4771-a559-e0e164303d78.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305086-87fd3ad8-64df-4673-ab97-cd9bb2b39bab.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305088-23b97860-5086-4b4e-8cf7-88f184ec53c7.png"/>
+</p>
+
 
 ## Notifications
 - Notifications section
+- push notifications on Android
 <p float="left">
-<img width="250" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
+<img width="300" src="https://user-images.githubusercontent.com/49106163/167305111-da3c460a-f741-4b02-a242-7d22d4204c30.png"/>
+<img width="250" src="https://user-images.githubusercontent.com/49106163/167305411-7e81c94f-87fe-4b8e-8307-d291b5e1c5f8.jpg"/>
 </p>
 
 ## Settings
@@ -83,12 +87,11 @@
 - Theme
 - Language
 <p float="left">
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008208-1c5e070d-5a49-4c89-91b7-2aad0dabb2e5.jpeg"/>
-<img width="200" src="https://user-images.githubusercontent.com/49106163/160008138-592be89d-a500-49a0-a256-4770c17b0f4a.jpeg"/>
+<img width="240" src="https://user-images.githubusercontent.com/49106163/167305093-2cb6f67b-4637-4b1c-883f-d5aae2bfdfa2.png"/>
+<img width="240" src="https://user-images.githubusercontent.com/49106163/167305097-6c68f9ce-f8dc-477e-b23e-fd2422e3778e.png"/>
+<img width="240" src="https://user-images.githubusercontent.com/49106163/167305103-2890f9eb-c153-44ca-be6f-5c1d02a5a25e.png"/>
+<img width="240" src="https://user-images.githubusercontent.com/49106163/167305109-1b8bd969-da07-4fa8-9692-5274fbdd7564.png"/>
 </p>
-
 
 ## List of features
 - Create a new queue
