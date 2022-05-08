@@ -344,12 +344,16 @@ class ApiQueuesService {
   }) async {
     final String token = await ApiBaseService.getToken();
 
-    final data = (await ApiQueues.joinQueue(
-      token,
-      pincode: pincode,
-      qrcode: qrcode,
-    ));
+    try {
+      final data = (await ApiQueues.joinQueue(
+        token,
+        pincode: pincode,
+        qrcode: qrcode,
+      ));
 
-    return data.statusCode! / 100 == 2;
+      return data.statusCode! / 100 == 2;
+    } catch (e) {
+      return false;
+    }
   }
 }
