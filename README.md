@@ -25,6 +25,10 @@
 - You can download the [APK file](https://github.com/InnoQueue/README/blob/main/app-release.apk) to install and use it on your Android phone *(also available on the GitHub [releases](https://github.com/InnoQueue/Mobile/releases/tag/v1.0.0) page)*
 - or you can download this GitHub project and build it for your favourite platform.
 
+## 📲 iOS
+- For iOS you can use the [Runner.app](https://github.com/InnoQueue/README/blob/main/Runner.app.zip) file or download this GitHub project and build it by yourself. 
+- It is also available on the GitHub [releases](https://github.com/InnoQueue/Mobile/releases/tag/v1.0.0) page)
+
 ## 📲 How to build
 - When you've cloned the repo, you'll need to run `flutter pub get` to locally install all the dependencies
 - Wait a bit...
